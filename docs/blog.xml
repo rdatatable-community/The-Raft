@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Blog</title>
+<link>https://rdatatable-community.github.io/The-Raft/blog.html</link>
+<atom:link href="https://rdatatable-community.github.io/The-Raft/blog.xml" rel="self" type="application/rss+xml"/>
+<description></description>
+<generator>quarto-0.9.563</generator>
+<lastBuildDate>Sat, 02 Oct 2100 07:00:00 GMT</lastBuildDate>
+<item>
+  <title>Post With Code</title>
+  <dc:creator>Harlow Malloc</dc:creator>
+  <link>https://rdatatable-community.github.io/The-Raft/posts/2023-10-02-post_template/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>This is a post with executable code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="dv" style="color: #AD0000;">1</span> <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+
+
+
+ ]]></description>
+  <category>news</category>
+  <category>code</category>
+  <category>analysis</category>
+  <guid>https://rdatatable-community.github.io/The-Raft/posts/2023-10-02-post_template/index.html</guid>
+  <pubDate>Sat, 02 Oct 2100 07:00:00 GMT</pubDate>
+  <media:content url="https://rdatatable-community.github.io/The-Raft/posts/2023-10-02-post_template/image.jpg" medium="image" type="image/jpeg"/>
+</item>
+</channel>
+</rss>
