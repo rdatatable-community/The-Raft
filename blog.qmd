@@ -1,0 +1,23 @@
+---
+title: "The Raft"
+description: "<i>Raft (n):  A group or herd of sea lions.</i> A place for announcements, tutorials, and musings about the {data.table} package and its community."
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: images/banner_tall_small.jpeg
+---
+
+<style>
+#title-block-header {
+  margin-block-end: 1rem;
+  position: relative;
+  margin-top: -1px;
+  height: 400px;
+}
+
+</style>

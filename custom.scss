@@ -1,0 +1,19 @@
+/*-- scss:defaults --*/
+
+$body-bg: #f8f5e7;
+$body-color: #fff;
+$link-color: #42affa;
+$body-color: #414535;
+$color-primary: #414535;
+
+/*-- scss:rules --*/
+
+.reveal .slide blockquote {
+  border-left: 3px solid $text-muted;
+  padding-left: 0.5em;
+}
+
+.quarto-title-banner {
+    margin-bottom: 1em;
+    color: #6E8387;
+}
