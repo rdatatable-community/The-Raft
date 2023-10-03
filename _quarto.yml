@@ -4,12 +4,12 @@ project:
 
 website:
   title: "Blog"
-  site-url: rdatatable.github.io/theraft
+  site-url: https://rdatatable-community.github.io/The-Raft
   description: ""
   navbar:
     right:
       - text: About
-        href: blog.qmd 
+        href: about.qmd 
       - icon: github
         href: https://github.com/rdatatable
       - icon: mastodon
