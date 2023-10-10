@@ -1,6 +1,6 @@
 ---
-title: "Post With Code"
-author: "Harlow Malloc"
+title: "Post Template"
+author: "Kelly Bodwin"
 date: "2100-10-02"
 categories: [news, code, analysis]
 image: "image.jpg"

@@ -1,7 +1,7 @@
 {
-  "hash": "801289de5aa63ffee2bd1ac70a17f381",
+  "hash": "f180bdab3e9e5b44a6ceb4eb2dfe2aeb",
   "result": {
-    "markdown": "---\ntitle: \"Post With Code\"\nauthor: \"Harlow Malloc\"\ndate: \"2100-10-02\"\ncategories: [news, code, analysis]\nimage: \"image.jpg\"\ndraft: false\n---\n\n\nThis is a post with executable code.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
+    "markdown": "---\ntitle: \"Post With Code\"\nauthor: \"Harlow Malloc\"\ndate: \"2100-10-02\"\ncategories: [news, code, analysis]\nimage: \"image.jpg\"\ndraft: true\n---\n\n\nThis is a post with executable code.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
     "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"

@@ -1,0 +1,15 @@
+---
+title: "Welcome to the {data.table} ecosystem project!"
+subtitle: "An NSF-POSE funded venture."
+author: "Toby Hocking"
+date: "2023-10-22"
+categories: [announcements, grant]
+image: "image.jpg"
+draft: true
+---
+
+This is a post with executable code.
+
+```{r}
+1 + 1
+```
