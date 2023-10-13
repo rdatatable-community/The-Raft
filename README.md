@@ -6,7 +6,7 @@ If you would like to propose a guest blog post, email r.data.table@gmail.com and
 1. Fork this repository.
 
 2. In the `posts` directory, find the folder corresponding to your anticipated blog post.
-It will be named in the form `YYYY-MM-DD-post_title-author_name`, where the date is the anticipated date of publication, the title is an abbreviated verison of your topic, and the name is yours.
+It will be named in the form `YYYY-MM-DD-post_title-author_name`, where the date is the anticipated date of publication, the title is an abbreviated version of your topic, and the name is yours.
 
 3. Open `index.qmd`.  **Do not rename this file!**
 
