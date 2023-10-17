@@ -9,7 +9,150 @@
 <link>https://rdatatable-community.github.io/The-Raft/blog.html</link>
 <atom:link href="https://rdatatable-community.github.io/The-Raft/blog.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.3.353</generator>
-<lastBuildDate>Tue, 10 Oct 2023 02:16:41 GMT</lastBuildDate>
+<generator>quarto-0.9.563</generator>
+<lastBuildDate>Tue, 17 Oct 2023 07:00:00 GMT</lastBuildDate>
+<item>
+  <title>Announcement: data.table translation projects</title>
+  <dc:creator>Toby Dylan Hocking</dc:creator>
+  <link>https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>In 2023-2025, National Science Foundation has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” See [this post]() for an overview of project goals.</p>
+<p>One of the three goals of the project is to create new documentation materials, to encourage a wider diversity of users and contributors. In this project, an important part of the documentation efforts will be creating translations of <code>data.table</code> documentation, in languages other than English. The goal of this translation project is to make <code>data.table</code> easier and more accessible, for people who do not natively speak English.</p>
+<p>In fact, <code>data.table</code> already has its source code strings (errors, warnings, etc) translated into Chinese, which is a good start. The goal of this project will be expanding the translations to other written materials (vignettes, slides, etc), as well as other languages with a substantial R user base. Based on <a href="https://github.com/Rdatatable/data.table/issues/5693#issuecomment-1742437604">a prior analysis by Michael Chirico</a>, priority languages will include Chinese, Portuguese, Spanish, French, Russian, Arabic, Hindi.</p>
+<section id="grant-supported-translations" class="level2">
+<h2 class="anchored" data-anchor-id="grant-supported-translations">Grant-supported translations</h2>
+<p>The types of materials that we would like to translate are:</p>
+<ul>
+<li>errors/warnings/messages defined in strings in R and C code. These are referred to as “messages” in the terminology of gettext, and the <a href="https://github.com/MichaelChirico/potools">potools</a> package by Michael Chirico can help create the files in the required format.</li>
+<li>most important vignettes (intro, import, reshape)</li>
+<li>other documentation (cheat sheets, slides, etc)</li>
+</ul>
+<p>Over the course of the NSF project (Sep 2023 to Aug 2025), there will be 20 translation awards, each US$500.</p>
+</section>
+<section id="how-to-apply" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-apply">How to apply</h2>
+<p>Applications should be submitted to <strong>toby.hocking@r-project.org</strong>, and should include the following information:</p>
+<ul>
+<li>what documents/materials do you propose to translate? (messages/vignettes/other)</li>
+<li>which non-English language?</li>
+<li>how many people will be translating, and how many US$500 awards are you requesting? Projects which include two or more people are encouraged, in order to proof-read translations, and ensure quality.</li>
+<li>for each person in your project, what level of fluency in English and other languages?</li>
+<li>for each person in your project, how many years using R/data.table?</li>
+<li>how will your translation project help create an expanded ecosystem of users and contributors?</li>
+</ul>
+<p>Applications will be reviewed on a monthly basis, using the following criteria:</p>
+<ul>
+<li>What is the probability of success of this translation project?</li>
+<li>Will this translation project help create an expanded ecosystem of users and contributors?</li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>announcements</category>
+  <category>grant</category>
+  <guid>https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/index.html</guid>
+  <pubDate>Tue, 17 Oct 2023 07:00:00 GMT</pubDate>
+  <media:content url="https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/translate.jpeg" medium="image" type="image/jpeg"/>
+</item>
+<item>
+  <title>Welcome to the {data.table} ecosystem project!</title>
+  <dc:creator>Toby Hocking</dc:creator>
+  <link>https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which means 20 years, can you believe it?</p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/images/hocking-nau.jpg" class="img-fluid" alt="Toby D. Hocking"> <img src="https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/images/old_man.svg" class="img-fluid" alt="Source: wikimedia."></p>
+</div>
+</div>
+</div>
+<p>I work as an Assistant Professor of Computer Science, and my research expertise is machine learning, the modern branch of artificial intelligence which uses big data. <code>R</code> is an important tool in my machine learning work, and in the work of many people in academia/industry/government, because it provides so many useful functions for handling big data.</p>
+<section id="the-data.table-package" class="level2">
+<h2 class="anchored" data-anchor-id="the-data.table-package">The {data.table} package</h2>
+<p>Since 2015, I have been using <a href="https://rdatatable.gitlab.io/data.table/">the R package <code>data.table</code></a> to do large parts of data processing before and after running machine learning algorithms - to get the raw data into the right format for the algorithm, and also to get the results in the right format for visualization/interpretation.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/images/hex.png" class="img-fluid figure-img"></p>
+<p></p><p></p>
+</figure>
+</div>
+<p><code>data.table</code> is highly valued for its long-term stability and its lightning-fast speed in large data calculations.</p>
+</section>
+<section id="ecosystem-expansion" class="level2">
+<h2 class="anchored" data-anchor-id="ecosystem-expansion">Ecosystem expansion</h2>
+<p>With these use cases in mind, I proposed a project <strong>“Expanding the data.table ecosystem for efficient big data manipulation in R,”</strong> and I am excited to announce that it has been funded by the <a href="https://new.nsf.gov/funding/opportunities/pathways-enable-open-source-ecosystems-pose">National Science Foundation’s “Pathways to Enable Open Source Ecosystems” (POSE) grant</a>, for work between September 2023 and August 2025.</p>
+<p><img src="https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/images/NSF.svg" class="img-fluid"></p>
+<p>Our project attempts to address three issues with the current state of the <code>data.table</code> project:</p>
+<ol type="1">
+<li><strong>Informal governance</strong></li>
+</ol>
+<p>The <code>data.table</code> package was originally created by <a href="https://github.com/mattdowle">Matt Dowle</a> in 2008. His brilliant use of efficient algorithms and C implementations brought the world a package that has stood the test of time, and is now one of the most-used R packages available.</p>
+<p>However, the growth of this incredible package will require more leaders than Dowle himself to help build, review, test, and organize new contributions.</p>
+<p>Thus, one goal of this grant is to bring together <code>data.table</code> developers and contributors to propose a new governance structure for the package’s source code.</p>
+<ol start="2" type="1">
+<li><strong>Limited centralized testing infrastructure</strong></li>
+</ol>
+<p>Since the primary draw of <code>data.table</code> is the speed of its algorithmic implementations, adding new functionality to the package is not simple. In particular, new elements must be heavily tested to ensure that they do not interfere with the core computations.</p>
+<p>In this grant, we plan to develop software to automate the testing of new package contributions, to smooth the growth process.</p>
+<ol start="3" type="1">
+<li><strong>Limited documentation and outreach</strong></li>
+</ol>
+<p>To encourage more people to learn and adopt <code>data.table</code>, we will be massively expanding the number of tutorials, documentations, and guides for how to use the package effectively. This grant will also support selected speakers to travel to conferences and share <code>data.table</code> updates and usage.</p>
+<p>Interested in contributing a tutorial/vignette or blog post? Email <strong>r.data.table@gmail.com</strong>!</p>
+</section>
+<section id="how-you-can-get-involved" class="level2">
+<h2 class="anchored" data-anchor-id="how-you-can-get-involved">How you can get involved</h2>
+<p>Interested in helping grow the <code>data.table</code> ecosystem? There are so many ways to get involved!</p>
+<p><img src="https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/images/sea_lions.jpg" class="img-fluid" alt="A group of friendly sea lions.  Source: Department of the Interior." style="width:80.0%"></p>
+<ol type="1">
+<li>Follow us for updates on social media:</li>
+</ol>
+<ul>
+<li><p><a href="https://fosstodon.org/@r_data_table">Mastodon: r_data_table@fosstodon.org</a></p></li>
+<li><p><a href="https://bsky.app/profile/rdatatable.bsky.social">BlueSky: rdatatable.bsky.social</a></p></li>
+<li><p><a href="https://twitter.com/r_data_table">Twitter/X: r_data_table</a></p></li>
+</ul>
+<ol start="2" type="1">
+<li><p>Subscribe to this blog, <a href="https://rdatatable-community.github.io/The-Raft/">The Raft</a></p></li>
+<li><p>Take the <a href="https://tinyurl.com/datatable-survey">Community Survey</a> to weigh in on next steps.</p></li>
+<li><p>Participate in the deep discussions on GitHub:</p></li>
+</ol>
+<ul>
+<li><p><a href="https://github.com/Rdatatable/data.table/issues/5676">What should be the structure of the formal governance document for the package?</a></p></li>
+<li><p><a href="https://github.com/Rdatatable/data.table/issues/5693">What are the core principles of the data.table package?</a></p></li>
+</ul>
+<ol start="5" type="1">
+<li>Email <strong>r.data.table@gmail.com</strong> to:</li>
+</ol>
+<ul>
+<li><p>Be added to the community Slack.</p></li>
+<li><p>Propose a guest blog for The Raft.</p></li>
+<li><p>Ask questions, make suggestions, or volunteer your expertise.</p></li>
+</ul>
+<ol start="6" type="1">
+<li>Apply for the upcoming <strong>Travel Grants</strong> and <strong>Translation Projects</strong> - watch this blog for more information!</li>
+</ol>
+
+
+</section>
+
+ ]]></description>
+  <category>announcements</category>
+  <category>grant</category>
+  <guid>https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/index.html</guid>
+  <pubDate>Sun, 15 Oct 2023 07:00:00 GMT</pubDate>
+  <media:content url="https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/image.jpg" medium="image" type="image/jpeg"/>
+</item>
 </channel>
 </rss>

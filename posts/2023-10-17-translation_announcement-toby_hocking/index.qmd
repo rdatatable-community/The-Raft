@@ -1,0 +1,40 @@
+---
+title: "Announcement: data.table translation projects"
+author: "Toby Dylan Hocking"
+date: "2023-10-17"
+categories: [announcements, grant]
+image: "translate.jpeg"
+draft: false
+---
+
+In 2023-2025, National Science Foundation has provided funds to support the project "Expanding the data.table ecosystem for efficient big data manipulation in R." See \[this post\]() for an overview of project goals.
+
+One of the three goals of the project is to create new documentation materials, to encourage a wider diversity of users and contributors. In this project, an important part of the documentation efforts will be creating translations of `data.table` documentation, in languages other than English. The goal of this translation project is to make `data.table` easier and more accessible, for people who do not natively speak English.
+
+In fact, `data.table` already has its source code strings (errors, warnings, etc) translated into Chinese, which is a good start. The goal of this project will be expanding the translations to other written materials (vignettes, slides, etc), as well as other languages with a substantial R user base. Based on [a prior analysis by Michael Chirico](https://github.com/Rdatatable/data.table/issues/5693#issuecomment-1742437604), priority languages will include Chinese, Portuguese, Spanish, French, Russian, Arabic, Hindi.
+
+## Grant-supported translations
+
+The types of materials that we would like to translate are:
+
+-   errors/warnings/messages defined in strings in R and C code. These are referred to as "messages" in the terminology of gettext, and the [potools](https://github.com/MichaelChirico/potools) package by Michael Chirico can help create the files in the required format.
+-   most important vignettes (intro, import, reshape)
+-   other documentation (cheat sheets, slides, etc)
+
+Over the course of the NSF project (Sep 2023 to Aug 2025), there will be 20 translation awards, each US\$500.
+
+## How to apply
+
+Applications should be submitted to **toby.hocking\@r-project.org**, and should include the following information:
+
+-   what documents/materials do you propose to translate? (messages/vignettes/other)
+-   which non-English language?
+-   how many people will be translating, and how many US\$500 awards are you requesting? Projects which include two or more people are encouraged, in order to proof-read translations, and ensure quality.
+-   for each person in your project, what level of fluency in English and other languages?
+-   for each person in your project, how many years using R/data.table?
+-   how will your translation project help create an expanded ecosystem of users and contributors?
+
+Applications will be reviewed on a monthly basis, using the following criteria:
+
+-   What is the probability of success of this translation project?
+-   Will this translation project help create an expanded ecosystem of users and contributors?
