@@ -73,7 +73,20 @@
 <div class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/images/hocking-nau.jpg" class="img-fluid" alt="Toby D. Hocking"> <img src="https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/images/old_man.svg" class="img-fluid" alt="Source: wikimedia."></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://rdatatable-community.github.io/The-Raft/images/hocking-nau.jpg" class="img-fluid figure-img"></p>
+<p></p><p></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://rdatatable-community.github.io/The-Raft/images/old_man.jpg" class="img-fluid figure-img" alt="Source: wikimedia."></p>
+<p></p><p></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -83,7 +96,7 @@
 <p>Since 2015, I have been using <a href="https://rdatatable.gitlab.io/data.table/">the R package <code>data.table</code></a> to do large parts of data processing before and after running machine learning algorithms - to get the raw data into the right format for the algorithm, and also to get the results in the right format for visualization/interpretation.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/images/hex.png" class="img-fluid figure-img"></p>
+<p><img src="https://rdatatable-community.github.io/The-Raft/images/hex.png" class="img-fluid figure-img"></p>
 <p></p><p></p>
 </figure>
 </div>
@@ -92,7 +105,11 @@
 <section id="ecosystem-expansion" class="level2">
 <h2 class="anchored" data-anchor-id="ecosystem-expansion">Ecosystem expansion</h2>
 <p>With these use cases in mind, I proposed a project <strong>“Expanding the data.table ecosystem for efficient big data manipulation in R,”</strong> and I am excited to announce that it has been funded by the <a href="https://new.nsf.gov/funding/opportunities/pathways-enable-open-source-ecosystems-pose">National Science Foundation’s “Pathways to Enable Open Source Ecosystems” (POSE) grant</a>, for work between September 2023 and August 2025.</p>
-<p><img src="https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/images/NSF.svg" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://rdatatable-community.github.io/The-Raft/images/NSF.svg" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
 <p>Our project attempts to address three issues with the current state of the <code>data.table</code> project:</p>
 <ol type="1">
 <li><strong>Informal governance</strong></li>
@@ -114,7 +131,12 @@
 <section id="how-you-can-get-involved" class="level2">
 <h2 class="anchored" data-anchor-id="how-you-can-get-involved">How you can get involved</h2>
 <p>Interested in helping grow the <code>data.table</code> ecosystem? There are so many ways to get involved!</p>
-<p><img src="https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/images/sea_lions.jpg" class="img-fluid" alt="A group of friendly sea lions.  Source: Department of the Interior." style="width:80.0%"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://rdatatable-community.github.io/The-Raft/images/sea_lions.jpg" class="img-fluid figure-img" alt="A group of friendly sea lions.  Source: Department of the Interior." style="width:50.0%"></p>
+<p></p><p></p>
+</figure>
+</div>
 <ol type="1">
 <li>Follow us for updates on social media:</li>
 </ol>
@@ -152,7 +174,7 @@
   <category>grant</category>
   <guid>https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/index.html</guid>
   <pubDate>Sun, 15 Oct 2023 07:00:00 GMT</pubDate>
-  <media:content url="https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/image.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/sea_lions.jpg" medium="image" type="image/jpeg"/>
 </item>
 </channel>
 </rss>

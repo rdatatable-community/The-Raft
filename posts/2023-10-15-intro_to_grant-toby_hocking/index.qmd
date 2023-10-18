@@ -4,16 +4,17 @@ subtitle: "An NSF-POSE funded venture."
 author: "Toby Hocking"
 date: "2023-10-15"
 categories: [announcements, grant]
-image: "image.jpg"
+image: "sea_lions.jpg"
 draft: false
 ---
 
-Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which means 20 years, can you believe it? 
+Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which means 20 years, can you believe it?
 
-::: {layout-ncol=2}
+:::{layout-ncol=2}
 
-![Toby D. Hocking](images/hocking-nau.jpg)
-![Toby still using R in 50 years (artist rendering)](images/old_man.svg){fig-alt="Source: wikimedia."}
+![Toby D. Hocking](../../images/hocking-nau.jpg){height=1in}
+
+![Toby still using R in 50 years (artist rendering)](../../images/old_man.jpg){height=1in fig-alt="Source: wikimedia."}
 :::
 
 I work as an Assistant Professor of Computer Science, and my research expertise is machine learning, the modern branch of artificial intelligence which uses big data. `R` is an important tool in my machine learning work, and in the work of many people in academia/industry/government, because it provides so many useful functions for handling big data.
@@ -22,73 +23,68 @@ I work as an Assistant Professor of Computer Science, and my research expertise 
 
 Since 2015, I have been using [the R package `data.table`](https://rdatatable.gitlab.io/data.table/) to do large parts of data processing before and after running machine learning algorithms - to get the raw data into the right format for the algorithm, and also to get the results in the right format for visualization/interpretation.
 
-![The {data.table} hex sticker](images/hex.png)
+![The {data.table} hex sticker](../../images/hex.png)
 
-`data.table` is highly valued for its long-term stability and its lightning-fast speed in large data calculations.  
+`data.table` is highly valued for its long-term stability and its lightning-fast speed in large data calculations.
 
 ## Ecosystem expansion
 
-With these use cases in mind, I proposed a project **"Expanding the data.table ecosystem for efficient big data manipulation in R,"** and I am excited to announce that it has been funded by the [National Science Foundation's "Pathways to Enable Open Source Ecosystems" (POSE) grant](https://new.nsf.gov/funding/opportunities/pathways-enable-open-source-ecosystems-pose), for work between September 2023 and August 2025. 
+With these use cases in mind, I proposed a project **"Expanding the data.table ecosystem for efficient big data manipulation in R,"** and I am excited to announce that it has been funded by the [National Science Foundation's "Pathways to Enable Open Source Ecosystems" (POSE) grant](https://new.nsf.gov/funding/opportunities/pathways-enable-open-source-ecosystems-pose), for work between September 2023 and August 2025.
 
-
-![](images/NSF.svg)
+![](../../images/NSF.svg){width=50% fig-align="center"}
 
 Our project attempts to address three issues with the current state of the `data.table` project:
 
-1. **Informal governance** 
+1.  **Informal governance**
 
-The `data.table` package was originally created by [Matt Dowle](https://github.com/mattdowle) in 2008.  His brilliant use of efficient algorithms and C implementations brought the world a package that has stood the test of time, and is now one of the most-used R packages available.
+The `data.table` package was originally created by [Matt Dowle](https://github.com/mattdowle) in 2008. His brilliant use of efficient algorithms and C implementations brought the world a package that has stood the test of time, and is now one of the most-used R packages available.
 
-However, the growth of this incredible package will require more leaders than Dowle himself to help build, review, test, and organize new contributions.  
+However, the growth of this incredible package will require more leaders than Dowle himself to help build, review, test, and organize new contributions.
 
 Thus, one goal of this grant is to bring together `data.table` developers and contributors to propose a new governance structure for the package's source code.
 
+2.  **Limited centralized testing infrastructure**
 
-2. **Limited centralized testing infrastructure**
-
-Since the primary draw of `data.table` is the speed of its algorithmic implementations, adding new functionality to the package is not simple.  In particular, new elements must be heavily tested to ensure that they do not interfere with the core computations.
+Since the primary draw of `data.table` is the speed of its algorithmic implementations, adding new functionality to the package is not simple. In particular, new elements must be heavily tested to ensure that they do not interfere with the core computations.
 
 In this grant, we plan to develop software to automate the testing of new package contributions, to smooth the growth process.
 
-3. **Limited documentation and outreach**
+3.  **Limited documentation and outreach**
 
-To encourage more people to learn and adopt `data.table`, we will be massively expanding the number of tutorials, documentations, and guides for how to use the package effectively.  This grant will also support selected speakers to travel to conferences and share `data.table` updates and usage.
+To encourage more people to learn and adopt `data.table`, we will be massively expanding the number of tutorials, documentations, and guides for how to use the package effectively. This grant will also support selected speakers to travel to conferences and share `data.table` updates and usage.
 
-Interested in contributing a tutorial/vignette or blog post?  Email **r.data.table@gmail.com**!
-
+Interested in contributing a tutorial/vignette or blog post? Email **r.data.table\@gmail.com**!
 
 ## How you can get involved
 
-Interested in helping grow the `data.table` ecosystem?  There are so many ways to get involved!
+Interested in helping grow the `data.table` ecosystem? There are so many ways to get involved!
 
-![](images/sea_lions.jpg){width=80% fig-alt="A group of friendly sea lions.  Source: Department of the Interior."}
+![Sea lions say "R!" "R!" "R!"](../../images/sea_lions.jpg){width="50%" fig-alt="A group of friendly sea lions.  Source: Department of the Interior."}
 
-1. Follow us for updates on social media:
+1.  Follow us for updates on social media:
 
-* [Mastodon: r_data_table@fosstodon.org](https://fosstodon.org/@r_data_table)
+-   [Mastodon: r_data_table\@fosstodon.org](https://fosstodon.org/@r_data_table)
 
-* [BlueSky: rdatatable.bsky.social](https://bsky.app/profile/rdatatable.bsky.social)
+-   [BlueSky: rdatatable.bsky.social](https://bsky.app/profile/rdatatable.bsky.social)
 
-* [Twitter/X: r_data_table](https://twitter.com/r_data_table)
+-   [Twitter/X: r_data_table](https://twitter.com/r_data_table)
 
-2. Subscribe to this blog, [The Raft](https://rdatatable-community.github.io/The-Raft/)
+2.  Subscribe to this blog, [The Raft](https://rdatatable-community.github.io/The-Raft/)
 
-3. Take the [Community Survey](https://tinyurl.com/datatable-survey) to weigh in on next steps.
+3.  Take the [Community Survey](https://tinyurl.com/datatable-survey) to weigh in on next steps.
 
-4. Participate in the deep discussions on GitHub:
+4.  Participate in the deep discussions on GitHub:
 
-* [What should be the structure of the formal governance document for the package?](https://github.com/Rdatatable/data.table/issues/5676)
+-   [What should be the structure of the formal governance document for the package?](https://github.com/Rdatatable/data.table/issues/5676)
 
-* [What are the core principles of the data.table package?](https://github.com/Rdatatable/data.table/issues/5693)
+-   [What are the core principles of the data.table package?](https://github.com/Rdatatable/data.table/issues/5693)
 
-5. Email **r.data.table@gmail.com** to:
+5.  Email **r.data.table\@gmail.com** to:
 
-* Be added to the community Slack.
+-   Be added to the community Slack.
 
-* Propose a guest blog for The Raft.
+-   Propose a guest blog for The Raft.
 
-* Ask questions, make suggestions, or volunteer your expertise.
+-   Ask questions, make suggestions, or volunteer your expertise.
 
-6. Apply for the upcoming **Travel Grants** and **Translation Projects** - watch this blog for more information!
-
-
+6.  Apply for the upcoming **Travel Grants** and **Translation Projects** - watch this blog for more information!
