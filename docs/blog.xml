@@ -20,7 +20,7 @@
 
 
 
-<p>In 2023-2025, National Science Foundation has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” See [this post]() for an overview of project goals.</p>
+<p>In 2023-2025, National Science Foundation has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” See <a href="https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/">this post</a> for an overview of project goals.</p>
 <p>One of the three goals of the project is to create new documentation materials, to encourage a wider diversity of users and contributors. In this project, an important part of the documentation efforts will be creating translations of <code>data.table</code> documentation, in languages other than English. The goal of this translation project is to make <code>data.table</code> easier and more accessible, for people who do not natively speak English.</p>
 <p>In fact, <code>data.table</code> already has its source code strings (errors, warnings, etc) translated into Chinese, which is a good start. The goal of this project will be expanding the translations to other written materials (vignettes, slides, etc), as well as other languages with a substantial R user base. Based on <a href="https://github.com/Rdatatable/data.table/issues/5693#issuecomment-1742437604">a prior analysis by Michael Chirico</a>, priority languages will include Chinese, Portuguese, Spanish, French, Russian, Arabic, Hindi.</p>
 <section id="grant-supported-translations" class="level2">
@@ -56,6 +56,7 @@
  ]]></description>
   <category>announcements</category>
   <category>grant</category>
+  <category>funding opportunity</category>
   <guid>https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/index.html</guid>
   <pubDate>Tue, 17 Oct 2023 07:00:00 GMT</pubDate>
   <media:content url="https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/translate.jpeg" medium="image" type="image/jpeg"/>

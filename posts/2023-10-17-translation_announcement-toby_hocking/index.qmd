@@ -2,12 +2,12 @@
 title: "Announcement: data.table translation projects"
 author: "Toby Dylan Hocking"
 date: "2023-10-17"
-categories: [announcements, grant]
+categories: [announcements, grant, funding opportunity]
 image: "translate.jpeg"
 draft: false
 ---
 
-In 2023-2025, National Science Foundation has provided funds to support the project "Expanding the data.table ecosystem for efficient big data manipulation in R." See \[this post\]() for an overview of project goals.
+In 2023-2025, National Science Foundation has provided funds to support the project "Expanding the data.table ecosystem for efficient big data manipulation in R." See [this post](https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/) for an overview of project goals.
 
 One of the three goals of the project is to create new documentation materials, to encourage a wider diversity of users and contributors. In this project, an important part of the documentation efforts will be creating translations of `data.table` documentation, in languages other than English. The goal of this translation project is to make `data.table` easier and more accessible, for people who do not natively speak English.
 

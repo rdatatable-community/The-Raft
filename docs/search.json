@@ -4,7 +4,7 @@
     "href": "posts/2023-10-17-translation_announcement-toby_hocking/index.html",
     "title": "Announcement: data.table translation projects",
     "section": "",
-    "text": "In 2023-2025, National Science Foundation has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” See [this post]() for an overview of project goals.\nOne of the three goals of the project is to create new documentation materials, to encourage a wider diversity of users and contributors. In this project, an important part of the documentation efforts will be creating translations of data.table documentation, in languages other than English. The goal of this translation project is to make data.table easier and more accessible, for people who do not natively speak English.\nIn fact, data.table already has its source code strings (errors, warnings, etc) translated into Chinese, which is a good start. The goal of this project will be expanding the translations to other written materials (vignettes, slides, etc), as well as other languages with a substantial R user base. Based on a prior analysis by Michael Chirico, priority languages will include Chinese, Portuguese, Spanish, French, Russian, Arabic, Hindi."
+    "text": "In 2023-2025, National Science Foundation has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” See this post for an overview of project goals.\nOne of the three goals of the project is to create new documentation materials, to encourage a wider diversity of users and contributors. In this project, an important part of the documentation efforts will be creating translations of data.table documentation, in languages other than English. The goal of this translation project is to make data.table easier and more accessible, for people who do not natively speak English.\nIn fact, data.table already has its source code strings (errors, warnings, etc) translated into Chinese, which is a good start. The goal of this project will be expanding the translations to other written materials (vignettes, slides, etc), as well as other languages with a substantial R user base. Based on a prior analysis by Michael Chirico, priority languages will include Chinese, Portuguese, Spanish, French, Russian, Arabic, Hindi."
   },
   {
     "objectID": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#grant-supported-translations",
@@ -53,7 +53,7 @@
     "href": "index.html",
     "title": "The Raft",
     "section": "",
-    "text": "announcements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\nToby Dylan Hocking\n\n\n\n\n\n\n  \n\n\n\n\n\nAn NSF-POSE funded venture.\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\nToby Hocking\n\n\n\n\n\n\nNo matching items"
+    "text": "announcements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\nToby Dylan Hocking\n\n\n\n\n\n\n  \n\n\n\n\n\nAn NSF-POSE funded venture.\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\nToby Hocking\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -67,6 +67,6 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\n1 min\n\n\n\n\n\n\n\n\n\nAn NSF-POSE funded venture.\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\n2 min\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\n1 min\n\n\n\n\n\n\n\n\n\nAn NSF-POSE funded venture.\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\n2 min\n\n\n\n\n\n\nNo matching items"
   }
 ]
