@@ -12,9 +12,9 @@ Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which mea
 
 :::{layout-ncol=2}
 
-![Toby D. Hocking](../../images/hocking-nau.jpg){height=1in}
+![Toby D. Hocking](../images/hocking-nau.jpg){height=1in}
 
-![Toby still using R in 50 years (artist rendering)](../../images/old_man.jpg){height=1in fig-alt="Source: wikimedia."}
+![Toby still using R in 50 years (artist rendering)](../images/old_man.jpg){height=1in fig-alt="Source: wikimedia."}
 :::
 
 I work as an Assistant Professor of Computer Science, and my research expertise is machine learning, the modern branch of artificial intelligence which uses big data. `R` is an important tool in my machine learning work, and in the work of many people in academia/industry/government, because it provides so many useful functions for handling big data.
@@ -23,7 +23,7 @@ I work as an Assistant Professor of Computer Science, and my research expertise 
 
 Since 2015, I have been using [the R package `data.table`](https://rdatatable.gitlab.io/data.table/) to do large parts of data processing before and after running machine learning algorithms - to get the raw data into the right format for the algorithm, and also to get the results in the right format for visualization/interpretation.
 
-![The {data.table} hex sticker](../../images/hex.png)
+![The {data.table} hex sticker](../images/hex.png)
 
 `data.table` is highly valued for its long-term stability and its lightning-fast speed in large data calculations.
 
@@ -31,7 +31,7 @@ Since 2015, I have been using [the R package `data.table`](https://rdatatable.gi
 
 With these use cases in mind, I proposed a project **"Expanding the data.table ecosystem for efficient big data manipulation in R,"** and I am excited to announce that it has been funded by the [National Science Foundation's "Pathways to Enable Open Source Ecosystems" (POSE) grant](https://new.nsf.gov/funding/opportunities/pathways-enable-open-source-ecosystems-pose), for work between September 2023 and August 2025.
 
-![](../../images/NSF.svg){width=50% fig-align="center"}
+![](../images/NSF.svg){width=50% fig-align="center"}
 
 Our project attempts to address three issues with the current state of the `data.table` project:
 
@@ -59,7 +59,7 @@ Interested in contributing a tutorial/vignette or blog post? Email **r.data.tabl
 
 Interested in helping grow the `data.table` ecosystem? There are so many ways to get involved!
 
-![Sea lions say "R!" "R!" "R!"](../../images/sea_lions.jpg){width="50%" fig-alt="A group of friendly sea lions.  Source: Department of the Interior."}
+![Sea lions say "R!" "R!" "R!"](../images/sea_lions.jpg){width="50%" fig-alt="A group of friendly sea lions.  Source: Department of the Interior."}
 
 1.  Follow us for updates on social media:
 
