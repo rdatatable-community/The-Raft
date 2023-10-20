@@ -9,7 +9,7 @@ website:
   navbar:
     right:
       - text: About
-        href: about.qmd 
+        href: about.qmd
       - icon: github
         href: https://github.com/rdatatable
       - icon: mastodon
@@ -18,9 +18,11 @@ website:
         href: https://bsky.app/profile/rdatatable.bsky.social
       - icon: twitter
         href: https://twitter.com/r_data_table
+      - icon: rss
+        href: index.xml
       - icon: envelope
         href: "mailto:r.data.table@gmail.com"
-        
+
 format:
   html:
     theme: [solar, custom.scss]
@@ -28,6 +30,18 @@ format:
 
 editor: visual
 
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  feed:
+    categories:
+      - documentation
+      - announcements
+      - funding opportunity
+      - grant
+  sort-ui: false
+  filter-ui: false
+
 resources:
   - "images/*"
-
