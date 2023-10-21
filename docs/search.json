@@ -1,24 +1,45 @@
 [
   {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nAnnouncement: data.table translation projects\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\n4 min\n\n\n\n\n\n\n\n\nWelcome to the {data.table} ecosystem project!\n\n\nAn NSF-POSE funded venture.\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\n4 min\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "The Raft",
+    "section": "",
+    "text": "Announcement: data.table translation projects\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\nToby Dylan Hocking\n\n\n\n\n\n\n  \n\n\n\n\nWelcome to the {data.table} ecosystem project!\n\n\nAn NSF-POSE funded venture.\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\nToby Hocking\n\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "posts/2023-10-17-translation_announcement-toby_hocking/index.html",
     "href": "posts/2023-10-17-translation_announcement-toby_hocking/index.html",
     "title": "Announcement: data.table translation projects",
     "section": "",
-    "text": "In 2023-2025, National Science Foundation has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” See this post for an overview of project goals.\nOne of the three goals of the project is to create new documentation materials, to encourage a wider diversity of users and contributors. In this project, an important part of the documentation efforts will be creating translations of data.table documentation, in languages other than English. The goal of this translation project is to make data.table easier and more accessible, for people who do not natively speak English.\nIn fact, data.table already has its source code strings (errors, warnings, etc) translated into Chinese, which is a good start. The goal of this project will be expanding the translations to other written materials (vignettes, slides, etc), as well as other languages with a substantial R user base. Based on a prior analysis by Michael Chirico, priority languages will include Chinese, Portuguese, Spanish, French, Russian, Arabic, Hindi."
+    "text": "In 2023-2025, National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One of the goals of this project is to create translations from English to other languages, in order to make data.table more accessible."
+  },
+  {
+    "objectID": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#motivation-make-data.table-more-accessible",
+    "href": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#motivation-make-data.table-more-accessible",
+    "title": "Announcement: data.table translation projects",
+    "section": "Motivation: make data.table more accessible",
+    "text": "Motivation: make data.table more accessible\ndata.table is widely used (1400+ other R packages depend on it), so it is an essential part of the R data analysis ecosystem. One of the three goals of the NSF project is to create new documentation materials, to encourage a wider diversity of users and contributors (see the other post for an overview of project goals). In this project, an important part of the documentation efforts will be creating translations of data.table documentation, in languages other than English. The goal of this translation project is to make data.table easier and more accessible, for people who do not natively speak English.\nIn fact, data.table already has its source code strings (errors, warnings, etc) translated into Chinese, which is a good start. The goal of this project will be expanding the translations to other written materials (vignettes, slides, etc), as well as other languages with a substantial R user base. Based on a prior analysis by Michael Chirico, priority languages will include Chinese, Portuguese, Spanish, French, Russian, Arabic, Hindi."
   },
   {
     "objectID": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#grant-supported-translations",
     "href": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#grant-supported-translations",
     "title": "Announcement: data.table translation projects",
     "section": "Grant-supported translations",
-    "text": "Grant-supported translations\nThe types of materials that we would like to translate are:\n\nerrors/warnings/messages defined in strings in R and C code. These are referred to as “messages” in the terminology of gettext, and the potools package by Michael Chirico can help create the files in the required format.\nmost important vignettes (intro, import, reshape)\nother documentation (cheat sheets, slides, etc)\n\nOver the course of the NSF project (Sep 2023 to Aug 2025), there will be 20 translation awards, each US$500."
+    "text": "Grant-supported translations\nThe types of materials that we would like to translate are:\n\nerrors/warnings/messages defined in strings in R and C code. These are referred to as “messages” in the terminology of gettext. The potools package by Michael Chirico can help create the files in the required format. Some method of continuous updating/maintenance will be encouraged, such as github, or the R project weblate.\nmost important vignettes (intro, import, reshape)\nother documentation (cheat sheets, slides, etc)\n\nOver the course of the NSF project (Sep 2023 to Aug 2025), there will be 20 translation awards, each US$500."
   },
   {
     "objectID": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#how-to-apply",
     "href": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#how-to-apply",
     "title": "Announcement: data.table translation projects",
     "section": "How to apply",
-    "text": "How to apply\nApplications should be submitted to toby.hocking@r-project.org, and should include the following information:\n\nwhat documents/materials do you propose to translate? (messages/vignettes/other)\nwhich non-English language?\nhow many people will be translating, and how many US$500 awards are you requesting? Projects which include two or more people are encouraged, in order to proof-read translations, and ensure quality.\nfor each person in your project, what level of fluency in English and other languages?\nfor each person in your project, how many years using R/data.table?\nhow will your translation project help create an expanded ecosystem of users and contributors?\n\nApplications will be reviewed on a monthly basis, using the following criteria:\n\nWhat is the probability of success of this translation project?\nWill this translation project help create an expanded ecosystem of users and contributors?"
+    "text": "How to apply\nApplications should be submitted to toby.hocking@r-project.org, and should include the following information:\n\nwho is the project leader? Projects which include two or more people are encouraged, in order to proof-read translations, and ensure quality. The project leader should be a trusted member of the R community, who will be responsible for proof-reading and approving other project members’ translations.\nhow many people will be translating, and how many US$500 awards are you requesting?\nwhich non-English language?\nfor each person in your project, what level of fluency in English and other languages? for each person in your project, what local dialects (countries/regions) does the person know? (For Spanish, Mexico vs Spain vs Chile, etc)\nfor each person in your project, how many years using R and data.table?\nwhat documents/materials do you propose to translate? (messages/vignettes/other)\nwhat are your plans for ensuring that your translation is consistent with other R translations? (for example, base R messages, vignettes in other packages) In detail, there are several possible ways to translate any given text from English. For example, “computer” could be translated to Spanish as “ordinator” or “computador” or “computadora” but for consistency, only one of these should be used across all R documentation.\nhow will your translation project help create an expanded data.table ecosystem of users and contributors? You should make an argument that there are a large number of native speakers of your target language, using data such as in a prior analysis by Michael Chirico.\nafter the initial translation is complete, what is your plan for continued maintenance? In other words, when the corresponding English source files are updated on GitHub, what is your plan for being aware of those updates, and making corresponding updates of your translation, for a future release of data.table?\n\nApplications will be reviewed on a monthly basis, using the following criteria:\n\nWhat is the probability of success of this translation project, and its continued maintenace?\nWill this translation project help create an expanded ecosystem of users and contributors?"
   },
   {
     "objectID": "posts/2023-10-15-intro_to_grant-toby_hocking/index.html",
@@ -39,7 +60,7 @@
     "href": "posts/2023-10-15-intro_to_grant-toby_hocking/index.html#ecosystem-expansion",
     "title": "Welcome to the {data.table} ecosystem project!",
     "section": "Ecosystem expansion",
-    "text": "Ecosystem expansion\nWith these use cases in mind, I proposed a project “Expanding the data.table ecosystem for efficient big data manipulation in R,” and I am excited to announce that it has been funded by the National Science Foundation’s “Pathways to Enable Open Source Ecosystems” (POSE) grant, for work between September 2023 and August 2025.\n\n\n\n\n\nOur project attempts to address three issues with the current state of the data.table project:\n\nInformal governance\n\nThe data.table package was originally created by Matt Dowle in 2008. His brilliant use of efficient algorithms and C implementations brought the world a package that has stood the test of time, and is now one of the most-used R packages available.\nHowever, the growth of this incredible package will require more leaders than Dowle himself to help build, review, test, and organize new contributions.\nThus, one goal of this grant is to bring together data.table developers and contributors to propose a new governance structure for the package’s source code.\n\nLimited centralized testing infrastructure\n\nSince the primary draw of data.table is the speed of its algorithmic implementations, adding new functionality to the package is not simple. In particular, new elements must be heavily tested to ensure that they do not interfere with the core computations.\nIn this grant, we plan to develop software to automate the testing of new package contributions, to smooth the growth process.\n\nLimited documentation and outreach\n\nTo encourage more people to learn and adopt data.table, we will be massively expanding the number of tutorials, documentations, and guides for how to use the package effectively. This grant will also support selected speakers to travel to conferences and share data.table updates and usage.\nInterested in contributing a tutorial/vignette or blog post? Email r.data.table@gmail.com!"
+    "text": "Ecosystem expansion\nWith these use cases in mind, I proposed a project “Expanding the data.table ecosystem for efficient big data manipulation in R,” and I am excited to announce that it has been funded by the National Science Foundation’s “Pathways to Enable Open Source Ecosystems” (POSE) grant, for work between September 2023 and August 2025.\n\n\n\n\n\nOur project attempts to address three issues with the current state of the data.table project:\n\nInformal governance\n\nThe data.table package was originally created by Matt Dowle in 2008. His brilliant use of efficient algorithms and C implementations brought the world a package that has stood the test of time, and is now one of the most-used R packages available.\nHowever, the growth of this incredible package will require more leaders than Dowle himself to help build, review, test, and organize new contributions.\nThus, one goal of this grant is to bring together data.table developers and contributors to propose a new governance structure for the package’s source code.\n\nLimited centralized testing infrastructure\n\nSince the primary draw of data.table is the speed of its algorithmic implementations, adding new functionality to the package is not simple. In particular, new elements must be heavily tested to ensure that they do not interfere with the core computations.\nIn this grant, we plan to develop software to automate the testing of new package contributions, to smooth the growth process. This part of the project includes a centralized reverse dependency checking system, new benchmarks comparing data.table with other systems such as polars and arrow, and new performance testing software.\n\nLimited documentation and outreach\n\nTo encourage more people to learn and adopt data.table, we will be massively expanding the number of tutorials, documentations, and guides for how to use the package effectively. Part of this will be translation projects so that data.table will be more accessible in foreign languages. This grant will also include travel awards, to support selected speakers to travel to conferences and share data.table updates and usage.\nInterested in contributing a tutorial/vignette or blog post? Email r.data.table@gmail.com!"
   },
   {
     "objectID": "posts/2023-10-15-intro_to_grant-toby_hocking/index.html#how-you-can-get-involved",
@@ -49,24 +70,10 @@
     "text": "How you can get involved\nInterested in helping grow the data.table ecosystem? There are so many ways to get involved!\n\n\n\nSea lions say “R!” “R!” “R!”\n\n\n\nFollow us for updates on social media:\n\n\nMastodon: r_data_table@fosstodon.org\nBlueSky: rdatatable.bsky.social\nTwitter/X: r_data_table\n\n\nSubscribe to this blog, The Raft\nTake the Community Survey to weigh in on next steps.\nParticipate in the deep discussions on GitHub:\n\n\nWhat should be the structure of the formal governance document for the package?\nWhat are the core principles of the data.table package?\n\n\nEmail r.data.table@gmail.com to:\n\n\nBe added to the community Slack.\nPropose a guest blog for The Raft.\nAsk questions, make suggestions, or volunteer your expertise.\n\n\nApply for the upcoming Travel Grants and Translation Projects - watch this blog for more information!"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "The Raft",
-    "section": "",
-    "text": "announcements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\nToby Dylan Hocking\n\n\n\n\n\n\n  \n\n\n\n\n\nAn NSF-POSE funded venture.\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\nToby Hocking\n\n\n\n\n\n\nNo matching items"
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this blog"
-  },
-  {
-    "objectID": "blog.html",
-    "href": "blog.html",
-    "title": "Blog",
-    "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\n1 min\n\n\n\n\n\n\n\n\n\nAn NSF-POSE funded venture.\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\n2 min\n\n\n\n\n\n\nNo matching items"
+    "text": "About this blog\n\n\n\n\n\n\n  \n\n\n\n\nAnnouncement: data.table translation projects\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\nToby Dylan Hocking\n\n\n\n\n\n\n  \n\n\n\n\nWelcome to the {data.table} ecosystem project!\n\n\nAn NSF-POSE funded venture.\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\nToby Hocking\n\n\n\n\n\n\nNo matching items"
   }
 ]

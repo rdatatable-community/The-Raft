@@ -6,9 +6,9 @@
       version="2.0">
 <channel>
 <title>Blog</title>
-<link>https://rdatatable-community.github.io/The-Raft/blog.html</link>
-<atom:link href="https://rdatatable-community.github.io/The-Raft/blog.xml" rel="self" type="application/rss+xml"/>
-<description></description>
+<link>https://rdatatable-community.github.io/The-Raft/index.html</link>
+<atom:link href="https://rdatatable-community.github.io/The-Raft/index.xml" rel="self" type="application/rss+xml"/>
+<description>&lt;i&gt;Raft (n):  A group or herd of sea lions.&lt;/i&gt; A place for announcements, tutorials, and musings about the {data.table} package and its community.</description>
 <generator>quarto-1.3.450</generator>
 <lastBuildDate>Tue, 17 Oct 2023 07:00:00 GMT</lastBuildDate>
 <item>

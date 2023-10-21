@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Blog</title>
+<link>https://rdatatable-community.github.io/The-Raft/index.html#category=funding%20opportunity</link>
+<atom:link href="https://rdatatable-community.github.io/The-Raft/index-funding opportunity.xml" rel="self" type="application/rss+xml"/>
+<description>&lt;i&gt;Raft (n):  A group or herd of sea lions.&lt;/i&gt; A place for announcements, tutorials, and musings about the {data.table} package and its community.</description>
+<generator>quarto-1.3.450</generator>
+<lastBuildDate>Tue, 17 Oct 2023 07:00:00 GMT</lastBuildDate>
+<item>
+  <title>Announcement: data.table translation projects</title>
+  <dc:creator>Toby Dylan Hocking</dc:creator>
+  <link>https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>In 2023-2025, National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One of the goals of this project is to create translations from English to other languages, in order to make <code>data.table</code> more accessible.</p>
+<section id="motivation-make-data.table-more-accessible" class="level2">
+<h2 class="anchored" data-anchor-id="motivation-make-data.table-more-accessible">Motivation: make <code>data.table</code> more accessible</h2>
+<p><code>data.table</code> is widely used (1400+ other R packages depend on it), so it is an essential part of the R data analysis ecosystem. One of the three goals of the NSF project is to create new documentation materials, to encourage a wider diversity of users and contributors (see <a href="https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/">the other post</a> for an overview of project goals). In this project, an important part of the documentation efforts will be creating translations of <code>data.table</code> documentation, in languages other than English. The goal of this translation project is to make <code>data.table</code> easier and more accessible, for people who do not natively speak English.</p>
+<p>In fact, <code>data.table</code> already has its source code strings (errors, warnings, etc) translated into Chinese, which is a good start. The goal of this project will be expanding the translations to other written materials (vignettes, slides, etc), as well as other languages with a substantial R user base. Based on <a href="https://github.com/Rdatatable/data.table/issues/5693#issuecomment-1742437604">a prior analysis by Michael Chirico</a>, priority languages will include Chinese, Portuguese, Spanish, French, Russian, Arabic, Hindi.</p>
+</section>
+<section id="grant-supported-translations" class="level2">
+<h2 class="anchored" data-anchor-id="grant-supported-translations">Grant-supported translations</h2>
+<p>The types of materials that we would like to translate are:</p>
+<ul>
+<li>errors/warnings/messages defined in strings in R and C code. These are referred to as “messages” in the terminology of gettext. The <a href="https://github.com/MichaelChirico/potools">potools</a> package by Michael Chirico can help create the files in the required format. Some method of continuous updating/maintenance will be encouraged, such as github, or the R project <a href="https://contributor.r-project.org/translations/Weblate-FAQ.html#how-to-add-a-package-i-maintain-to-weblate">weblate</a>.</li>
+<li>most important vignettes (intro, import, reshape)</li>
+<li>other documentation (cheat sheets, slides, etc)</li>
+</ul>
+<p>Over the course of the NSF project (Sep 2023 to Aug 2025), there will be 20 translation awards, each US$500.</p>
+</section>
+<section id="how-to-apply" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-apply">How to apply</h2>
+<p>Applications should be submitted to <strong>toby.hocking@r-project.org</strong>, and should include the following information:</p>
+<ul>
+<li>who is the project leader? Projects which include two or more people are encouraged, in order to proof-read translations, and ensure quality. The project leader should be a trusted member of the R community, who will be responsible for proof-reading and approving other project members’ translations.</li>
+<li>how many people will be translating, and how many US$500 awards are you requesting?</li>
+<li>which non-English language?</li>
+<li>for each person in your project, what level of fluency in English and other languages? for each person in your project, what local dialects (countries/regions) does the person know? (For Spanish, Mexico vs Spain vs Chile, etc)</li>
+<li>for each person in your project, how many years using R and <code>data.table</code>?</li>
+<li>what documents/materials do you propose to translate? (messages/vignettes/other)</li>
+<li>what are your plans for ensuring that your translation is consistent with other R translations? (for example, base R messages, vignettes in other packages) In detail, there are several possible ways to translate any given text from English. For example, “computer” could be translated to Spanish as “ordinator” or “computador” or “computadora” but for consistency, only one of these should be used across all R documentation.</li>
+<li>how will your translation project help create an expanded <code>data.table</code> ecosystem of users and contributors? You should make an argument that there are a large number of native speakers of your target language, using data such as in <a href="https://github.com/Rdatatable/data.table/issues/5693#issuecomment-1742437604">a prior analysis by Michael Chirico</a>.</li>
+<li>after the initial translation is complete, what is your plan for continued maintenance? In other words, when the corresponding English source files are updated on GitHub, what is your plan for being aware of those updates, and making corresponding updates of your translation, for a future release of <code>data.table</code>?</li>
+</ul>
+<p>Applications will be reviewed on a monthly basis, using the following criteria:</p>
+<ul>
+<li>What is the probability of success of this translation project, and its continued maintenace?</li>
+<li>Will this translation project help create an expanded ecosystem of users and contributors?</li>
+</ul>
+
+
+
+</section>
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div> ]]></description>
+  <category>announcements</category>
+  <category>grant</category>
+  <category>funding opportunity</category>
+  <guid>https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/index.html</guid>
+  <pubDate>Tue, 17 Oct 2023 07:00:00 GMT</pubDate>
+  <media:content url="https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/translate.jpeg" medium="image" type="image/jpeg"/>
+</item>
+</channel>
+</rss>
