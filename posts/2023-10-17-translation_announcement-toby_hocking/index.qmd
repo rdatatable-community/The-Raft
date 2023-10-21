@@ -35,10 +35,8 @@ Applications should be submitted to **toby.hocking\@r-project.org**, and should 
 -   who is the project leader? Projects which include two or more people are encouraged, in order to proof-read translations, and ensure quality. The project leader should be a trusted member of the R community, who will be responsible for proof-reading and approving other project members' translations.
 -   how many people will be translating, and how many US\$500 awards are you requesting? 
 -   which non-English language?
--   for each person in your project, what level of fluency in English
-    and other languages? for each person in your project, what local
-    dialects (countries/regions) does the person know? (For Spanish,
-    Mexico vs Spain vs Chile, etc)
+-   how many regional dialects are represented on your team? For
+    example, Spanish dialects: Mexican, Chilean, etc.
 -   for each person in your project, how many years using R and `data.table`?
 -   what documents/materials do you propose to translate? (messages/vignettes/other)
 -   what are your plans for ensuring that your translation is consistent with other R translations? (for example, base R messages, vignettes in other packages) In detail, there are several possible ways to translate any given text from English. For example, "computer" could be translated to Spanish as "ordinator" or "computador" or "computadora" but for consistency, only one of these should be used across all R documentation. 
