@@ -76,9 +76,28 @@ penguins[species == "Chinstrap"
        ][ , .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island)]
 ```
 
+
 Personally, I don't like this syntax very much.
 No matter how you slice it, you always get what feels to me as incomplete lines.
 Also, RStudio doesn't correctly indent the second syntax automatically.
+
+Alternatively, the `][` pipe can go in its own line like so:
+
+```{r}
+penguins[species == "Chinstrap" 
+][ 
+  , .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island)
+]
+```
+
+This is indented correctly by RStudio and has the advantage of making easy to comment out each individual step:
+
+```{r}
+penguins[species == "Chinstrap" 
+][ 
+  # , .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island)
+]
+```
 
 ## data.table and magrittr
 
