@@ -4,14 +4,42 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nAnnouncement: data.table translation projects\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\n4 min\n\n\n\n\n\n\n\n\nWelcome to the {data.table} ecosystem project!\n\n\nAn NSF-POSE funded venture.\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\n4 min\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nAnnouncement: The data.table Ambassadors Travel Grant\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nNov 1, 2023\n\n\n3 min\n\n\n\n\n\n\n\n\nAnnouncement: data.table translation projects\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\n4 min\n\n\n\n\n\n\n\n\nWelcome to the {data.table} ecosystem project!\n\n\nAn NSF-POSE funded venture.\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\n4 min\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "The Raft",
     "section": "",
-    "text": "Announcement: data.table translation projects\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\nToby Dylan Hocking\n\n\n\n\n\n\n  \n\n\n\n\nWelcome to the {data.table} ecosystem project!\n\n\nAn NSF-POSE funded venture.\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\nToby Hocking\n\n\n\n\n\n\nNo matching items"
+    "text": "Announcement: The data.table Ambassadors Travel Grant\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nNov 1, 2023\n\n\nKelly Bodwin\n\n\n\n\n\n\n  \n\n\n\n\nAnnouncement: data.table translation projects\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\n\n\n\n\n  \n\n\n\n\nWelcome to the {data.table} ecosystem project!\n\n\nAn NSF-POSE funded venture.\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\nToby Hocking\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/2023-11-01-travel_grant_announcement-community_team/index.html",
+    "href": "posts/2023-11-01-travel_grant_announcement-community_team/index.html",
+    "title": "Announcement: The data.table Ambassadors Travel Grant",
+    "section": "",
+    "text": "We on the community team are very excited to announce another major funding opportunity!\nAs you may know, the National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One goal of this project is to better disseminate information about the development and progress of the data.table package.\nTo this end, applications are now open for the data.table Ambassadors Grant to fund conference travel for presentations related to data.table."
+  },
+  {
+    "objectID": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#ambassadors",
+    "href": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#ambassadors",
+    "title": "Announcement: The data.table Ambassadors Travel Grant",
+    "section": "Ambassadors",
+    "text": "Ambassadors\nIn order to become a funded ambassador, applicants must meet the following requirements:\n\nPresent a talk, poster, or tutorial at a relevant conference or meeting that is in some way related to the data.table package.\nWrite a blog post about the talk/presentation for The Raft.\n\nFunding is in the form of a flat $2700 stipend towards travel and registration expenses, to be paid upon completion of the presentation and blog post.\nThis program will fund up to 4 Ambassadors per year for the next three years. We are particularly interesting in facilitating travel for applicants who may not have as much opportunity; such as early-career researchers, or those from historically marginalized communities.\n\n\n\nThe data.table community is everywhere!"
+  },
+  {
+    "objectID": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#applying",
+    "href": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#applying",
+    "title": "Announcement: The data.table Ambassadors Travel Grant",
+    "section": "Applying",
+    "text": "Applying\n\nFill out the Google Form here to apply for the Ambassador Grant.\n\nYou will be asked to provide:\n\nInformation about your presentation:\n\nA max 1-page abstract for your proposed talk or workshop.\nA categorization of the talk: Is it a technical contribution to data.table or related packages? An applied use case for data.table in industry or education? A tutorial or workshop teaching data.table skills to attendees?\nThe conference or meeting at which your presentation has been accepted. (Presentations that are submitted, but not yet accepted, may apply; in exceptional cases, Grant funding may be offered conditional on acceptance.)\nA max 1-page statement addressing the following prompt: How does your proposed talk or presentation further the goals of the NSF-POSE Grant Program? How will it enhance the data.table community and ecosystem?\n\n\n\nPersonal Statements:\n\nA brief statement regarding your personal connection to the data.table community, and why you are motivated to become an Ambassador.\nOptionally, materials or links showing your prior work and connection to data.table.\nOptionally, your self-identification as a member of a historically marginalized community or an early-career researcher.\n\n\n\nWe can’t wait to hear from you!\n\n\n\n“Water” you waiting for? Apply now!"
+  },
+  {
+    "objectID": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#questions",
+    "href": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#questions",
+    "title": "Announcement: The data.table Ambassadors Travel Grant",
+    "section": "Questions",
+    "text": "Questions\nNot sure if you should apply? Wondering if there are still Ambassador slots left in the year? Email r.data.table@gmail.com with any and all questions!"
   },
   {
     "objectID": "posts/2023-10-17-translation_announcement-toby_hocking/index.html",
@@ -74,6 +102,6 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this blog\n\n\n\n\n\n\n  \n\n\n\n\nAnnouncement: data.table translation projects\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\nToby Dylan Hocking\n\n\n\n\n\n\n  \n\n\n\n\nWelcome to the {data.table} ecosystem project!\n\n\nAn NSF-POSE funded venture.\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\nToby Hocking\n\n\n\n\n\n\nNo matching items"
+    "text": "This blog is dedicated to building the community around the data.table R package. Its startup is funded by NSF-POSE Grant called “Expanding the data.table ecosystem for efficient big data manipulation in R”. Here you will find announcements related to the grant, as well as tips, updates, and tutorials for data.table and its sister packages.\nBlog managed by Kelly Bodwin, Tyson Barrett, and Toby Hocking. Email us at r.data.table@gmail.com.\n\n\n\n\n\n\n  \n\n\n\n\nAnnouncement: The data.table Ambassadors Travel Grant\n\n\n\n\n\n\n\n\n\n\n\nNov 1, 2023\n\n\nKelly Bodwin\n\n\n\n\n\n\n  \n\n\n\n\nAnnouncement: data.table translation projects\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\n\n\n\n\n  \n\n\n\n\nWelcome to the {data.table} ecosystem project!\n\n\nAn NSF-POSE funded venture.\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\nToby Hocking\n\n\n\n\n\n\nNo matching items"
   }
 ]

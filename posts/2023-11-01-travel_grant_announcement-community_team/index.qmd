@@ -1,0 +1,64 @@
+---
+title: "Announcement: The data.table Ambassadors Travel Grant"
+author: "Kelly Bodwin"
+date: "2023-11-01"
+categories: [announcements, grant, funding opportunity]
+image: "image.jpg"
+draft: false
+---
+
+We on the community team are very excited to announce another major funding opportunity!
+
+![Sea lions rejoice!](https://media.tenor.com/Ce9c6P-Ztc0AAAAd/smile-delighted.gif){width="40%" fig-align="center"}
+
+As [you may know,](https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/) the National Science Foundation (NSF) has provided funds to support the project "Expanding the data.table ecosystem for efficient big data manipulation in R." One goal of this project is to better disseminate information about the development and progress of the `data.table` package.
+
+To this end, [applications are now open](https://forms.gle/7Nb7E5GweiYdi93o7) for the **data.table Ambassadors Grant** to fund conference travel for presentations related to `data.table`.
+
+## Ambassadors
+
+In order to become a funded ambassador, applicants must meet the following requirements:
+
+1.  Present a talk, poster, or tutorial at a relevant conference or meeting that is in some way related to the `data.table` package.
+
+2.  Write a blog post about the talk/presentation for *The Raft*.
+
+Funding is in the form of a flat **\$2700 stipend** towards travel and registration expenses, to be paid upon completion of the presentation and blog post.
+
+This program will fund up to 4 Ambassadors per year for the next three years. We are particularly interesting in facilitating travel for applicants who may not have as much opportunity; such as early-career researchers, or those from historically marginalized communities.
+
+![The data.table community is everywhere!](https://media1.giphy.com/media/dYUslDahf6Uw71gH3t/giphy.gif?cid=6c09b9525fn0xo7so506xnf856h4n781v3vlutm2vlrmx1h7&ep=v1_stickers_related&rid=giphy.gif&ct=s){width="40%" fig-align="center"}
+
+## Applying
+
+:::{.larger}
+[Fill out the Google Form here to apply for the Ambassador Grant.](https://forms.gle/7Nb7E5GweiYdi93o7)
+:::
+
+You will be asked to provide:
+
+### Information about your presentation:
+
+-   A max 1-page abstract for your proposed talk or workshop.
+
+-   A categorization of the talk: Is it a technical contribution to `data.table` or related packages? An applied use case for `data.table` in industry or education? A tutorial or workshop teaching `data.table` skills to attendees?
+
+-   The conference or meeting at which your presentation has been accepted. *(Presentations that are submitted, but not yet accepted, may apply; in exceptional cases, Grant funding may be offered conditional on acceptance.)*
+
+-   A max 1-page statement addressing the following prompt: **How does your proposed talk or presentation further the goals of the NSF-POSE Grant Program? How will it enhance the data.table community and ecosystem?**
+
+### Personal Statements:
+
+-   A brief statement regarding your personal connection to the `data.table` community, and why you are motivated to become an Ambassador.
+
+-   Optionally, materials or links showing your prior work and connection to `data.table`.
+
+-   Optionally, your self-identification as a member of a historically marginalized community or an early-career researcher.
+
+### We can't wait to hear from you!
+
+!["Water" you waiting for? Apply now!](https://www.fisheries.noaa.gov/s3/styles/media_750_x500/s3/dam-migration-miss/md_wxaUKGMKbrB6_0.png?itok=OvxmHrlv){width="50%" fig-align="center"}
+
+## Questions
+
+Not sure if you should apply? Wondering if there are still Ambassador slots left in the year? Email [r.data.table\@gmail.com](mailto:r.data.table@gmail.com) with any and all questions!
