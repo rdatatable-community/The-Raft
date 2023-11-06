@@ -177,7 +177,8 @@ All of the main functionality in `data.table` is structured around vectors, list
 In my experience, as one gets more familiar with the syntax of `data.table`, the more it becomes clear that the syntax (although less verbose than other approaches like the tidyverse), is concise, predictable, and familiar to the basics of the R programming language. Among many reasons to leverage `data.table` in your workflow, the syntax is one to not overlook.
 
 
-
+Cover photo by <a href="https://unsplash.com/@christinhumephoto?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Christin Hume</a> on <a href="https://unsplash.com/photos/person-using-laptop-computer-Hcfwew744z4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+  
 
 
 
