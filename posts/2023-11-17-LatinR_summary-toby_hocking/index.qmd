@@ -1,0 +1,9 @@
+---
+title: "Summary of LatinR conference"
+author: "Toby Dylan Hocking"
+date: "2023-11-17"
+categories: [conferences]
+draft: true
+---
+
+I went to the 
