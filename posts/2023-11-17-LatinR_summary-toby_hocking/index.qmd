@@ -6,4 +6,40 @@ categories: [conferences]
 draft: true
 ---
 
-I went to the 
+Last month, I went to the LatinR conference in Montevideo, Uruguay.  I
+had two goals: to teach about {data.table} in a tutorial, and to find
+people to work on translations.
+
+## Tutorial about {data.table}
+
+I presented a tutorial on the first day of the [LatinR meeting](https://latin-r.com/cronograma/tutoriales/#using-and-contributing-to-the-data.table-package-for-efficient-big-data-analysis), to a group of about 50 students.
+
+![Photo from the LatinR {data.table} tutorial](LatinR-tutorial.jpg)
+
+The [google
+slides](https://docs.google.com/presentation/d/1ypW1LUMmcrUTMF6B9h9s8qbvW5BSbN1IW6CEgqX01Co)
+that I used are online, and I also created a GitHub repo with the
+[source files](https://github.com/tdhock/2023-10-LatinR-data.table)
+that I used for creating the figures in the slides. I did not have
+enough time to do all of the exercises, but I did spend about 10
+minutes at the end of my talk, to invite people to participate in the
+[translation
+projects](https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/)
+and [travel
+awards](https://rdatatable-community.github.io/The-Raft/posts/2023-11-01-travel_grant_announcement-community_team/).
+  
+One of the students in the audience was [Mara
+Destefanis](https://github.com/MaraDestefanis), who said she was very
+interested to participate in the translation project.  In fact, since
+the conference, she has sent me several emails, updating me about a
+[Spanish
+translation](https://github.com/MaraDestefanis/latinrdatatransforme_spanish)
+of my tutorial slides.
+  
+## Translation workshop
+
+![Photo from the LatinR translation workshop](LatinR-translation.jpg)
+
+* TODO people emailed
+
+
