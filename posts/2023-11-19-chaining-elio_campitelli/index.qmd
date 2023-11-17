@@ -1,0 +1,14 @@
+---
+title: "????"
+author: "Tyson Barrett"
+date: "2023-11-05"
+categories: [tips, tutorials, documentation]
+image: "image.jpg"
+draft: true
+---
+
+This is a post with executable code.
+
+```{r}
+1 + 1
+```

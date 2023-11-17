@@ -1,1 +1,0 @@
-Sitemap: https://rdatatable-community.github.io/The-Raft/sitemap.xml
