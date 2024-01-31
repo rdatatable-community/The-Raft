@@ -1,0 +1,108 @@
+---
+title: "Summary of LatinR conference"
+author: "Toby Dylan Hocking"
+date: "2023-11-17"
+categories: [conferences]
+draft: true
+---
+
+Last month, I went to the LatinR conference in Montevideo, Uruguay.  I
+had two goals: to teach about `data.table` in a tutorial, and to find
+people to work on translations.
+
+## Tutorial about `data.table`
+
+I presented a tutorial on the first day of the [LatinR meeting](https://latin-r.com/cronograma/tutoriales/#using-and-contributing-to-the-data.table-package-for-efficient-big-data-analysis), to an audience of about 50 students.
+
+![Photo from the LatinR `data.table` tutorial](LatinR-tutorial.jpg)
+
+The [google
+slides](https://docs.google.com/presentation/d/1ypW1LUMmcrUTMF6B9h9s8qbvW5BSbN1IW6CEgqX01Co)
+that I used are online, and I also created a GitHub repo with the
+[source files](https://github.com/tdhock/2023-10-LatinR-data.table)
+that I used for creating the figures in the slides.  During the talk,
+[Elio Campitelli](https://github.com/eliocamp) and [Paola
+Corrales](https://github.com/paocorrales) were there to help people in
+the audience with individual/technical questions (for example,
+installation of `data.table` from github master was difficult for some
+people using windows).  I did not have enough time to do all of the
+exercises, but I did spend about 10 minutes at the end of my talk, to
+invite people to participate in the [translation
+projects](https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/)
+and [travel
+awards](https://rdatatable-community.github.io/The-Raft/posts/2023-11-01-travel_grant_announcement-community_team/).
+
+One of the students in the audience was [Mara
+Destefanis](https://github.com/MaraDestefanis), who said she was very
+interested to participate in the translation project. In fact, since
+the conference, she has sent me several emails, updating me about a
+[Spanish
+translation](https://github.com/MaraDestefanis/latinrdatatransforme_spanish)
+of my tutorial slides.
+  
+## Translation workshop
+
+During the conference, there was a translation workshop.
+
+![Photo from the LatinR translation workshop](LatinR-translation.jpg)
+
+I learned that there has been a lot of progress recently,
+about translations in R.
+
+* During the [R project sprint in summer
+  2023](https://contributor.r-project.org/r-project-sprint-2023/participants/),
+  there was an [effort to crowdsource translations of
+  messages](https://contributor.r-project.org/r-project-sprint-2023/projects/translation/),
+  using [a new weblate server for
+  R](https://translate.rx.studio/projects/r-project/).
+* Elio Campitelli proposed a R Consortium project about translating Rd
+  pages. Currently, there is only one Rd page for help on any given
+  topic, and it is possible in theory to write an Rd page in multiple
+  languages, but in practice most are in English only.
+* [Nestor Montano](https://github.com/nestormontano) told me that he
+  recorded an online workshop about `data.table`, in Spanish!
+  [Slides](https://github.com/nestormontano/2020_04_Taller_R_DataTable),
+  [Youtube](https://youtube.com/playlist?list=PL2PpISw8vp_oJlVXpYYowclogCCLtEOfX&si=fvPz3WPgnWL6Wtou).
+* Riva Quiroga told me about the [R Para Ciencia de
+  Datos](https://es.r4ds.hadley.nz/) project, which is a Spanish
+  translation of the popular R for Data Science online textbook (an
+  important reference about tidyverse). Part of that project involved
+  creating new data sets in the
+  [datos](https://cienciadedatos.github.io/datos/) package, with
+  column names and man pages translated to Spanish. For example
+  [vuelos.rd](https://github.com/cienciadedatos/datos/blob/main/man/vuelos.rd)
+  is the man page for the translated version of flights data. Riva
+  told me about her experience leading this translation project. For
+  our NSF `data.table` project, she suggested several important
+  criteria to consider, that I had not written in my original call for
+  translation projects. After discussing with her, [I wrote a PR to
+  revise and improve the call for translation
+  projects](https://github.com/rdatatable-community/The-Raft/pull/3/files).
+  
+Overall I felt that going to LatinR was a very worthwhile experience,
+because of the successful outreach in my tutorial, and the great
+networking at the translation workshop. 
+
+## Communcations since then
+
+Since then, I have been in email contact with several people who have
+expressed interest in the `data.table` translation project.
+  
+* For Spanish, [Riva
+  Quiroga](https://github.com/rivaquiroga) (Chile) told me that she
+  would like to lead, with several other people who expressed interest
+  to participate: [Nati Labadie](https://github.com/natilab)
+  (Argentina), [Andrea Gomez Vargas](https://github.com/SoyAndrea)
+  (Colombia), Emanuel Ciardullo (Argentina), [Nestor
+  Montano](https://github.com/nestormontano) (Ecuador), [Mara
+  Destefanis](https://github.com/MaraDestefanis) (Uruguay), ...
+* For French, [Philippe
+  Grojean](https://github.com/phgrosjean) told me that he would be
+  interested to lead, and submit an application in the next few
+  months.
+* For Portuguese, [Leonardo Ferreira
+  Fontenelle](https://github.com/Rdatatable/data.table/issues/5693#issuecomment-1768513332)
+  told me that he would be interested to lead, and submit an
+  application soon.
+
+I look forward to seeing these projects develop in the coming months!
