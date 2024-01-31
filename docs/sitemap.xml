@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/index.html</loc>
-    <lastmod>2023-10-18T01:34:09.568Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/index.html</loc>
-    <lastmod>2023-10-18T01:34:17.350Z</lastmod>
+    <loc>https://rdatatable-community.github.io/The-Raft/blog.html</loc>
+    <lastmod>2024-01-31T19:28:36.555Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/index.html</loc>
-    <lastmod>2023-10-18T01:34:17.830Z</lastmod>
+    <lastmod>2024-01-31T19:28:35.674Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-11-01-travel_grant_announcement-community_team/index.html</loc>
+    <lastmod>2024-01-31T19:28:19.226Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/index.html</loc>
+    <lastmod>2024-01-31T19:28:21.768Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/index.html</loc>
+    <lastmod>2024-01-31T19:28:35.157Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/about.html</loc>
-    <lastmod>2023-10-18T01:34:18.154Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/blog.html</loc>
-    <lastmod>2023-10-18T01:34:18.535Z</lastmod>
+    <lastmod>2024-01-31T19:28:36.095Z</lastmod>
   </url>
 </urlset>

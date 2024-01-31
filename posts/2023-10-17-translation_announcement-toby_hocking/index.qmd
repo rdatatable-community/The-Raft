@@ -1,20 +1,16 @@
 ---
 title: "Announcement: data.table translation projects"
-author: "Toby Dylan Hocking"
 date: "2023-10-17"
 categories: [announcements, grant, funding opportunity]
 image: "translate.jpeg"
 draft: false
 ---
 
-In 2023-2025, National Science Foundation (NSF) has provided funds to support the project "Expanding the data.table ecosystem for efficient big data manipulation in R." 
-One of the goals of this project is to create translations from English to other languages, in order to make `data.table` more accessible.
+In 2023-2025, National Science Foundation (NSF) has provided funds to support the project "Expanding the data.table ecosystem for efficient big data manipulation in R." One of the goals of this project is to create translations from English to other languages, in order to make `data.table` more accessible.
 
 ## Motivation: make `data.table` more accessible
 
-`data.table` is widely used (1400+ other R packages depend on it), so it is an essential part of the R data analysis ecosystem.
-One of the three goals of the NSF project is to create new documentation materials, to encourage a wider diversity of users and contributors (see [the other post](https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/) for an overview of project goals).
-In this project, an important part of the documentation efforts will be creating translations of `data.table` documentation, in languages other than English. The goal of this translation project is to make `data.table` easier and more accessible, for people who do not natively speak English.
+`data.table` is widely used (1400+ other R packages depend on it), so it is an essential part of the R data analysis ecosystem. One of the three goals of the NSF project is to create new documentation materials, to encourage a wider diversity of users and contributors (see [the other post](https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/) for an overview of project goals). In this project, an important part of the documentation efforts will be creating translations of `data.table` documentation, in languages other than English. The goal of this translation project is to make `data.table` easier and more accessible, for people who do not natively speak English.
 
 In fact, `data.table` already has its source code strings (errors, warnings, etc) translated into Chinese, which is a good start. The goal of this project will be expanding the translations to other written materials (vignettes, slides, etc), as well as other languages with a substantial R user base. Based on [a prior analysis by Michael Chirico](https://github.com/Rdatatable/data.table/issues/5693#issuecomment-1742437604), priority languages will include Chinese, Portuguese, Spanish, French, Russian, Arabic, Hindi.
 
@@ -22,7 +18,7 @@ In fact, `data.table` already has its source code strings (errors, warnings, etc
 
 The types of materials that we would like to translate are:
 
--   errors/warnings/messages defined in strings in R and C code. These are referred to as "messages" in the terminology of gettext. The [potools](https://github.com/MichaelChirico/potools) package by Michael Chirico can help create the files in the required format. Some method of continuous updating/maintenance will be encouraged, such as github, or the R project [weblate](https://contributor.r-project.org/translations/Weblate-FAQ.html#how-to-add-a-package-i-maintain-to-weblate). 
+-   errors/warnings/messages defined in strings in R and C code. These are referred to as "messages" in the terminology of gettext. The [potools](https://github.com/MichaelChirico/potools) package by Michael Chirico can help create the files in the required format. Some method of continuous updating/maintenance will be encouraged, such as github, or the R project [weblate](https://contributor.r-project.org/translations/Weblate-FAQ.html#how-to-add-a-package-i-maintain-to-weblate).
 -   most important vignettes (intro, import, reshape)
 -   other documentation (cheat sheets, slides, etc)
 
@@ -33,7 +29,7 @@ Over the course of the NSF project (Sep 2023 to Aug 2025), there will be 20 tran
 Applications should be submitted to **toby.hocking\@r-project.org**, and should include the following information:
 
 -   who is the project leader? Projects which include two or more people are encouraged, in order to proof-read translations, and ensure quality. The project leader should be a trusted member of the R community, who will be responsible for proof-reading and approving other project members' translations.
--   how many people will be translating, and how many US\$500 awards are you requesting? 
+-   how many people will be translating, and how many US\$500 awards are you requesting?
 -   which non-English language?
 -   how many regional dialects are represented on your team? For
     example, Spanish dialects: Mexican, Chilean, etc.
