@@ -4,70 +4,14 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nAnnouncement: The data.table Ambassadors Travel Grant\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nNov 1, 2023\n\n\n3 min\n\n\n\n\n\n\n\n\nAnnouncement: data.table translation projects\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\n4 min\n\n\n\n\n\n\n\n\nWelcome to the {data.table} ecosystem project!\n\n\nAn NSF-POSE funded venture.\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\n4 min\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nThe Benefits of data.table Syntax\n\n\n\n\n\n\n\ntips\n\n\ntutorials\n\n\ndocumentation\n\n\n\n\n\n\n\n\n\n\n\nFeb 5, 2024\n\n\n5 min\n\n\n\n\n\n\n\n\nNew governance, release with new features\n\n\n\n\n\n\n\ngovernance\n\n\nreleases\n\n\n\n\n\n\n\n\n\n\n\nJan 30, 2024\n\n\n4 min\n\n\n\n\n\n\n\n\nPiping data.tables\n\n\n\n\n\n\n\ntips\n\n\ntutorials\n\n\ndocumentation\n\n\nguest post\n\n\n\n\n\n\n\n\n\n\n\n\nJan 28, 2024\n\n\n5 min\n\n\n\n\n\n\n\n\nAnnouncement: Jan Gorecki, data.table Ambassador\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nambassadors\n\n\n\n\n\n\n\n\n\n\n\nJan 14, 2024\n\n\n2 min\n\n\n\n\n\n\n\n\nSummary of LatinR conference\n\n\n\n\n\n\n\nconferences\n\n\n\n\n\n\n\n\n\n\n\nNov 19, 2023\n\n\n3 min\n\n\n\n\n\n\n\n\nAnnouncement: The data.table Ambassadors Travel Grant\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nNov 1, 2023\n\n\n3 min\n\n\n\n\n\n\n\n\nAnnouncement: data.table translation projects\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\n4 min\n\n\n\n\n\n\n\n\nWelcome to the {data.table} ecosystem project!\n\n\nAn NSF-POSE funded venture.\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\n4 min\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "The Raft",
     "section": "",
-    "text": "Announcement: The data.table Ambassadors Travel Grant\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nNov 1, 2023\n\n\nKelly Bodwin\n\n\n\n\n\n\n  \n\n\n\n\nAnnouncement: data.table translation projects\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\n\n\n\n\n  \n\n\n\n\nWelcome to the {data.table} ecosystem project!\n\n\nAn NSF-POSE funded venture.\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\nToby Hocking\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "posts/2023-11-01-travel_grant_announcement-community_team/index.html",
-    "href": "posts/2023-11-01-travel_grant_announcement-community_team/index.html",
-    "title": "Announcement: The data.table Ambassadors Travel Grant",
-    "section": "",
-    "text": "We on the community team are very excited to announce another major funding opportunity!\nAs you may know, the National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One goal of this project is to better disseminate information about the development and progress of the data.table package.\nTo this end, applications are now open for the data.table Ambassadors Grant to fund conference travel for presentations related to data.table."
-  },
-  {
-    "objectID": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#ambassadors",
-    "href": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#ambassadors",
-    "title": "Announcement: The data.table Ambassadors Travel Grant",
-    "section": "Ambassadors",
-    "text": "Ambassadors\nIn order to become a funded ambassador, applicants must meet the following requirements:\n\nPresent a talk, poster, or tutorial at a relevant conference or meeting that is in some way related to the data.table package.\nWrite a blog post about the talk/presentation for The Raft.\n\nFunding is in the form of a flat $2700 stipend towards travel and registration expenses, to be paid upon completion of the presentation and blog post.\nThis program will fund up to 4 Ambassadors per year for the next three years. We are particularly interesting in facilitating travel for applicants who may not have as much opportunity; such as early-career researchers, or those from historically marginalized communities.\n\n\n\nThe data.table community is everywhere!"
-  },
-  {
-    "objectID": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#applying",
-    "href": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#applying",
-    "title": "Announcement: The data.table Ambassadors Travel Grant",
-    "section": "Applying",
-    "text": "Applying\n\nFill out the Google Form here to apply for the Ambassador Grant.\n\nYou will be asked to provide:\n\nInformation about your presentation:\n\nA max 1-page abstract for your proposed talk or workshop.\nA categorization of the talk: Is it a technical contribution to data.table or related packages? An applied use case for data.table in industry or education? A tutorial or workshop teaching data.table skills to attendees?\nThe conference or meeting at which your presentation has been accepted. (Presentations that are submitted, but not yet accepted, may apply; in exceptional cases, Grant funding may be offered conditional on acceptance.)\nA max 1-page statement addressing the following prompt: How does your proposed talk or presentation further the goals of the NSF-POSE Grant Program? How will it enhance the data.table community and ecosystem?\n\n\n\nPersonal Statements:\n\nA brief statement regarding your personal connection to the data.table community, and why you are motivated to become an Ambassador.\nOptionally, materials or links showing your prior work and connection to data.table.\nOptionally, your self-identification as a member of a historically marginalized community or an early-career researcher.\n\n\n\nWe can’t wait to hear from you!\n\n\n\n“Water” you waiting for? Apply now!"
-  },
-  {
-    "objectID": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#questions",
-    "href": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#questions",
-    "title": "Announcement: The data.table Ambassadors Travel Grant",
-    "section": "Questions",
-    "text": "Questions\nNot sure if you should apply? Wondering if there are still Ambassador slots left in the year? Email r.data.table@gmail.com with any and all questions!"
-  },
-  {
-    "objectID": "posts/2023-10-17-translation_announcement-toby_hocking/index.html",
-    "href": "posts/2023-10-17-translation_announcement-toby_hocking/index.html",
-    "title": "Announcement: data.table translation projects",
-    "section": "",
-    "text": "In 2023-2025, National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One of the goals of this project is to create translations from English to other languages, in order to make data.table more accessible."
-  },
-  {
-    "objectID": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#motivation-make-data.table-more-accessible",
-    "href": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#motivation-make-data.table-more-accessible",
-    "title": "Announcement: data.table translation projects",
-    "section": "Motivation: make data.table more accessible",
-    "text": "Motivation: make data.table more accessible\ndata.table is widely used (1400+ other R packages depend on it), so it is an essential part of the R data analysis ecosystem. One of the three goals of the NSF project is to create new documentation materials, to encourage a wider diversity of users and contributors (see the other post for an overview of project goals). In this project, an important part of the documentation efforts will be creating translations of data.table documentation, in languages other than English. The goal of this translation project is to make data.table easier and more accessible, for people who do not natively speak English.\nIn fact, data.table already has its source code strings (errors, warnings, etc) translated into Chinese, which is a good start. The goal of this project will be expanding the translations to other written materials (vignettes, slides, etc), as well as other languages with a substantial R user base. Based on a prior analysis by Michael Chirico, priority languages will include Chinese, Portuguese, Spanish, French, Russian, Arabic, Hindi."
-  },
-  {
-    "objectID": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#grant-supported-translations",
-    "href": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#grant-supported-translations",
-    "title": "Announcement: data.table translation projects",
-    "section": "Grant-supported translations",
-    "text": "Grant-supported translations\nThe types of materials that we would like to translate are:\n\nerrors/warnings/messages defined in strings in R and C code. These are referred to as “messages” in the terminology of gettext. The potools package by Michael Chirico can help create the files in the required format. Some method of continuous updating/maintenance will be encouraged, such as github, or the R project weblate.\nmost important vignettes (intro, import, reshape)\nother documentation (cheat sheets, slides, etc)\n\nOver the course of the NSF project (Sep 2023 to Aug 2025), there will be 20 translation awards, each US$500."
-  },
-  {
-    "objectID": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#how-to-apply",
-    "href": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#how-to-apply",
-    "title": "Announcement: data.table translation projects",
-    "section": "How to apply",
-    "text": "How to apply\nApplications should be submitted to toby.hocking@r-project.org, and should include the following information:\n\nwho is the project leader? Projects which include two or more people are encouraged, in order to proof-read translations, and ensure quality. The project leader should be a trusted member of the R community, who will be responsible for proof-reading and approving other project members’ translations.\nhow many people will be translating, and how many US$500 awards are you requesting?\nwhich non-English language?\nfor each person in your project, what level of fluency in English and other languages? for each person in your project, what local dialects (countries/regions) does the person know? (For Spanish, Mexico vs Spain vs Chile, etc)\nfor each person in your project, how many years using R and data.table?\nwhat documents/materials do you propose to translate? (messages/vignettes/other)\nwhat are your plans for ensuring that your translation is consistent with other R translations? (for example, base R messages, vignettes in other packages) In detail, there are several possible ways to translate any given text from English. For example, “computer” could be translated to Spanish as “ordinator” or “computador” or “computadora” but for consistency, only one of these should be used across all R documentation.\nhow will your translation project help create an expanded data.table ecosystem of users and contributors? You should make an argument that there are a large number of native speakers of your target language, using data such as in a prior analysis by Michael Chirico.\nafter the initial translation is complete, what is your plan for continued maintenance? In other words, when the corresponding English source files are updated on GitHub, what is your plan for being aware of those updates, and making corresponding updates of your translation, for a future release of data.table?\n\nApplications will be reviewed on a monthly basis, using the following criteria:\n\nWhat is the probability of success of this translation project, and its continued maintenace?\nWill this translation project help create an expanded ecosystem of users and contributors?"
+    "text": "The Benefits of data.table Syntax\n\n\n\n\n\n\n\ntips\n\n\ntutorials\n\n\ndocumentation\n\n\n\n\n\n\n\n\n\n\n\nFeb 5, 2024\n\n\nTyson Barrett\n\n\n\n\n\n\n  \n\n\n\n\nNew governance, release with new features\n\n\n\n\n\n\n\ngovernance\n\n\nreleases\n\n\n\n\n\n\n\n\n\n\n\nJan 30, 2024\n\n\nToby Dylan Hocking\n\n\n\n\n\n\n  \n\n\n\n\nPiping data.tables\n\n\n\n\n\n\n\ntips\n\n\ntutorials\n\n\ndocumentation\n\n\nguest post\n\n\n\n\n\n\n\n\n\n\n\n\nJan 28, 2024\n\n\nElio Campitelli\n\n\n\n\n\n\n  \n\n\n\n\nAnnouncement: Jan Gorecki, data.table Ambassador\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nambassadors\n\n\n\n\n\n\n\n\n\n\n\nJan 14, 2024\n\n\nKelly Bodwin\n\n\n\n\n\n\n  \n\n\n\n\nSummary of LatinR conference\n\n\n\n\n\n\n\nconferences\n\n\n\n\n\n\n\n\n\n\n\nNov 19, 2023\n\n\nToby Dylan Hocking\n\n\n\n\n\n\n  \n\n\n\n\nAnnouncement: The data.table Ambassadors Travel Grant\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nNov 1, 2023\n\n\nKelly Bodwin\n\n\n\n\n\n\n  \n\n\n\n\nAnnouncement: data.table translation projects\n\n\n\n\n\n\n\nannouncements\n\n\ngrant\n\n\nfunding opportunity\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\n\n\n\n\n  \n\n\n\n\nWelcome to the {data.table} ecosystem project!\n\n\nAn NSF-POSE funded venture.\n\n\n\n\nannouncements\n\n\ngrant\n\n\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\nToby Hocking\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/2023-10-15-intro_to_grant-toby_hocking/index.html",
@@ -98,10 +42,227 @@
     "text": "How you can get involved\nInterested in helping grow the data.table ecosystem? There are so many ways to get involved!\n\n\n\nSea lions say “R!” “R!” “R!”\n\n\n\nFollow us for updates on social media:\n\n\nMastodon: r_data_table@fosstodon.org\nBlueSky: rdatatable.bsky.social\nTwitter/X: r_data_table\n\n\nSubscribe to this blog, The Raft\nTake the Community Survey to weigh in on next steps.\nParticipate in the deep discussions on GitHub:\n\n\nWhat should be the structure of the formal governance document for the package?\nWhat are the core principles of the data.table package?\n\n\nEmail r.data.table@gmail.com to:\n\n\nBe added to the community Slack.\nPropose a guest blog for The Raft.\nAsk questions, make suggestions, or volunteer your expertise.\n\n\nApply for the upcoming Travel Grants and Translation Projects - watch this blog for more information!"
   },
   {
+    "objectID": "posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html",
+    "href": "posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html",
+    "title": "The Benefits of data.table Syntax",
+    "section": "",
+    "text": "Among the many reasons to use data.table in your code (which includes the more common answers of speed, memory efficiency, etc.) is the syntax. The syntax is\nIn this post, I’d like to show how these features are beneficial and useful in working with data regardless of the size of the data. To do this, I’ll use two packages:\nlibrary(data.table)\nlibrary(palmerpenguins)\nand we’ll create a data.table of the penguins data set (and a data.frame version for other examples):\ndt &lt;- as.data.table(penguins)\ndf &lt;- as.data.frame(penguins)\nThis post assumes some familiarity with data.table syntax but even if you are new to it, there is likely a lot of information that is quite useful for you."
+  },
+  {
+    "objectID": "posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html#concise",
+    "href": "posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html#concise",
+    "title": "The Benefits of data.table Syntax",
+    "section": "Concise",
+    "text": "Concise\nThe syntax ultimately is built around the concise dt[i, j, by] framework (built on the core functionality of data frames, see the R-centric section below). This syntax allows you to:\n\nSubset (“filter”) your data using the i argument.\n\n\n# Subset to only Adelie species\ndt[species == \"Adelie\"]\n\n     species    island bill_length_mm bill_depth_mm flipper_length_mm\n      &lt;fctr&gt;    &lt;fctr&gt;          &lt;num&gt;         &lt;num&gt;             &lt;int&gt;\n  1:  Adelie Torgersen           39.1          18.7               181\n  2:  Adelie Torgersen           39.5          17.4               186\n  3:  Adelie Torgersen           40.3          18.0               195\n  4:  Adelie Torgersen             NA            NA                NA\n  5:  Adelie Torgersen           36.7          19.3               193\n ---                                                                 \n148:  Adelie     Dream           36.6          18.4               184\n149:  Adelie     Dream           36.0          17.8               195\n150:  Adelie     Dream           37.8          18.1               193\n151:  Adelie     Dream           36.0          17.1               187\n152:  Adelie     Dream           41.5          18.5               201\n     body_mass_g    sex  year\n           &lt;int&gt; &lt;fctr&gt; &lt;int&gt;\n  1:        3750   male  2007\n  2:        3800 female  2007\n  3:        3250 female  2007\n  4:          NA   &lt;NA&gt;  2007\n  5:        3450 female  2007\n ---                         \n148:        3475 female  2009\n149:        3450 female  2009\n150:        3750   male  2009\n151:        3700 female  2009\n152:        4000   male  2009\n\n\nOther ways to do this include the more redundant base R approach\n\ndf[df$species == \"Adele\"]\n\ndata frame with 0 columns and 344 rows\n\n\nand the more verbose approach in the tidyverse.\n\nlibrary(tidyverse)\ndf %&gt;% \n  filter(species == \"Adele\")\n\n\nMutate or transform your variables using the j argument. Note that the use of := mutates in place so no need for other assignment (e.g., &lt;-).\n\n\n# change body_mass_g to pounds\ndt[, body_mass_lbs := body_mass_g*0.00220462]\n\n\n\n       species body_mass_lbs\n        &lt;fctr&gt;         &lt;num&gt;\n  1:    Adelie      8.267325\n  2:    Adelie      8.377556\n  3:    Adelie      7.165015\n  4:    Adelie            NA\n  5:    Adelie      7.605939\n ---                        \n340: Chinstrap      8.818480\n341: Chinstrap      7.495708\n342: Chinstrap      8.322441\n343: Chinstrap      9.038942\n344: Chinstrap      8.322441\n\n\nWe could also do this in base R a number of ways, all of which are more redundant:\n\ndf$body_mass_lbs &lt;- df$body_mass_g*0.00220462\ndf[, \"body_mass_lbs\"] &lt;- df[, \"body_mass_g\"]*0.00220462\ndf[[\"body_mass_lbs\"]] &lt;- df[[\"body_mass_g\"]]*0.00220462\n\n\nDo all sorts of data work on groups using the by argument.\n\n\n# create a new variable that is the average of the body mass by species\ndt[, avg_mass_lbs := mean(body_mass_lbs, na.rm=TRUE), by = sex]\n\n\n\n       species    sex avg_mass_lbs\n        &lt;fctr&gt; &lt;fctr&gt;        &lt;num&gt;\n  1:    Adelie   male    10.021507\n  2:    Adelie female     8.514844\n  3:    Adelie female     8.514844\n  4:    Adelie   &lt;NA&gt;     8.830728\n  5:    Adelie female     8.514844\n ---                              \n340: Chinstrap   male    10.021507\n341: Chinstrap female     8.514844\n342: Chinstrap   male    10.021507\n343: Chinstrap   male    10.021507\n344: Chinstrap female     8.514844\n\n\nThis is more difficult, but possible, in base R to get a summary and add it to the existing data.frame:\n\ntapply(df$body_mass_lbs, df$sex, mean, na.rm=TRUE) # doesn't keep all rows\n\n# does keep all rows but complicated code\ndf &lt;- \n  by(df, INDICES = df$sex,                           \n     FUN = function(x){\n       x$avg_mass_lbs &lt;- mean(x$body_mass_lbs)\n       return(x)\n  })\ndf &lt;- do.call(\"rbind\", df)\n\nand can definitely be done in the tidyverse.\n\ndf &lt;- df %&gt;% \n  group_by(sex) %&gt;% \n  mutate(avg_mass_lbs = mean(body_mass_lbs, na.rm=TRUE)) %&gt;% \n  ungroup()\n\nIn each example, you can see a lot of work can be done in a single line of code with minimal redundancy. Although in each situation base R and tidyverse equivalents exist (often with a lot of powerful flexibility in the tidyverse approaches), the concise nature of data.table syntax can make writing and reading the code quicker."
+  },
+  {
+    "objectID": "posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html#predictable",
+    "href": "posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html#predictable",
+    "title": "The Benefits of data.table Syntax",
+    "section": "Predictable",
+    "text": "Predictable\nThe syntax is naturally predictable without being verbose. For instance, whenever you use :=, it’s going to keep the same shape as the current data (“mutate”) while the use of .(var = fun(x)) will summarize to the fewest number of rows appropriate (1 row for non-grouped expressions and x rows for x number of unique groups).\nTo get an idea of how this predictability manifests in the code, we’ll use an example. Here, we can grab the average bill length by sex. We could do this two ways. The first is mutating in place where the data do not change size or shape. Note, the .() function is shorthand for list().\n\ndt[, avg_bill_length := mean(bill_length_mm, na.rm=TRUE), by = sex]\n\nThis gives us a new variable in the original data.\n\n\n       species    sex avg_bill_length\n        &lt;fctr&gt; &lt;fctr&gt;           &lt;num&gt;\n  1:    Adelie   male        45.85476\n  2:    Adelie female        42.09697\n  3:    Adelie female        42.09697\n  4:    Adelie   &lt;NA&gt;        41.30000\n  5:    Adelie female        42.09697\n ---                                 \n340: Chinstrap   male        45.85476\n341: Chinstrap female        42.09697\n342: Chinstrap   male        45.85476\n343: Chinstrap   male        45.85476\n344: Chinstrap female        42.09697\n\n\nHowever, sometimes we just want the data summarized. We can use the syntax below for that (notice no :=).\n\ndt[, .(avg_bill_length = mean(bill_length_mm, na.rm=TRUE)), by = sex]\n\n      sex avg_bill_length\n   &lt;fctr&gt;           &lt;num&gt;\n1:   male        45.85476\n2: female        42.09697\n3:   &lt;NA&gt;        41.30000\n\n\nWe can always assign this so we can access it later.\n\navg_bill &lt;- dt[, .(avg_bill_length = mean(bill_length_mm, na.rm=TRUE)), by = sex]\n\nOne way data.table makes the code predictable is that the data operations happen all within the square brackets without lingering attributes that may produce surprising results. That is, whatever I put in the brackets will be run together and then done. For example, I may have several grouping variables that I use to modify some variables, and only do it for a subset of the data.\n\ndt[species == \"Adelie\", max_bill := max(bill_length_mm, na.rm=TRUE), by = .(species, sex)]\n\nThe new variable max_bill is made for the data but is only applicable to the Adelie species and is done by both species as sex. Once this operation is done, the grouping variables are just normal variables again and we still have access to the full data.\n\n\n       species    sex max_bill\n        &lt;fctr&gt; &lt;fctr&gt;    &lt;num&gt;\n  1:    Adelie   male     46.0\n  2:    Adelie female     42.2\n  3:    Adelie female     42.2\n  4:    Adelie   &lt;NA&gt;     42.0\n  5:    Adelie female     42.2\n ---                          \n340: Chinstrap   male       NA\n341: Chinstrap female       NA\n342: Chinstrap   male       NA\n343: Chinstrap   male       NA\n344: Chinstrap female       NA"
+  },
+  {
+    "objectID": "posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html#r-centric",
+    "href": "posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html#r-centric",
+    "title": "The Benefits of data.table Syntax",
+    "section": "R-centric",
+    "text": "R-centric\nAll of the main functionality in data.table is structured around vectors, lists, and (a modified form) of data frames. These core structures in R can be seeing throughout the syntax and design of the package. Even the dt[i, j, by] syntax is designed to mirror (and simplify) data frames. For new users, this can be particularly useful: no additional data structures are needed to work with the data and do both simple and complicated data operations."
+  },
+  {
+    "objectID": "posts/2023-11-01-travel_grant_announcement-community_team/index.html",
+    "href": "posts/2023-11-01-travel_grant_announcement-community_team/index.html",
+    "title": "Announcement: The data.table Ambassadors Travel Grant",
+    "section": "",
+    "text": "We on the community team are very excited to announce another major funding opportunity!\nAs you may know, the National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One goal of this project is to better disseminate information about the development and progress of the data.table package.\nTo this end, applications are now open for the data.table Ambassadors Grant to fund conference travel for presentations related to data.table."
+  },
+  {
+    "objectID": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#ambassadors",
+    "href": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#ambassadors",
+    "title": "Announcement: The data.table Ambassadors Travel Grant",
+    "section": "Ambassadors",
+    "text": "Ambassadors\nIn order to become a funded ambassador, applicants must meet the following requirements:\n\nPresent a talk, poster, or tutorial at a relevant conference or meeting that is in some way related to the data.table package.\nWrite a blog post about the talk/presentation for The Raft.\n\nFunding is in the form of a flat $2700 stipend towards travel and registration expenses, to be paid upon completion of the presentation and blog post.\nThis program will fund up to 4 Ambassadors per year for the next three years. We are particularly interesting in facilitating travel for applicants who may not have as much opportunity; such as early-career researchers, or those from historically marginalized communities.\n\n\n\nThe data.table community is everywhere!"
+  },
+  {
+    "objectID": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#applying",
+    "href": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#applying",
+    "title": "Announcement: The data.table Ambassadors Travel Grant",
+    "section": "Applying",
+    "text": "Applying\n\nFill out the Google Form here to apply for the Ambassador Grant.\n\nYou will be asked to provide:\n\nInformation about your presentation:\n\nA max 1-page abstract for your proposed talk or workshop.\nA categorization of the talk: Is it a technical contribution to data.table or related packages? An applied use case for data.table in industry or education? A tutorial or workshop teaching data.table skills to attendees?\nThe conference or meeting at which your presentation has been accepted. (Presentations that are submitted, but not yet accepted, may apply; in exceptional cases, Grant funding may be offered conditional on acceptance.)\nA max 1-page statement addressing the following prompt: How does your proposed talk or presentation further the goals of the NSF-POSE Grant Program? How will it enhance the data.table community and ecosystem?\n\n\n\nPersonal Statements:\n\nA brief statement regarding your personal connection to the data.table community, and why you are motivated to become an Ambassador.\nOptionally, materials or links showing your prior work and connection to data.table.\nOptionally, your self-identification as a member of a historically marginalized community or an early-career researcher.\n\n\n\nWe can’t wait to hear from you!\n\n\n\n“Water” you waiting for? Apply now!"
+  },
+  {
+    "objectID": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#questions",
+    "href": "posts/2023-11-01-travel_grant_announcement-community_team/index.html#questions",
+    "title": "Announcement: The data.table Ambassadors Travel Grant",
+    "section": "Questions",
+    "text": "Questions\nNot sure if you should apply? Wondering if there are still Ambassador slots left in the year? Email r.data.table@gmail.com with any and all questions!"
+  },
+  {
+    "objectID": "posts/2024-01-14-ambassador_gorecki-community_team/index.html",
+    "href": "posts/2024-01-14-ambassador_gorecki-community_team/index.html",
+    "title": "Announcement: Jan Gorecki, data.table Ambassador",
+    "section": "",
+    "text": "A round of applause!\n\n\nJan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the data.table package. You can find his great work in open-source development at github.com/jangorecki. Find him on Mastodon at fosstodon.org/@jangorecki to say congratulations, or chat about all things data.table."
+  },
+  {
+    "objectID": "posts/2024-01-14-ambassador_gorecki-community_team/index.html#please-join-me-in-congratulting-our-first-ever-data.table-ambassador-jan-gorecki",
+    "href": "posts/2024-01-14-ambassador_gorecki-community_team/index.html#please-join-me-in-congratulting-our-first-ever-data.table-ambassador-jan-gorecki",
+    "title": "Announcement: Jan Gorecki, data.table Ambassador",
+    "section": "",
+    "text": "A round of applause!\n\n\nJan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the data.table package. You can find his great work in open-source development at github.com/jangorecki. Find him on Mastodon at fosstodon.org/@jangorecki to say congratulations, or chat about all things data.table."
+  },
+  {
+    "objectID": "posts/2024-01-14-ambassador_gorecki-community_team/index.html#talks",
+    "href": "posts/2024-01-14-ambassador_gorecki-community_team/index.html#talks",
+    "title": "Announcement: Jan Gorecki, data.table Ambassador",
+    "section": "Talks",
+    "text": "Talks\nAs part of his Ambassador role, Jan will be giving three exciting talks this year:\n\nRolling statistics and moving windows in Edinburgh on January 26th, with the Edinburgh R Users group.\n\nRolling statistics are an interesting topic for optimizations, therefore in my talk I will use R language to present naive implementation, and the optimized implementation, on a simple case of rolling mean. Then I will move to data.table implementations of rolling statistics explaining possible optimizations in other functions, which are not that straightforward anymore, like min/max and, actually very complex, median. Finally benchmarks will be presented comparing data.table implementations to base R, pandas, polars, slider/dplyr, duckdb and spark.\n\n\n\nHigh-productivity data frame operations with data.table on February 8th in Sevilla, Spain with the Sevilla R Users group\n\n\n\nTalk with SevillaR\n\n\nRegister to watch online here\n\n\nThe Spanish R Conference in Sevilla, Spain. (Date and topic TBD)\nWe look forward to Jan’s excellent talks, and a forthcoming blog post right here on The Raft to share his experiences - and of course, his continued wonderful contributions to the data.table community. Thank you, Jan!"
+  },
+  {
+    "objectID": "posts/2024-01-14-ambassador_gorecki-community_team/index.html#become-an-ambassador",
+    "href": "posts/2024-01-14-ambassador_gorecki-community_team/index.html#become-an-ambassador",
+    "title": "Announcement: Jan Gorecki, data.table Ambassador",
+    "section": "Become an Ambassador",
+    "text": "Become an Ambassador\nDo you have ideas for talks about data.table? Do you want to be part of this new community movement? Apply now for the data.table Ambassadors Grant to fund conference travel for presentations related to data.table. More details on the Ambassadors program at this blog post, and more details on the grant project itself are here.\nQuestions? Email r.data.table@gmail.com with any and all questions!"
+  },
+  {
+    "objectID": "posts/2024-01-30-new_governance_new_release-toby_hocking/index.html",
+    "href": "posts/2024-01-30-new_governance_new_release-toby_hocking/index.html",
+    "title": "New governance, release with new features",
+    "section": "",
+    "text": "I am proud to report that today, the first major new data.table features in several years have been released to CRAN!\nThis new release, version 1.15.0, is remarkable because it is the first new feature release using the new community governance, which was adopted last month.\nHere is a brief timeline of the recent activities."
+  },
+  {
+    "objectID": "posts/2024-01-30-new_governance_new_release-toby_hocking/index.html#governance-discussion",
+    "href": "posts/2024-01-30-new_governance_new_release-toby_hocking/index.html#governance-discussion",
+    "title": "New governance, release with new features",
+    "section": "Governance discussion",
+    "text": "Governance discussion\n[An ongoing discussion]{https://images.edrawmax.com/examples/blank-timeline-template/timeline7.png}\nIn Aug 2023, I started a discussion in issue#5676 about the process and goal of creating a formal governance document. 17 people commented on that issue, and the consensus was to publish a first draft community governance document in Nov 2023. Discussion in related issues included:\n\nWhat are the guiding principles of the project? issue#5693\nWhat is within scope for features? issue#5722\nWhat roles/permissions should we define, and how can people obtain them? My proposal.\nWhat conventions should we use for version numbers? issue#5715\nWhat code of conduct should we adopt? issue#5708\nWhat communication should we expect between the CRAN maintainer and the rest of the dev team? issue#5714\n\nAt first, it was not clear that commenters on that issue would agree to adopt a community governance structure, out of respect for the original creator, Matt Dowle, who had not yet expressed his approval of the process. However, that changed on 11 Sep 2023, when I posted Matt’s letters of collaboration that he signed in support of my NSF POSE project (after I asked Matt over email, and he agreed that I post them publicly). After that, there was a much stronger support of the proposed process."
+  },
+  {
+    "objectID": "posts/2024-01-30-new_governance_new_release-toby_hocking/index.html#governance-draft-and-adoption",
+    "href": "posts/2024-01-30-new_governance_new_release-toby_hocking/index.html#governance-draft-and-adoption",
+    "title": "New governance, release with new features",
+    "section": "Governance draft and adoption",
+    "text": "Governance draft and adoption\n\n\n\nGovernor Sea Lion\n\n\nAfter much discussion in the above linked issues, I published an initial draft of the governance document on 27 Nov 2023 in PR#5772. That PR was extensively reviewed by four of the current/active contributors: Michael Chirico, Jan Gorecki, Tyson Barrett and Ben Schwendinger After several rounds of comments and revisions, Jan merged the PR on 14 Dec 2023, which signaled the official adoption of the new governance of the project. It can be viewed in the GOVERNANCE.md file in the git repo.\nImportantly, the new governance defines five roles for people involved in the project:\n Contributor: Any member of the public at large who participates in issue discussions, code reviews, or pull requests for data.table.\n Project member: Anyone who has contributed a substantial accepted update - whether technical or documentation based - to data.table.\n Reviewer: A project member who volunteers to help review other contributions.\n Committer: Given merge permissions on main GitHub branch; responsible for reviewing and incorporating updates. Currently: myself, Jan, and Michael.\nCRAN maintainer: Responsible for organizing new releases on GitHub and CRAN. Currently Tyson Barrett.\nInterestingly, CRAN maintainer and Committer permissions are largely orthogonal, and in fact Tyson does not currently have the Committer role permissions.\nAny of these roles is possible to obtain, using the process described in the governance document. If you are at all interested, we could definitely use your help! Please get in contact by commenting on issues/PRs on GitHub."
+  },
+  {
+    "objectID": "posts/2024-01-30-new_governance_new_release-toby_hocking/index.html#release-1.15.0-with-new-features",
+    "href": "posts/2024-01-30-new_governance_new_release-toby_hocking/index.html#release-1.15.0-with-new-features",
+    "title": "New governance, release with new features",
+    "section": "Release 1.15.0 with new features",
+    "text": "Release 1.15.0 with new features\n\n\n\nThe new measure function\n\n\nAs outlined in the governance document, section CRAN updates, each release should be discussed and approved by consensus in an issue. The issue that we used for this 1.15.0 release is issue#5823. As can be seen in the NEWS.md file, this new release includes 20 NOTES, 55 BUG FIXES, and 41 NEW FEATURES, and 1 BREAKING CHANGE. Among the new features, I am most excited about one that I implemented: the new measure() function, which makes it easier to do complex wide-to-long reshape operations, as below:\n\nlibrary(data.table)\n(iris.dt &lt;- data.table(iris)[1])\n\n   Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n          &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;  &lt;fctr&gt;\n1:          5.1         3.5          1.4         0.2  setosa\n\nmelt(iris.dt, measure.vars=measure(part, dim, sep=\".\"))\n\n   Species   part    dim value\n    &lt;fctr&gt; &lt;char&gt; &lt;char&gt; &lt;num&gt;\n1:  setosa  Sepal Length   5.1\n2:  setosa  Sepal  Width   3.5\n3:  setosa  Petal Length   1.4\n4:  setosa  Petal  Width   0.2\n\nmelt(iris.dt, measure.vars=measure(value.name, dim, sep=\".\"))\n\n   Species    dim Sepal Petal\n    &lt;fctr&gt; &lt;char&gt; &lt;num&gt; &lt;num&gt;\n1:  setosa Length   5.1   1.4\n2:  setosa  Width   3.5   0.2"
+  },
+  {
+    "objectID": "posts/2024-01-30-new_governance_new_release-toby_hocking/index.html#outlook-for-the-future",
+    "href": "posts/2024-01-30-new_governance_new_release-toby_hocking/index.html#outlook-for-the-future",
+    "title": "New governance, release with new features",
+    "section": "Outlook for the future",
+    "text": "Outlook for the future\nSince adopting the community governance document, there has been a lot of new activity on GitHub, and I am looking forward to seeing even more in the months to come. For example, now that we have adopted a code of conduct, we are eligible to apply for NumFOCUS funding, see discussion in issue#5676. Finally, if you use data.table, and are interested to contribute toward our next release, we could use your help, so please contact us in an issue/PR."
+  },
+  {
+    "objectID": "posts/2023-10-17-translation_announcement-toby_hocking/index.html",
+    "href": "posts/2023-10-17-translation_announcement-toby_hocking/index.html",
+    "title": "Announcement: data.table translation projects",
+    "section": "",
+    "text": "In 2023-2025, National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One of the goals of this project is to create translations from English to other languages, in order to make data.table more accessible."
+  },
+  {
+    "objectID": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#motivation-make-data.table-more-accessible",
+    "href": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#motivation-make-data.table-more-accessible",
+    "title": "Announcement: data.table translation projects",
+    "section": "Motivation: make data.table more accessible",
+    "text": "Motivation: make data.table more accessible\ndata.table is widely used (1400+ other R packages depend on it), so it is an essential part of the R data analysis ecosystem. One of the three goals of the NSF project is to create new documentation materials, to encourage a wider diversity of users and contributors (see the other post for an overview of project goals). In this project, an important part of the documentation efforts will be creating translations of data.table documentation, in languages other than English. The goal of this translation project is to make data.table easier and more accessible, for people who do not natively speak English.\nIn fact, data.table already has its source code strings (errors, warnings, etc) translated into Chinese, which is a good start. The goal of this project will be expanding the translations to other written materials (vignettes, slides, etc), as well as other languages with a substantial R user base. Based on a prior analysis by Michael Chirico, priority languages will include Chinese, Portuguese, Spanish, French, Russian, Arabic, Hindi."
+  },
+  {
+    "objectID": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#grant-supported-translations",
+    "href": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#grant-supported-translations",
+    "title": "Announcement: data.table translation projects",
+    "section": "Grant-supported translations",
+    "text": "Grant-supported translations\nThe types of materials that we would like to translate are:\n\nerrors/warnings/messages defined in strings in R and C code. These are referred to as “messages” in the terminology of gettext. The potools package by Michael Chirico can help create the files in the required format. Some method of continuous updating/maintenance will be encouraged, such as github, or the R project weblate.\nmost important vignettes (intro, import, reshape)\nother documentation (cheat sheets, slides, etc)\n\nOver the course of the NSF project (Sep 2023 to Aug 2025), there will be 20 translation awards, each US$500."
+  },
+  {
+    "objectID": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#how-to-apply",
+    "href": "posts/2023-10-17-translation_announcement-toby_hocking/index.html#how-to-apply",
+    "title": "Announcement: data.table translation projects",
+    "section": "How to apply",
+    "text": "How to apply\nApplications should be submitted to toby.hocking@r-project.org, and should include the following information:\n\nwho is the project leader? Projects which include two or more people are encouraged, in order to proof-read translations, and ensure quality. The project leader should be a trusted member of the R community, who will be responsible for proof-reading and approving other project members’ translations.\nhow many people will be translating, and how many US$500 awards are you requesting?\nwhich non-English language?\nhow many regional dialects are represented on your team? For example, Spanish dialects: Mexican, Chilean, etc.\nfor each person in your project, how many years using R and data.table?\nwhat documents/materials do you propose to translate? (messages/vignettes/other)\nwhat is your proposed timeline for completing the translation of these documents/materials?\nwhat are your plans for ensuring that your translation is consistent with other R translations? (for example, base R messages, vignettes in other packages) In detail, there are several possible ways to translate any given text from English. For example, “computer” could be translated to Spanish as “ordinator” or “computador” or “computadora” but for consistency, only one of these should be used across all R documentation.\nafter the initial translation is complete, what is your plan for continued maintenance? In other words, when the corresponding English source files are updated on GitHub, what is your plan for being aware of those updates, and making corresponding updates of your translation, for a future release of data.table?\nhow will your translation project help create an expanded data.table ecosystem of users and contributors? You should make an argument that there are a large number of native speakers of your target language, using data such as in a prior analysis by Michael Chirico.\n\nApplications will be reviewed on a monthly basis, using the following criteria:\n\nWhat is the probability of success of this translation project, and its continued maintenace?\nWill this translation project help create an expanded ecosystem of users and contributors?"
+  },
+  {
+    "objectID": "posts/2024-01-28-piping_data_tables-elio_campitelli/index.html",
+    "href": "posts/2024-01-28-piping_data_tables-elio_campitelli/index.html",
+    "title": "Piping data.tables",
+    "section": "",
+    "text": "Like a devoted plumber, modern R loves pipes. The magrittr pipe has a long history and it’s fair share of detractors, but with the implementation of the native pipe operator released in May 2021 it’s clear that chaining operations is now part of R vernacular.\nSo it’s no surprise that people often wonder how can you use pipes with data.table, as one participant of the recent data.table tutorial during LatinR 2023. The surprising answer is that data.table has supported pipelines since its inception in 2006. Furthermore, you can easily use either the magrittr or native pipes."
+  },
+  {
+    "objectID": "posts/2024-01-28-piping_data_tables-elio_campitelli/index.html#the-data.table-pipe",
+    "href": "posts/2024-01-28-piping_data_tables-elio_campitelli/index.html#the-data.table-pipe",
+    "title": "Piping data.tables",
+    "section": "The data.table “pipe”",
+    "text": "The data.table “pipe”\nInstead of passing data to functions, data.table syntax is all about operating inside the [ operator1 .\n \n\nDT[rows, columns, by]\n\n\nWhere DT is a data.table object, the rows argument is used for filtering and joining operations, the columns argument can summarise and mutate, and the by argument defines the groups to which to apply these operations.\nSo, to get only Chinstrap penguins from the penguins dataset, instead of using base::subset() or dplyr::filter() you would do\n\npenguins_chinstrap &lt;- penguins[species == \"Chinstrap\"]\n\nOr, to get the mean mean flipper length of these penguins for each island and sex, you could summarise the data like this:\n\npenguins_chinstrap[, .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island)]\n\nBut because the output of the first operation is a data.table, you can add another [ operator after the first to chain both operations:\n\npenguins[species == \"Chinstrap\"][, .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island)]\n\nI usually call this the ][ pipe.\nYou might have noticed that for just two operations, this line of code is already too long, so for even moderately long chains it’s usually advisable to put each operation in its own line. There’s some controversy on how to break the ][ pipe into lines and indent it. One option is to add a new line after the second [, which has the advantage of actually writing the ][ pipe explicitly.\n\npenguins[species == \"Chinstrap\" ][\n  , .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island)]\n\nA second options is to add the new line before the end of the first operation like so:\n\npenguins[species == \"Chinstrap\" \n       ][ , .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island)]\n\nPersonally, I don’t like this syntax very much. No matter how you slice it, you always get what feels to me as incomplete lines. Also, RStudio doesn’t correctly indent the second syntax automatically.\nAlternatively, the ][ pipe can go in its own line like so:\n\npenguins[species == \"Chinstrap\" \n][ \n  , .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island)\n]\n\nThis is indented correctly by RStudio and has the advantage of making easy to comment out each individual step:\n\npenguins[species == \"Chinstrap\" \n][ \n  # , .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island)\n]"
+  },
+  {
+    "objectID": "posts/2024-01-28-piping_data_tables-elio_campitelli/index.html#data.table-and-magrittr",
+    "href": "posts/2024-01-28-piping_data_tables-elio_campitelli/index.html#data.table-and-magrittr",
+    "title": "Piping data.tables",
+    "section": "data.table and magrittr",
+    "text": "data.table and magrittr\nUntil the introduction of the native pipe, I used to write long data.table pipelines using magrittr. To do this, I took advantage of the . placeholder which, within a magrittr pipe, refers to the result of the previous step.\n\nlibrary(magrittr)\n\npenguins[species == \"Chinstrap\"] %&gt;%\n  .[ , .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island)]\n\nI really like this syntax as it’s very clean. Each line of code is a complete operation without dangling parts and it’s easy to comment out single steps.\nThe only downside is that the dot here has two meanings: as the placeholder for the previous result in .[, and as an alias for list in .(mean_flipper_length = mean(flipper_length_mm)). It’s not a huge issue, though, since I tend to read .[ as a single entity, but it can trip up some people."
+  },
+  {
+    "objectID": "posts/2024-01-28-piping_data_tables-elio_campitelli/index.html#using-the-native-pipe",
+    "href": "posts/2024-01-28-piping_data_tables-elio_campitelli/index.html#using-the-native-pipe",
+    "title": "Piping data.tables",
+    "section": "Using the native pipe",
+    "text": "Using the native pipe\nThe native pipe at first didn’t have a placeholder and it didn’t chaining to [, so this so the above syntax wasn’t directly applicable. But you could cheat by creating an alias for [ and use that alias as a regular function. So this works:\n\nDT &lt;- `[`\n\npenguins[species == \"Chinstrap\"] |&gt; \n  DT( , .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island))\n\nThis worked so well that data.table officially added the DT() function (currently only in the development version), so if you’re using the latest development version you don’t even need the first line2.\nThis syntax is fine but I don’t like that I need ro write one more character and the closing character being a ) can get confusing because it adds to the closing ) that you usually have in the by argument.\nFrom R 4.3.0 onwards, the native pipe supports a _ placeholder to the right-hand side fo the pipe. So now the magrittr syntax can be directly translated to\n\npenguins[species == \"Chinstrap\"] |&gt; \n  _[ , .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island)]\n\nI like this syntax even more than the original magrittr one because it solves the double meaning problem and operations get hugged by a pair of brackets."
+  },
+  {
+    "objectID": "posts/2024-01-28-piping_data_tables-elio_campitelli/index.html#the-four-pipes-of-data.table",
+    "href": "posts/2024-01-28-piping_data_tables-elio_campitelli/index.html#the-four-pipes-of-data.table",
+    "title": "Piping data.tables",
+    "section": "The four pipes of data.table",
+    "text": "The four pipes of data.table\nSo, there you are, 4 different ways you can pipe your data.tables.\nUse the ][ pipe if you want your code to have minimal dependencies and work in older versions of R. Use the %&gt;% pipe if you want your code to work in older versions of R and don’t mind the extra dependency. Use any version of the |&gt; pipe if you want minimal dependencies and don’t mind depending on R &gt;= 4.3.0.\n\npenguins[species == \"Chinstrap\" ][\n  , .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island)]\n\npenguins[species == \"Chinstrap\"] %&gt;%\n  .[ , .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island)]\n\npenguins[species == \"Chinstrap\"] |&gt; \n  DT( , .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island))\n\npenguins[species == \"Chinstrap\"] |&gt; \n  _[ , .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island)]\n\nImage by storyset on Freepik"
+  },
+  {
+    "objectID": "posts/2024-01-28-piping_data_tables-elio_campitelli/index.html#footnotes",
+    "href": "posts/2024-01-28-piping_data_tables-elio_campitelli/index.html#footnotes",
+    "title": "Piping data.tables",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nTechnically, the [ operator is itself a function, but the syntax is not function-like.↩︎\nThis function also allows the user to use data.table syntax to data.frames and tibbles retaining the class of the output.↩︎"
+  },
+  {
+    "objectID": "posts/2023-11-19-LatinR_summary-toby_hocking/index.html",
+    "href": "posts/2023-11-19-LatinR_summary-toby_hocking/index.html",
+    "title": "Summary of LatinR conference",
+    "section": "",
+    "text": "Last month, I (Toby) went to the LatinR conference in Montevideo, Uruguay. I had two goals: to teach about data.table in a tutorial, and to find people to work on translations."
+  },
+  {
+    "objectID": "posts/2023-11-19-LatinR_summary-toby_hocking/index.html#tutorial-about-data.table",
+    "href": "posts/2023-11-19-LatinR_summary-toby_hocking/index.html#tutorial-about-data.table",
+    "title": "Summary of LatinR conference",
+    "section": "Tutorial about data.table",
+    "text": "Tutorial about data.table\nI presented a tutorial on the first day of the LatinR meeting, to an audience of about 50 students.\n\n\n\nPhoto from the LatinR data.table tutorial\n\n\nThe google slides that I used are online, and I also created a GitHub repo with the source files that I used for creating the figures in the slides. During the talk, Elio Campitelli and Paola Corrales were there to help people in the audience with individual/technical questions (for example, installation of data.table from github master was difficult for some people using windows). I did not have enough time to do all of the exercises, but I did spend about 10 minutes at the end of my talk, to invite people to participate in the translation projects and travel awards.\nOne of the students in the audience was Mara Destefanis, who said she was very interested to participate in the translation project. In fact, since the conference, she has sent me several emails, updating me about a Spanish translation of my tutorial slides."
+  },
+  {
+    "objectID": "posts/2023-11-19-LatinR_summary-toby_hocking/index.html#translation-workshop",
+    "href": "posts/2023-11-19-LatinR_summary-toby_hocking/index.html#translation-workshop",
+    "title": "Summary of LatinR conference",
+    "section": "Translation workshop",
+    "text": "Translation workshop\nDuring the conference, there was a translation workshop.\n\n\n\nPhoto from the LatinR translation workshop\n\n\nI learned that there has been a lot of progress recently, about translations in R.\n\nDuring the R project sprint in summer 2023, there was an effort to crowdsource translations of messages, using a new weblate server for R.\nElio Campitelli proposed a R Consortium project about translating Rd pages. Currently, there is only one Rd page for help on any given topic, and it is possible in theory to write an Rd page in multiple languages, but in practice most are in English only.\nNestor Montano told me that he recorded an online workshop about data.table, in Spanish! Slides, Youtube.\nRiva Quiroga told me about the R Para Ciencia de Datos project, which is a Spanish translation of the popular R for Data Science online textbook (an important reference about tidyverse). Part of that project involved creating new data sets in the datos package, with column names and man pages translated to Spanish. For example vuelos.rd is the man page for the translated version of flights data. Riva told me about her experience leading this translation project. For our NSF data.table project, she suggested several important criteria to consider, that I had not written in my original call for translation projects. After discussing with her, I wrote a PR to revise and improve the call for translation projects.\n\nOverall I felt that going to LatinR was a very worthwhile experience, because of the successful outreach in my tutorial, and the great networking at the translation workshop."
+  },
+  {
+    "objectID": "posts/2023-11-19-LatinR_summary-toby_hocking/index.html#communcations-since-then",
+    "href": "posts/2023-11-19-LatinR_summary-toby_hocking/index.html#communcations-since-then",
+    "title": "Summary of LatinR conference",
+    "section": "Communcations since then",
+    "text": "Communcations since then\nSince then, I have been in email contact with several people who have expressed interest in the data.table translation project.\n\nFor Spanish, Riva Quiroga (Chile) told me that she would like to lead, with several other people who expressed interest to participate: Nati Labadie (Argentina), Andrea Gomez Vargas (Colombia), Emanuel Ciardullo (Argentina), Nestor Montano (Ecuador), Mara Destefanis (Uruguay), …\nFor French, Philippe Grojean told me that he would be interested to lead, and submit an application in the next few months.\nFor Portuguese, Leonardo Ferreira Fontenelle told me that he would be interested to lead, and submit an application soon.\n\nI look forward to seeing these projects develop in the coming months!"
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "This blog is dedicated to building the community around the data.table R package. Its startup is funded by NSF-POSE Grant called “Expanding the data.table ecosystem for efficient big data manipulation in R”. Here you will find announcements related to the grant, as well as tips, updates, and tutorials for data.table and its sister packages.\nBlog managed by Kelly Bodwin, Tyson Barrett, and Toby Hocking. Email us at r.data.table@gmail.com.\n\n\n\n\n\n\n  \n\n\n\n\nAnnouncement: The data.table Ambassadors Travel Grant\n\n\n\n\n\n\n\n\n\n\n\nNov 1, 2023\n\n\nKelly Bodwin\n\n\n\n\n\n\n  \n\n\n\n\nAnnouncement: data.table translation projects\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\n\n\n\n\n  \n\n\n\n\nWelcome to the {data.table} ecosystem project!\n\n\nAn NSF-POSE funded venture.\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\nToby Hocking\n\n\n\n\n\n\nNo matching items"
+    "text": "This blog is dedicated to building the community around the data.table R package. Its startup is funded by NSF-POSE Grant called “Expanding the data.table ecosystem for efficient big data manipulation in R”. Here you will find announcements related to the grant, as well as tips, updates, and tutorials for data.table and its sister packages.\nBlog managed by Kelly Bodwin, Tyson Barrett, and Toby Hocking. Email us at r.data.table@gmail.com.\n\n\n\n\n\n\n  \n\n\n\n\nThe Benefits of data.table Syntax\n\n\n\n\n\n\n\n\n\n\n\nFeb 5, 2024\n\n\nTyson Barrett\n\n\n\n\n\n\n  \n\n\n\n\nNew governance, release with new features\n\n\n\n\n\n\n\n\n\n\n\nJan 30, 2024\n\n\nToby Dylan Hocking\n\n\n\n\n\n\n  \n\n\n\n\nPiping data.tables\n\n\n\n\n\n\n\n\n\n\n\nJan 28, 2024\n\n\nElio Campitelli\n\n\n\n\n\n\n  \n\n\n\n\nAnnouncement: Jan Gorecki, data.table Ambassador\n\n\n\n\n\n\n\n\n\n\n\nJan 14, 2024\n\n\nKelly Bodwin\n\n\n\n\n\n\n  \n\n\n\n\nSummary of LatinR conference\n\n\n\n\n\n\n\n\n\n\n\nNov 19, 2023\n\n\nToby Dylan Hocking\n\n\n\n\n\n\n  \n\n\n\n\nAnnouncement: The data.table Ambassadors Travel Grant\n\n\n\n\n\n\n\n\n\n\n\nNov 1, 2023\n\n\nKelly Bodwin\n\n\n\n\n\n\n  \n\n\n\n\nAnnouncement: data.table translation projects\n\n\n\n\n\n\n\n\n\n\n\nOct 17, 2023\n\n\n\n\n\n\n  \n\n\n\n\nWelcome to the {data.table} ecosystem project!\n\n\nAn NSF-POSE funded venture.\n\n\n\n\n\n\n\n\n\nOct 15, 2023\n\n\nToby Hocking\n\n\n\n\n\n\nNo matching items"
   }
 ]

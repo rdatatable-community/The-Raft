@@ -2,26 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/blog.html</loc>
-    <lastmod>2024-01-31T19:28:36.555Z</lastmod>
+    <lastmod>2024-01-31T22:13:31.108Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/index.html</loc>
-    <lastmod>2024-01-31T19:28:35.674Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-11-01-travel_grant_announcement-community_team/index.html</loc>
-    <lastmod>2024-01-31T19:28:19.226Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/index.html</loc>
-    <lastmod>2024-01-31T19:28:21.768Z</lastmod>
+    <lastmod>2024-01-31T22:13:29.824Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/index.html</loc>
-    <lastmod>2024-01-31T19:28:35.157Z</lastmod>
+    <lastmod>2024-01-31T22:13:26.501Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html</loc>
+    <lastmod>2024-01-31T22:13:21.400Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-11-01-travel_grant_announcement-community_team/index.html</loc>
+    <lastmod>2024-01-31T22:13:10.443Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-01-14-ambassador_gorecki-community_team/index.html</loc>
+    <lastmod>2024-01-31T22:13:00.454Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-01-30-new_governance_new_release-toby_hocking/index.html</loc>
+    <lastmod>2024-01-31T22:13:03.922Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/index.html</loc>
+    <lastmod>2024-01-31T22:13:13.218Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-01-28-piping_data_tables-elio_campitelli/index.html</loc>
+    <lastmod>2024-01-31T22:13:24.048Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-11-19-LatinR_summary-toby_hocking/index.html</loc>
+    <lastmod>2024-01-31T22:13:29.022Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/about.html</loc>
-    <lastmod>2024-01-31T19:28:36.095Z</lastmod>
+    <lastmod>2024-01-31T22:13:30.400Z</lastmod>
   </url>
 </urlset>
