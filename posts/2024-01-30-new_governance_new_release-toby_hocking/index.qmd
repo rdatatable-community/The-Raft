@@ -1,0 +1,107 @@
+---
+title: "New governance, release with new features"
+author: "Toby Dylan Hocking"
+date: "2024-01-30"
+categories: [governance, releases]
+draft: false
+---
+
+I am proud to report that today, the first major new `data.table`
+features in several years have been released to CRAN!
+
+This new release, version 1.15.0, is remarkable because it is the
+first new feature release using the new community governance, which
+was adopted last month.
+
+Here is a brief timeline of the recent activities.
+
+## Governance discussion
+
+In Aug 2023, I started [a discussion in issue#5676 about the process
+and goal of creating a formal governance
+document](https://github.com/Rdatatable/data.table/issues/5676). 17
+people commented on that issue, and the consensus was to publish a
+first draft community governance document in Nov 2023. Discussion in
+related issues included:
+
+* What are the guiding principles of the project? [issue#5693](https://github.com/Rdatatable/data.table/issues/5693)
+* What is within scope for features? [issue#5722](https://github.com/Rdatatable/data.table/issues/5722)
+* What roles/permissions should we define, and how can people obtain
+  them? [My proposal](https://github.com/Rdatatable/data.table/issues/5676#issuecomment-1778507769).
+* What conventions should we use for version numbers?
+  [issue#5715](https://github.com/Rdatatable/data.table/issues/5715)
+* What code of conduct should we adopt? [issue#5708](https://github.com/Rdatatable/data.table/issues/5708)
+* What communication should we expect between the CRAN maintainer and
+  the rest of the dev team?
+  [issue#5714](https://github.com/Rdatatable/data.table/issues/5714)
+  
+At first, it was not clear that commenters on that issue would agree
+to adopt a community governance structure, mostly because the original
+creator, Matt Dowle, had not expressed his approval of the process.
+However, that changed on 11 Sep 2023, when [I posted Matt's letters of
+collaboration that he signed in support of my NSF POSE
+project](https://github.com/Rdatatable/data.table/issues/5676#issuecomment-1714888990)
+(after I asked Matt over email, and he agreed that I post them
+publicly). After that, there was a much stronger support of the
+proposed process.
+
+## Governance draft and adoption
+
+After much discussion in the above linked issues, I published an
+initial draft of the governance document on 27 Nov 2023 in
+[PR#5772](https://github.com/Rdatatable/data.table/pull/5772). That PR
+was extensively reviewed by four of the current/active contributors:
+Michael Chirico, Jan Gorecki, Tyson Barrett, and Ben
+Schwendinger. After several rounds of comments and revisions, Jan
+merged the PR on 14 Dec 2023, which signaled the official adoption of
+the new governance of the project. It can be viewed in the
+[GOVERNANCE.md](https://github.com/Rdatatable/data.table/blob/master/GOVERNANCE.md)
+file in the git repo.
+
+Importantly, [the new governance defines five roles for people
+involved in the
+project](https://github.com/Rdatatable/data.table/blob/master/GOVERNANCE.md#roles):
+Contributor, Project member, Reviewer, Committer, and CRAN maintainer.
+Current active committers are myself, Jan, and Michael.  Tyson Barrett
+became the new CRAN maintainer. Interestingly, CRAN maintainer and
+Committer permissions are largely orthogonal, and in fact Tyson does
+not currently have the Committer role (permission to merge PRs into
+master branch on GitHub).
+
+Any of these roles is possible to obtain, using the process described
+in the governance document. If you are at all interested, we could
+definitely use your help! Please get in contact by commenting on
+issues/PRs on github.
+
+## Release 1.15.0 with new features
+
+As outlined in the governance document, [section CRAN
+updates](https://github.com/Rdatatable/data.table/blob/master/GOVERNANCE.md#cran-updates),
+each release should be discussed and approved by consensus in an
+issue.  The issue that we used for this 1.15.0 release is
+[issue#5823](https://github.com/Rdatatable/data.table/issues/5823).
+As can be seen in [the NEWS.md
+file](https://github.com/Rdatatable/data.table/blob/master/NEWS.md),
+this new release includes 20 NOTES, 55 BUG FIXES, and 41 NEW FEATURES,
+and 1 BREAKING CHANGE. Among the new features, I am most excited about
+one that I implemented: the new `measure()` function, which makes it
+easier to do complex wide-to-long reshape operations, as below:
+
+```{r}
+library(data.table)
+(iris.dt <- data.table(iris)[1])
+melt(iris.dt, measure.vars=measure(part, dim, sep="."))
+melt(iris.dt, measure.vars=measure(value.name, dim, sep="."))
+```
+
+## Outlook for the future
+
+Since adopting the community governance document, there has been a lot
+of new activity on GitHub, and I am looking forward to seeing even
+more in the months to come.  For example, now that we have adopted a
+code of conduct, we are eligible to apply for NumFOCUS funding, see
+discussion in
+[issue#5676](https://github.com/Rdatatable/data.table/issues/5675).
+Finally, if you use `data.table`, and are interested to contribute
+toward our next release, we could use your help, so please contact us
+in an issue/PR.
