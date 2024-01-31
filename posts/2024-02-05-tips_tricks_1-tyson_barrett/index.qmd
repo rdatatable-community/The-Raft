@@ -1,0 +1,169 @@
+---
+title: "The Benefits of `data.table` Syntax"
+author: "Tyson Barrett"
+date: "2024-02-05"
+categories: [tips, tutorials, documentation]
+image: "brackets.png"
+draft: false
+---
+
+Among the many reasons to use `data.table` in your code (which includes the more common answers of speed, memory efficiency, etc.) is the **syntax**. The syntax is
+
+1.  concise,
+2.  predictable, and
+3.  R-centric.
+
+In this post, I'd like to show how these features are beneficial and useful in working with data regardless of the size of the data. To do this, I'll use two packages:
+
+```{r}
+library(data.table)
+library(palmerpenguins)
+```
+
+and we'll create a data.table of the penguins data set (and a data.frame version for other examples):
+
+```{r}
+dt <- as.data.table(penguins)
+df <- as.data.frame(penguins)
+```
+
+This post assumes some familiarity with `data.table` syntax but even if you are new to it, there is likely a lot of information that is quite useful for you.
+
+## Concise
+
+The syntax ultimately is built around the concise `dt[i, j, by]` framework (built on the core functionality of data frames, see the *R-centric* section below). This syntax allows you to:
+
+1.  Subset ("filter") your data using the `i` argument.
+
+```{r}
+# Subset to only Adelie species
+dt[species == "Adelie"]
+```
+
+Other ways to do this include the more redundant base R approach
+
+```{r}
+df[df$species == "Adele"]
+```
+
+and the more verbose approach in the tidyverse.
+
+```{r}
+#| eval: false
+library(tidyverse)
+df %>% 
+  filter(species == "Adele")
+```
+
+2.  Mutate or transform your variables using the `j` argument. Note that the use of `:=` mutates in place so no need for other assignment (e.g., `<-`).
+
+```{r}
+# change body_mass_g to pounds
+dt[, body_mass_lbs := body_mass_g*0.00220462]
+```
+
+```{r}
+#| echo: false
+dt[, .(species, body_mass_lbs)]
+```
+
+We could also do this in base R a number of ways, all of which are more redundant:
+
+```{r}
+#| eval: false
+df$body_mass_lbs <- df$body_mass_g*0.00220462
+df[, "body_mass_lbs"] <- df[, "body_mass_g"]*0.00220462
+df[["body_mass_lbs"]] <- df[["body_mass_g"]]*0.00220462
+```
+
+3.  Do all sorts of data work on groups using the `by` argument.
+
+```{r}
+# create a new variable that is the average of the body mass by species
+dt[, avg_mass_lbs := mean(body_mass_lbs, na.rm=TRUE), by = sex]
+```
+
+```{r}
+#| echo: false
+dt[, .(species, sex, avg_mass_lbs)]
+```
+
+This is more difficult, but possible, in base R to get a summary and add it to the existing data.frame:
+
+```{r}
+#| eval: false
+tapply(df$body_mass_lbs, df$sex, mean, na.rm=TRUE) # doesn't keep all rows
+
+# does keep all rows but complicated code
+df <- 
+  by(df, INDICES = df$sex,                           
+     FUN = function(x){
+       x$avg_mass_lbs <- mean(x$body_mass_lbs)
+       return(x)
+  })
+df <- do.call("rbind", df)
+```
+
+and can definitely be done in the tidyverse.
+
+```{r}
+#| eval: false
+df <- df %>% 
+  group_by(sex) %>% 
+  mutate(avg_mass_lbs = mean(body_mass_lbs, na.rm=TRUE)) %>% 
+  ungroup()
+```
+
+In each example, you can see a lot of work can be done in a single line of code with minimal redundancy. Although in each situation base R and tidyverse equivalents exist (often with a lot of powerful flexibility in the tidyverse approaches), the concise nature of `data.table` syntax can make writing and reading the code quicker.
+
+## Predictable
+
+The syntax is naturally predictable without being verbose. For instance, whenever you use `:=`, it's going to keep the same shape as the current data ("mutate") while the use of `.(var = fun(x))` will summarize to the fewest number of rows appropriate (1 row for non-grouped expressions and x rows for x number of unique groups).
+
+To get an idea of how this predictability manifests in the code, we'll use an example. Here, we can grab the average bill length by sex. We could do this two ways. The first is mutating in place where the data do not change size or shape. *Note, the `.()` function is shorthand for `list()`.*
+
+```{r}
+dt[, avg_bill_length := mean(bill_length_mm, na.rm=TRUE), by = sex]
+```
+
+This gives us a new variable in the original data.
+
+```{r}
+#| echo: false
+dt[, .(species, sex, avg_bill_length)]
+```
+
+However, sometimes we just want the data summarized. We can use the syntax below for that (notice no `:=`).
+
+```{r}
+dt[, .(avg_bill_length = mean(bill_length_mm, na.rm=TRUE)), by = sex]
+```
+
+We can always assign this so we can access it later.
+
+```{r}
+avg_bill <- dt[, .(avg_bill_length = mean(bill_length_mm, na.rm=TRUE)), by = sex]
+```
+
+One way `data.table` makes the code predictable is that the data operations happen all within the square brackets without lingering attributes that may produce surprising results. That is, whatever I put in the brackets will be run together and then done. For example, I may have several grouping variables that I use to modify some variables, and only do it for a subset of the data.
+
+```{r}
+dt[species == "Adelie", max_bill := max(bill_length_mm, na.rm=TRUE), by = .(species, sex)]
+```
+
+The new variable `max_bill` is made for the data but is only applicable to the Adelie species and is done by both species as sex. Once this operation is done, the grouping variables are just normal variables again and we still have access to the full data.
+
+```{r}
+#| echo: false
+dt[, .(species, sex, max_bill)]
+```
+
+## R-centric
+
+All of the main functionality in `data.table` is structured around vectors, lists, and (a modified form) of data frames. These core structures in `R` can be seeing throughout the syntax and design of the package. Even the `dt[i, j, by]` syntax is designed to mirror (and simplify) data frames. For new users, this can be particularly useful: no additional data structures are needed to work with the data and do both simple and complicated data operations.
+
+# Conclusions
+
+In my experience, as one gets more familiar with the syntax of `data.table`, the more it becomes clear that the syntax (although less verbose than other approaches like the tidyverse), is concise, predictable, and familiar to the basics of the R programming language. Among many reasons to leverage `data.table` in your workflow, the syntax is one to not overlook.
+
+Cover photo by <a href="https://unsplash.com/@christinhumephoto?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Christin Hume</a> on <a href="https://unsplash.com/photos/person-using-laptop-computer-Hcfwew744z4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
