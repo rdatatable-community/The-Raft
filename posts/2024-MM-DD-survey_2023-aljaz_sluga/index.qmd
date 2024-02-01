@@ -6,7 +6,7 @@ categories: [survey]
 image: "image.jpg"
 ---
 
-Thanks to everyone who filled out or shared the first data.table survey! The survey was officially open between October 17 and December 1 and it received **391** responses during this time.
+Thanks to everyone who helped create, shared, or filled out the first data.table survey! The survey was officially open between October 17 and December 1 and it received **391** responses during this time.
 
 This post provides a partial summary of the results. It covers all close-ended questions & includes short, informal summaries of the answers to some of the open-ended questions.
 
@@ -121,4 +121,7 @@ What would make contributing to data.table easier or more appealing? Setting asi
 
 ## Conclusion
 
-TODO
+The responses to this survey make the value of data.table clear, but some users fear that the package may be abandoned or stagnating. Fear not, the project is again picking up steam!
+An important release with many new features and bug fixes recently landed on [CRAN](https://cran.r-project.org/web/packages/data.table/news/news.html),
+and the project now has a [governance document](https://github.com/Rdatatable/data.table/blob/master/GOVERNANCE.md), which includes information on the different [roles](https://github.com/Rdatatable/data.table/blob/master/GOVERNANCE.md#roles) you can take.
+New contributions are very welcome, so check out the [guidelines](https://github.com/Rdatatable/data.table/blob/master/.github/CONTRIBUTING.md) and take a look at the [open issues](https://github.com/Rdatatable/data.table/issues) - those labeled [beginner-task](https://github.com/Rdatatable/data.table/labels/beginner-task) are a particularly great place to start!
