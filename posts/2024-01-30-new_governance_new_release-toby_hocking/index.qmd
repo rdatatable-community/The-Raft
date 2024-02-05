@@ -9,7 +9,7 @@ draft: false
 
 I am proud to report that today, the first major new `data.table` features in several years have been released to CRAN!
 
-This new release, version 1.15.0, is remarkable because it is the first new feature release using the new community governance, which was adopted last month.
+This new release, `version 1.15.0`, is remarkable because it is the first new feature release using the new community governance, which was adopted last month.
 
 Here is a brief timeline of the recent activities.
 
