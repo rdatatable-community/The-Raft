@@ -40,6 +40,9 @@ listing:
       - announcements
       - funding opportunity
       - grant
+      - guest post
+      - tutorials
+      - tips
   sort-ui: false
   filter-ui: false
 

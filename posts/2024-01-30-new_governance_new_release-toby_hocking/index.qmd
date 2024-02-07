@@ -16,6 +16,9 @@ Here is a brief timeline of the recent activities.
 ## Governance discussion
 
 ![An ongoing discussion](timeline.png){fig-align="center" width="600"}
+<pre><code>
+<b>mean</b>(1:10)
+</pre></code>
 
 In Aug 2023, I started [a discussion in issue#5676 about the process and goal of creating a formal governance document](https://github.com/Rdatatable/data.table/issues/5676). 17 people commented on that issue, and the consensus was to publish a first draft community governance document in Nov 2023. Discussion in related issues included:
 
