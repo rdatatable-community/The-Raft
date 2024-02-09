@@ -5,3 +5,21 @@ date: "2024-02-09"
 categories: [interviews]
 image: ""
 ---
+
+## Barriers in contributing
+
+- Not being a heavy user of the package. To both be reliant on active maintenance of the currently offered functionality and to see the value of time invested in contributing, one has to use data.table often enough - something that not everyone does. (the pressing need to rely on the tool needs to be existent for some to contribute i.e.)
+
+- Time in between submission and merging of a PR being rather long. This resonated with a few who contributed in the past, and some were just concerned for the ones who have or are contributing, as they may opt out of future contributions if their pull requests are left hanging for a long time. Given that it takes time to be thorough with changes introduced in pull requests (PRs), there is room for understanding if they are not merged timely or fast enough since in the long run, unintended consequences are always a possibility after the foreign code has been integrated (might break stuff and make it harder to debug later on). People do feel that taking the quick and easy route in merging PRs (especially big ones) can be challenging or that contributors and reviewing volunteers have limited time, however, they also think it can be faster (especially if more people are involved) and massive delays (ranging from several weeks to months) can be avoided. (especially since people would also lose context regarding their contributions and would need to revisit the discussion as a whole)
+
+- Some users find the language used to bring in people to be close-ended. They would be inclined and interested to contribute if the available reading material (such as the FAQ and Readme) is more inviting and friendly.
+
+- Lack of professional motivation and brevity. Some users are tightly occupied with work and do not have the time to contribute to open-source projects, let alone data.table (would be an addition to their list of competing priorities). For the few who do, they choose not to contribute either due to the lack of incentive, or due to the lack of motivation, primarily fueled by them not thinking their contributions would be satisfactory in comparison to what they would usually contribute to for the products they develop for their job.
+ 
+- The feeling of not having adequate knowledge to make meaningful contributions. For a handful, the codebase is overwhelming, and/or they are new to GitHub itself and not sure where to start digging, and/or they are not used to working with that type or level of code in R.
+  
+- Lack of C programming knowledge. Although at the surface there is R, the core still has C and thus a fair proportion of the people interviewed mentioned that their inexperience with the language is one reason that holds them back from making contributions (especially ones that involve diving a bit deeper).
+
+- It is not something they use in their current toolchain. This specifically applies to the people who were former contributors or users - For them data.table is a technology they used in the past for their former work/interests, and not something they require to or would consider using for their job at present. For some, they might need an entire career switch to even use R as well!
+
+- Diversity. Language (English is not their primary language, and a fair amount of jargons exist while going through the vignettes) tends to be a barrier (the inclusion of more people through translations would be something to look forward to), apart from the potential narrowing of contributors who are not as accustomed to R or optimized programming principles. A broader approach might be required for newcomers to open issues and pull requests. Additionally, people tend to adopt the ‘contributor mode’ when sought upon - simple things like making it explicit on the GitHub repository that contributors are needed can pull them towards deciding to push a change.
