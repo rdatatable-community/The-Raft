@@ -6,6 +6,22 @@ categories: [interviews]
 image: ""
 ---
 
+## Motivations in contributing
+
+Forms of bringing in people are mostly subjected to one’s interests, which come in various forms:
+
+- Using the software for not just work but for a personal project of interest where they derive usefulness from functions exported by data.table.
+
+- Trying to be a part of the data.table community, wherein the feeling of being a part of something big and crucial tends to be in play here. Making connections in the open-source community also tends to be an attraction.
+
+- For work reasons, wherein their core goal is to help maintain their own software/package (downstream dependencies) by contributing back.
+
+- For visibility or for employment where it’s a required/preferred tool of trade.
+
+- Making one a better programmer. This comes to be not just by contributing directly, but also by learning from others’ contributions.
+
+- Financial gain.
+
 ## Reasons for not using/adopting
 
 - Low rationale to switch to data.table when dealing with small datasets as notable efficiency (in comparison to other R packages that achieve the same functionality) is mostly seen when the data being dealt with is considerably large, or the operations performed on them scale well to see a visible difference.
