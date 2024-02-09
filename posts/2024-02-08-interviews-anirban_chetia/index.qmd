@@ -6,6 +6,23 @@ categories: [interviews]
 image: ""
 ---
 
+## Reasons for not using/adopting
+
+- Low rationale to switch to data.table when dealing with small datasets as notable efficiency (in comparison to other R packages that achieve the same functionality) is mostly seen when the data being dealt with is considerably large, or the operations performed on them scale well to see a visible difference.
+
+- On the flipside, there are rare cases where people found data.table to be not scalable enough (and instead used DuckDB) for their current datasets, which are increasingly larger than memory (to make operations work on-disk would be something to look out for and implement in the future). An intermediate solution for them here would be to have a syntax translator tool that would translate data.table syntax to SQL queries (similar to what `dbplyr` is for `dplyr` commands) as they prefer the data.table way to write code and only require things to be more scalable.
+ 
+- Not enough resources online to learn data.table in an easy yet detailed manner. This comes in stark contrast to abundant resources available for topics such as `data.frame` and `dplyr` for instance.
+
+- Lack of an integration with `tidyverse`.
+
+- Not working with a group of collaborators/coworkers who primarily use data.table.
+
+- For a handful, the syntax does not come to be natural although they potentially benefit from the speed. They would stick to tidyverse or base R in terms of being easier to use, unless they are running big computations where time is key. 
+
+- Some feel that data.table requires a certain level of understanding and experience in R prior to using it. They believe that it isn't easy for newbies to adapt reasonably quickly, with regards to their own experiences in learning it. For reasons discussed above again, people with beginner-level experience in R or not enough reason to have code be the most efficient tend to stick with easier-to-use packages and functions, which is especially common in entry-level data science courses.
+
+
 ## Barriers in contributing
 
 - Not being a heavy user of the package. To both be reliant on active maintenance of the currently offered functionality and to see the value of time invested in contributing, one has to use data.table often enough - something that not everyone does. (the pressing need to rely on the tool needs to be existent for some to contribute i.e.)
@@ -14,7 +31,7 @@ image: ""
 
 - Some users find the language used to bring in people to be close-ended. They would be inclined and interested to contribute if the available reading material (such as the FAQ and Readme) is more inviting and friendly.
 
-- Lack of professional motivation and brevity. Some users are tightly occupied with work and do not have the time to contribute to open-source projects, let alone data.table (would be an addition to their list of competing priorities). For the few who do, they choose not to contribute either due to the lack of incentive, or due to the lack of motivation, primarily fueled by them not thinking their contributions would be satisfactory in comparison to what they would usually contribute to for the products they develop for their job.
+- Lack of professional motivation and brevity. Some users are tightly occupied with work and do not have the time to contribute to open-source projects, let alone data.table (would be an addition to their list of competing priorities). For the few who do, they choose not to contribute either due to the lack of incentive, or due to the lack of motivation, primarily fueled by them thinking their contributions would not be satisfactory in comparison to what they would usually contribute to for the products they develop for their job.
  
 - The feeling of not having adequate knowledge to make meaningful contributions. For a handful, the codebase is overwhelming, and/or they are new to GitHub itself and not sure where to start digging, and/or they are not used to working with that type or level of code in R.
   
