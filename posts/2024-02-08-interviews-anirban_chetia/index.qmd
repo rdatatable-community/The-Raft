@@ -86,3 +86,25 @@ Forms of bringing in people are mostly subjected to one’s interests, which com
 - More involvement is required on Stack Exchange or QA-oriented platforms that programmers and alike frequent. People mentioned that when they are looking for answers on Stack Overflow for questions that they come across in R, they find that `data.table`-based answers are lacking compared to `dplyr`.
 
 - Most educational institutions do not resort to having data.table as part of their curriculum in R-based courses. While the coursework tends to be easier for newcomers, having more resources accessible can help people learn the more optimized version right from scratch and avoid learning it in the long run (almost all of the interviewees had to explore `data.table` on their own!) when efficiency or just the concise way of writing things is found to be better for some. Thus, it might help if instructors can start incorporating lessons using the package.
+
+## Quotes
+
+Some positive feedback and in general, things that interviewed people said about data.table:
+
+> "data.table would be one of the few arguments (in addition to Shiny) that I could bring forward to make people use R instead of Python"
+
+> "Using data.table, it becomes easier to read, manipulate, and represent data in a more appropriate way for my needs"
+
+> "If I give my script to somebody, knowing that only `data.table` needs to be installed is reassuring"
+
+> "I like it for minimalism and since it's backward compatible with `data.frame`"
+
+> "`data.table` was small enough to put my data into RAM (noticeable copy reduction compared to `dplyr`) and do analyses on my old laptop"
+
+> "Very convenient to operate on lists as columns, wherein the base structure in which `mlr3` is programmed around is in essence, a `data.table`"
+
+> "Not something I'd recommend to everyone because of its peculiar syntax, but once you are used to it, I believe it can be very expressive while reducing lines of code dramatically"
+
+> "I'm happy to see the community mobilization around this package since it brings such a valuable contribution to base R and is used by so many other packages."
+
+> "All the `f-xyz`functions are super useful. For example, it takes ages to read a big CSV with `read_csv`, while using `fread` sometimes doesn't even allow me to grab a cup of coffee :)"
