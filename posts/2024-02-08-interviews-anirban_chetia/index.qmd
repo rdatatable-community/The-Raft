@@ -76,3 +76,13 @@ Forms of bringing in people are mostly subjected to one’s interests, which com
 - Efficient visualization methods can be introduced, if applicable or intuitive.
 
 - A few people find the syntax of `dcast` and `melt` to be confusing, and often end up making mistakes since those reshaping operations complement each other (long to wide and vice versa respectively) or are the reverse. Probably not best to change this given it would break things and is just something to be learned over time, but more examples might help.
+
+- More often a mild inconvenience than a common source of error, but to a few, the masking of other packages is something they do not like.
+
+### Non-technical
+
+- Documentation tends to be lacking, i.e. not enough well-documented data.table resources or online materials (blogs/articles, videos) exist. Even experienced developers feel that it isn't entirely straightforward to find out how to do more complex things, so more extensive documentation and examples would be great, if not a necessity. Making existing documentation more lucid and navigable, while less aggressive for certain phrases out of old-school culture, is another point mentioned by a few. Things that read as friendly and expressive while maintaining details are a go-to.
+
+- More involvement is required on Stack Exchange or QA-oriented platforms that programmers and alike frequent. People mentioned that when they are looking for answers on Stack Overflow for questions that they come across in R, they find that `data.table`-based answers are lacking compared to `dplyr`.
+
+- Most educational institutions do not resort to having data.table as part of their curriculum in R-based courses. While the coursework tends to be easier for newcomers, having more resources accessible can help people learn the more optimized version right from scratch and avoid learning it in the long run (almost all of the interviewees had to explore `data.table` on their own!) when efficiency or just the concise way of writing things is found to be better for some. Thus, it might help if instructors can start incorporating lessons using the package.
