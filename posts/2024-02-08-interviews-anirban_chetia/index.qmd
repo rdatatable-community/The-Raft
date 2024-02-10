@@ -16,11 +16,12 @@ Forms of bringing in people are mostly subjected to one’s interests, which com
 
 - For work reasons, wherein their core goal is to help maintain their own software/package (downstream dependencies) by contributing back.
 
-- For visibility or for employment where it’s a required/preferred tool of trade.
+- For visibility or for employment where data.table is a required/preferred tool of trade, and adds to their CV.
 
 - Making one a better programmer. This comes to be not just by contributing directly, but also by learning from others’ contributions.
 
 - Financial gain.
+
 
 ## Reasons for not using/adopting
 
@@ -56,3 +57,22 @@ Forms of bringing in people are mostly subjected to one’s interests, which com
 - It is not something they use in their current toolchain. This specifically applies to the people who were former contributors or users - For them data.table is a technology they used in the past for their former work/interests, and not something they require to or would consider using for their job at present. For some, they might need an entire career switch to even use R as well!
 
 - Diversity. Language (English is not their primary language, and a fair amount of jargons exist while going through the vignettes) tends to be a barrier (the inclusion of more people through translations would be something to look forward to), apart from the potential narrowing of contributors who are not as accustomed to R or optimized programming principles. A broader approach might be required for newcomers to open issues and pull requests. Additionally, people tend to adopt the ‘contributor mode’ when sought upon - simple things like making it explicit on the GitHub repository that contributors are needed can pull them towards deciding to push a change.
+
+
+## Areas of Improvement
+
+### Technical
+
+- An R core member dealing gingerly pointed out that after several years of abundant reports of installation problems on MacOS, data.table still shows as being unable to detect OpenMP support and use multiple threads on the platform (while the same is not prevalent on Windows or Linux), even after including OpenMP run-time in CRAN R releases specifically for data.table. I noticed the same issue too (and it has been there for a while as it appears, as I first [encountered](https://github.com/Anirban166/Mac-Issues/issues/2) it more than two years ago) on OS X being prevalent till date.
+
+- People miss `fread` being able to read fixed-width files, although there is `iotools` now.
+
+- Additional functionality for working with spatial geometries and mixed-model packages (such as `glmmTMB` and `lme4`).
+
+- Some people found using the Walrus operator to be weird, especially given that not every data.table operation requires that. They don't like keeping in mind the names of columns (they tend to move towards the set function for explicitly assigning) as well. The in-place assignment using `:=` is acceptable as they feel, but they would ideally want to be able to do `DT$x <- y` meaning `DT[, x := y]`.
+
+- `dataset[get("categoricalColumn")]` could be optimized further.
+
+- Efficient visualization methods can be introduced, if applicable or intuitive.
+
+- A few people find the syntax of `dcast` and `melt` to be confusing, and often end up making mistakes since those reshaping operations complement each other (long to wide and vice versa respectively) or are the reverse. Probably not best to change this given it would break things and is just something to be learned over time, but more examples might help.
