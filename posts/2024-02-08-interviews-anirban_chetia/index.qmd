@@ -1,10 +1,19 @@
 ---
 title: "data.table interviews!"
 author: "Anirban Chetia"
-date: "2024-02-09"
+date: "2024-02-10"
 categories: [interviews]
 image: ""
 ---
+
+## What's it all about?
+
+As part of the project affiliated with [NSF POSE](https://new.nsf.gov/funding/opportunities/pathways-enable-open-source-ecosystems-pose) and based on expanding the open-source ecosystem around `data.table`, several interviews had to be conducted under [NSF's I-CORPS](https://new.nsf.gov/funding/initiatives/i-corps) program (Winter 2024 Cohort) to gather information as to how `data.table` as an open-source project can improve upon, along with ways to discover the project's sustainability. The timeline for the interviews was originally from January to March '24 with a required interview count of 100, but the program downscaled in time (17th of January to four weeks after - just wrapped up my final week as I'm writing this!) and so did the count, to a total of 60. [Issue#5880](https://github.com/Rdatatable/data.table/issues/5880) mentions this, and has a link to the Google Doc that contains the list of people interviewed.
+
+I was assigned by Toby to do these interviews and serve as the EL (Entrepreneurial Lead) for the `data.table` team (which aside from this, involved tasks such as making and giving various presentations). Having successfully completed the program and conducted the interviews, it's time to share the insights I gathered from these interviews as a source of open-ended knowledge for the community.
+
+But before you head below to read those parts, I would like to convey a big 'Thank you!' to everyone who took part in this, right from making availability and scheduling to providing comprehensive feedback and all the while being extremely communicative. I sincerely appreciate it. Not just the value brought to the table, but also in being great people to talk with in general!
+
 
 ## Motivations in contributing
 
