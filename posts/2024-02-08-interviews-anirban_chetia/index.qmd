@@ -87,6 +87,22 @@ Forms of bringing in people are mostly subjected to one’s interests, which com
 
 - Most educational institutions do not resort to having data.table as part of their curriculum in R-based courses. While the coursework tends to be easier for newcomers, having more resources accessible can help people learn the more optimized version right from scratch and avoid learning it in the long run (almost all of the interviewees had to explore `data.table` on their own!) when efficiency or just the concise way of writing things is found to be better for some. Thus, it might help if instructors can start incorporating lessons using the package.
 
+## Open-source sustainability
+
+- Authors of packages dependent on data.table said they would be concerned if it was no longer maintained. Most of them said they don't have the resources to maintain a fork and can't depend on something that's not developed as much. They would be happy to sponsor and help sustain the project.
+
+- Even if data.table were to go into maintenance mode, people would continue using it as long as the existing functionality isn't broken.
+
+- Occasional users are not keen to become contributors. Heavy users are but would likely step back at one point. Any external contributors (non-users with generic contributions) are not sustainable. Most people were of the opinion that there will always be an influx of contributors given that data.table is a prominent package in the R ecosystem. Thus, stability can be achieved by a set of core (active) members plus a constant inflow of newcomers or periphery (drive-by) contributors.
+
+- Community growth tends to be crucial in the long run, as people recognize that motivations to contribute are fluid and subject to change in the long run (career changes or simply switching to a different focus at some point in time). It becomes essential for maintainers to share knowledge to help onboard new active contributors, and for others to connect with them (a peer network is mutually beneficial).
+
+- Academia is one source for bringing in contributors, as professors or researchers can pay people to do services or research work. People believe there might be ample spare money from grants or educational funding.
+
+- Becoming part of a foundation or community can help to share struggles and grant opportunities.
+
+- A fair proportion is willing to contribute to a central fund. As for how and to whom will these funds be dispersed, or what would be a good way to distribute them proportionately, remains a question.
+
 ## Quotes
 
 Some positive feedback and in general, things that interviewed people said about data.table:
