@@ -89,7 +89,7 @@ Forms of bringing in people are mostly subjected to one’s interests, which com
 
 ## Open-source sustainability
 
-- Authors of packages dependent on data.table said they would be concerned if it was no longer maintained. Most of them said they don't have the resources to maintain a fork and can't depend on something that's not developed as much. They would be happy to sponsor and help sustain the project.
+- Developers and maintainers of packages dependent on data.table said they would be concerned if it was no longer maintained. Most of them said they don't have the resources to maintain a fork and can't depend on something that's not developed as much. They would be happy to sponsor and help sustain the project.
 
 - Even if data.table were to go into maintenance mode, people would continue using it as long as the existing functionality isn't broken.
 
@@ -101,7 +101,31 @@ Forms of bringing in people are mostly subjected to one’s interests, which com
 
 - Becoming part of a foundation or community can help to share struggles and grant opportunities.
 
-- A fair proportion is willing to contribute to a central fund. As for how and to whom will these funds be dispersed, or what would be a good way to distribute them proportionately, remains a question.
+- Big companies look for people who are experts in a tool they use. Since data.table is in demand for data science and related roles in the job market, this might potentially bring in more contributors to learn and be good at the software. 
+
+- GitHub Sponsors is a convenient way for people on GitHub to fund the project. Individual developers and maintainers of data.table can have their pages as they deem necessary, or some other source of sponsorship (such as Patreon or Buy Me a Coffee).
+
+- A fair proportion is willing to contribute to such a central fund. As for how and to whom will these funds be dispersed, or what would be a good way to distribute them proportionately, remains a question.
+
+### Roadmap
+
+Things to potentially do or keep in mind for the agenda going forward:
+
+- Creating a GitHub Sponsors page for the Rdatatable organization.
+
+- Applying for funding from organizations such as NumFocus ([5675](https://github.com/Rdatatable/data.table/issues/5675)) and being a part of communities such as rOpenSci.
+
+- Applying for R Consortium grants, and using Kickstarter crowdfunding if required (for project maintenance and implementation of complex features) in the long run.
+
+- Getting people involved in data.table-based projects for Summer/Winter of Code programs, such as Google Summer of Code.
+
+- Brainstorming and organizing Hackathons to spur interest, or some form of data.table-based events (like how tidy-dev-day exists for tidyverse).
+
+- Promoting data.table via conferences and open-ended blogs/articles, showcasing its features and benefits of adoption.
+
+- Creating videos and interactive tutorials.
+
+- Classifying more of issues (if applicable) that fall under or are labelled as '[beginner-task](https://github.com/Rdatatable/data.table/issues?q=is%3Aissue+is%3Aopen+label%3Abeginner-task)'.
 
 ## Quotes
 
