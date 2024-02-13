@@ -1,95 +1,274 @@
 ---
-title: "Welcome to the {data.table} ecosystem project!"
-subtitle: "An NSF-POSE funded venture."
-author: "Toby Hocking"
-date: "2023-10-15"
-categories: [announcements, grant]
-image: "sea_lions.jpg"
-draft: false
+title: "Visualizing Performance Regression of data.table with Atime"
+author: "Doris Afriyie Amoakohene"
+date: "2024-02-04"
+output: html_document
 ---
 
-Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which means 20 years, can you believe it?
+Since August 2023, I have been working on Expanding the open-source Ecosystem around data.table In R. data.table has become a widely adopted tool for data manipulation tasks, especially in scenarios involving large datasets. Its popularity stems from its remarkable speed and memory efficiency.
+Hence, it is necessary to improve the performance of the package and provide users with reliability.
 
-:::{layout-ncol=2}
+It is important that we prevent significant Performance Regression from reaching the data.table Package. Slowness, late execution or big memory usage can be frustrating, any Performance Regression that makes it into a version release will degrade user experience. In this blog post, I will demonstrate the use of benchmarking techniques to verify whether  reported issues on data.table have been successfully resolved.
 
-![Toby D. Hocking](../images/hocking-nau.jpg){height=1in}
 
-![Toby still using R in 50 years (artist rendering)](../images/old_man.jpg){height=1in fig-alt="Source: wikimedia."}
-:::
+# **Understanding Performance in data.table?**
 
-I work as an Assistant Professor of Computer Science, and my research expertise is machine learning, the modern branch of artificial intelligence which uses big data. `R` is an important tool in my machine learning work, and in the work of many people in academia/industry/government, because it provides so many useful functions for handling big data.
+data.table is an extension of R's data.frame, designed to handle large datasets efficiently. It provides a syntax that is both concise and expressive, allowing users to perform complex data manipulations with ease. Its efficiency is particularly evident when dealing with tasks like filtering, grouping, aggregating, and joining data.
 
-## The {data.table} package
+The development team behind data.table is committed to continuously improving its performance. Over the years, several major version changes have been introduced, aiming to enhance speed and efficiency. These changes include algorithmic optimizations, memory management improvements, and enhancements to parallel processing capabilities. Upgrading to the latest version ensures that users can leverage the most recent performance enhancements.
+ most recent performance enhancements.
 
-Since 2015, I have been using [the R package `data.table`](https://rdatatable.gitlab.io/data.table/) to do large parts of data processing before and after running machine learning algorithms - to get the raw data into the right format for the algorithm, and also to get the results in the right format for visualization/interpretation.
+# **Benchmarking for Performance Evaluation**
 
-![The {data.table} hex sticker](../images/hex.png)
+To evaluate data.table performance, it is essential to employ benchmarking methodologies. The approach I used utilizes the atime_versions function from the atime package, which measures the actual execution time of specific operations. This function allows for accurate comparisons between different versions of the data.table package, by benchmarking against realistic use cases and giving a graphical visualization of the results.
 
-`data.table` is highly valued for its long-term stability and its lightning-fast speed in large data calculations.
+In data.table, the term “Performance Regression” usually means a drop in both time metrics and memory metrics, and that is how we will be  using the term here.
 
-## Ecosystem expansion
 
-With these use cases in mind, I proposed a project **"Expanding the data.table ecosystem for efficient big data manipulation in R,"** and I am excited to announce that it has been funded by the [National Science Foundation's "Pathways to Enable Open Source Ecosystems" (POSE) grant](https://new.nsf.gov/funding/opportunities/pathways-enable-open-source-ecosystems-pose), for work between September 2023 and August 2025.
+# **Why do we run Performance Tests on commits?**
 
-![](../images/NSF.svg){width=50% fig-align="center"}
+Running performance tests on commits helps maintain a high-performance standard for the package, detect and fix performance regressions, optimize code, validate performance improvements, and ensure consistent performance over time. It is an essential practice to deliver a performant and reliable package to end-users.
 
-Our project attempts to address three issues with the current state of the `data.table` project:
+# **What are the Performance Tests?**
+The goal of our atime Performance Tests is to gather memory and responsiveness time metrics while simulating the full range of member interactions with the data.table repository
 
-1.  **Informal governance**
+## In atime code, there are five main parts:
 
-The `data.table` package was originally created by [Matt Dowle](https://github.com/mattdowle) in 2008. His brilliant use of efficient algorithms and C implementations brought the world a package that has stood the test of time, and is now one of the most-used R packages available.
+1. `pkg.path`: This variable represents the path to the package being benchmarked. It specifies the location of the `data.table` package on your system.
 
-However, the growth of this incredible package will require more leaders than Dowle himself to help build, review, test, and organize new contributions.
+2. `N`: This variable determines the number of iterations for the benchmarking process. It is a sequence of numbers that define different data sizes to test the performance of the operation.
 
-Thus, one goal of this grant is to bring together `data.table` developers and contributors to propose a new governance structure for the package's source code.
+3. `setup`: This section contains the setup code for generating the dataset used in the benchmarking process. 
 
-2.  **Limited centralized testing infrastructure**
+4. `expr`: This section contains the expression that represents the operation being benchmarked. It uses the `data.table::`[.data.table`` syntax to perform the  operation on the dataset. 
 
-Since the primary draw of `data.table` is the speed of its algorithmic implementations, adding new functionality to the package is not simple. In particular, new elements must be heavily tested to ensure that they do not interfere with the core computations.
+5. `...` : This section specifies the different versions of the data.table packages  that will be tested. It includes three versions: "Before," "Regression," and "Fixed." Each version is associated with a specific commit id.
 
-In this grant, we plan to develop software to automate the testing of
-new package contributions, to smooth the growth process.  This part of
-the project includes [a centralized reverse dependency checking
-system](https://github.com/Rdatatable/data.table/wiki/Release-management-and-revdep-checks),
-new benchmarks comparing `data.table` with other systems such as
-`polars` and `arrow`, and new performance testing software.
+The result from running the atime versions will be a list of the seconds.limit (numeric input param) and timings (data table of results).
 
-3.  **Limited documentation and outreach**
+Lastly, I run a github action. The action defines test.list as a list with names corresponding to different tests. Each element of the test.list should be a list with named arguments N, setup, expr, which was  passed as arguments in your atime::atime_versions test. For further elaboration on the process of performing asymptotic time testing using the atime package, please refer to [this ](https://github.com/marketplace/actions/r-asymptotic-testing)
 
-To encourage more people to learn and adopt `data.table`, we will be massively expanding the number of tutorials, documentations, and guides for how to use the package effectively. Part of this will be [translation projects](https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/) so that `data.table` will be more accessible in foreign languages. This grant will also include travel awards, to support selected speakers to travel to conferences and share `data.table` updates and usage.
+## We run the full performance, Pull Request (PR):
+1. Before the issue is made (Before)
+2. when the PR is first submitted (Regression)
+3. when the PR is merged to the destination branch(Fixed)
 
-Interested in contributing a tutorial/vignette or blog post? Email **r.data.table\@gmail.com**!
+# **APPROACH**
+1. To begin, conduct the atime test for the different code branches (before regression, regression, fix regression) to identify potential performance issues. Here is an example of how to perform the [atime test](https://github.com/DorisAmoakohene/Efficiency-and-Preformance-Test.RData.table)
 
-## How you can get involved
+NB: Set up the necessary environment and dependencies, ensuring that the data.table package and the atime package are installed and loaded.
 
-Interested in helping grow the `data.table` ecosystem? There are so many ways to get involved!
+2. Generate a plot to showcase the fixes made in the data.table package using the atime package.
 
-![Sea lions say "R!" "R!" "R!"](../images/sea_lions.jpg){width="50%" fig-alt="A group of friendly sea lions.  Source: Department of the Interior."}
+3. Utilize the atime_versions function to track the fixes across different versions.
 
-1.  Follow us for updates on social media:
+4. Pass the following named arguments to atime::atime_versions: N, setup, expr, and the different code branches. More documentation of the atime package can be found [here](https://github.com/tdhock/atime/tree/compare-dt-tidy). 
 
--   [Mastodon: r_data_table\@fosstodon.org](https://fosstodon.org/@r_data_table)
+5. Use the plot function to visually present the execution times of the expression evaluated across different versions of the data.table package.
+Run the GitHub Action by writing tests in inst/atime/tests.R. 
 
--   [BlueSky: rdatatable.bsky.social](https://bsky.app/profile/rdatatable.bsky.social)
 
--   [Twitter/X: r_data_table](https://twitter.com/r_data_table)
+# Lets run some examples to see how this work.
 
-2.  Subscribe to this blog, [The Raft](https://rdatatable-community.github.io/The-Raft/)
+The first example we will discuss is an issue reported on a performance regression when performing group computations, specifically when running R's C eval on each group (q7 and q8) in the db-benchmark, indicating a  slowness in the implementation of the code.[link to comment that reported Regression](https://github.com/Rdatatable/data.table/issues/4200)
 
-3.  Take the [Community Survey](https://tinyurl.com/datatable-survey) to weigh in on next steps.
+This is the [PR]( https://github.com/Rdatatable/data.table/pull/4558) that discusses the 
+[The regression was specifically related to the evaluation of C code within each group of data, specifically q7 and q8 in the "db-benchmark"](https://github.com/Rdatatable/data.table/issues/4200#issue-555186870)  which appears that the regression occurred during the evaluation of C code within these particular groups, indicating a performance issue or slowness in the implementation of the code.
 
-4.  Participate in the deep discussions on GitHub:
+[The regression was fixed Regression by the addition of const int nth = getDTthreads]( https://github.com/Rdatatable/data.table/pull/4558/files)
 
--   [What should be the structure of the formal governance document for the package?](https://github.com/Rdatatable/data.table/issues/5676)
+```{r,warning=FALSE,message=FALSE}
 
--   [What are the core principles of the data.table package?](https://github.com/Rdatatable/data.table/issues/5693)
+library(atime)
+library(ggplot2)
+library(data.table)
 
-5.  Email **r.data.table\@gmail.com** to:
+```
 
--   Be added to the community Slack.
+```{r,warning=FALSE, message=FALSE}
+  tdir <- tempfile()
+  dir.create(tdir)
+  git2r::clone("https://github.com/Rdatatable/data.table", tdir )
+  
+```
 
--   Propose a guest blog for The Raft.
 
--   Ask questions, make suggestions, or volunteer your expertise.
+```{r, warning=FALSE, message=FALSE}
 
-6.  Apply for the upcoming **Travel Grants** and **Translation Projects** - watch this blog for more information!
+atime.list.4200 <- atime::atime_versions(
+pkg.path=tdir,
+pkg.edit.fun=function(old.Package, new.Package, sha, new.pkg.path){
+      pkg_find_replace <- function(glob, FIND, REPLACE){
+        atime::glob_find_replace(file.path(new.pkg.path, glob), FIND, REPLACE)
+      }
+      Package_regex <- gsub(".", "_?", old.Package, fixed=TRUE)
+      Package_ <- gsub(".", "_", old.Package, fixed=TRUE)
+      new.Package_ <- paste0(Package_, "_", sha)
+      pkg_find_replace(
+        "DESCRIPTION", 
+        paste0("Package:\\s+", old.Package),
+        paste("Package:", new.Package))
+      pkg_find_replace(
+        file.path("src","Makevars.*in"),
+        Package_regex,
+        new.Package_)
+      pkg_find_replace(
+        file.path("R", "onLoad.R"),
+        Package_regex,
+        new.Package_)
+      pkg_find_replace(
+        file.path("R", "onLoad.R"),
+        sprintf('packageVersion\\("%s"\\)', old.Package),
+        sprintf('packageVersion\\("%s"\\)', new.Package))
+      pkg_find_replace(
+        file.path("src", "init.c"),
+        paste0("R_init_", Package_regex),
+        paste0("R_init_", gsub("[.]", "_", new.Package_)))
+      pkg_find_replace(
+        "NAMESPACE",
+        sprintf('useDynLib\\("?%s"?', Package_regex),
+        paste0('useDynLib(', new.Package_))
+    },
+
+  N=10^seq(1,20),
+  setup={ 
+    set.seed(108)
+    d <- data.table(
+      id3 = sample(c(seq.int(N*0.9), sample(N*0.9, N*0.1, TRUE))),
+      v1 = sample(5L, N, TRUE),
+      v2 = sample(5L, N, TRUE))
+  },
+  expr=data.table:::`[.data.table`(d, , (max(v1)-min(v2)), by = id3),
+"Before"="15f0598b9828d3af2eb8ddc9b38e0356f42afe4f",
+  "Regression"="6f360be0b2a6cf425f6df751ca9a99ec5d35ed93", 
+  "Fixed"="ba32f3cba38ec270587e395f6e6c26a80be36be6")
+```
+
+
+```{r, warning=FALSE,message=FALSE}
+plot(atime.list.4200)+
+  labs(title = "groupby with dogroups (R expression) performance regression")
+
+png("atime.list.4200.png")
+plot(atime.list.4200)+
+  labs(title = "groupby with dogroups (R expression) performance regression")
+dev.off()
+
+```
+The graph above  visualizes the  groupby operation with dogroups  issue. 
+
+Title: “Groupby with dogroups (R expression) performance regression.”
+
+Comparison: The graph compares the median time in milliseconds required to execute the operation before and after fixing a regression issue.
+
+1. X-Axis (N): Represents the size of the data (N) on a logarithmic scale.
+
+2.Y-Axis: Represents the median time in milliseconds (logarithmic scale).
+
+*Lines:*
+
+3. Red Line (“Before”): Indicates performance before fixing the regression.
+
+4. Green Line (“Fixed”): Shows improved performance after fixing.
+
+5. Blue Line (“Regression”): Represents an ideal or target performance level.
+
+In both graphs, as data size (N) increases, there’s an initial increase in median time, but it significantly reduces fix, indicating performance improvement. The regression issue was successfully addressed
+
+
+# Example Two
+
+In the specific case of issue *#5366*, there was a significant slowdown in the performance of data.table's time-based rolling aggregation compared to pandas' rolling aggregation. The cause of this regression was identified to be related to the addition of the snprintf function in the assign.c file. To address this issue, a fix was implemented by creating the targetDesc function and adding the snprintf function in the assign.c file. This fix resolved the regression and improved the performance of the time-based rolling aggregation in data.table. 
+
+```{r,warning = FALSE, message = FALSE}
+atime.list.5366 <- atime::atime_versions(
+pkg.path=tdir,
+pkg.edit.fun=function(old.Package, new.Package, sha, new.pkg.path){
+      pkg_find_replace <- function(glob, FIND, REPLACE){
+        atime::glob_find_replace(file.path(new.pkg.path, glob), FIND, REPLACE)
+      }
+      Package_regex <- gsub(".", "_?", old.Package, fixed=TRUE)
+      Package_ <- gsub(".", "_", old.Package, fixed=TRUE)
+      new.Package_ <- paste0(Package_, "_", sha)
+      pkg_find_replace(
+        "DESCRIPTION", 
+        paste0("Package:\\s+", old.Package),
+        paste("Package:", new.Package))
+      pkg_find_replace(
+        file.path("src","Makevars.*in"),
+        Package_regex,
+        new.Package_)
+      pkg_find_replace(
+        file.path("R", "onLoad.R"),
+        Package_regex,
+        new.Package_)
+      pkg_find_replace(
+        file.path("R", "onLoad.R"),
+        sprintf('packageVersion\\("%s"\\)', old.Package),
+        sprintf('packageVersion\\("%s"\\)', new.Package))
+      pkg_find_replace(
+        file.path("src", "init.c"),
+        paste0("R_init_", Package_regex),
+        paste0("R_init_", gsub("[.]", "_", new.Package_)))
+      pkg_find_replace(
+        "NAMESPACE",
+        sprintf('useDynLib\\("?%s"?', Package_regex),
+        paste0('useDynLib(', new.Package_))
+    },
+  N= 10^seq(1,4),
+  setup={ 
+    set.seed(123L)
+    dt <- data.table(
+      id = seq_len(N),
+      val = rnorm(N))
+    dt
+  },
+ expr=data.table:::`[.data.table`(dt, , .(vs = (sum(val))), by = .(id)),
+  "Before"="be2f72e6f5c90622fe72e1c315ca05769a9dc854",
+  "Regression"="e793f53466d99f86e70fc2611b708ae8c601a451", 
+  "Fixed"="58409197426ced4714af842650b0cc3b9e2cb842") 
+```
+
+
+```{r,warning=FALSE,message=FALSE }
+plot(atime.list.5366)+
+  labs(title = "Significantly slower performance time-based rolling")
+
+png("atime.list.5366.png")
+plot(atime.list.5366)+
+  labs(title = "Significantly slower performance time-based rolling")
+dev.off()
+
+```
+
+
+Significantly Slower Performance Time-Based Rolling
+Graph Overview:
+The graph depicts the performance improvement over time after fixing a regression issue
+Y-axis: Represents time in milliseconds.
+X-axis: Represents the sample size N (ranging from 10 to 10,000).
+
+*Three lines:*
+
+Red Line (“Before Fixed”): Indicates performance before fixing the regression.
+Green Line (“Fixed”): Represents improved performance after fixing.
+Blue Line (“Regression”): Shows the regression issue.
+The red line initially increases steeply with larger N, indicating slow performance.
+After fixing, the green line shows significantly reduced processing time.
+
+
+In summary, the graph visually demonstrates how fixing the regression issue led to improved performance in time-based rolling operations. The green line represents the desired outcome, showing faster processing times for larger sample sizes. 
+
+
+
+# **CONCLUSION**
+
+In this blog post, we have delved into the use of the atime code to compare the asymptotic time and memory usage of different versions of the data.table package. Specifically, we explored the comparisons between the "Before," "Regression," and "Fixed" versions, as well as different versions implementing the same computation.
+
+By employing benchmarking methodologies like atime, we gained valuable insights into the performance characteristics of the data.table package. This allowed us to identify and address performance regressions, ensuring that each new version of the package has indeed solved the particular issue reported.
+
+Consider doing the exercises below, if you want practice using atime.
+
+Consider visiting the this [link](https://github.com/Rdatatable/data.table/issues/4311) to gain a comprehensive understanding of regression and attempt to interpret it using atime.
+The issue was fixed [here](https://github.com/Rdatatable/data.table/pull/4440) 
+By doing so, you will be able to replicate graphs similar to the ones mentioned earlier.
