@@ -29,7 +29,7 @@ People see different values that bring them forward to contribute to the project
 
 - Making one a better programmer. This comes to be not just by contributing directly, but also by learning from others’ contributions.
 
-- Financial gain or incentives from working on the project.
+- Financial gain or incentives from working on the project. None of the people interviewed were paid to do so, but nearly all of them agreed that a paid position could be a win-win for the interested ones (and as an example, the author of `data.table`, Matt, was paid by H20.ai previously).
 
 
 ## Reasons for not using/adopting
@@ -53,13 +53,11 @@ People cited various reasons for not utilizing or transitioning to `data.table`:
 
 ## Barriers in contributing
 
-As gathered from the interviewees, there are various reasons that prevent them from contributing to `data.table`. These include:
+As gathered from the interviewees, there are a couple of reasons that prevent them from contributing to `data.table`. These include:
 
 - Not being a heavy user of the package. To both be reliant on active maintenance of the currently offered functionality and to see the value of time invested in contributing, one has to use `data.table` often enough - something not everyone does. The pressing need to rely on the tool needs to be existent for some to contribute.
 
 - Time in between submission and merging of a PR being rather long. This resonated with a few who contributed in the past, and some were just concerned for the ones who have or are contributing, as they may opt out of future contributions if their pull requests are left hanging for a long time. Given that it takes time to be thorough with changes introduced in pull requests (PRs), there is room for understanding if they are not merged timely or fast enough since in the long run, unintended consequences are always a possibility after the foreign code has been integrated (might break stuff and make it harder to debug later on). People do feel that taking the quick and easy route in merging PRs (especially big ones) can be challenging or that contributors and reviewing volunteers have limited time, however, they also think it can be faster (especially if more people are involved) and massive delays (ranging from several weeks to months) can be avoided. (especially since people would also lose context regarding their contributions and would need to revisit the discussion as a whole)
-
-- Some users find the language used to bring in people to be close-ended. They would be inclined and interested to contribute if the available reading material (such as the FAQ and Readme) is more inviting and friendly.
 
 - Lack of professional motivation and brevity. Some users are tightly occupied with work and do not have the time to contribute to open-source projects, let alone `data.table` (would be an addition to their list of competing priorities). For the few who do, they choose not to contribute either due to the lack of incentive, or due to the lack of motivation, primarily fueled by them thinking their contributions would not be satisfactory in comparison to what they would usually contribute to for the products they develop for their job.
  
@@ -68,6 +66,8 @@ As gathered from the interviewees, there are various reasons that prevent them f
 - Lack of C programming knowledge. Although at the surface there is R, the core still has C and thus a fair proportion of the people interviewed mentioned that their inexperience with the language is one reason that holds them back from making contributions (especially ones that involve diving a bit deeper).
 
 - It is not something they use in their current toolchain. This specifically applies to the people who were former contributors or users - For them `data.table` is a technology they used in the past for their former work/interests, and not something they require to or would consider using for their job at present. For some, they might need an entire career switch to even use R as well!
+
+- Some users find the tone in the wording used to bring in people to be close-ended. They would be inclined and interested to contribute if the available reading material (such as the FAQ and Readme) is more inviting and friendly.
 
 - Diversity. Language (English is not their primary language, and a fair amount of jargons exist while going through the vignettes) tends to be a barrier (the inclusion of more people through translations would be something to look forward to), apart from the potential narrowing of contributors who are not as accustomed to R or optimized programming principles. A broader approach might be required for newcomers to open issues and pull requests. Additionally, people tend to adopt the ‘contributor mode’ when sought upon - simple things like making it explicit on the GitHub repository that contributors are needed can pull them towards deciding to push a change.
 
@@ -96,7 +96,7 @@ In terms of technical improvements:
 
 In terms of the community revolving around `data.table`:
 
-- Documentation tends to be lacking, i.e. not enough well-documented `data.table` resources or online materials (blogs/articles, videos) exist. Even experienced developers feel that it isn't entirely straightforward to find out how to do more complex things, so more extensive documentation and examples would be great, if not a necessity. Making existing documentation more lucid and navigable, while less aggressive for certain phrases out of old-school culture, is another point mentioned by a few. Things that read as friendly and expressive while maintaining details are a go-to.
+- Documentation tends to be lacking, i.e. not enough well-documented `data.table` resources or online materials (blogs/articles, videos) exist. Even experienced developers feel that it isn't entirely straightforward to find out how to do more complex things, so more extensive documentation and examples would be great, if not a necessity. Things that read as friendly and expressive while maintaining details are a go-to. Making the existing documentation more lucid and navigable is another point mentioned by a few.
 
 - More involvement is required on Stack Exchange or QA-oriented platforms that programmers and alike frequent. People mentioned that when they are looking for answers on Stack Overflow for questions that they come across in R, they find that `data.table`-based answers are lacking compared to `dplyr`.
 
