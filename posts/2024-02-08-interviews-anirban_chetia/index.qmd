@@ -10,14 +10,14 @@ image: ""
 
 As part of the project affiliated with [NSF POSE](https://new.nsf.gov/funding/opportunities/pathways-enable-open-source-ecosystems-pose) and based on expanding the open-source ecosystem around `data.table`, several interviews had to be conducted under [NSF's I-CORPS](https://new.nsf.gov/funding/initiatives/i-corps) program (Winter 2024 Cohort) to gather information as to how `data.table` as an open-source project can improve upon, along with ways to discover the project's sustainability. The timeline for the interviews was originally from January to March '24 with a required interview count of 100, but the program downscaled in time (17th of January to four weeks after - just wrapped up my final week as I'm writing this!) and so did the count, to a total of 60. [Issue#5880](https://github.com/Rdatatable/data.table/issues/5880) mentions this, and has a link to the Google Doc that contains the list of people interviewed.
 
-I was assigned by Toby to do these interviews and serve as the EL (Entrepreneurial Lead) for the `data.table` team (which aside from this, involved tasks such as making and giving various presentations). Having successfully completed the program and conducted the interviews, it's time to share the insights I gathered from these interviews as a source of open-ended knowledge for the community.
+I was assigned by Toby to do these interviews and serve as the EL (Entrepreneurial Lead) for the `data.table` team (which aside from this, involved tasks such as making and giving various presentations). Having successfully completed the program and conducted the interviews, it's time to share the insights I gathered from them as a source of open-ended knowledge for the community.
 
 But before you head below to read those parts, I would like to convey a big 'Thank you!' to everyone who took part in this, right from making availability and scheduling to providing comprehensive feedback and all the while being extremely communicative. I sincerely appreciate it. Not just the value brought to the table, but also in being great people to talk with in general!
 
 
 ## Motivations in contributing
 
-Forms of bringing in people are mostly subjected to one’s interests, which come in various forms:
+People cited various motivations to contributing:
 
 - Using the software for not just work but for a personal project of interest where they derive usefulness from functions exported by `data.table`.
 
@@ -29,7 +29,7 @@ Forms of bringing in people are mostly subjected to one’s interests, which com
 
 - Making one a better programmer. This comes to be not just by contributing directly, but also by learning from others’ contributions.
 
-- Financial gain.
+- Financial gain or incentives from working on the project.
 
 
 ## Reasons for not using/adopting
@@ -51,7 +51,7 @@ Forms of bringing in people are mostly subjected to one’s interests, which com
 
 ## Barriers in contributing
 
-- Not being a heavy user of the package. To both be reliant on active maintenance of the currently offered functionality and to see the value of time invested in contributing, one has to use `data.table` often enough - something that not everyone does. (the pressing need to rely on the tool needs to be existent for some to contribute i.e.)
+- Not being a heavy user of the package. To both be reliant on active maintenance of the currently offered functionality and to see the value of time invested in contributing, one has to use `data.table` often enough - something not everyone does. The pressing need to rely on the tool needs to be existent for some to contribute.
 
 - Time in between submission and merging of a PR being rather long. This resonated with a few who contributed in the past, and some were just concerned for the ones who have or are contributing, as they may opt out of future contributions if their pull requests are left hanging for a long time. Given that it takes time to be thorough with changes introduced in pull requests (PRs), there is room for understanding if they are not merged timely or fast enough since in the long run, unintended consequences are always a possibility after the foreign code has been integrated (might break stuff and make it harder to debug later on). People do feel that taking the quick and easy route in merging PRs (especially big ones) can be challenging or that contributors and reviewing volunteers have limited time, however, they also think it can be faster (especially if more people are involved) and massive delays (ranging from several weeks to months) can be avoided. (especially since people would also lose context regarding their contributions and would need to revisit the discussion as a whole)
 
@@ -80,13 +80,13 @@ Forms of bringing in people are mostly subjected to one’s interests, which com
 
 - Some people found using the Walrus operator to be weird, especially given that not every `data.table` operation requires that. They don't like keeping in mind the names of columns (they tend to move towards the set function for explicitly assigning) as well. The in-place assignment using `:=` is acceptable as they feel, but they would ideally want to be able to do `DT$x <- y` meaning `DT[, x := y]`.
 
-- `dataset[get("categoricalColumn")]` could be optimized further.
+- `dataset[get("categoricalColumn")]` could be optimized further (for reference, please check [getDTeval](https://cran.r-project.org/web/packages/getDTeval/vignettes/Introduction_to_getDTeval.html)).
 
 - Efficient visualization methods can be introduced, if applicable or intuitive.
 
 - A few people find the syntax of `dcast` and `melt` to be confusing, and often end up making mistakes since those reshaping operations complement each other (long to wide and vice versa respectively) or are the reverse. Probably not best to change this given it would break things and is just something to be learned over time, but more examples might help.
 
-- More often a mild inconvenience than a common source of error, but to a few, the masking of other packages is something they do not like.
+- More often a mild inconvenience than a common source of error, but to a few, the masking of functions from other packages (such as `between`, `first`, and `last` from `dplyr`, or `transpose` from `purrr`) is something they do not like.
 
 ### Non-technical
 
@@ -127,7 +127,7 @@ Things to potentially do or keep in mind for the agenda going forward:
 
 - Applying for R Consortium grants, and using Kickstarter crowdfunding if required (for project maintenance and implementation of complex features) in the long run.
 
-- Getting people involved in `data.table`-based projects for Summer/Winter of Code programs, such as Google Summer of Code.
+- Getting people involved in `data.table`-based projects for Summer/Winter of Code programs, such as Google Summer of Code (Interested? Check our [page](https://github.com/rstats-gsoc/gsoc2024/wiki/data.table) for this year if you would like to apply or take part!).
 
 - Brainstorming and organizing Hackathons to spur interest, or some form of `data.table`-based events (like how tidy-dev-day exists for tidyverse).
 
