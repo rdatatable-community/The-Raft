@@ -86,13 +86,11 @@ In terms of technical improvements:
 
 - Some people found using the Walrus operator to be weird, especially given that not every `data.table` operation requires that. They don't like keeping in mind the names of columns (they tend to move towards the set function for explicitly assigning) as well. The in-place assignment using `:=` is acceptable as they feel, but they would ideally want to be able to do `DT$x <- y` meaning `DT[, x := y]`.
 
-- `dataset[get("categoricalColumn")]` could be optimized further (for reference, please check [getDTeval](https://cran.r-project.org/web/packages/getDTeval/vignettes/Introduction_to_getDTeval.html)).
-
-- Efficient visualization methods can be introduced, if applicable or intuitive.
+- `dataset[get("categoricalColumn")]` could be optimized further (for reference, please check [getDTeval](https://cran.r-project.org/web/packages/getDTeval/vignettes/Introduction_to_getDTeval.html) or [this paper](https://ieeexplore.ieee.org/document/10099092)).
 
 - A few people find the syntax of `dcast` and `melt` to be confusing, and often end up making mistakes since those reshaping operations complement each other (long to wide and vice versa respectively) or are the reverse. Probably not best to change this given it would break things and is just something to be learned over time, but more examples might help.
 
-- More often a mild inconvenience than a common source of error, but to one, the masking of functions from other packages (such as `between`, `first`, and `last` from `dplyr`, or `transpose` from `purrr`) is something they do not like.
+- More often a mild inconvenience than a common source of error, but to a few, the masking of functions from other packages (such as `between`, `first`, and `last` from `dplyr`, or `transpose` from `purrr`) is something they do not like.
 
 In terms of the community revolving around `data.table`:
 
