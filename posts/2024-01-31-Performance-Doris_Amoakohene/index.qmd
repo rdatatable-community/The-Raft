@@ -6,32 +6,32 @@ output: html_document
 ---
 
 
-Since August 2023, I have been working on performance testing, which could be useful for expanding the open-source Ecosystem around data.table package in R.
+Since August 2023, I have been working on performance testing, which could be useful for expanding the open-source ecosystem around data.table package in R.
 This could increase confidence in code contributions by ensuring the sustained efficiency of the data.table package. Consequently, it becomes essential to enhance the package's performance and deliver reliable results to its users.
 
 It is important that we prevent significant performance regression from reaching the data.table package. Slowness or big memory usage can be frustrating, any performance regression that makes it into a version release will degrade user experience. In this blog post, I will demonstrate the use of benchmarking techniques to verify whether reported issues on data.table have been successfully resolved.
 
 
-# **Understanding Performance in data.table?**
+# **Understanding performance in data.table?**
 
 data.table is an extension of R's data.frame, designed to handle large datasets efficiently. It provides a syntax that is both concise and expressive, allowing users to perform complex data manipulations with ease. Its efficiency is particularly evident when dealing with tasks like filtering, grouping, aggregating, and joining data.
 
 The development team behind data.table is committed to continuously improving its performance. Over the years, several major version changes have been introduced, aiming to enhance speed and efficiency. These changes include algorithmic optimizations, memory management improvements, and enhancements to parallel processing capabilities. Upgrading to the latest version ensures that users can leverage the most recent performance enhancements.
 
-# **Benchmarking for Performance Evaluation**
+# **Benchmarking for performance evaluation**
 
 To evaluate data.table performance, it is essential to employ benchmarking methodologies. The approach I used utilizes the atime_versions function from the atime package, which measures the actual execution time of specific operations. This function allows for accurate comparisons between different versions of the data.table package, by benchmarking against time and memory usage and giving a graphical visualization of the results.
 
-In data.table, the term “Performance Regression” usually means a drop in both time metrics and memory metrics, and that is how we will be using the term here.
+In data.table, the term “performance regression” usually means a drop in both time metrics and memory metrics, and that is how we will be using the term here.
 
 
-# **Why do we run Performance Tests on commits?**
+# **Why do we run performance tests on commits?**
 
 Running performance tests on commits helps maintain a high-performance standard for the package, detect and fix performance regressions, optimize code, validate performance improvements, ensure consistent performance over time and to encourage confidence in code contributions from new people.
 
 It is an essential practice to deliver a performant and reliable package to end-users.
 
-# **What are the Performance Tests?**
+# **What are the performance tests?**
 Our atime performance tests aims to assess the data.table repository by benchmarking its performance and gathering information on memory and time usage.  
 
 By conducting these tests, we can gain insights into the package's performance efficiency.
@@ -68,7 +68,7 @@ In this example, the expression `[.data.table` is executed on the `DT` dataset u
 2. When the performance regression is first submitted (Regression)
 3. Pull Request (PR) which fixes the performance regression (Fixed)
 
-# **APPROACH**
+# **Approach**
 1. To begin, conduct the atime test for the different code branches (before regression, regression, fix regression) to identify potential performance issues. Here is an example of how to perform the [atime test](https://github.com/DorisAmoakohene/Efficiency-and-Performance-Test.RData.table)
 
 Note: Set up the necessary environment and dependencies, ensuring that the data.table package and the atime package are installed and loaded.
@@ -214,10 +214,10 @@ pkg.edit.fun = pkg.edit.fun,
 ```
 
 
-## Significantly Slower Performance Time-Based Rolling
+## Significantly slower performance time-based rolling
 
 ![Plot showing the 3 branches(Regression, Fixed and Before) of Issues5366](https://github.com/DorisAmoakohene/Efficiency-and-Performance-Test.RData.table/blob/main/atime.list.5366.png)
-Graph Overview:
+Graph overview:
 The graph depicts the performance improvement over time after fixing a regression issue
 Y-axis: Represents time in milliseconds.
 X-axis: Represents the sample size N (ranging from 10 to 10,000).
@@ -235,7 +235,7 @@ In summary, the graph visually demonstrates how fixing the regression issue led 
 
 
 
-# **CONCLUSION**
+# **Conclusion**
 
 In this blog post, we have delved into the use of the atime code to compare the asymptotic time and memory usage of different versions of the data.table package. Specifically, we explored the comparisons between the "Before," "Regression," and "Fixed" versions, as well as different versions implementing the same computation.
 
