@@ -9,7 +9,7 @@ output: html_document
 Since August 2023, I have been working on performance testing, which could be useful for expanding the open-source Ecosystem around data.table package in R.
 This could increase confidence in code contributions by ensuring the sustained efficiency of the data.table package. Consequently, it becomes essential to enhance the package's performance and deliver reliable results to its users.
 
-It is important that we prevent significant performance regression from reaching the data.table package. Slowness, late execution or big memory usage can be frustrating, any performance regression that makes it into a version release will degrade user experience. In this blog post, I will demonstrate the use of benchmarking techniques to verify whether reported issues on data.table have been successfully resolved.
+It is important that we prevent significant performance regression from reaching the data.table package. Slowness or big memory usage can be frustrating, any performance regression that makes it into a version release will degrade user experience. In this blog post, I will demonstrate the use of benchmarking techniques to verify whether reported issues on data.table have been successfully resolved.
 
 
 # **Understanding Performance in data.table?**
@@ -22,7 +22,7 @@ The development team behind data.table is committed to continuously improving it
 
 To evaluate data.table performance, it is essential to employ benchmarking methodologies. The approach I used utilizes the atime_versions function from the atime package, which measures the actual execution time of specific operations. This function allows for accurate comparisons between different versions of the data.table package, by benchmarking against time and memory usage and giving a graphical visualization of the results.
 
-In data.table, the term “Performance Regression” usually means a drop in both time metrics and memory metrics, and that is how we will be  using the term here.
+In data.table, the term “Performance Regression” usually means a drop in both time metrics and memory metrics, and that is how we will be using the term here.
 
 
 # **Why do we run Performance Tests on commits?**
@@ -32,9 +32,9 @@ Running performance tests on commits helps maintain a high-performance standard 
 It is an essential practice to deliver a performant and reliable package to end-users.
 
 # **What are the Performance Tests?**
-Our atime Performance Tests aim to assess the efficiency of the data.table Package by simulating the data.table repository and gathering information on memory and time usage. It also evaluate how effectively the package performs under various scenarios and workloads. 
+Our atime performance tests aims to assess the data.table repository by benchmarking its performance and gathering information on memory and time usage.  
 
-By conducting these tests, we can gain insights into the package's performance Efficiency.
+By conducting these tests, we can gain insights into the package's performance efficiency.
 
 ## When using atime_versions, there are six main arguments:
 
@@ -85,7 +85,7 @@ Note: Set up the necessary environment and dependencies, ensuring that the data.
 
 # Lets run some examples to see how this works.
 
-The first example we will discuss is an issue reported on a performance regression when performing group computations, specifically when running R's C eval on each group (q7 and q8) in the db-benchmark, indicating a slowness in the implementation of the code.[link to comment that reported Regression](https://github.com/Rdatatable/data.table/issues/4200)
+The first example we will discuss is an issue reported on a performance regression when performing group computations, specifically when running R's C eval on each group (q7 and q8) in the db-benchmark, indicating a slowness in the implementation of the code. [link to comment that reported Regression](https://github.com/Rdatatable/data.table/issues/4200)
 This regression was caused by [The occurrence of this regression can be attributed to the inclusion of the specified code within the `#if` block.](https://github.com/Rdatatable/data.table/commit/c0052964694a4c618ab182aa474f924d40576d94)
 
 This is the [PR]( https://github.com/Rdatatable/data.table/pull/4558) that discusses the 
@@ -169,7 +169,7 @@ Please Note: Commit IDs or SHAs ("Before", "Regression", and "Fixed") refer to d
 
 ## Title: “Groupby with dogroups (R expression) performance regression.”
 
-![Plot showing the 3 branches(Regression,Fixed and Before) of the issues#4200](https://github.com/DorisAmoakohene/Efficiency-and-Performance-Test.RData.table/blob/main/atime.list.4200.png)
+![Plot showing the 3 branches(Regression, Fixed and Before) of the issues#4200](https://github.com/DorisAmoakohene/Efficiency-and-Performance-Test.RData.table/blob/main/atime.list.4200.png)
 
 The graph above  visualizes the  groupby operation with dogroups  issue. 
 
@@ -216,7 +216,7 @@ pkg.edit.fun = pkg.edit.fun,
 
 ## Significantly Slower Performance Time-Based Rolling
 
-![Plot showing the 3 branches(Regression,Fixed and Before) of Issues5366](https://github.com/DorisAmoakohene/Efficiency-and-Performance-Test.RData.table/blob/main/atime.list.5366.png)
+![Plot showing the 3 branches(Regression, Fixed and Before) of Issues5366](https://github.com/DorisAmoakohene/Efficiency-and-Performance-Test.RData.table/blob/main/atime.list.5366.png)
 Graph Overview:
 The graph depicts the performance improvement over time after fixing a regression issue
 Y-axis: Represents time in milliseconds.
@@ -243,6 +243,6 @@ By employing benchmarking methodologies like atime, we gained valuable insights 
 
 Consider doing the exercises below, if you want practice using atime.
 
-Consider visiting the this [link](https://github.com/Rdatatable/data.table/issues/4311) to gain a comprehensive understanding of regression and attempt to interpret it using atime.
+Consider visiting this [link](https://github.com/Rdatatable/data.table/issues/4311) to gain a comprehensive understanding of regression and attempt to interpret it using atime.
 The issue was fixed [here](https://github.com/Rdatatable/data.table/pull/4440) 
 By doing so, you will be able to replicate graphs similar to the ones mentioned earlier.
