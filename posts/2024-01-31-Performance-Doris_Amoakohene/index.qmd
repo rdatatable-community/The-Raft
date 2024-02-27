@@ -48,7 +48,8 @@ By conducting these tests, we can gain insights into the package's performance e
 
 5. `expr`: This section contains the expression that represents the operation being benchmarked. It uses the `data.table::`[.data.table`` syntax to perform the  operation on the dataset. 
 
-In the given syntax `data.table::`[.data.table``, the first part `data.table::` installs and loads different versions of the data.table package based on the specified commit IDs. Following that, the expression specified within `[.data.table`` is executed on each installed version. This process is repeated for all the specified commit IDs in the code.
+In the given syntax `` data.table::`[.data.table` ``, the first part `data.table::` installs and loads different versions of the data.table package based on the specified commit IDs. Hence, data.table:: will be translated to data.table.SHA1:: for some version hash SHA1. 
+Following that, the expression specified within `` `[.data.table`` `` is executed on each installed version. This process is repeated for all the specified commit IDs in the code.
 
 For example:
 
