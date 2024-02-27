@@ -10,4 +10,4 @@ title-block-banner: true
 resources:
 - "images/*"
 
-self-contained: true
+embed-resources: true
