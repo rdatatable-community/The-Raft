@@ -12,6 +12,7 @@ page-layout: full
 title-block-banner: images/banner_tall_small.jpeg
 ---
 
+```{=html}
 <style>
 #title-block-header {
   margin-block-end: 1rem;
@@ -27,3 +28,4 @@ title-block-banner: images/banner_tall_small.jpeg
 }
 
 </style>
+```
