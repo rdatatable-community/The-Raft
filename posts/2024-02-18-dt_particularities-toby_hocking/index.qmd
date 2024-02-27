@@ -108,6 +108,7 @@ Reference semantics mean that `data.table` assignment is potentially much more e
 ```{r}
 #| code-fold: true
 #| code-summary: "See source code"
+#| message: false
 
 atime_result <- atime::atime(
   N = 10^seq(1, 7, by = 0.5),

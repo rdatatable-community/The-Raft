@@ -3,7 +3,7 @@ title: "Results of the 2023 survey"
 author: "Aljaž Sluga"
 date: "2024-02-25"
 categories: [community, guest post, governance]
-image: "image.jpg"
+image: "usage_frequency.png"
 ---
 
 Thanks to everyone who helped create, shared, or filled out the first data.table survey! The survey was officially open between October 17 and December 1 and it received **391** responses during this time.
@@ -125,15 +125,14 @@ The responses to this survey make the value of `data.table` clear, but some user
 
 ## What can you do?
 
-Are you interested in learning more, or helping grow the `data.table` community and infrastructure?  Here are some places to start:
+Are you interested in learning more, or helping grow the `data.table` community and infrastructure? Here are some places to start:
 
-* [Submit a blog post](https://github.com/rdatatable-community/The-Raft) to The Raft with your ideas, insights, or use cases of `data.table`.
+-   [Submit a blog post](https://github.com/rdatatable-community/The-Raft) to The Raft with your ideas, insights, or use cases of `data.table`.
 
-* [Weigh in on issues and community discussions](https://github.com/Rdatatable/data.table/issues) at the `data.table` github page.
+-   [Weigh in on issues and community discussions](https://github.com/Rdatatable/data.table/issues) at the `data.table` github page.
 
-* Contribute to [beginner task](https://github.com/Rdatatable/data.table/issues?q=is%3Aissue+is%3Aopen+beginner-task+label%3Abeginner-task) updates or [https://github.com/Rdatatable/data.table/issues?q=is%3Aissue+is%3Aopen+label%3Adocumentation+] needs for the package.
+-   Contribute to [beginner task](https://github.com/Rdatatable/data.table/issues?q=is%3Aissue+is%3Aopen+beginner-task+label%3Abeginner-task) updates or [documentation](https://github.com/Rdatatable/data.table/issues?q=is%3Aissue+is%3Aopen+label%3Adocumentation+) needs for the package.
 
-* [Apply for the data.table travel award](https://rdatatable-community.github.io/The-Raft/posts/2023-11-01-travel_grant_announcement-community_team/) to give a talk at a conference.
+-   [Apply for the data.table travel award](https://rdatatable-community.github.io/The-Raft/posts/2023-11-01-travel_grant_announcement-community_team/) to give a talk at a conference.
 
-* Email r.data.table@gmail.com to reach the NSF Grant steering committee with your thoughts and ideas. 
-
+-   Email r.data.table\@gmail.com to reach the NSF Grant steering committee with your thoughts and ideas.
