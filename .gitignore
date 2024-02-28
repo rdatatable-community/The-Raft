@@ -5,4 +5,10 @@
 .RData
 .Ruserdata
 
+# Quarto files
 /.quarto/
+/_site/
+
+# Emacs temporary files
+\#*
+*~
