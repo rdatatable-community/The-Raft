@@ -9,10 +9,12 @@ output: html_document
 Since August 2023, I have been working on performance testing, which could be useful for expanding the open-source ecosystem around data.table package in R.
 This could increase confidence in code contributions by ensuring the sustained efficiency of the data.table package. 
 
+In data.table, the term “performance regression” usually means an increase in both time metrics and memory metrics, and that is how we will be using the term here.
+
 It is important that we prevent significant performance regression from reaching the data.table package. Slowness or big memory usage can be frustrating. Any performance regression that makes it into a version release will degrade user experience. In this blog post, I will demonstrate the use of benchmarking techniques to verify whether reported issues on data.table have been successfully resolved.
 
 
-# **Understanding performance in data.table?**
+# **Understanding performance in data.table**
 
 data.table is an extension of R's data.frame, designed to handle large datasets efficiently. It provides a syntax that is both concise and expressive, allowing users to perform complex data manipulations with ease. Its efficiency is particularly evident when dealing with tasks like filtering, grouping, aggregating, and joining data.
 
@@ -21,8 +23,6 @@ The development team behind data.table is committed to continuously improving it
 # **Benchmarking for performance evaluation**
 
 To evaluate data.table performance, it is essential to employ benchmarking methodologies. The approach I used utilizes the atime_versions function from the atime package, which measures the actual execution time of specific operations. This function allows for accurate comparisons between different versions of the data.table package, by benchmarking against time and memory usage and giving a graphical visualization of the results.
-
-In data.table, the term “performance regression” usually means an increase in both time metrics and memory metrics, and that is how we will be using the term here.
 
 
 # **Why do we run performance tests on commits?**
