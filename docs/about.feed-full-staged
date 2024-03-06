@@ -17,7 +17,30 @@
 <width>144</width>
 </image>
 <generator>quarto-1.3.450</generator>
-<lastBuildDate>Sun, 25 Feb 2024 08:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sun, 10 Mar 2024 08:00:00 GMT</lastBuildDate>
+<item>
+  <title>{B4F502887207:/posts/2024-03-10-testing_plan-toby_hocking/index.html}</title>
+  <dc:creator>Toby Hocking</dc:creator>
+  <link>https://rdatatable-community.github.io/The-Raft/posts/2024-03-10-testing_plan-toby_hocking/index.html</link>
+  <description>{B4F502887207:/posts/2024-03-10-testing_plan-toby_hocking/index.html}</description>
+  <category>grant</category>
+  <category>testing</category>
+  <category>developers</category>
+  <guid>https://rdatatable-community.github.io/The-Raft/posts/2024-03-10-testing_plan-toby_hocking/index.html</guid>
+  <pubDate>Sun, 10 Mar 2024 08:00:00 GMT</pubDate>
+  <media:content url="https://rdatatable-community.github.io/The-Raft/posts/2024-03-10-testing_plan-toby_hocking/code_testing.png" medium="image" type="image/png" height="76" width="144"/>
+</item>
+<item>
+  <title>{B4F502887207:/posts/2024-03-06-interviews-anirban_chetia/index.html}</title>
+  <dc:creator>Anirban Chetia</dc:creator>
+  <link>https://rdatatable-community.github.io/The-Raft/posts/2024-03-06-interviews-anirban_chetia/index.html</link>
+  <description>{B4F502887207:/posts/2024-03-06-interviews-anirban_chetia/index.html}</description>
+  <category>community</category>
+  <category>grant</category>
+  <guid>https://rdatatable-community.github.io/The-Raft/posts/2024-03-06-interviews-anirban_chetia/index.html</guid>
+  <pubDate>Wed, 06 Mar 2024 08:00:00 GMT</pubDate>
+  <media:content url="https://rdatatable-community.github.io/The-Raft/posts/2024-03-06-interviews-anirban_chetia/index.jpg" medium="image" type="image/jpeg"/>
+</item>
 <item>
   <title>{B4F502887207:/posts/2024-02-25-survey_2023-aljaz_sluga/index.html}</title>
   <dc:creator>Aljaž Sluga</dc:creator>
