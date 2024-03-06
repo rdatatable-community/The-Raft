@@ -43,6 +43,8 @@ listing:
       - guest post
       - tutorials
       - tips
+      - testing
+      - developer
   sort-ui: false
   filter-ui: false
 

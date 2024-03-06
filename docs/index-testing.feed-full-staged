@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Blog</title>
+<link>https://rdatatable-community.github.io/The-Raft/index.html#category=testing</link>
+<atom:link href="https://rdatatable-community.github.io/The-Raft/index-testing.xml" rel="self" type="application/rss+xml"/>
+<description>&lt;i&gt;Raft (n):  A group or herd of sea lions.&lt;/i&gt; A place for announcements, tutorials, and musings about the {data.table} package and its community.</description>
+<generator>quarto-1.3.450</generator>
+<lastBuildDate>Sun, 10 Mar 2024 08:00:00 GMT</lastBuildDate>
+<item>
+  <title>{B4F502887207:/posts/2024-03-10-testing_plan-toby_hocking/index.html}</title>
+  <dc:creator>Toby Hocking</dc:creator>
+  <link>https://rdatatable-community.github.io/The-Raft/posts/2024-03-10-testing_plan-toby_hocking/index.html</link>
+  <description>{B4F502887207:/posts/2024-03-10-testing_plan-toby_hocking/index.html}</description>
+  <category>grant</category>
+  <category>testing</category>
+  <category>developer</category>
+  <guid>https://rdatatable-community.github.io/The-Raft/posts/2024-03-10-testing_plan-toby_hocking/index.html</guid>
+  <pubDate>Sun, 10 Mar 2024 08:00:00 GMT</pubDate>
+  <media:content url="https://rdatatable-community.github.io/The-Raft/posts/2024-03-10-testing_plan-toby_hocking/code_testing.png" medium="image" type="image/png" height="76" width="144"/>
+</item>
+</channel>
+</rss>
