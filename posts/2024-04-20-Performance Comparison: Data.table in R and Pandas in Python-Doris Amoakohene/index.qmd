@@ -88,6 +88,9 @@ plot(refs.write.vary.cols)
 atime::references_best() : This function returns a list, which can then be visualized using plot().
 The plot shows the asymptotic reference lines, which defines the estimated asymptotic time and memory complexity. The output and figure will includes violet reference lines, in which the text labels can be interpreted in terms of big O notation (asymptotic time and memory usage).
 
+The graph compares the performance of data.table::fwrite and pandas::to_csv for writing data. The top left graph shows that pandas::to_csv has a sharp increase in time as the dataset size increases, while data.table::fwrite remains relatively constant. The top right graph shows both methods with almost constant times, but pandas::to_csv uses more kilobytes. Overall, data.table::fwrite performs significantly faster than pandas::to_csv, particularly for larger datasets, suggesting that it may be a more efficient method for writing data.
+
+
 The predict() function is used to generate predictions based on the atime::reference_best() dataset. The resulting plot illustrates the data size, N, that can be processed within a specific time or memory limit.
 
 
@@ -159,7 +162,7 @@ atime.read <- atime::atime(
 refs.read.vary.cols <- atime::references_best(atime.read)
 plot(refs.read.vary.cols)
 ```
-
+The graph provides a closer look at larger values of N, indicating that data.table::fread outperforms pandas::read_csv, particularly as N increases. complexity notations such as log N, N log N, and N^2 are used to describe the performance characteristics.
 
 ```{r,warning=FALSE,message=FALSE}
 pred.read.vary.cols <- predict(refs.read.vary.cols)
@@ -236,6 +239,7 @@ ml.reshape.atime <- atime::atime(
 ml.reshape.refs <- atime::references_best(ml.reshape.atime)
 plot(ml.reshape.refs)
 ```
+Also in this graph we see that data.table::melt performs for complexity notations to pandas::melt
 
 
 ```{r,warning=FALSE,message=FALSE}
@@ -312,7 +316,7 @@ ml.long2wide.atime <- atime::atime(
 ml.long2wide.refs <- atime::references_best(ml.long2wide.atime)
 plot(ml.long2wide.refs)
 ```
-
+same as all the above, data::dcast performs better in terms of complexity notations 
 
 ```{r,warning=FALSE,message=FALSE}
 ml.long2wide.pred <- predict(ml.long2wide.refs)
