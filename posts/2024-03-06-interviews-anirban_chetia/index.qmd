@@ -3,7 +3,7 @@ title: "Community interviews about {data.table}"
 author: "Anirban Chetia"
 date: "2024-03-06"
 categories: [community, grant]
-image: "index.jpg"
+image: "index.jpeg"
 draft: false
 ---
 
@@ -11,12 +11,11 @@ draft: false
 
 One stipulation of [NSF POSE](https://new.nsf.gov/funding/opportunities/pathways-enable-open-source-ecosystems-pose) funded projects like this one was to conduct several interviews under [NSF's I-CORPS](https://new.nsf.gov/funding/initiatives/i-corps) program (Winter 2024 Cohort), to gather information as to how `data.table` as an open-source project can improve and remain sustainable. For four weeks starting on the 17th of January, I conducted a total of **60 interviews** with R Users and `data.table` contributors. [Issue#5880 on the data.table GitHub](https://github.com/Rdatatable/data.table/issues/5880) mentions this, and has a link to the Google Doc that contains the list of people interviewed.
 
-![](index.jpeg){width=60%}
+![](index.jpeg){width="60%"}
 
-Project PI Toby Hocking assigned me to do these interviews and serve as the EL (*Entrepreneurial Lead*) for the `data.table` team.  In addition to the interviews, this position involves tasks such as making and giving various presentations. Having successfully completed the program and conducted the interviews, it's time to share the insights I gathered from them as a source of open-ended knowledge for the community.
+Project PI Toby Hocking assigned me to do these interviews and serve as the EL (*Entrepreneurial Lead*) for the `data.table` team. In addition to the interviews, this position involves tasks such as making and giving various presentations. Having successfully completed the program and conducted the interviews, it's time to share the insights I gathered from them as a source of open-ended knowledge for the community.
 
 But before you head below to read those parts, I would like to convey a big **Thank you!** to everyone who took part in this; from making availability and scheduling, to providing comprehensive feedback, and all the while being extremely communicative. I sincerely appreciate it. Not just for the value of your insights brought to the table, but also for being great people to talk with in general!
-
 
 ## Selected Quotes
 
@@ -44,7 +43,7 @@ Next we will summarize some consistent themes that will help guide the grant mov
 
 ## Theme 1: Contribution of package development
 
-The first theme of the interviews was what values motivate people or prevent people in contributing to the `data.table` project.  These varied from person to person, but I summarize a few common answers below.
+The first theme of the interviews was what values motivate people or prevent people in contributing to the `data.table` project. These varied from person to person, but I summarize a few common answers below.
 
 ### Positive motivations
 
@@ -58,7 +57,7 @@ The first theme of the interviews was what values motivate people or prevent peo
 
 -   Trying to be a part of the `data.table` community, wherein the feeling of being a part of something big and crucial tends to be in play here. Making connections in the open-source community also tends to be an attraction.
 
--   Financial gain or incentives from working on the project. None of the people interviewed were paid to do so, but nearly all of them agreed that a paid position could be a win-win for the interested ones.  For example, the author of `data.table`, Matt Dowle, was able to work on the package as part of his previous paid position at [H20.ai](https://h2o.ai/).
+-   Financial gain or incentives from working on the project. None of the people interviewed were paid to do so, but nearly all of them agreed that a paid position could be a win-win for the interested ones. For example, the author of `data.table`, Matt Dowle, was able to work on the package as part of his previous paid position at [H20.ai](https://h2o.ai/).
 
 ### Barriers
 
@@ -78,25 +77,25 @@ The first theme of the interviews was what values motivate people or prevent peo
 
 -   Diversity and inclusion: For many, English is not their primary language, and a fair amount of jargon exists while going in the vignettes and documentation. The inclusion of more people through translations would be something to look forward to. A few also referenced wanting a welcoming culture in contribution. A broader approach might be required for newcomers to open issues and pull requests. Additionally, people tend to adopt the ‘contributor mode’ when sought upon - simple things like making it explicit on the GitHub repository that contributors are needed can pull them towards deciding to push a change.
 
-
 ### Summary and Takeaways
+
 *Section added by Kelly Bodwin*
 
 Based on these findings, we on the grant team see three major directions for encouraging more contribution to `data.table`:
 
-1. **Use in projects:** Interviewees reported adding their own functionality to `data.table` based on needs in personal or work projects. Others cited their own lack of `data.table` use as a reason not to be more involved. The more we can encourage practical adoption of `data.table`, where it can be useful to users, the more contribution we will see from users.
+1.  **Use in projects:** Interviewees reported adding their own functionality to `data.table` based on needs in personal or work projects. Others cited their own lack of `data.table` use as a reason not to be more involved. The more we can encourage practical adoption of `data.table`, where it can be useful to users, the more contribution we will see from users.
 
-2. **Feeling of community and culture of inclusion:** This is already a focus of the grant project, and it is great to hear that this is already valued by the users and community members!  We hope to vastly expand the beginner-friendliness and language diversity of documentation.
+2.  **Feeling of community and culture of inclusion:** This is already a focus of the grant project, and it is great to hear that this is already valued by the users and community members! We hope to vastly expand the beginner-friendliness and language diversity of documentation.
 
-3. **Beginner-friendliness and support:**  Interviewees reported not having the programming skills to add to `data.table`.  Going forward, we hope to better denote and emphasize the areas of contribution for less experienced programmers, and to provide more supporting resources for new community members to learn about the structure of the package.
+3.  **Beginner-friendliness and support:** Interviewees reported not having the programming skills to add to `data.table`. Going forward, we hope to better denote and emphasize the areas of contribution for less experienced programmers, and to provide more supporting resources for new community members to learn about the structure of the package.
 
-4. **Financial and professional benefits:**  Contributors report that developing for `data.table` has positive impact on professional development and hireability, and that they would welcome financial incentives as well.  I believe we should experiment with structure that help support our developers in concrete ways.
+4.  **Financial and professional benefits:** Contributors report that developing for `data.table` has positive impact on professional development and hireability, and that they would welcome financial incentives as well. I believe we should experiment with structure that help support our developers in concrete ways.
 
-5. **Pull Request process and timeline:**  We believe that the newly established [Governance Document](https://github.com/Rdatatable/data.table/blob/master/GOVERNANCE.md) for the package will help clarify and streamline the contributor process for the future. 
+5.  **Pull Request process and timeline:** We believe that the newly established [Governance Document](https://github.com/Rdatatable/data.table/blob/master/GOVERNANCE.md) for the package will help clarify and streamline the contributor process for the future.
 
-## Theme 2:  Adoption of `data.table`
+## Theme 2: Adoption of `data.table`
 
-The second theme is what drives people to be regular users of the `data.table` package.  We mostly focused on barriers to adpotion.  
+The second theme is what drives people to be regular users of the `data.table` package. We mostly focused on barriers to adpotion.
 
 ### Individual reasons to not adopt
 
@@ -104,7 +103,7 @@ People cited various reasons for not utilizing or transitioning to `data.table`:
 
 -   Low rationale to switch to `data.table` when dealing with small datasets. In comparison to other R packages that achieve the same functionality, notable efficiency is mostly observed when the data being dealt with is considerably large (wherein the operations performed on them scale well to see a visible difference).
 
--   On the flip side, there are rare cases where people found `data.table` to be not scalable enough, and instead use database tools like `DuckDB` for their datasets which are increasingly larger than memory.  (Some mentioned that making operations work on-disk would be something to look out for and implement in the future). An intermediate solution for them here would be to have a syntax translator tool that would translate `data.table` syntax to SQL queries, similar to what `dbplyr` is for `dplyr` commands, as they prefer the `data.table` way to write code and only require things to be more scalable.
+-   On the flip side, there are rare cases where people found `data.table` to be not scalable enough, and instead use database tools like `DuckDB` for their datasets which are increasingly larger than memory. (Some mentioned that making operations work on-disk would be something to look out for and implement in the future). An intermediate solution for them here would be to have a syntax translator tool that would translate `data.table` syntax to SQL queries, similar to what `dbplyr` is for `dplyr` commands, as they prefer the `data.table` way to write code and only require things to be more scalable.
 
 -   Not enough resources online to learn `data.table` in an easy yet detailed manner. This comes in stark contrast to abundant resources available for topics such as `data.frame` and `dplyr` for instance.
 
@@ -115,7 +114,6 @@ People cited various reasons for not utilizing or transitioning to `data.table`:
 -   For a handful, the syntax does not come to be natural although they potentially benefit from the speed. They would stick to `tidyverse` or Base R in terms of being easier to use, unless they are running big computations where time is key.
 
 -   Some feel that `data.table` requires a certain level of understanding and experience in R prior to using it. They believe that it isn't easy for newbies to adapt reasonably quickly, with regards to their own experiences in learning it. For reasons discussed above again, people with beginner-level experience in R or not enough reason to have code be the most efficient tend to stick with easier-to-use packages and functions, which is especially common in entry-level data science courses.
-
 
 ### Areas of improvement
 
@@ -145,15 +143,15 @@ In terms of the community revolving around `data.table`:
 
 -   More edu-centric approaches need to be undertaken. Most educational institutions do not resort to having `data.table` as part of their curriculum in R-based courses. While the coursework tends to be easier for newcomers, having more resources accessible can help people learn the more optimized version right from scratch and avoid learning it in the long run (almost all of the interviewees had to explore `data.table` on their own!) when efficiency or just the concise way of writing things is found to be better for some. Thus, it might help if instructors can start incorporating lessons using the package.
 
-
 ### Summary and Takeaways
+
 *Section added by Kelly Bodwin*
 
-1. **Education and Resources:** It has been clear from the outset of this project that `data.table` could benefit from a **lot** more documentation, guides, tutorials, etc.  This is always a tough issue, because creating such materials can be a thankless task with not a lot of concrete payoff.  However, thanks to the grant, we are able to fund time for this project!  Expect good things on the horizon in this category.
+1.  **Education and Resources:** It has been clear from the outset of this project that `data.table` could benefit from a **lot** more documentation, guides, tutorials, etc. This is always a tough issue, because creating such materials can be a thankless task with not a lot of concrete payoff. However, thanks to the grant, we are able to fund time for this project! Expect good things on the horizon in this category.
 
-2. **Syntax and the R sub-languages:**  The diversity of R syntax is a blessing and a curse, and everyone has their favorite sytax style, from `tidyverse` to formula style to Base R to `data.table`, and every combination in between.  Ultimately, our goal should be to be as flexible and possible and offer ways for `data.table` to interface smoothly with other styles, without losing it's core syntax structure and personality!  (`dtplyr` and `tidyfast` are lovely examples of such interfacing.)
+2.  **Syntax and the R sub-languages:** The diversity of R syntax is a blessing and a curse, and everyone has their favorite sytax style, from `tidyverse` to formula style to Base R to `data.table`, and every combination in between. Ultimately, our goal should be to be as flexible and possible and offer ways for `data.table` to interface smoothly with other styles, without losing it's core syntax structure and personality! (`dtplyr` and `tidyfast` are lovely examples of such interfacing.)
 
-3. **Applicability to the problem at hand:** This is an interesting one.  Can we do better at defining what dataset sizes and types are the best use cases for `data.table`?  Can we provide more options for interfacing with databases, so that users can perhaps pull data using database tools, but analyze on-disk with `data.table`?
+3.  **Applicability to the problem at hand:** This is an interesting one. Can we do better at defining what dataset sizes and types are the best use cases for `data.table`? Can we provide more options for interfacing with databases, so that users can perhaps pull data using database tools, but analyze on-disk with `data.table`?
 
 ## Theme 3: Open-source sustainability
 
@@ -178,14 +176,14 @@ Finally, we asked interviewees what might be necessary to give `data.table` long
 -   A fair proportion is willing to contribute to such a central fund. As for how and to whom will these funds be dispersed, or what would be a good way to distribute them proportionately, remains a question.
 
 ### Summary and Takeaways
+
 *Section added by Kelly Bodwin*
 
 I don't have much to add to this one - it's clear that we need more support structure for open-source maintenance, whether from private sources or public grants or community sponsorship.
 
-
 ## Ani's Roadmap
 
-![](roadmap.png){width=60%}
+![](roadmap.png){width="60%"}
 
 Here is my list of ideas to potentially do or keep in mind for the agenda going forward:
 
@@ -204,4 +202,3 @@ Here is my list of ideas to potentially do or keep in mind for the agenda going 
 -   Creating videos and interactive tutorials.
 
 -   Classifying more of issues (if applicable) that fall under or are labelled as '[beginner-task](https://github.com/Rdatatable/data.table/issues?q=is%3Aissue+is%3Aopen+label%3Abeginner-task)'.
-
