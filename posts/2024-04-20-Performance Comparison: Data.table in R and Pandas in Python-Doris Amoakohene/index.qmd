@@ -10,12 +10,12 @@ output: html_document
 R and Python are two programming languages that have gained immense popularity among data scientists, statisticians, and researchers. 
 In this blog, we will explore two widely used libraries, data.table in R and pandas in Python, which excel in data manipulation and provide versatile functionalities for working with data, focusing on their capabilities for reading, writing, and reshaping data.
 We will also explain how to graphically demonstrate the time taken by each operation. We will use atime package to compare and visualize the asymptotic performance (time and memory usage) of the different functions mentioned above.
-By comparing the asymptotic performance of these packages in these programing languages, we aim to provide insights into their usage and help data scientists make informed choices when it comes to data manipulation and analysis.
+By comparing the asymptotic performance of these packages in these programming languages, we aim to provide insights into their usage and help data scientists make informed choices when it comes to data manipulation and analysis.
 
 
 In the atime::atime() we define the following arguments, 
 
-The first argument N is a sequence of data sizes.This explores computational efficiency, which will compute time/memory usage for different data sizes(N).
+The first argument N is a sequence of data sizes. This explores computational efficiency, which will compute time/memory usage for different data sizes(N). 
 
 The second argument setup is an expression that will be evaluated for each value in N, to create data of a given size.
 
@@ -23,23 +23,16 @@ seconds.limit may optionally be specified. If an expression is slower than this 
 
 Lastly, expr.list, which is the list of expressions for which time/memory usage will be measured.
 
-## Various plot
-
-atime::reference_best() : This plot shows the asymptotic reference lines, which defines the estimated asymptotic time and memory complexity. The output and figure will includes violet reference lines, in which the text labels can be interpreted in terms of big O notation (asymptotic time and memory usage).
-
-The predict() function is used to generate predictions based on the atime::reference_best() dataset. The resulting plot illustrates the data size, N, that can be processed within a specific time or memory limit.
-
 
 ## Libraries
 
 ```{r setup,warning=FALSE,message=FALSE}
-
 library(data.table)
 library(reshape2)
 library(atime)
 library(ggplot2)
 library(reticulate)
-use_python("C:/Users/amoak/AppData/Local/Programs/Python/Python312/python.exe")
+use_python("C:/Users/amoak/AppData/Local/Programs/Python/Python312/python.exe") #If you want to reproduce, please change to the path of python on your computer.
 virtualenv_create("fm-proj")
 use_virtualenv("fm-proj", required = F)
 
@@ -60,56 +53,49 @@ Data.table provides the fwrite() function for writing data to a file while Panda
 ## Comparison code
 
 ```{r,warning=FALSE,message=FALSE}
-
 write.colors <- c(
   "data.table::fwrite" = "#D6604D",
   "pandas::to_csv" = "#BF812D"
 )
-
 file_path = 'data.csv'
 n.rows <- 100
 seconds.limit <- 10
-
 atime.write.vary.cols <- atime::atime(
   N = as.integer(10^seq(2, 10, by = 0.2)),
   setup = {
     set.seed(1)
     input.vec <- rnorm(n.rows * N)
     input.mat <- matrix(input.vec, n.rows, N)
-    input.df <- data.frame(input.mat)
-    
+    input.df <- data.frame(input.mat) 
     pd <- import("pandas")
-   
     input_df_pd <- r_to_py(input.df)
-    
-    
-
   },
   seconds.limit = seconds.limit,
   "data.table::fwrite" = {
     data.table::fwrite(input.df, tempfile(), showProgress = FALSE)
   },
   "pandas::to_csv" = {
- 
     input_df_pd$to_csv(file_path, index = FALSE)
   }
 )
-
 ```
-
-
 
 ```{r,warning=FALSE,message=FALSE}
 refs.write.vary.cols <- atime::references_best(atime.write.vary.cols)
 plot(refs.write.vary.cols)
 ```
 
+atime::references_best() : This function returns a list, which can then be visualized using plot().
+The plot shows the asymptotic reference lines, which defines the estimated asymptotic time and memory complexity. The output and figure will includes violet reference lines, in which the text labels can be interpreted in terms of big O notation (asymptotic time and memory usage).
+
+The predict() function is used to generate predictions based on the atime::reference_best() dataset. The resulting plot illustrates the data size, N, that can be processed within a specific time or memory limit.
 
 
 ```{r,warning=FALSE,message=FALSE}
 pred.write.vary.cols <- predict(refs.write.vary.cols)
 plot(pred.write.vary.cols)
 ```
+
 ```{r}
 gg.write.dt.pd <- plot(pred.write.vary.cols) +
   theme(text = element_text(size = 15)) +
@@ -123,7 +109,7 @@ gg.write.dt.pd <- plot(pred.write.vary.cols) +
 print(gg.write.dt.pd)
 ```
 
-The Plot above shows that in terms of writing data, the data.table package in R outperforms Python's pandas library and particularly useful when dealing with large datasets.
+The plot above shows that in terms of writing data, the data.table package in R outperforms Python's pandas library and particularly useful when dealing with large datasets.
 
 
 
@@ -143,7 +129,6 @@ read.colors <- c(
 n.rows <- 100
 seconds.limit <- 10
 file_path = 'data.csv'
-
 atime.read <- atime::atime(
   N = as.integer(10^seq(2, 15, by = 0.2)),
   setup = {
@@ -153,24 +138,18 @@ atime.read <- atime::atime(
     input.df <- data.frame(input.mat)
     input.csv <- tempfile()
     fwrite(input.df, "data.csv")
-    
+
     pd <- import("pandas")
-    input_df_pd <- pd$DataFrame(input.df)
-    
-    
-    
+    input_df_pd <- pd$DataFrame(input.df) 
   },
   seconds.limit = seconds.limit,
   "data.table::fread" = {
-    data.table::fread("data.csv", showProgress = FALSE)
-    
-    
+    data.table::fread("data.csv", showProgress = FALSE) 
   },
   "pandas::read_csv" = {
     pd <- import("pandas")
     reticulate::py_run_string("import pandas as pd")
-    reticulate::py_run_string("pd.read_csv(file_path)")
-    
+    reticulate::py_run_string("pd.read_csv(file_path)")  
   }
 )
 ```
@@ -247,10 +226,8 @@ ml.reshape.atime <- atime::atime(
   "pandas::pd.melt" = {
     py_df <- reticulate::r_to_py(df)
     pd <- import("pandas")
-    pd$melt(py_df, id_vars = c("id", "category"), value_name = "score")
-    
+    pd$melt(py_df, id_vars = c("id", "category"), value_name = "score")  
   }
-
   )
 
 ```
@@ -280,12 +257,11 @@ over 10 timings")+
   scale_color_manual(values=ml.colors)
 ```
 
-```{r,warning=FALSE,message=FALSE}
+```{r, warning=FALSE, message=FALSE}
 plot(ml.wide2long.pd)
-
 ```
 
-When converting data from wide to long format,As shown in the above plot, data.table's melt() function efficiently gathers multiple columns into key-value pairs, allowing for easy transformation of wide data into a longer, more structured format. 
+When converting data from wide to long format, as shown in the above plot, data.table's melt() function efficiently gathers multiple columns into key-value pairs, allowing for easy transformation of wide data into a longer, more structured format. 
 
 
 
@@ -310,7 +286,6 @@ seconds.limit <- 1
 
 ml.long2wide.atime <- atime::atime(
   N=as.integer(10^seq(2, 7, by=0.2)),
-  
   setup={
     df <- data.frame(
       id = rep(1:N, each = 2),
@@ -361,7 +336,6 @@ over 10 timings")+
 
 ```{r,warning=FALSE,message=FALSE}
 plot(ml.long2wide)
-
 ```
 
 On the other hand, when transforming data from long to wide format, data.table's dcast() function proves to be more efficient.
@@ -372,13 +346,15 @@ Although data.table has advantages in terms of writing,reading and Rehaping, pan
 
 # Conclusions 
 
-In conclusion, we have shown how to use atime to compare asymptotic time of the two packages. Both Pandas and Data.table are powerful libraries for data manipulation in Python and R respectively. Pandas offers a comprehensive set of functions and a user-friendly interface, making it suitable for a wide range of data analysis tasks. On the other hand, Data.table excels in terms of performance and memory efficiency, making it an excellent choice for handling large datasets and complex operations.
+In conclusion, we have shown how to use atime to compare asymptotic time of the two packages. Both Pandas and data.table are powerful libraries for data manipulation in Python and R respectively. Pandas offers a comprehensive set of functions and a user-friendly interface, making it suitable for a wide range of data analysis tasks. On the other hand, Data.table excels in terms of performance and memory efficiency, making it an excellent choice for handling large datasets and complex operations.
 
 The choice between the two libraries ultimately depends on the specific requirements of your data manipulation tasks. It is recommended to consider the size of the dataset, the complexity of the operations, and personal preferences when making a decision.
 
 
 
 # References: 
+
+My code was copied and modified from the code links below:
 
 [Reshape performance comparison](https://tdhock.github.io/blog/2024/reshape-performance/)
 
