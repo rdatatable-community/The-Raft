@@ -8,21 +8,15 @@ output: html_document
 # Introduction:
 
 R and Python are two programming languages that have gained immense popularity among data scientists, statisticians, and researchers. 
-In this blog, we will explore two widely used libraries, data.table in R and pandas in Python, which excel in data manipulation and provide versatile functionalities for working with data, focusing on their capabilities for reading, writing, and reshaping data.
+In this blog, we will explore two widely used libraries, data.table in R and pandas in Python, both of  which excel in data manipulation and provide versatile functionalities for working with data, focusing on their capabilities for reading, writing, and reshaping data.
 We will also explain how to graphically demonstrate the time taken by each operation. We will use the atime package to compare and visualize the asymptotic performance (time and memory usage) of the different functions mentioned above.
-By comparing the asymptotic performance of these packages in these programming languages, we aim to provide insights into their usage and help data scientists make informed choices when it comes to data manipulation and analysis.
+By comparing the asymptotic performance of these packages in these programming languages, We aim to provide insights into their usage and help data scientists make informed choices when it comes to data manipulation and analysis.
 
-
-In the atime::atime() we define the following arguments:
-
+In the ```atime::atime()``` we define the following arguments:
 The first argument, N, is a sequence of data sizes. This explores computational efficiency, which will compute time/memory usage for different data sizes (N). 
-
 The second argument setup is an expression that will be evaluated for each value in N, to create data of a given size.
-
 seconds.limit may optionally be specified. If an expression is slower than this limit for any data size, then no larger data sizes will be measured.
-
 Lastly, expr.list, which is the list of expressions for which time/memory usage will be measured.
-
 
 ## Libraries
 
@@ -35,14 +29,11 @@ library(reticulate)
 use_python("C:/Users/amoak/AppData/Local/Programs/Python/Python312/python.exe") #If you want to reproduce, please change to the path of python on your computer.
 virtualenv_create("fm-proj")
 use_virtualenv("fm-proj", required = F)
-
 ```
-
 
 ```{python}
 file_path = 'data.csv'
 ```
-
 
 # Example 1:  Writing a CSV File with data.table::fwrite() and pandas::to_csv()
 
@@ -55,7 +46,7 @@ Data.table provides the fwrite() function for writing data to a file while Panda
 ```{r,warning=FALSE,message=FALSE}
 write.colors <- c(
   "data.table::fwrite" = "#D6604D",
-  "pandas::to_csv" = "#BF812D"
+  "pandas.to_csv " = "#BF812D"
 )
 file_path = 'data.csv'
 n.rows <- 100
@@ -74,7 +65,7 @@ atime.write.vary.cols <- atime::atime(
   "data.table::fwrite" = {
     data.table::fwrite(input.df, tempfile(), showProgress = FALSE)
   },
-  "pandas::to_csv" = {
+  "pandas.to_csv" = {
     input_df_pd$to_csv(file_path, index = FALSE)
   }
 )
@@ -85,14 +76,12 @@ refs.write.vary.cols <- atime::references_best(atime.write.vary.cols)
 plot(refs.write.vary.cols)
 ```
 
-atime::references_best() : This function returns a list, which can then be visualized using plot().
+atime::references_best(): This function returns a list, which can then be visualized using plot().
 The plot shows the asymptotic reference lines, which define the estimated asymptotic time and memory complexity. The output and figure will include violet reference lines, in which the text labels can be interpreted in terms of Big O notation (asymptotic time and memory usage).
 
-The graph compares the performance of data.table::fwrite and pandas::to_csv for writing data. The top left graph shows that pandas::to_csv has a sharp increase in time as the dataset size increases, while data.table::fwrite remains relatively constant. The top right graph shows both methods with almost constant times, but pandas::to_csv uses more kilobytes. Overall, data.table::fwrite performs significantly faster than pandas::to_csv, particularly for larger datasets, suggesting that it may be a more efficient method for writing data.
-
+The graph compares the performance of data.table::fwrite and pandas.to_csv  for writing data. The top left graph shows that pandas.to_csv  has a sharp increase in time as the dataset size increases, while data.table::fwrite remains relatively constant. The top right graph shows both methods with almost constant times, but pandas.to_csv  uses more kilobytes. Overall, data.table::fwrite performs significantly faster than pandas.to_csv , particularly for larger datasets, suggesting that it may be a more efficient method for writing data.
 
 The predict() function is used to generate predictions based on the atime::reference_best() dataset. The resulting plot illustrates the data size, N, that can be processed within a specific time or memory limit.
-
 
 ```{r,warning=FALSE,message=FALSE}
 pred.write.vary.cols <- predict(refs.write.vary.cols)
@@ -108,15 +97,15 @@ gg.write.dt.pd <- plot(pred.write.vary.cols) +
   facet_null() +
   scale_fill_manual(values = write.colors) +
   scale_color_manual(values = write.colors)
+```
 
+```
 print(gg.write.dt.pd)
 ```
 
-The plot above shows that in terms of writing data, the data.table package in R outperforms Python's pandas library and particularly useful when dealing with large datasets.
+The plot above shows that in terms of writing data, the data.table package in R outperforms the pandas library in Python and particularly useful when dealing with large datasets.
 
-
-
-# Example 2: Reading a CSV File with data.table::fread() and pandas::read_csv()
+# Example 2: Reading a CSV File with data.table::fread() and pandas.read_csv 
 
 ## fread: fast CSV reader
 
@@ -127,7 +116,7 @@ Data.table provides the fread() function for reading data from a CSV file while 
 ```{r,warning=FALSE,message=FALSE}
 read.colors <- c(
   "data.table::fread" = "#D6604D",
-  "pandas::read_csv" = "#BF812D"
+  "pandas.read_csv" = "#BF812D"
 )
 n.rows <- 100
 seconds.limit <- 10
@@ -141,7 +130,6 @@ atime.read <- atime::atime(
     input.df <- data.frame(input.mat)
     input.csv <- tempfile()
     fwrite(input.df, "data.csv")
-
     pd <- import("pandas")
     input_df_pd <- pd$DataFrame(input.df) 
   },
@@ -149,7 +137,7 @@ atime.read <- atime::atime(
   "data.table::fread" = {
     data.table::fread("data.csv", showProgress = FALSE) 
   },
-  "pandas::read_csv" = {
+  "pandas.read_csv " = {
     pd <- import("pandas")
     reticulate::py_run_string("import pandas as pd")
     reticulate::py_run_string("pd.read_csv(file_path)")  
@@ -157,19 +145,17 @@ atime.read <- atime::atime(
 )
 ```
 
-
 ```{r,warning=FALSE,message=FALSE}
 refs.read.vary.cols <- atime::references_best(atime.read)
 plot(refs.read.vary.cols)
 ```
-The graph provides a closer look at larger values of N, indicating that data.table::fread outperforms pandas::read_csv, particularly as N increases. complexity notations such as log N, N log N, and N^2 are used to describe the performance characteristics.
+
+The graph provides a closer look at larger values of N, indicating that data.table::fread outperforms pandas.read_csv , particularly as N increases. Complexity notations such as log N, N log N, and N^2 are used to describe the asymptotic time/memory usage.
 
 ```{r,warning=FALSE,message=FALSE}
 pred.read.vary.cols <- predict(refs.read.vary.cols)
 plot(pred.read.vary.cols)
 ```
-
-
 
 ```{r,warning=FALSE,message=FALSE}
 gg.read.pd <- plot(pred.read.vary.cols)+
@@ -190,12 +176,11 @@ plot(gg.read.pd)
 
 When it comes to reading data, data.table in R also demonstrates its superiority. It provides fast and efficient methods for importing and reading various file formats, including CSV. The fread() function in data.table is known for its speed and memory efficiency, making it an optimal choice for handling large datasets.
 
-
 # Example 3. Reshape performance comparison.
 
 Data reshaping means changing the shape of the data, to get it into a more appropriate format, for learning/plotting/etc. Here we consider wide to long  and long to wide reshape, which means we start with a wide table (many columns) and end up with a long table (fewer columns) and vice versa. 
 
-## A.	wide to long reshape.
+## A. wide to long reshape.
 
 In data.table, the data.table::melt() function is used to convert data from a wide format to a long format, while in Pandas, the pandas::melt() function is used to convert data from a wide format to a long format.
 
@@ -203,15 +188,13 @@ In data.table, the data.table::melt() function is used to convert data from a wi
 ## data.table::melt() is faster
 
 ```{r,warning=FALSE,message=FALSE,results='hide'}
-
 ml.colors <- c(
   "data.table::melt"="#D6604D",
-  "pandas::pd.melt" = "#BF812D"
+  "pd.melt" = "#BF812D"
   )
 n.folds <- 10
 n.rows <- 100
 seconds.limit <- 10
-
 ml.reshape.atime <- atime::atime(
   N=as.integer(10^seq(2, 15, by=0.2)),
   setup={
@@ -222,31 +205,28 @@ ml.reshape.atime <- atime::atime(
       )
     },
   seconds.limit= seconds.limit,
-  
   "data.table::melt" = {
     data.table::melt(data.table(df), id.vars = c("id",  "category"),variable.names="variable", value.name = "value")
   },
-  "pandas::pd.melt" = {
+  "pd.melt" = {
     py_df <- reticulate::r_to_py(df)
     pd <- import("pandas")
     pd$melt(py_df, id_vars = c("id", "category"), value_name = "score")  
   }
   )
-
 ```
 
 ```{r,warning=FALSE,message=FALSE}
 ml.reshape.refs <- atime::references_best(ml.reshape.atime)
 plot(ml.reshape.refs)
 ```
-Also in this graph we see that data.table::melt performs for complexity notations to pandas::melt
 
+Also in this graph we see that data.table::melt performs for complexity notations to pd.melt
 
 ```{r,warning=FALSE,message=FALSE}
 ml.reshape.pred <- predict(ml.reshape.refs)
 plot(ml.reshape.pred)
 ```
-
 
 ```{r,warning=FALSE,message=FALSE}
 ml.wide2long.pd <- plot(ml.reshape.pred)+
@@ -267,27 +247,22 @@ plot(ml.wide2long.pd)
 
 When converting data from wide to long format, as shown in the above plot, data.table's melt() function efficiently gathers multiple columns into key-value pairs, allowing for easy transformation of wide data into a longer, more structured format. 
 
-
-
 ## B. long to wide reshape
 
-In data.table, the data.table::dcast() function is often used to convert data from a long format to a wide format, and in pandas, the pandas::pivot_table() function is used to convert data from a long format to a wide format.
+In data.table, the data.table::dcast() function is often used to convert data from a long format to a wide format, and in pandas, the pd$pivot_table() function is used to convert data from a long format to a wide format.
 
 ## Comparison code
 
 ## data.table::dcast() is faster
 
 ```{r,warning=FALSE,message=FALSE,results='hide'}
-
 ml.colors <- c(
   "data.table::dcast" = "#D6604D",
-  "pandas::pivot_table" = "#BF812D"
+  "pd$pivot_table" = "#BF812D"
 )
-
 n.folds <- 10
 n.rows <- 100
 seconds.limit <- 1
-
 ml.long2wide.atime <- atime::atime(
   N=as.integer(10^seq(2, 7, by=0.2)),
   setup={
@@ -301,28 +276,25 @@ ml.long2wide.atime <- atime::atime(
   "data.table::dcast" = {
     data.table::dcast(data.table(df), id ~ category, value.var = "value")
   },
-  "pandas::pivot_table" = {
+  "pd$pivot_table" = {
     py_df <- reticulate::r_to_py(df)
     pd <- import("pandas")
     pd$pivot_table(py_df, values = "value", index = "id", columns = "category")
   }
   )
-
 ```
-
-
 
 ```{r,warning=FALSE,message=FALSE}
 ml.long2wide.refs <- atime::references_best(ml.long2wide.atime)
 plot(ml.long2wide.refs)
 ```
+
 same as all the above, data::dcast performs better in terms of complexity notations 
 
 ```{r,warning=FALSE,message=FALSE}
 ml.long2wide.pred <- predict(ml.long2wide.refs)
 plot(ml.long2wide.pred)
 ```
-
 
 ```{r,warning=FALSE,message=FALSE}
 ml.long2wide <- plot(ml.long2wide.pred)+
@@ -335,7 +307,6 @@ over 10 timings")+
   facet_null()+
   scale_fill_manual(values=ml.colors)+
   scale_color_manual(values=ml.colors)
-
 ```
 
 ```{r,warning=FALSE,message=FALSE}
@@ -344,17 +315,13 @@ plot(ml.long2wide)
 
 On the other hand, when transforming data from long to wide format, data.table's dcast() function proves to be more efficient.
 
-Although data.table has advantages in terms of writing,reading and Rehaping, pandas in Python still provides a solid framework for data manipulation as seen in the plot.
-
-
+Although data.table has advantages in terms of writing, reading and rehaping, pandas library in Python still provides a solid framework for data manipulation as seen in the plot.
 
 # Conclusions 
 
 In conclusion, we have shown how to use atime to compare asymptotic time of the two packages. Both Pandas and data.table are powerful libraries for data manipulation in Python and R respectively. Pandas offers a comprehensive set of functions and a user-friendly interface, making it suitable for a wide range of data analysis tasks. On the other hand, Data.table excels in terms of performance and memory efficiency, making it an excellent choice for handling large datasets and complex operations.
 
 The choice between the two libraries ultimately depends on the specific requirements of your data manipulation tasks. It is recommended to consider the size of the dataset, the complexity of the operations, and personal preferences when making a decision.
-
-
 
 # References: 
 
