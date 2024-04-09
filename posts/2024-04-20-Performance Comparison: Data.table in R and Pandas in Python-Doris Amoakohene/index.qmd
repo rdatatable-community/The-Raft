@@ -9,13 +9,13 @@ output: html_document
 
 R and Python are two programming languages that have gained immense popularity among data scientists, statisticians, and researchers. 
 In this blog, we will explore two widely used libraries, data.table in R and pandas in Python, which excel in data manipulation and provide versatile functionalities for working with data, focusing on their capabilities for reading, writing, and reshaping data.
-We will also explain how to graphically demonstrate the time taken by each operation. We will use atime package to compare and visualize the asymptotic performance (time and memory usage) of the different functions mentioned above.
+We will also explain how to graphically demonstrate the time taken by each operation. We will use the atime package to compare and visualize the asymptotic performance (time and memory usage) of the different functions mentioned above.
 By comparing the asymptotic performance of these packages in these programming languages, we aim to provide insights into their usage and help data scientists make informed choices when it comes to data manipulation and analysis.
 
 
-In the atime::atime() we define the following arguments, 
+In the atime::atime() we define the following arguments:
 
-The first argument N is a sequence of data sizes. This explores computational efficiency, which will compute time/memory usage for different data sizes(N). 
+The first argument, N, is a sequence of data sizes. This explores computational efficiency, which will compute time/memory usage for different data sizes (N). 
 
 The second argument setup is an expression that will be evaluated for each value in N, to create data of a given size.
 
@@ -86,7 +86,7 @@ plot(refs.write.vary.cols)
 ```
 
 atime::references_best() : This function returns a list, which can then be visualized using plot().
-The plot shows the asymptotic reference lines, which defines the estimated asymptotic time and memory complexity. The output and figure will includes violet reference lines, in which the text labels can be interpreted in terms of big O notation (asymptotic time and memory usage).
+The plot shows the asymptotic reference lines, which define the estimated asymptotic time and memory complexity. The output and figure will include violet reference lines, in which the text labels can be interpreted in terms of Big O notation (asymptotic time and memory usage).
 
 The graph compares the performance of data.table::fwrite and pandas::to_csv for writing data. The top left graph shows that pandas::to_csv has a sharp increase in time as the dataset size increases, while data.table::fwrite remains relatively constant. The top right graph shows both methods with almost constant times, but pandas::to_csv uses more kilobytes. Overall, data.table::fwrite performs significantly faster than pandas::to_csv, particularly for larger datasets, suggesting that it may be a more efficient method for writing data.
 
