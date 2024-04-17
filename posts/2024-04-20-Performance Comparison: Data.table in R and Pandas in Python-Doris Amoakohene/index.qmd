@@ -12,7 +12,7 @@ In this blog, we will explore two widely used libraries, data.table in R and pan
 We will also explain how to graphically demonstrate the time taken by each operation. We will use the atime package to compare and visualize the asymptotic performance (time and memory usage) of the different functions mentioned above.
 By comparing the asymptotic performance of these packages in these programming languages, We aim to provide insights into their usage and help data scientists make informed choices when it comes to data manipulation and analysis.
 
-In the ```atime::atime()``` we define the following arguments:
+In the `atime::atime()` we define the following arguments:
 The first argument, N, is a sequence of data sizes. This explores computational efficiency, which will compute time/memory usage for different data sizes (N). 
 The second argument setup is an expression that will be evaluated for each value in N, to create data of a given size.
 seconds.limit may optionally be specified. If an expression is slower than this limit for any data size, then no larger data sizes will be measured.
@@ -73,13 +73,7 @@ atime.write.vary.cols <- atime::atime(
 
 ```{r,warning=FALSE,message=FALSE}
 refs.write.vary.cols <- atime::references_best(atime.write.vary.cols)
-plot(refs.write.vary.cols)
 ```
-
-atime::references_best(): This function returns a list, which can then be visualized using plot().
-The plot shows the asymptotic reference lines, which define the estimated asymptotic time and memory complexity. The output and figure will include violet reference lines, in which the text labels can be interpreted in terms of Big O notation (asymptotic time and memory usage).
-
-The graph compares the performance of data.table::fwrite and pandas.to_csv  for writing data. The top left graph shows that pandas.to_csv  has a sharp increase in time as the dataset size increases, while data.table::fwrite remains relatively constant. The top right graph shows both methods with almost constant times, but pandas.to_csv  uses more kilobytes. Overall, data.table::fwrite performs significantly faster than pandas.to_csv , particularly for larger datasets, suggesting that it may be a more efficient method for writing data.
 
 The predict() function is used to generate predictions based on the atime::reference_best() dataset. The resulting plot illustrates the data size, N, that can be processed within a specific time or memory limit.
 
@@ -147,10 +141,7 @@ atime.read <- atime::atime(
 
 ```{r,warning=FALSE,message=FALSE}
 refs.read.vary.cols <- atime::references_best(atime.read)
-plot(refs.read.vary.cols)
 ```
-
-The graph provides a closer look at larger values of N, indicating that data.table::fread outperforms pandas.read_csv , particularly as N increases. Complexity notations such as log N, N log N, and N^2 are used to describe the asymptotic time/memory usage.
 
 ```{r,warning=FALSE,message=FALSE}
 pred.read.vary.cols <- predict(refs.read.vary.cols)
@@ -218,10 +209,7 @@ ml.reshape.atime <- atime::atime(
 
 ```{r,warning=FALSE,message=FALSE}
 ml.reshape.refs <- atime::references_best(ml.reshape.atime)
-plot(ml.reshape.refs)
 ```
-
-Also in this graph we see that data.table::melt performs for complexity notations to pd.melt
 
 ```{r,warning=FALSE,message=FALSE}
 ml.reshape.pred <- predict(ml.reshape.refs)
@@ -286,10 +274,7 @@ ml.long2wide.atime <- atime::atime(
 
 ```{r,warning=FALSE,message=FALSE}
 ml.long2wide.refs <- atime::references_best(ml.long2wide.atime)
-plot(ml.long2wide.refs)
 ```
-
-same as all the above, data::dcast performs better in terms of complexity notations 
 
 ```{r,warning=FALSE,message=FALSE}
 ml.long2wide.pred <- predict(ml.long2wide.refs)
