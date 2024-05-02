@@ -1,0 +1,23 @@
+---
+title: "Seal of Approval: <PACKAGE NAME>"
+author: "<YOUR NAME>"
+date: "<date>"
+categories: [seal of approval, <category>]
+image: "hex.png"
+draft: true
+---
+
+## [`<Package Name>`](<link to package github>)
+
+![](hex.png)
+
+[one-sentence description of package]
+
+## Relationship with `data.table`
+
+[Discussion of how this package extends, expands, translates, or partners with `data.table`.  Aim for a few sentences.]
+
+
+## Overview
+
+[A quick example of the main functionality of the package. Aim for about half a page.]
