@@ -2,7 +2,7 @@
 
 - [ ] I have received the Seal of Approval from the `data.table` team, and linked to the relevant PR in my article.  If not, before submitting this article, make a [pull request here](), or see [instructions here]() for more details.
 
-- [ ] I have copied the [article template folder](), renamed it appropriately, and filled in all sections.  See [this article]() for an example.
+- [ ] I have copied the [article template folder](), renamed it appropriately, and filled in all sections.  See [this article](link) for an example.
 
 - [ ] I the maintainer this package.
 
