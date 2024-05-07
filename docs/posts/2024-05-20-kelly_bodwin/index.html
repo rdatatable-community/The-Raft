@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Elio Campitelli">
-<meta name="dcterms.date" content="2024-01-28">
+<meta name="author" content="Kelly Bodwin">
 
-<title>Blog - Piping data.tables</title>
+<title>Blog - Two Roads Diverged</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -196,12 +195,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Piping data.tables</h1>
+      <h1 class="title">Two Roads Diverged</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">tips</div>
-                <div class="quarto-category">tutorials</div>
-                <div class="quarto-category">documentation</div>
-                <div class="quarto-category">guest</div>
+                <div class="quarto-category">opinion</div>
               </div>
                   </div>
   </div>
@@ -212,16 +208,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Elio Campitelli </p>
+               <p>Kelly Bodwin </p>
             </div>
     </div>
       
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">January 28, 2024</p>
-      </div>
-    </div>
     
       
     </div>
@@ -237,115 +227,80 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>Like a devoted plumber, modern R loves pipes. The magrittr pipe has a <a href="http://adolfoalvarez.cl/blog/2021-09-16-plumbers-chains-and-famous-painters-the-history-of-the-pipe-operator-in-r/">long history</a> and it’s fair share of detractors, but with the implementation of the native pipe operator <a href="https://stat.ethz.ch/pipermail/r-announce/2021/000670.html">released in May 2021</a> it’s clear that chaining operations is now part of R vernacular.</p>
-<p>So it’s no surprise that people often wonder how can you use pipes with data.table, as one participant of the recent data.table tutorial during <a href="https://latin-r.com/">LatinR 2023</a>. The surprising answer is that data.table has supported pipelines since its inception in 2006. Furthermore, you can easily use either the magrittr or native pipes.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="image.jpg" class="img-fluid figure-img" alt="Vector graphic of two persons dressed in orange safety gear maintaining a thick pipe."></p>
-<figcaption class="figure-caption"><a href="https://www.freepik.com/free-vector/pipeline-maintenance-concept-illustration_13717669.htm">Image by storyset</a> on Freepik</figcaption>
-</figure>
-</div>
-<section id="the-data.table-pipe" class="level2">
-<h2 class="anchored" data-anchor-id="the-data.table-pipe">The data.table “pipe”</h2>
-<p>Instead of passing data to functions, data.table syntax is all about operating inside the <code>[</code> operator<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> .</p>
-<div style=" margin-left: auto; margin-right: auto;display: block; text-align:center; width:fit-content;"> 
-<p style="font-size:250%;font-weight:bold">
-<code>DT[<span class="rows">rows</span>, <span class="columns">columns</span>, <span class="by">by</span>]</code>
-</p>
-</div>
-<p>Where <code><strong>DT</strong></code> is a data.table object, the <code><span class="rows"><strong>rows</strong></span></code> argument is used for filtering and joining operations, the <code><span class="columns"><strong>columns</strong></span></code> argument can summarise and mutate, and the <code><span class="by"><strong>by</strong></span></code> argument defines the groups to which to apply these operations.</p>
-<p>So, to get only Chinstrap penguins from the penguins dataset, instead of using <code>base::subset()</code> or <code>dplyr::filter()</code> you would do</p>
+<blockquote class="blockquote">
+<p>Two roads diverged in a wood and I, I took the one less traveled by, and that has made all the difference.</p>
+</blockquote>
+<p>A little-known historical tidbit is that Robert Frost’s <em>The Road Less Traveled</em> - so often cited as a celebration of individuality and difficult choices - was in fact meant as a joke to tease an indecisive friend. Frost’s intent was to be ironic; too make fun of someone who is overly dramatic looking back on their choices. Come on buddy, he says, just pick a path - they are both beautiful and will get you somewhere interesting.</p>
+<p>I bring this up because, like in the poem, I believe we in the R community often overdramatize moments of divergence between different R dialects, packages, and syntaxes. And, like the poem, I believe there is some misunderstanding around the author’s intent.</p>
+<p>This blog post is my attempt to dispel the myths surrounding the relationship between <code>data.table</code> and the <code>tidyverse</code>, and to explain why I believe deeply in both.</p>
+<section id="two-roads-diverged-in-a-yellow-wood-and-sorry-i-could-not-travel-both" class="level2">
+<h2 class="anchored" data-anchor-id="two-roads-diverged-in-a-yellow-wood-and-sorry-i-could-not-travel-both">“Two roads diverged in a yellow wood, and sorry I could not travel both…”</h2>
+<p>A bit of history to kick us off. (I know, I know, I’ll keep it brief.)</p>
+<p>The first official 1.0 version of R was released February 29, 2000, and if I had to guess, I’d bet the first add-on package was created the next day. The beating heart of R is the base language, that the <a href="https://www.r-project.org/contributors.html">R Core Team</a> has lovingly and diligently maintained for over 4 decades - but its soul, if you will, is the incredible collection of packages that expand and adapt this core.</p>
+<p><code>data.table</code> was released in 2008 by Matt Dowle. (See <a href="https://www.youtube.com/watch?v=qLrdYhizEMg&amp;list=PLVbc3u2JFaS5G0khczlZXsHShVGoyIO_c">this video</a> for a very cool recap of the inspiration and process from Matt himself!) Since then, it has grown enormously in scope, contributors, user base, and dependencies.</p>
+<p>In 2014, <code>dplyr</code> was released by Hadley Wickham, the birth of what we now know as the <code>tidyverse</code>.</p>
+<p>This meant that users now had several options to pick from if they wanted to, say, calculate means by group:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>penguins_chinstrap <span class="ot">&lt;-</span> penguins[species <span class="sc">==</span> <span class="st">"Chinstrap"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Base R</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(bill_length_mm <span class="sc">~</span> species, <span class="at">data =</span> penguins, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Or, to get the mean mean flipper length of these penguins for each island and sex, you could summarise the data like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins_chinstrap[, .(<span class="at">mean_flipper_length =</span> <span class="fu">mean</span>(flipper_length_mm)), by <span class="ot">=</span> .(sex, island)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## data.table</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>penguins_dt <span class="ot">&lt;-</span> <span class="fu">data.table</span>(penguins)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>penguins_dt[, .(<span class="at">mean_bill=</span><span class="fu">mean</span>(bill_length_mm)), by<span class="ot">=</span>species]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>But because the output of the first operation is a data.table, you can add another <code>[</code> operator after the first to chain both operations:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>penguins[species <span class="sc">==</span> <span class="st">"Chinstrap"</span>][, .(<span class="at">mean_flipper_length =</span> <span class="fu">mean</span>(flipper_length_mm)), by <span class="ot">=</span> .(sex, island)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## dplyr</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_bill =</span> <span class="fu">mean</span>(bill_length_mm))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>I usually call this the <code>][</code> pipe.</p>
-<p>You might have noticed that for just two operations, this line of code is already too long, so for even moderately long chains it’s usually advisable to put each operation in its own line. There’s some controversy on how to break the <code>][</code> pipe into lines and indent it. One option is to add a new line after the second <code>[</code>, which has the advantage of actually writing the <code>][</code> pipe explicitly.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>penguins[species <span class="sc">==</span> <span class="st">"Chinstrap"</span> ][</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  , .(<span class="at">mean_flipper_length =</span> <span class="fu">mean</span>(flipper_length_mm)), by <span class="ot">=</span> .(sex, island)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>A second options is to add the new line before the end of the first operation like so:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>penguins[species <span class="sc">==</span> <span class="st">"Chinstrap"</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>       ][ , .(<span class="at">mean_flipper_length =</span> <span class="fu">mean</span>(flipper_length_mm)), by <span class="ot">=</span> .(sex, island)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Personally, I don’t like this syntax very much. No matter how you slice it, you always get what feels to me as incomplete lines. Also, RStudio doesn’t correctly indent the second syntax automatically.</p>
-<p>Alternatively, the <code>][</code> pipe can go in its own line like so:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>penguins[species <span class="sc">==</span> <span class="st">"Chinstrap"</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>][ </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  , .(<span class="at">mean_flipper_length =</span> <span class="fu">mean</span>(flipper_length_mm)), by <span class="ot">=</span> .(sex, island)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>This is indented correctly by RStudio and has the advantage of making easy to comment out each individual step:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>penguins[species <span class="sc">==</span> <span class="st">"Chinstrap"</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>][ </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># , .(mean_flipper_length = mean(flipper_length_mm)), by = .(sex, island)</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p><strong>Myth 1: <code>data.table</code> is Base R</strong></p>
+<p>It is true that the <code>data.table</code> syntax most closely mimics that of Base R data frames, and deliberately so. However, <code>data.table</code> is an open-source package like any other. Nobody - and I mean <em>nobody</em> - uses <em>only</em> Base R in their work. What a silly culture that would be, if we have all the beautiful multiverse of an open-source language, and we limit ourselves only to the core functionality!</p>
 </section>
-<section id="data.table-and-magrittr" class="level2">
-<h2 class="anchored" data-anchor-id="data.table-and-magrittr">data.table and magrittr</h2>
-<p>Until the introduction of the native pipe, I used to write long data.table pipelines using magrittr. To do this, I took advantage of the <strong><code>.</code></strong> placeholder which, within a magrittr pipe, refers to the result of the previous step.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>penguins[species <span class="sc">==</span> <span class="st">"Chinstrap"</span>] <span class="sc">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  .[ , .(<span class="at">mean_flipper_length =</span> <span class="fu">mean</span>(flipper_length_mm)), by <span class="ot">=</span> .(sex, island)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>I really like this syntax as it’s very clean. Each line of code is a complete operation without dangling parts and it’s easy to comment out single steps.</p>
-<p>The only downside is that the dot here has two meanings: as the placeholder for the previous result in <code>.[</code>, and as an alias for list in <code>.(mean_flipper_length = mean(flipper_length_mm))</code>. It’s not a huge issue, though, since I tend to read <code>.[</code> as a single entity, but it can trip up some people.</p>
+<section id="looked-down-one-as-far-as-i-could-then-took-the-other-just-as-fair" class="level2">
+<h2 class="anchored" data-anchor-id="looked-down-one-as-far-as-i-could-then-took-the-other-just-as-fair">“… looked down one as far as I could … then took the other, just as fair…”</h2>
+<p>So: We have multiple dialects. How to choose which one to use?</p>
+<p>There is no single right answer to that question; it’s all a matter of individual preference and use case. What do you, as the programmer, value most? Brevity of code? Readability of code? Speed? Familiarity? Consistency with collaborators? Availability of learning resources?</p>
+<p>I could go on - there are infinitely many reasons, from the personal to the professional to the practical, to choose one path or the other. Sometimes, the answer is as simple as, “This is the way that I know how to do it.”</p>
+<p>I can’t tell you how to pick what works for you. What I want to say here is: <strong>Dialect choices in R are case-by-case, not lifetime commitments.</strong></p>
+<p>First of all, the idea of “loyalty” to a package is nonsense. A package is a tool. You might have admiration, respect, or even loyalty to a package <em>developer</em>; you might even therefore trust that its worth your time and energy to follow their recommendations. But if you start feeling <em>bad</em> when you sprinkle a little Base R into your tidy workflow… well, stop it. We are blessed with an overabundance of useful tools and we shouldn’t be limiting ourselves!</p>
+<p>Secondly, <em>/¿por que no los dos?</em></p>
+<p>I say, let’s dispense once and for all with the <em>Base R versus [something]</em> talk. We all rely on Base R. We all use our own favorite collection of packages, in the combinations that work for us. This should be no more controversial than saying that we all eat food and we all prefer different dishes.</p>
+<p><strong>Myth 2: <code>data.table</code> can only be used in Base R workflows.</strong></p>
 </section>
-<section id="using-the-native-pipe" class="level2">
-<h2 class="anchored" data-anchor-id="using-the-native-pipe">Using the native pipe</h2>
-<p>The native pipe at first didn’t have a placeholder and it didn’t chaining to <code>[</code>, so this so the above syntax wasn’t directly applicable. But you could cheat by creating an alias for <code>[</code> and use that alias as a regular function. So this works:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="st">`</span><span class="at">[</span><span class="st">`</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>penguins[species <span class="sc">==</span> <span class="st">"Chinstrap"</span>] <span class="sc">|&gt;</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">DT</span>( , .(<span class="at">mean_flipper_length =</span> <span class="fu">mean</span>(flipper_length_mm)), <span class="at">by =</span> .(sex, island))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>This worked so well that data.table officially added the <code>DT()</code> function (currently only in the development version), so if you’re using the latest development version you don’t even need the first line<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
-<p>This syntax is fine but I don’t like that I need ro write one more character and the closing character being a <code>)</code> can get confusing because it adds to the closing <code>)</code> that you usually have in the <code>by</code> argument.</p>
-<p>From R 4.3.0 onwards, the native pipe supports a <code>_</code> placeholder to the right-hand side fo the pipe. So now the magrittr syntax can be directly translated to</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>penguins[species <span class="sc">==</span> <span class="st">"Chinstrap"</span>] <span class="sc">|&gt;</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  _[ , .(<span class="at">mean_flipper_length =</span> <span class="fu">mean</span>(flipper_length_mm)), by <span class="ot">=</span> .(sex, island)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>I like this syntax even more than the original magrittr one because it solves the double meaning problem and operations get hugged by a pair of brackets.</p>
+<section id="i-shall-be-telling-this-with-a-sigh-somewhere-ages-and-ages-hence" class="level2">
+<h2 class="anchored" data-anchor-id="i-shall-be-telling-this-with-a-sigh-somewhere-ages-and-ages-hence">“…I shall be telling this with a sigh, somewhere ages and ages hence…”</h2>
+<p>It has come to the point where I can’t avoid mentioning the Great Twitter War of 2018 (please read that title with every ounce of irony you have in you).</p>
+<p>I’m not interested in digging up long-dead disputes, so I’ll be brief: Sometime around 2018, the #rstats Twitter community exploded into a debate about the relative merits of the <code>tidyverse</code>, <code>data.table</code>, and Base R.</p>
+<p>Much of this conversation was productive and interesting. Educators shared their experiences teaching with different dialects. Developers talked about the speed trade-offs of the various options. New users were excited to be exposed to information about their options.</p>
+<p>But - like any social media discussion - a subset of this conversation took the form of an “us vs.&nbsp;them” debate, pitting Base/data.table on one side and tidyverse on the other. In my experience, the contentious part was fueled by a vocal minority on both sides, and was not the norm.</p>
+<p>It’s important to note that the leaders of the “camps” - specifically, Hadley Wickham and Matt Dowle - were <strong>not</strong> part of drama. On the contrary, this Twitter whirlwind lead to the creation of <a href=""><code>dtplyr</code></a>!</p>
+<p>Sadly, even today, I sometimes run into vitriol when I post on social media about <code>data.table</code> <strong>or</strong> the <code>tidyverse</code>, and I know I’m not alone in this. Even today, I have my data science students asking me about the rift in the R world, and if they have to “choose a side” to learn R.</p>
+<p>And most relevant to this blog - I have gotten a <em>lot</em> of questions about why I am involved in a <code>data.table</code> project, since I’m “supposed” to be Team Tidyverse.</p>
+<p><strong>Myth 3: This project wants <code>data.table</code> to replace the <code>tidyverse</code></strong></p>
+<p>This could not be further from the truth! I’m a <code>tidyverse</code> girl - from my <code>dplyr</code> earrings to my <a href="">hex fabric</a> shirts - and I am <em>also</em> a <code>data.table</code> girl. I, personally, would not be working on this project if I thought anyone involved viewed it as anti-tidyverse in any way.</p>
+<p>What we want is the same thing any open-source fan wants: We want users to be aware of the many fantastic tools, including <code>data.table</code>, that exist in the R world. We want developers to be inspired to build new and exciting packages, that stand on the shoulders of giants like <code>data.table</code>, the <code>tidyverse</code>, and so many others. We want beloved packages like <code>data.table</code> to stick around long term, and to grow and evolve with R and the R community.</p>
 </section>
-<section id="the-four-pipes-of-data.table" class="level2">
-<h2 class="anchored" data-anchor-id="the-four-pipes-of-data.table">The four pipes of data.table</h2>
-<p>So, there you are, 4 different ways you can pipe your data.tables.</p>
-<p>Use the <code>][</code> pipe if you want your code to have minimal dependencies and work in older versions of R. Use the <code>%&gt;%</code> pipe if you want your code to work in older versions of R and don’t mind the extra dependency. Use any version of the <code>|&gt;</code> pipe if you want minimal dependencies and don’t mind depending on R &gt;= 4.3.0.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>penguins[species <span class="sc">==</span> <span class="st">"Chinstrap"</span> ][</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  , .(<span class="at">mean_flipper_length =</span> <span class="fu">mean</span>(flipper_length_mm)), by <span class="ot">=</span> .(sex, island)]</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>penguins[species <span class="sc">==</span> <span class="st">"Chinstrap"</span>] <span class="sc">%&gt;%</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  .[ , .(<span class="at">mean_flipper_length =</span> <span class="fu">mean</span>(flipper_length_mm)), by <span class="ot">=</span> .(sex, island)]</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>penguins[species <span class="sc">==</span> <span class="st">"Chinstrap"</span>] <span class="sc">|&gt;</span> </span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">DT</span>( , .(<span class="at">mean_flipper_length =</span> <span class="fu">mean</span>(flipper_length_mm)), <span class="at">by =</span> .(sex, island))</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>penguins[species <span class="sc">==</span> <span class="st">"Chinstrap"</span>] <span class="sc">|&gt;</span> </span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  _[ , .(<span class="at">mean_flipper_length =</span> <span class="fu">mean</span>(flipper_length_mm)), by <span class="ot">=</span> .(sex, island)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><a href="https://www.freepik.com/free-vector/pipeline-maintenance-concept-illustration_13717669.htm">Image by storyset</a> on Freepik</p>
+<section id="and-that-has-made-all-the-difference." class="level2">
+<h2 class="anchored" data-anchor-id="and-that-has-made-all-the-difference.">“… and that has made all the difference.”</h2>
+<p>So, where are we going from here, as a community? Only good places, I think, no matter which path we take in the yellow wood!</p>
+<p>I am so excited about this project and about the NSF-POSE grant - both for the longevity of <code>data.table</code>, and for everything we are learning about open-source ecosystems and how to sustain them.</p>
+</section>
+<section id="addendum" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="addendum">Addendum</h2>
+<p>Want to hear me rant more about the R community, multiple dialects/languages, and this grant project? I’ll be speaking on these topics at:</p>
+<ul>
+<li>SDSS</li>
+<li>UseR!</li>
+<li>Posit::conf</li>
+</ul>
 
 
 
 </section>
-
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
@@ -354,13 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="listing-no-matching d-none">
 No matching items
 </div>
-</div><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>Technically, the <code>[</code> operator is itself a function, but the syntax is not function-like.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>This function also allows the user to use data.table syntax to data.frames and tibbles retaining the class of the output.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
