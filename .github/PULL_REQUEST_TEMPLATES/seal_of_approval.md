@@ -24,3 +24,6 @@ The relationship between this package and `data.table` is best described as:
 - [ ] **A partner package:** Not necessarily directly connected to `data.table`, but deliberately follows the [core philosophies of `data.table`]()
 
 
+## Dev-do not edit
+
+Review request @kellybodwin
