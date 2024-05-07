@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Aljaž Sluga">
+<meta name="dcterms.date" content="2024-02-25">
+
+<title>Blog - Results of the 2023 survey</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-listing/list.min.js"></script>
+<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: [{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: [],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="alternate" type="application/rss+xml" title="Blog" href="index.xml"></head>
+
+<body class="nav-fixed fullcontent">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/rdatatable" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://fosstodon.org/@r_data_table" rel="" target=""><i class="bi bi-mastodon" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://bsky.app/profile/rdatatable.bsky.social" rel="" target=""><i class="bi bi-cloud" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/r_data_table" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:r.data.table@gmail.com" rel="" target=""><i class="bi bi-envelope" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Results of the 2023 survey</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">community</div>
+                <div class="quarto-category">guest post</div>
+                <div class="quarto-category">governance</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Aljaž Sluga </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 25, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>Thanks to everyone who helped create, shared, or filled out the first data.table survey! The survey was officially open between October 17 and December 1 and it received <strong>391</strong> responses during this time.</p>
+<p>This post provides a partial summary of the results. It covers all close-ended questions &amp; includes short, informal summaries of the answers to some of the open-ended questions.</p>
+<p>I encourage you to explore the data yourself - you can find it <a href="https://github.com/sluga/r-datatable-survey-2023/">here</a>.</p>
+<section id="respondents" class="level2">
+<h2 class="anchored" data-anchor-id="respondents">Respondents</h2>
+<p>A typical respondent was:</p>
+<ul>
+<li>an <strong>experienced</strong> user of R (87.2% having four or more years under their belt) and data.table (-||- 59.5%),</li>
+<li>using the package for <strong>data manipulation</strong> (95.9%) and <strong>statistical analysis</strong> (65.3%),</li>
+<li>in a <strong>professional</strong> context (80%),</li>
+<li>on a <strong>daily</strong> (46.3%) or at least <strong>weekly</strong> (28.1%) basis.</li>
+</ul>
+<p>For a richer summary, here are the corresponding bar charts:</p>
+<p><img src="experience.png" class="img-fluid"></p>
+<p><img src="usage_frequency.png" class="img-fluid"></p>
+<p><img src="usage_context.png" class="img-fluid"></p>
+<p><img src="usage_area.png" class="img-fluid"></p>
+</section>
+<section id="the-good-and-the-bad" class="level2">
+<h2 class="anchored" data-anchor-id="the-good-and-the-bad">The good and the bad</h2>
+<p>What do users appreciate most about data.table? A scan of the answers to this open-ended question quickly reveals a clear winner: <strong>performance.</strong> Nearly every answer brings up speed or memory efficiency.</p>
+<blockquote class="blockquote">
+<p>“Speed! When I need speed, I turn directly to data.table.”</p>
+</blockquote>
+<p>The runner-up is <strong>syntax</strong>, with users praising its concision and expressiveness. At the same time, however, syntax often appears in the answers to the question about the biggest challenges in using data.table. For some users it is too concise or difficult to remember. Some users highlighted specific functionality that they find difficult to use: reshaping (<code>dcast</code>/<code>melt</code>) is brought up most often, followed by joining.</p>
+<blockquote class="blockquote">
+<p>“Some queries are so surprisingly simple for complex operations”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“Still can’t get used to the syntax, have to look it up every time”</p>
+</blockquote>
+<p>We explored this topic in a more structured way as well, by asking about the following areas:</p>
+<ul>
+<li>Performance (speed &amp; ability to handle large datasets)</li>
+<li>Code readability</li>
+<li>Concise syntax</li>
+<li>Few changes that break old code</li>
+<li>Minimal dependencies</li>
+<li>Error messages</li>
+<li>Documentation</li>
+</ul>
+<p>The possible answers were <em>Very dissatisfied</em>, <em>Somewhat dissatisfied</em>, <em>Neither satisfied nor dissatisfied</em>, <em>Somewhat satisfied</em>, <em>Very satisfied</em>, which I mapped to -2:2 below. The majority of users are <em>Very satisfied</em> with performance (86.2%), minimal dependencies (77.8%), backward compatibility (60.8%), and syntax concision (57.1%). Syntax readability (35.5%), error messages (29.0%), and documentation (30.2%) lag behind.</p>
+<p><img src="satisfaction_area.png" class="img-fluid"> Does this pattern hold across all levels of data.table experience? The following plot shows the average (vertical red line) in addition to the distribution of answers across the different levels of experience.</p>
+<p><img src="satisfaction_area_experience.png" class="img-fluid"></p>
+<p>A way to contextualize these results is to consider how important the different areas are. Another grid question featured this same set of areas, but asked about their importance to the user. I standardized the satisfaction &amp; importance scores and plot the averages below. The two areas that score relatively high in importance but relatively low in satisfaction are syntax readability and quality of documentation.</p>
+<p><img src="importance_vs_satisfaction_area.png" class="img-fluid"></p>
+<p>Another grid question asked about users’ satisfaction with:</p>
+<ul>
+<li>importing &amp; exporting</li>
+<li>filtering</li>
+<li>manipulation &amp; aggregation</li>
+<li>reshaping</li>
+<li>joining/merging</li>
+</ul>
+<p>While <em>Very satisfied</em> was the dominant response for every area, the results are consistent with earlier qualitative observations in that the share of users selecting this response is substantially lower for reshaping (49.2%) and joining (45.9%) than the other areas (manipulation &amp; aggregation 59.9%, import/export 62.7%, filtering 71.3%).</p>
+<p><img src="satisfaction_functionality.png" class="img-fluid"> The next plot considers variation across levels of data.table experience. One area where beginners (less than 2 years of experience) are less satisfied compared to other users is importing &amp; exporting.</p>
+<p><img src="satisfaction_functionality_experience.png" class="img-fluid"></p>
+</section>
+<section id="desired-functionality" class="level2">
+<h2 class="anchored" data-anchor-id="desired-functionality">Desired functionality</h2>
+<p>What extra functionality would users like to see? The answers to this question covered a lot of different ground, but the three clear winners (with at least 10 mentions each) were:</p>
+<ul>
+<li>support for <strong>out-of-memory</strong> processing,</li>
+<li>richer <strong>import/export</strong> functionality (parquet was mentioned most often, followed by xlsx), and</li>
+<li>integration with the <strong>pipe</strong> operator.</li>
+</ul>
+<p>Pipe integration was also the subject of a later question in the survey, with the majority of users (69.4%) indicating they would find a helper function for working with the pipe useful.</p>
+<p><img src="pipe_helper.png" class="img-fluid"> Another specific question asked about the alias for the walrus operator (<code>:=</code>). Interestingly, <code>set()</code> (47.3%) outperformed <code>let()</code> (39.2%), with <code>setj()</code> (13.6%) far behind.</p>
+<p><img src="walrus_alias.png" class="img-fluid"></p>
+</section>
+<section id="contributing-to-data.table" class="level2">
+<h2 class="anchored" data-anchor-id="contributing-to-data.table">Contributing to data.table</h2>
+<p>Good news for data.table is that many users indicated interest in contributing to the project. In particular, 80 respondents (20.8%) said <em>Yes</em>, and a further 191 (49.6%) respondents answered <em>Maybe</em>.</p>
+<p>We followed up on this question by asking for interest in specific activities. The orange bars in the following plot represent interest in contributing, whereas the darker parts indicate actual contribution in the past.</p>
+<p><img src="contribution_area.png" class="img-fluid"></p>
+<p>What would make contributing to data.table easier or more appealing? Setting aside personal reasons, such as lack of time or skill, the following areas were mentioned at least a few times each:</p>
+<ul>
+<li><p><strong>Developer documentation.</strong> Probably the most common suggestion was documentation that would make it easier for new contributors to understand the codebase.</p>
+<blockquote class="blockquote">
+<p>“Documentation explaining the code of data.table. I mean the big picture, choices made but also some details.”</p>
+</blockquote></li>
+<li><p><strong>GitHub issue &amp; PR backlog.</strong> Shrinking the number of open GitHub issues and pull requests was another common suggestion.</p>
+<blockquote class="blockquote">
+<p>“data.table has to many open issues to efficiently search for existing issues.”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“Getting rid of the current PR backlog would be a big step forward. I feel that a number of good PRs have died on the vine without good reason.”</p>
+</blockquote></li>
+<li><p><strong>Fast turnaround.</strong> A related suggestion was quicker reviews and evaluation of pull requests.</p>
+<blockquote class="blockquote">
+<p>“Some PRs take forever to be approved so this is disheartening for someone to get involved”</p>
+</blockquote></li>
+<li><p><strong>Source code.</strong> A couple of users suggested that the source code could be restructured to make it easier to work with.</p>
+<blockquote class="blockquote">
+<p>“Better structured code (right now the <code>[.data.table</code> function is more than 2000 LOC; very hard to read and modify!). More structured test suite (right now it is a single long file with numbered tests; adding more tests can be cumbersome).”</p>
+</blockquote></li>
+</ul>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>The responses to this survey make the value of <code>data.table</code> clear, but some users fear that the package may be abandoned or stagnating. Fear not, the project is again picking up steam! An important release with many new features and bug fixes recently landed on <a href="https://cran.r-project.org/web/packages/data.table/news/news.html">CRAN</a>, and the project now has a <a href="https://github.com/Rdatatable/data.table/blob/master/GOVERNANCE.md">governance document</a>, which includes information on the different <a href="https://github.com/Rdatatable/data.table/blob/master/GOVERNANCE.md#roles">roles</a> you can take. New contributions are very welcome, so check out the <a href="https://github.com/Rdatatable/data.table/blob/master/.github/CONTRIBUTING.md">guidelines</a> and take a look at the <a href="https://github.com/Rdatatable/data.table/issues">open issues</a> - those labeled <a href="https://github.com/Rdatatable/data.table/labels/beginner-task">beginner-task</a> are a particularly great place to start!</p>
+</section>
+<section id="what-can-you-do" class="level2">
+<h2 class="anchored" data-anchor-id="what-can-you-do">What can you do?</h2>
+<p>Are you interested in learning more, or helping grow the <code>data.table</code> community and infrastructure? Here are some places to start:</p>
+<ul>
+<li><p><a href="https://github.com/rdatatable-community/The-Raft">Submit a blog post</a> to The Raft with your ideas, insights, or use cases of <code>data.table</code>.</p></li>
+<li><p><a href="https://github.com/Rdatatable/data.table/issues">Weigh in on issues and community discussions</a> at the <code>data.table</code> github page.</p></li>
+<li><p>Contribute to <a href="https://github.com/Rdatatable/data.table/issues?q=is%3Aissue+is%3Aopen+beginner-task+label%3Abeginner-task">beginner task</a> updates or <a href="https://github.com/Rdatatable/data.table/issues?q=is%3Aissue+is%3Aopen+label%3Adocumentation+">documentation</a> needs for the package.</p></li>
+<li><p><a href="https://rdatatable-community.github.io/The-Raft/posts/2023-11-01-travel_grant_announcement-community_team/">Apply for the data.table travel award</a> to give a talk at a conference.</p></li>
+<li><p>Email r.data.table@gmail.com to reach the NSF Grant steering committee with your thoughts and ideas.</p></li>
+</ul>
+
+
+
+</section>
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

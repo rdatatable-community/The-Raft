@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Blog</title>
+<link>https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/index.html</link>
+<atom:link href="https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/index.xml" rel="self" type="application/rss+xml"/>
+<description></description>
+<image>
+<url>https://rdatatable-community.github.io/The-Raft/sea_lions.jpg</url>
+<title>Blog</title>
+<link>https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/index.html</link>
+</image>
+<generator>quarto-1.3.450</generator>
+<lastBuildDate>Tue, 07 May 2024 22:28:19 GMT</lastBuildDate>
+</channel>
+</rss>
