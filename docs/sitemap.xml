@@ -2,66 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/blog.html</loc>
-    <lastmod>2024-05-07T21:00:49.083Z</lastmod>
+    <lastmod>2024-05-07T22:10:05.616Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/index.html</loc>
-    <lastmod>2024-05-07T21:00:47.034Z</lastmod>
+    <lastmod>2024-05-07T22:10:03.632Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-03-10-testing_plan-toby_hocking/index.html</loc>
-    <lastmod>2024-03-06T20:47:03.139Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-02-25-survey_2023-aljaz_sluga/index.html</loc>
-    <lastmod>2024-03-06T20:46:58.089Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html</loc>
-    <lastmod>2024-03-06T20:46:52.419Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-03-06-interviews-anirban_chetia/index.html</loc>
-    <lastmod>2024-03-06T20:46:46.851Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/index.html</loc>
-    <lastmod>2024-03-06T20:46:41.199Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-01-30-new_governance_new_release-toby_hocking/index.html</loc>
-    <lastmod>2024-03-06T20:46:33.850Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-01-14-ambassador_gorecki-community_team/index.html</loc>
-    <lastmod>2024-03-06T20:46:27.798Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-02-18-dt_particularities-toby_hocking/index.html</loc>
-    <lastmod>2024-03-06T20:46:30.602Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-11-01-travel_grant_announcement-community_team/index.html</loc>
-    <lastmod>2024-03-06T20:46:38.725Z</lastmod>
+    <lastmod>2024-05-07T22:09:59.972Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-01-28-piping_data_tables-elio_campitelli/index.html</loc>
-    <lastmod>2024-03-06T20:46:55.379Z</lastmod>
+    <lastmod>2024-05-07T22:09:49.738Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-11-01-travel_grant_announcement-community_team/index.html</loc>
+    <lastmod>2024-05-07T22:09:33.289Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-01-14-ambassador_gorecki-community_team/index.html</loc>
+    <lastmod>2024-05-07T22:09:18.431Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-02-18-dt_particularities-toby_hocking/index.html</loc>
+    <lastmod>2024-05-07T22:09:21.127Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-01-30-new_governance_new_release-toby_hocking/index.html</loc>
+    <lastmod>2024-05-07T22:09:27.524Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/index.html</loc>
+    <lastmod>2024-05-07T22:09:36.178Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-03-06-interviews-anirban_chetia/index.html</loc>
+    <lastmod>2024-05-07T22:09:41.852Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html</loc>
+    <lastmod>2024-05-07T22:09:46.996Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-02-25-survey_2023-aljaz_sluga/index.html</loc>
+    <lastmod>2024-05-07T22:09:52.367Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/index.html</loc>
-    <lastmod>2024-03-06T20:47:00.606Z</lastmod>
+    <lastmod>2024-05-07T22:09:57.384Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-11-19-LatinR_summary-toby_hocking/index.html</loc>
-    <lastmod>2024-03-06T20:47:05.632Z</lastmod>
+    <lastmod>2024-05-07T22:10:02.495Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/about.html</loc>
-    <lastmod>2024-05-07T21:00:47.980Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-05-20-kelly_bodwin/index.html</loc>
-    <lastmod>2024-05-02T21:50:18.414Z</lastmod>
+    <lastmod>2024-05-07T22:10:04.481Z</lastmod>
   </url>
 </urlset>
