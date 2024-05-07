@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/blog.html</loc>
-    <lastmod>2024-03-06T20:47:08.323Z</lastmod>
+    <lastmod>2024-05-07T18:52:28.696Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/index.html</loc>
-    <lastmod>2024-03-06T20:47:06.678Z</lastmod>
+    <lastmod>2024-05-07T18:52:26.925Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-03-10-testing_plan-toby_hocking/index.html</loc>
@@ -58,6 +58,10 @@
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/about.html</loc>
-    <lastmod>2024-03-06T20:47:07.399Z</lastmod>
+    <lastmod>2024-05-07T18:52:27.713Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-05-20-kelly_bodwin/index.html</loc>
+    <lastmod>2024-05-02T21:50:18.414Z</lastmod>
   </url>
 </urlset>

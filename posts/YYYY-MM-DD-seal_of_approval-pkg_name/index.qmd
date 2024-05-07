@@ -2,22 +2,29 @@
 title: "Seal of Approval: <PACKAGE NAME>"
 author: "<YOUR NAME>"
 date: "<date>"
-categories: [seal of approval, <category>]
+categories: [seal of approval, <extension/application/bridge/partner> package]
 image: "hex.png"
 draft: true
 ---
 
 ## [`<Package Name>`](<link to package github>)
 
-![](hex.png)
+*Author(s):*	<package authors>
 
-[one-sentence description of package]
+*Maintainer:*	<package maintainer> (<maintainer email>)
+
+[Seal of Approval](<link to PR on data.table github showing approval>)
+
+
+![<package name> hex sticker](hex.png)
+
+<one or two sentence description of package; e.g. from CRAN>
 
 ## Relationship with `data.table`
 
-[Discussion of how this package extends, expands, translates, or partners with `data.table`.  Aim for a few sentences.]
+<Discussion of how this package extends, expands, translates, or partners with `data.table`.  Aim for a few sentences.>
 
 
 ## Overview
 
-[A quick example of the main functionality of the package. Aim for about half a page.]
+<A quick example of the main functionality of the package. Aim for about half a page. Feel free to borrow (with attribution) from the package's vignette.>

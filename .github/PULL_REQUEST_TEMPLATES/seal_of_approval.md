@@ -1,22 +1,26 @@
 # Seal of Approval Checklist
 
-- [ ] I have received the Seal of Approval from the `data.table` team.  If not, make a [pull request here](), or see [instructions here]() for more details.
+- [ ] I have received the Seal of Approval from the `data.table` team, and linked to the relevant PR in my article.  If not, before submitting this article, make a [pull request here](), or see [instructions here]() for more details.
 
-- [ ] I have copied the [article template folder](), renamed it appropriately, and filled in all sections.
+- [ ] I have copied the [article template folder](), renamed it appropriately, and filled in all sections.  See [this article]() for an example.
 
-- [ ] I am an author on this package OR I have emailed `rdatatable@gmail.com` with proof of approval from the author to write this article.
+- [ ] I the maintainer this package.
+
+OR 
+
+- [ ] I have emailed the maintainer and cc'ed `rdatatable@gmail.com`, making them aware that I am have received the Seal on behalf of their packageand am submitting this article.
 
 
 ## Categories:
 
 The relationship between this package and `data.table` is best described as:
 
-- [ ] **An extension:** Adds to the internal functionality of `data.table`
+- [ ] **An extension package:** Adds to the internal functionality of `data.table`
 
-- [ ] **A use case:** Uses `data.table` to accomplish a particular task or analysis.
+- [ ] **An application package:** Uses `data.table` to accomplish a particular task or analysis.
 
-- [ ] **A connection:** Translates `data.table` syntax to different syntax.
+- [ ] **A bridge package:** Translates `data.table` syntax to different syntax or provides helper functions for transitioning between `data.table` and another object type.
 
-- [ ] **A sister package:** Follows the [core philosophies of `data.table`]()
+- [ ] **A partner package:** Not necessarily directly connected to `data.table`, but deliberately follows the [core philosophies of `data.table`]()
 
 
