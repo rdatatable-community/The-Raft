@@ -9,15 +9,28 @@ draft: true
 
 ## [`dtplyr`](https://github.com/tidyverse/dtplyr)
 
+::::{.columns}
+
+:::{.column width="40%"}
+
+![dtplyr hex sticker](hex.png)
+:::
+
+
+:::{.column width="60%"}
+
 *Author(s):*	Hadley Wickham, Maximilian Girlich, Mark Fairbanks, Ryan Dickerson, Posit Software PBC
 
 *Maintainer:*	Hadley Wickham (hadley\@posit.co)
 
 [Seal of Approval](<link to approval>)
 
-![dtplyr hex sticker](hex.png)
 
 Provides a `data.table` backend for `dplyr`. The goal of `dtplyr` is to allow you to write `dplyr` code that is automatically translated to the equivalent, but usually much faster, `data.table` code.
+
+:::
+
+::::
 
 ## Relationship with `data.table`
 

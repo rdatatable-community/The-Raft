@@ -34,17 +34,7 @@ listing:
   contents: posts
   sort: "date desc"
   type: default
-  feed:
-    categories:
-      - documentation
-      - announcements
-      - funding opportunity
-      - grant
-      - guest post
-      - tutorials
-      - tips
-      - testing
-      - developer
+  feed: true
   sort-ui: false
   filter-ui: false
 
