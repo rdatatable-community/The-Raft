@@ -1,0 +1,64 @@
+---
+title: "Seal of Approval: dtplyr"
+author: "Kelly Bodwin"
+date: "May 07, 2024"
+categories: [seal of approval, bridge package]
+image: "hex.png"
+draft: true
+---
+
+## [`dtplyr`](https://github.com/tidyverse/dtplyr)
+
+*Author(s):*	Hadley Wickham, Maximilian Girlich, Mark Fairbanks, Ryan Dickerson, Posit Software PBC
+
+*Maintainer:*	Hadley Wickham (hadley\@posit.co)
+
+[Seal of Approval](<link to approval>)
+
+![dtplyr hex sticker](hex.png)
+
+Provides a `data.table` backend for `dplyr`. The goal of `dtplyr` is to allow you to write `dplyr` code that is automatically translated to the equivalent, but usually much faster, `data.table` code.
+
+## Relationship with `data.table`
+
+`dtplyr` is a bridge for users who are more comfortable with the `dplyr` syntax, but who want to take advantage of the speed and efficiency benefits of `data.table`.  This package exactly duplicates the core functions of `dplyr`, but replaces the back-end source code (originally in Base R) with `data.table` operations.
+
+## Overview
+
+*Excerpted from the [`dtplyr` vignette](https://dtplyr.tidyverse.org/)*
+
+To use `dtplyr`, you must at least load `dtplyr` and `dplyr`. You may also want to load `data.table` so you can access the other goodies that it provides:
+
+```{r}
+library(data.table)
+library(dtplyr)
+library(dplyr, warn.conflicts = FALSE)
+```
+
+
+Then use `lazy_dt()` to create a “lazy” `data.table` object that tracks the operations performed on it.
+
+```{r}
+mtcars2 <- lazy_dt(mtcars)
+```
+
+You can preview the transformation (including the generated `data.table` code) by printing the result:
+
+```{r}
+mtcars2 %>% 
+  filter(wt < 5) %>% 
+  mutate(l100k = 235.21 / mpg) %>% # liters / 100 km
+  group_by(cyl) %>% 
+  summarise(l100k = mean(l100k))
+```
+
+But generally you should reserve this only for debugging, and use `as.data.table()`, `as.data.frame()`, or `as_tibble()` to indicate that you’re done with the transformation and want to access the results:
+
+```{r}
+mtcars2 %>% 
+  filter(wt < 5) %>% 
+  mutate(l100k = 235.21 / mpg) %>% # liters / 100 km
+  group_by(cyl) %>% 
+  summarise(l100k = mean(l100k)) %>% 
+  as_tibble()
+```
