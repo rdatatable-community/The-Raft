@@ -21,3 +21,5 @@ about:
 This blog is dedicated to building the community around the `data.table` R package. Its startup is funded by NSF-POSE Grant called "**Expanding the data.table ecosystem for efficient big data manipulation in R".** Here you will find announcements related to the grant, as well as tips, updates, and tutorials for `data.table` and its sister packages.
 
 *Blog managed by Kelly Bodwin, Tyson Barrett, and Toby Hocking. Email us at r.data.table\@gmail.com.*
+
+*Find us in the [R-Bloggers feed!](https://www.r-bloggers.com)*
