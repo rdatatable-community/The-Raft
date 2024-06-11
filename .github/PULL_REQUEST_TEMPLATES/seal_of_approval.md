@@ -1,6 +1,6 @@
 # Seal of Approval Checklist
 
--   [ ] I have copied the [article template folder](), renamed it appropriately, and filled in all sections. See [this article](link) for an example.
+-   [ ] I have copied the [article template folder](https://github.com/rdatatable-community/The-Raft/tree/main/posts/YYYY-MM-DD-seal_of_approval-pkg_name), renamed it appropriately, and filled in all sections. See [this article](https://github.com/rdatatable-community/The-Raft/tree/main/posts/2024-05-30-seal_of_approval-dtplyr) for an example.
 
 -   [ ] I am the maintainer this package.
 
@@ -18,7 +18,7 @@ The relationship between this package and `data.table` is best described as:
 
 -   [ ] **A bridge package:** Translates `data.table` syntax to different syntax or provides helper functions for transitioning between `data.table` and another object type.
 
--   [ ] **A partner package:** Not necessarily directly connected to `data.table`, but deliberately follows the [core philosophies of `data.table`]()
+-   [ ] **A partner package:** Not necessarily directly connected to `data.table`, but deliberately follows the [core philosophies of `data.table`](https://github.com/Rdatatable/data.table/issues/5693)
 
 ## Message for maintainers
 
