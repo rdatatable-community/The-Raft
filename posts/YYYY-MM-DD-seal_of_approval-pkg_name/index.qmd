@@ -20,7 +20,7 @@ draft: true
 
 <one or two sentence description of package; e.g. from CRAN>
 
-## Relationship with `data.table`
+## Relationship with `data.table` blah
 
 <Discussion of how this package extends, expands, translates, or partners with `data.table`.  Aim for a few sentences.>
 
