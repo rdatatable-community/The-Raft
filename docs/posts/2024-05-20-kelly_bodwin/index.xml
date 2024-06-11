@@ -2339,7 +2339,7 @@
 <a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-05-20-kelly_bodwin/index.html --></a>
+<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">Two roads diverged in a wood and I, I took the one less traveled by, and that has made all the difference.</a>
 </div>
 </div>
 <div class="metadata">
@@ -2367,7 +2367,7 @@ Kelly Bodwin
 <a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-06-interviews-anirban_chetia/index.html --></a>
+<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">One stipulation of NSF POSE funded projects like this one was to conduct several interviews under NSF’s I-CORPS program (Winter 2024 Cohort), to gather information as to how <code>…</code><strong></strong><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -2395,7 +2395,7 @@ Anirban Chetia
 <a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-25-survey_2023-aljaz_sluga/index.html --></a>
+<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external">Thanks to everyone who helped create, shared, or filled out the first data.table survey! The survey was officially open between October 17 and December 1 and it received <strong>391</strong> …</a>
 </div>
 </div>
 <div class="metadata">
@@ -2423,7 +2423,7 @@ Aljaž Sluga
 <a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-18-dt_particularities-toby_hocking/index.html --></a>
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">The goal of this blog post is to explain some similarities and differences between the base R <code>data.frame</code> object type, and the <code>data.table</code> object type. We will focus on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -2451,7 +2451,7 @@ Toby Hocking
 <a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html --></a>
+<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external">Among the many reasons to use <code>data.table</code> in your code (which includes the more common answers of speed, memory efficiency, etc.) is the <strong>syntax</strong>. The syntax is</a>
 </div>
 </div>
 <div class="metadata">
@@ -2479,7 +2479,7 @@ Tyson Barrett
 <a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-30-new_governance_new_release-toby_hocking/index.html --></a>
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">I am proud to report that today, the first major new <code>data.table</code> features in several years have been released to CRAN!</a>
 </div>
 </div>
 <div class="metadata">
@@ -2507,7 +2507,7 @@ Toby Dylan Hocking
 <a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-28-piping_data_tables-elio_campitelli/index.html --></a>
+<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">Like a devoted plumber, modern R loves pipes. The magrittr pipe has a long history and it’s fair share of detractors, but with the implementation of the native pipe operator …</a>
 </div>
 </div>
 <div class="metadata">
@@ -2535,7 +2535,7 @@ Elio Campitelli
 <a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-14-ambassador_gorecki-community_team/index.html --></a>
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -2563,7 +2563,7 @@ Kelly Bodwin
 <a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-06-09-ambassador_corrales-community_team/index.html --></a>
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -2591,7 +2591,7 @@ Kelly Bodwin
 <a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-19-LatinR_summary-toby_hocking/index.html --></a>
+<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">Last month, I (Toby) went to the LatinR conference in Montevideo, Uruguay. I had two goals: to teach about <code>data.table</code> in a tutorial, and to find people to work on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -2619,7 +2619,7 @@ Toby Dylan Hocking
 <a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-01-travel_grant_announcement-community_team/index.html --></a>
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">We on the community team are very excited to announce another major funding opportunity!</a>
 </div>
 </div>
 <div class="metadata">
@@ -2647,7 +2647,7 @@ Kelly Bodwin
 <a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-17-translation_announcement-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">In 2023-2025, National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One…<code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -2672,7 +2672,7 @@ Oct 17, 2023
 <a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">An NSF-POSE funded venture.</a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-15-intro_to_grant-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which means 20 years, can you believe it?</a>
 </div>
 </div>
 <div class="metadata">
@@ -4695,7 +4695,7 @@ No matching items
 <a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-05-20-kelly_bodwin/index.html --></a>
+<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">Two roads diverged in a wood and I, I took the one less traveled by, and that has made all the difference.</a>
 </div>
 </div>
 <div class="metadata">
@@ -4723,7 +4723,7 @@ Kelly Bodwin
 <a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-10-testing_plan-toby_hocking/index.html --></a>
+<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external">One major element of the NSF POSE grant for <code>data.table</code> is create more documentation and testing infrastructure, in order to help expand the <code>data.table</code> ecosystem. This blog…</a>
 </div>
 </div>
 <div class="metadata">
@@ -4751,7 +4751,7 @@ Toby Hocking
 <a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-25-survey_2023-aljaz_sluga/index.html --></a>
+<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external">Thanks to everyone who helped create, shared, or filled out the first data.table survey! The survey was officially open between October 17 and December 1 and it received <strong>391</strong> …</a>
 </div>
 </div>
 <div class="metadata">
@@ -4779,7 +4779,7 @@ Aljaž Sluga
 <a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-18-dt_particularities-toby_hocking/index.html --></a>
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">The goal of this blog post is to explain some similarities and differences between the base R <code>data.frame</code> object type, and the <code>data.table</code> object type. We will focus on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -4807,7 +4807,7 @@ Toby Hocking
 <a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html --></a>
+<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external">Among the many reasons to use <code>data.table</code> in your code (which includes the more common answers of speed, memory efficiency, etc.) is the <strong>syntax</strong>. The syntax is</a>
 </div>
 </div>
 <div class="metadata">
@@ -4835,7 +4835,7 @@ Tyson Barrett
 <a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-30-new_governance_new_release-toby_hocking/index.html --></a>
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">I am proud to report that today, the first major new <code>data.table</code> features in several years have been released to CRAN!</a>
 </div>
 </div>
 <div class="metadata">
@@ -4863,7 +4863,7 @@ Toby Dylan Hocking
 <a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-28-piping_data_tables-elio_campitelli/index.html --></a>
+<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">Like a devoted plumber, modern R loves pipes. The magrittr pipe has a long history and it’s fair share of detractors, but with the implementation of the native pipe operator …</a>
 </div>
 </div>
 <div class="metadata">
@@ -4891,7 +4891,7 @@ Elio Campitelli
 <a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-14-ambassador_gorecki-community_team/index.html --></a>
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -4919,7 +4919,7 @@ Kelly Bodwin
 <a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-06-09-ambassador_corrales-community_team/index.html --></a>
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -4947,7 +4947,7 @@ Kelly Bodwin
 <a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-19-LatinR_summary-toby_hocking/index.html --></a>
+<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">Last month, I (Toby) went to the LatinR conference in Montevideo, Uruguay. I had two goals: to teach about <code>data.table</code> in a tutorial, and to find people to work on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -4975,7 +4975,7 @@ Toby Dylan Hocking
 <a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-01-travel_grant_announcement-community_team/index.html --></a>
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">We on the community team are very excited to announce another major funding opportunity!</a>
 </div>
 </div>
 <div class="metadata">
@@ -5003,7 +5003,7 @@ Kelly Bodwin
 <a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-17-translation_announcement-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">In 2023-2025, National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One…<code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -5028,7 +5028,7 @@ Oct 17, 2023
 <a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">An NSF-POSE funded venture.</a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-15-intro_to_grant-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which means 20 years, can you believe it?</a>
 </div>
 </div>
 <div class="metadata">
@@ -7255,7 +7255,7 @@ No matching items
 <a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-05-20-kelly_bodwin/index.html --></a>
+<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">Two roads diverged in a wood and I, I took the one less traveled by, and that has made all the difference.</a>
 </div>
 </div>
 <div class="metadata">
@@ -7283,7 +7283,7 @@ Kelly Bodwin
 <a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-10-testing_plan-toby_hocking/index.html --></a>
+<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external">One major element of the NSF POSE grant for <code>data.table</code> is create more documentation and testing infrastructure, in order to help expand the <code>data.table</code> ecosystem. This blog…</a>
 </div>
 </div>
 <div class="metadata">
@@ -7311,7 +7311,7 @@ Toby Hocking
 <a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-06-interviews-anirban_chetia/index.html --></a>
+<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">One stipulation of NSF POSE funded projects like this one was to conduct several interviews under NSF’s I-CORPS program (Winter 2024 Cohort), to gather information as to how <code>…</code><strong></strong><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -7339,7 +7339,7 @@ Anirban Chetia
 <a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-18-dt_particularities-toby_hocking/index.html --></a>
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">The goal of this blog post is to explain some similarities and differences between the base R <code>data.frame</code> object type, and the <code>data.table</code> object type. We will focus on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -7367,7 +7367,7 @@ Toby Hocking
 <a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html --></a>
+<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external">Among the many reasons to use <code>data.table</code> in your code (which includes the more common answers of speed, memory efficiency, etc.) is the <strong>syntax</strong>. The syntax is</a>
 </div>
 </div>
 <div class="metadata">
@@ -7395,7 +7395,7 @@ Tyson Barrett
 <a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-30-new_governance_new_release-toby_hocking/index.html --></a>
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">I am proud to report that today, the first major new <code>data.table</code> features in several years have been released to CRAN!</a>
 </div>
 </div>
 <div class="metadata">
@@ -7423,7 +7423,7 @@ Toby Dylan Hocking
 <a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-28-piping_data_tables-elio_campitelli/index.html --></a>
+<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">Like a devoted plumber, modern R loves pipes. The magrittr pipe has a long history and it’s fair share of detractors, but with the implementation of the native pipe operator …</a>
 </div>
 </div>
 <div class="metadata">
@@ -7451,7 +7451,7 @@ Elio Campitelli
 <a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-14-ambassador_gorecki-community_team/index.html --></a>
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -7479,7 +7479,7 @@ Kelly Bodwin
 <a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-06-09-ambassador_corrales-community_team/index.html --></a>
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -7507,7 +7507,7 @@ Kelly Bodwin
 <a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-19-LatinR_summary-toby_hocking/index.html --></a>
+<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">Last month, I (Toby) went to the LatinR conference in Montevideo, Uruguay. I had two goals: to teach about <code>data.table</code> in a tutorial, and to find people to work on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -7535,7 +7535,7 @@ Toby Dylan Hocking
 <a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-01-travel_grant_announcement-community_team/index.html --></a>
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">We on the community team are very excited to announce another major funding opportunity!</a>
 </div>
 </div>
 <div class="metadata">
@@ -7563,7 +7563,7 @@ Kelly Bodwin
 <a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-17-translation_announcement-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">In 2023-2025, National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One…<code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -7588,7 +7588,7 @@ Oct 17, 2023
 <a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">An NSF-POSE funded venture.</a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-15-intro_to_grant-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which means 20 years, can you believe it?</a>
 </div>
 </div>
 <div class="metadata">
@@ -9385,7 +9385,7 @@ Note
 <a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-05-20-kelly_bodwin/index.html --></a>
+<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">Two roads diverged in a wood and I, I took the one less traveled by, and that has made all the difference.</a>
 </div>
 </div>
 <div class="metadata">
@@ -9413,7 +9413,7 @@ Kelly Bodwin
 <a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-10-testing_plan-toby_hocking/index.html --></a>
+<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external">One major element of the NSF POSE grant for <code>data.table</code> is create more documentation and testing infrastructure, in order to help expand the <code>data.table</code> ecosystem. This blog…</a>
 </div>
 </div>
 <div class="metadata">
@@ -9441,7 +9441,7 @@ Toby Hocking
 <a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-06-interviews-anirban_chetia/index.html --></a>
+<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">One stipulation of NSF POSE funded projects like this one was to conduct several interviews under NSF’s I-CORPS program (Winter 2024 Cohort), to gather information as to how <code>…</code><strong></strong><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -9469,7 +9469,7 @@ Anirban Chetia
 <a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-25-survey_2023-aljaz_sluga/index.html --></a>
+<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external">Thanks to everyone who helped create, shared, or filled out the first data.table survey! The survey was officially open between October 17 and December 1 and it received <strong>391</strong> …</a>
 </div>
 </div>
 <div class="metadata">
@@ -9497,7 +9497,7 @@ Aljaž Sluga
 <a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html --></a>
+<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external">Among the many reasons to use <code>data.table</code> in your code (which includes the more common answers of speed, memory efficiency, etc.) is the <strong>syntax</strong>. The syntax is</a>
 </div>
 </div>
 <div class="metadata">
@@ -9525,7 +9525,7 @@ Tyson Barrett
 <a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-30-new_governance_new_release-toby_hocking/index.html --></a>
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">I am proud to report that today, the first major new <code>data.table</code> features in several years have been released to CRAN!</a>
 </div>
 </div>
 <div class="metadata">
@@ -9553,7 +9553,7 @@ Toby Dylan Hocking
 <a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-28-piping_data_tables-elio_campitelli/index.html --></a>
+<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">Like a devoted plumber, modern R loves pipes. The magrittr pipe has a long history and it’s fair share of detractors, but with the implementation of the native pipe operator …</a>
 </div>
 </div>
 <div class="metadata">
@@ -9581,7 +9581,7 @@ Elio Campitelli
 <a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-14-ambassador_gorecki-community_team/index.html --></a>
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -9609,7 +9609,7 @@ Kelly Bodwin
 <a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-06-09-ambassador_corrales-community_team/index.html --></a>
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -9637,7 +9637,7 @@ Kelly Bodwin
 <a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-19-LatinR_summary-toby_hocking/index.html --></a>
+<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">Last month, I (Toby) went to the LatinR conference in Montevideo, Uruguay. I had two goals: to teach about <code>data.table</code> in a tutorial, and to find people to work on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -9665,7 +9665,7 @@ Toby Dylan Hocking
 <a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-01-travel_grant_announcement-community_team/index.html --></a>
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">We on the community team are very excited to announce another major funding opportunity!</a>
 </div>
 </div>
 <div class="metadata">
@@ -9693,7 +9693,7 @@ Kelly Bodwin
 <a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-17-translation_announcement-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">In 2023-2025, National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One…<code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -9718,7 +9718,7 @@ Oct 17, 2023
 <a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">An NSF-POSE funded venture.</a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-15-intro_to_grant-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which means 20 years, can you believe it?</a>
 </div>
 </div>
 <div class="metadata">
@@ -12125,7 +12125,7 @@ font-style: inherit;">=</span> .(species, sex)]</span></code></pre></div>
 <a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-05-20-kelly_bodwin/index.html --></a>
+<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">Two roads diverged in a wood and I, I took the one less traveled by, and that has made all the difference.</a>
 </div>
 </div>
 <div class="metadata">
@@ -12153,7 +12153,7 @@ Kelly Bodwin
 <a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-10-testing_plan-toby_hocking/index.html --></a>
+<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external">One major element of the NSF POSE grant for <code>data.table</code> is create more documentation and testing infrastructure, in order to help expand the <code>data.table</code> ecosystem. This blog…</a>
 </div>
 </div>
 <div class="metadata">
@@ -12181,7 +12181,7 @@ Toby Hocking
 <a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-06-interviews-anirban_chetia/index.html --></a>
+<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">One stipulation of NSF POSE funded projects like this one was to conduct several interviews under NSF’s I-CORPS program (Winter 2024 Cohort), to gather information as to how <code>…</code><strong></strong><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -12209,7 +12209,7 @@ Anirban Chetia
 <a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-25-survey_2023-aljaz_sluga/index.html --></a>
+<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external">Thanks to everyone who helped create, shared, or filled out the first data.table survey! The survey was officially open between October 17 and December 1 and it received <strong>391</strong> …</a>
 </div>
 </div>
 <div class="metadata">
@@ -12237,7 +12237,7 @@ Aljaž Sluga
 <a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-18-dt_particularities-toby_hocking/index.html --></a>
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">The goal of this blog post is to explain some similarities and differences between the base R <code>data.frame</code> object type, and the <code>data.table</code> object type. We will focus on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -12265,7 +12265,7 @@ Toby Hocking
 <a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-30-new_governance_new_release-toby_hocking/index.html --></a>
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">I am proud to report that today, the first major new <code>data.table</code> features in several years have been released to CRAN!</a>
 </div>
 </div>
 <div class="metadata">
@@ -12293,7 +12293,7 @@ Toby Dylan Hocking
 <a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-28-piping_data_tables-elio_campitelli/index.html --></a>
+<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">Like a devoted plumber, modern R loves pipes. The magrittr pipe has a long history and it’s fair share of detractors, but with the implementation of the native pipe operator …</a>
 </div>
 </div>
 <div class="metadata">
@@ -12321,7 +12321,7 @@ Elio Campitelli
 <a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-14-ambassador_gorecki-community_team/index.html --></a>
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -12349,7 +12349,7 @@ Kelly Bodwin
 <a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-06-09-ambassador_corrales-community_team/index.html --></a>
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -12377,7 +12377,7 @@ Kelly Bodwin
 <a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-19-LatinR_summary-toby_hocking/index.html --></a>
+<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">Last month, I (Toby) went to the LatinR conference in Montevideo, Uruguay. I had two goals: to teach about <code>data.table</code> in a tutorial, and to find people to work on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -12405,7 +12405,7 @@ Toby Dylan Hocking
 <a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-01-travel_grant_announcement-community_team/index.html --></a>
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">We on the community team are very excited to announce another major funding opportunity!</a>
 </div>
 </div>
 <div class="metadata">
@@ -12433,7 +12433,7 @@ Kelly Bodwin
 <a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-17-translation_announcement-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">In 2023-2025, National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One…<code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -12458,7 +12458,7 @@ Oct 17, 2023
 <a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">An NSF-POSE funded venture.</a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-15-intro_to_grant-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which means 20 years, can you believe it?</a>
 </div>
 </div>
 <div class="metadata">
@@ -14113,7 +14113,7 @@ font-style: inherit;">"."</span>))</span></code></pre></div>
 <a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-05-20-kelly_bodwin/index.html --></a>
+<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">Two roads diverged in a wood and I, I took the one less traveled by, and that has made all the difference.</a>
 </div>
 </div>
 <div class="metadata">
@@ -14141,7 +14141,7 @@ Kelly Bodwin
 <a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-10-testing_plan-toby_hocking/index.html --></a>
+<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external">One major element of the NSF POSE grant for <code>data.table</code> is create more documentation and testing infrastructure, in order to help expand the <code>data.table</code> ecosystem. This blog…</a>
 </div>
 </div>
 <div class="metadata">
@@ -14169,7 +14169,7 @@ Toby Hocking
 <a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-06-interviews-anirban_chetia/index.html --></a>
+<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">One stipulation of NSF POSE funded projects like this one was to conduct several interviews under NSF’s I-CORPS program (Winter 2024 Cohort), to gather information as to how <code>…</code><strong></strong><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -14197,7 +14197,7 @@ Anirban Chetia
 <a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-25-survey_2023-aljaz_sluga/index.html --></a>
+<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external">Thanks to everyone who helped create, shared, or filled out the first data.table survey! The survey was officially open between October 17 and December 1 and it received <strong>391</strong> …</a>
 </div>
 </div>
 <div class="metadata">
@@ -14225,7 +14225,7 @@ Aljaž Sluga
 <a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-18-dt_particularities-toby_hocking/index.html --></a>
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">The goal of this blog post is to explain some similarities and differences between the base R <code>data.frame</code> object type, and the <code>data.table</code> object type. We will focus on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -14253,7 +14253,7 @@ Toby Hocking
 <a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html --></a>
+<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external">Among the many reasons to use <code>data.table</code> in your code (which includes the more common answers of speed, memory efficiency, etc.) is the <strong>syntax</strong>. The syntax is</a>
 </div>
 </div>
 <div class="metadata">
@@ -14281,7 +14281,7 @@ Tyson Barrett
 <a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-28-piping_data_tables-elio_campitelli/index.html --></a>
+<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">Like a devoted plumber, modern R loves pipes. The magrittr pipe has a long history and it’s fair share of detractors, but with the implementation of the native pipe operator …</a>
 </div>
 </div>
 <div class="metadata">
@@ -14309,7 +14309,7 @@ Elio Campitelli
 <a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-14-ambassador_gorecki-community_team/index.html --></a>
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -14337,7 +14337,7 @@ Kelly Bodwin
 <a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-06-09-ambassador_corrales-community_team/index.html --></a>
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -14365,7 +14365,7 @@ Kelly Bodwin
 <a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-19-LatinR_summary-toby_hocking/index.html --></a>
+<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">Last month, I (Toby) went to the LatinR conference in Montevideo, Uruguay. I had two goals: to teach about <code>data.table</code> in a tutorial, and to find people to work on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -14393,7 +14393,7 @@ Toby Dylan Hocking
 <a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-01-travel_grant_announcement-community_team/index.html --></a>
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">We on the community team are very excited to announce another major funding opportunity!</a>
 </div>
 </div>
 <div class="metadata">
@@ -14421,7 +14421,7 @@ Kelly Bodwin
 <a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-17-translation_announcement-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">In 2023-2025, National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One…<code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -14446,7 +14446,7 @@ Oct 17, 2023
 <a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">An NSF-POSE funded venture.</a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-15-intro_to_grant-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which means 20 years, can you believe it?</a>
 </div>
 </div>
 <div class="metadata">
@@ -16757,7 +16757,7 @@ font-style: inherit;">=</span> .(sex, island)]</span></code></pre></div>
 <a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-05-20-kelly_bodwin/index.html --></a>
+<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">Two roads diverged in a wood and I, I took the one less traveled by, and that has made all the difference.</a>
 </div>
 </div>
 <div class="metadata">
@@ -16785,7 +16785,7 @@ Kelly Bodwin
 <a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-10-testing_plan-toby_hocking/index.html --></a>
+<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external">One major element of the NSF POSE grant for <code>data.table</code> is create more documentation and testing infrastructure, in order to help expand the <code>data.table</code> ecosystem. This blog…</a>
 </div>
 </div>
 <div class="metadata">
@@ -16813,7 +16813,7 @@ Toby Hocking
 <a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-06-interviews-anirban_chetia/index.html --></a>
+<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">One stipulation of NSF POSE funded projects like this one was to conduct several interviews under NSF’s I-CORPS program (Winter 2024 Cohort), to gather information as to how <code>…</code><strong></strong><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -16841,7 +16841,7 @@ Anirban Chetia
 <a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-25-survey_2023-aljaz_sluga/index.html --></a>
+<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external">Thanks to everyone who helped create, shared, or filled out the first data.table survey! The survey was officially open between October 17 and December 1 and it received <strong>391</strong> …</a>
 </div>
 </div>
 <div class="metadata">
@@ -16869,7 +16869,7 @@ Aljaž Sluga
 <a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-18-dt_particularities-toby_hocking/index.html --></a>
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">The goal of this blog post is to explain some similarities and differences between the base R <code>data.frame</code> object type, and the <code>data.table</code> object type. We will focus on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -16897,7 +16897,7 @@ Toby Hocking
 <a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html --></a>
+<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external">Among the many reasons to use <code>data.table</code> in your code (which includes the more common answers of speed, memory efficiency, etc.) is the <strong>syntax</strong>. The syntax is</a>
 </div>
 </div>
 <div class="metadata">
@@ -16925,7 +16925,7 @@ Tyson Barrett
 <a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-30-new_governance_new_release-toby_hocking/index.html --></a>
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">I am proud to report that today, the first major new <code>data.table</code> features in several years have been released to CRAN!</a>
 </div>
 </div>
 <div class="metadata">
@@ -16953,7 +16953,7 @@ Toby Dylan Hocking
 <a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-14-ambassador_gorecki-community_team/index.html --></a>
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -16981,7 +16981,7 @@ Kelly Bodwin
 <a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-06-09-ambassador_corrales-community_team/index.html --></a>
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -17009,7 +17009,7 @@ Kelly Bodwin
 <a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-19-LatinR_summary-toby_hocking/index.html --></a>
+<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">Last month, I (Toby) went to the LatinR conference in Montevideo, Uruguay. I had two goals: to teach about <code>data.table</code> in a tutorial, and to find people to work on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -17037,7 +17037,7 @@ Toby Dylan Hocking
 <a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-01-travel_grant_announcement-community_team/index.html --></a>
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">We on the community team are very excited to announce another major funding opportunity!</a>
 </div>
 </div>
 <div class="metadata">
@@ -17065,7 +17065,7 @@ Kelly Bodwin
 <a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-17-translation_announcement-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">In 2023-2025, National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One…<code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -17090,7 +17090,7 @@ Oct 17, 2023
 <a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">An NSF-POSE funded venture.</a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-15-intro_to_grant-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which means 20 years, can you believe it?</a>
 </div>
 </div>
 <div class="metadata">
@@ -18474,7 +18474,7 @@ No matching items
 <a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-05-20-kelly_bodwin/index.html --></a>
+<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">Two roads diverged in a wood and I, I took the one less traveled by, and that has made all the difference.</a>
 </div>
 </div>
 <div class="metadata">
@@ -18502,7 +18502,7 @@ Kelly Bodwin
 <a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-10-testing_plan-toby_hocking/index.html --></a>
+<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external">One major element of the NSF POSE grant for <code>data.table</code> is create more documentation and testing infrastructure, in order to help expand the <code>data.table</code> ecosystem. This blog…</a>
 </div>
 </div>
 <div class="metadata">
@@ -18530,7 +18530,7 @@ Toby Hocking
 <a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-06-interviews-anirban_chetia/index.html --></a>
+<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">One stipulation of NSF POSE funded projects like this one was to conduct several interviews under NSF’s I-CORPS program (Winter 2024 Cohort), to gather information as to how <code>…</code><strong></strong><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -18558,7 +18558,7 @@ Anirban Chetia
 <a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-25-survey_2023-aljaz_sluga/index.html --></a>
+<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external">Thanks to everyone who helped create, shared, or filled out the first data.table survey! The survey was officially open between October 17 and December 1 and it received <strong>391</strong> …</a>
 </div>
 </div>
 <div class="metadata">
@@ -18586,7 +18586,7 @@ Aljaž Sluga
 <a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-18-dt_particularities-toby_hocking/index.html --></a>
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">The goal of this blog post is to explain some similarities and differences between the base R <code>data.frame</code> object type, and the <code>data.table</code> object type. We will focus on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -18614,7 +18614,7 @@ Toby Hocking
 <a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html --></a>
+<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external">Among the many reasons to use <code>data.table</code> in your code (which includes the more common answers of speed, memory efficiency, etc.) is the <strong>syntax</strong>. The syntax is</a>
 </div>
 </div>
 <div class="metadata">
@@ -18642,7 +18642,7 @@ Tyson Barrett
 <a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-30-new_governance_new_release-toby_hocking/index.html --></a>
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">I am proud to report that today, the first major new <code>data.table</code> features in several years have been released to CRAN!</a>
 </div>
 </div>
 <div class="metadata">
@@ -18670,7 +18670,7 @@ Toby Dylan Hocking
 <a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-28-piping_data_tables-elio_campitelli/index.html --></a>
+<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">Like a devoted plumber, modern R loves pipes. The magrittr pipe has a long history and it’s fair share of detractors, but with the implementation of the native pipe operator …</a>
 </div>
 </div>
 <div class="metadata">
@@ -18698,7 +18698,7 @@ Elio Campitelli
 <a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-06-09-ambassador_corrales-community_team/index.html --></a>
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -18726,7 +18726,7 @@ Kelly Bodwin
 <a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-19-LatinR_summary-toby_hocking/index.html --></a>
+<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">Last month, I (Toby) went to the LatinR conference in Montevideo, Uruguay. I had two goals: to teach about <code>data.table</code> in a tutorial, and to find people to work on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -18754,7 +18754,7 @@ Toby Dylan Hocking
 <a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-01-travel_grant_announcement-community_team/index.html --></a>
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">We on the community team are very excited to announce another major funding opportunity!</a>
 </div>
 </div>
 <div class="metadata">
@@ -18782,7 +18782,7 @@ Kelly Bodwin
 <a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-17-translation_announcement-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">In 2023-2025, National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One…<code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -18807,7 +18807,7 @@ Oct 17, 2023
 <a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">An NSF-POSE funded venture.</a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-15-intro_to_grant-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which means 20 years, can you believe it?</a>
 </div>
 </div>
 <div class="metadata">
@@ -20646,7 +20646,7 @@ No matching items
 <a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-05-20-kelly_bodwin/index.html --></a>
+<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">Two roads diverged in a wood and I, I took the one less traveled by, and that has made all the difference.</a>
 </div>
 </div>
 <div class="metadata">
@@ -20674,7 +20674,7 @@ Kelly Bodwin
 <a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-10-testing_plan-toby_hocking/index.html --></a>
+<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external">One major element of the NSF POSE grant for <code>data.table</code> is create more documentation and testing infrastructure, in order to help expand the <code>data.table</code> ecosystem. This blog…</a>
 </div>
 </div>
 <div class="metadata">
@@ -20702,7 +20702,7 @@ Toby Hocking
 <a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-06-interviews-anirban_chetia/index.html --></a>
+<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">One stipulation of NSF POSE funded projects like this one was to conduct several interviews under NSF’s I-CORPS program (Winter 2024 Cohort), to gather information as to how <code>…</code><strong></strong><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -20730,7 +20730,7 @@ Anirban Chetia
 <a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-25-survey_2023-aljaz_sluga/index.html --></a>
+<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external">Thanks to everyone who helped create, shared, or filled out the first data.table survey! The survey was officially open between October 17 and December 1 and it received <strong>391</strong> …</a>
 </div>
 </div>
 <div class="metadata">
@@ -20758,7 +20758,7 @@ Aljaž Sluga
 <a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-18-dt_particularities-toby_hocking/index.html --></a>
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">The goal of this blog post is to explain some similarities and differences between the base R <code>data.frame</code> object type, and the <code>data.table</code> object type. We will focus on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -20786,7 +20786,7 @@ Toby Hocking
 <a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html --></a>
+<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external">Among the many reasons to use <code>data.table</code> in your code (which includes the more common answers of speed, memory efficiency, etc.) is the <strong>syntax</strong>. The syntax is</a>
 </div>
 </div>
 <div class="metadata">
@@ -20814,7 +20814,7 @@ Tyson Barrett
 <a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-30-new_governance_new_release-toby_hocking/index.html --></a>
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">I am proud to report that today, the first major new <code>data.table</code> features in several years have been released to CRAN!</a>
 </div>
 </div>
 <div class="metadata">
@@ -20842,7 +20842,7 @@ Toby Dylan Hocking
 <a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-28-piping_data_tables-elio_campitelli/index.html --></a>
+<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">Like a devoted plumber, modern R loves pipes. The magrittr pipe has a long history and it’s fair share of detractors, but with the implementation of the native pipe operator …</a>
 </div>
 </div>
 <div class="metadata">
@@ -20870,7 +20870,7 @@ Elio Campitelli
 <a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-14-ambassador_gorecki-community_team/index.html --></a>
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -20898,7 +20898,7 @@ Kelly Bodwin
 <a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-19-LatinR_summary-toby_hocking/index.html --></a>
+<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">Last month, I (Toby) went to the LatinR conference in Montevideo, Uruguay. I had two goals: to teach about <code>data.table</code> in a tutorial, and to find people to work on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -20926,7 +20926,7 @@ Toby Dylan Hocking
 <a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-01-travel_grant_announcement-community_team/index.html --></a>
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">We on the community team are very excited to announce another major funding opportunity!</a>
 </div>
 </div>
 <div class="metadata">
@@ -20954,7 +20954,7 @@ Kelly Bodwin
 <a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-17-translation_announcement-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">In 2023-2025, National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One…<code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -20979,7 +20979,7 @@ Oct 17, 2023
 <a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">An NSF-POSE funded venture.</a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-15-intro_to_grant-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which means 20 years, can you believe it?</a>
 </div>
 </div>
 <div class="metadata">
@@ -23387,7 +23387,7 @@ No matching items
 <a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-05-20-kelly_bodwin/index.html --></a>
+<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">Two roads diverged in a wood and I, I took the one less traveled by, and that has made all the difference.</a>
 </div>
 </div>
 <div class="metadata">
@@ -23415,7 +23415,7 @@ Kelly Bodwin
 <a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-10-testing_plan-toby_hocking/index.html --></a>
+<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external">One major element of the NSF POSE grant for <code>data.table</code> is create more documentation and testing infrastructure, in order to help expand the <code>data.table</code> ecosystem. This blog…</a>
 </div>
 </div>
 <div class="metadata">
@@ -23443,7 +23443,7 @@ Toby Hocking
 <a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-06-interviews-anirban_chetia/index.html --></a>
+<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">One stipulation of NSF POSE funded projects like this one was to conduct several interviews under NSF’s I-CORPS program (Winter 2024 Cohort), to gather information as to how <code>…</code><strong></strong><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -23471,7 +23471,7 @@ Anirban Chetia
 <a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-25-survey_2023-aljaz_sluga/index.html --></a>
+<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external">Thanks to everyone who helped create, shared, or filled out the first data.table survey! The survey was officially open between October 17 and December 1 and it received <strong>391</strong> …</a>
 </div>
 </div>
 <div class="metadata">
@@ -23499,7 +23499,7 @@ Aljaž Sluga
 <a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-18-dt_particularities-toby_hocking/index.html --></a>
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">The goal of this blog post is to explain some similarities and differences between the base R <code>data.frame</code> object type, and the <code>data.table</code> object type. We will focus on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -23527,7 +23527,7 @@ Toby Hocking
 <a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html --></a>
+<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external">Among the many reasons to use <code>data.table</code> in your code (which includes the more common answers of speed, memory efficiency, etc.) is the <strong>syntax</strong>. The syntax is</a>
 </div>
 </div>
 <div class="metadata">
@@ -23555,7 +23555,7 @@ Tyson Barrett
 <a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-30-new_governance_new_release-toby_hocking/index.html --></a>
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">I am proud to report that today, the first major new <code>data.table</code> features in several years have been released to CRAN!</a>
 </div>
 </div>
 <div class="metadata">
@@ -23583,7 +23583,7 @@ Toby Dylan Hocking
 <a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-28-piping_data_tables-elio_campitelli/index.html --></a>
+<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">Like a devoted plumber, modern R loves pipes. The magrittr pipe has a long history and it’s fair share of detractors, but with the implementation of the native pipe operator …</a>
 </div>
 </div>
 <div class="metadata">
@@ -23611,7 +23611,7 @@ Elio Campitelli
 <a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-14-ambassador_gorecki-community_team/index.html --></a>
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -23639,7 +23639,7 @@ Kelly Bodwin
 <a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-06-09-ambassador_corrales-community_team/index.html --></a>
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -23667,7 +23667,7 @@ Kelly Bodwin
 <a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-01-travel_grant_announcement-community_team/index.html --></a>
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">We on the community team are very excited to announce another major funding opportunity!</a>
 </div>
 </div>
 <div class="metadata">
@@ -23695,7 +23695,7 @@ Kelly Bodwin
 <a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-17-translation_announcement-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">In 2023-2025, National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One…<code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -23720,7 +23720,7 @@ Oct 17, 2023
 <a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">An NSF-POSE funded venture.</a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-15-intro_to_grant-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which means 20 years, can you believe it?</a>
 </div>
 </div>
 <div class="metadata">
@@ -25391,7 +25391,7 @@ No matching items
 <a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-05-20-kelly_bodwin/index.html --></a>
+<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">Two roads diverged in a wood and I, I took the one less traveled by, and that has made all the difference.</a>
 </div>
 </div>
 <div class="metadata">
@@ -25419,7 +25419,7 @@ Kelly Bodwin
 <a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-10-testing_plan-toby_hocking/index.html --></a>
+<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external">One major element of the NSF POSE grant for <code>data.table</code> is create more documentation and testing infrastructure, in order to help expand the <code>data.table</code> ecosystem. This blog…</a>
 </div>
 </div>
 <div class="metadata">
@@ -25447,7 +25447,7 @@ Toby Hocking
 <a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-06-interviews-anirban_chetia/index.html --></a>
+<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">One stipulation of NSF POSE funded projects like this one was to conduct several interviews under NSF’s I-CORPS program (Winter 2024 Cohort), to gather information as to how <code>…</code><strong></strong><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -25475,7 +25475,7 @@ Anirban Chetia
 <a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-25-survey_2023-aljaz_sluga/index.html --></a>
+<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external">Thanks to everyone who helped create, shared, or filled out the first data.table survey! The survey was officially open between October 17 and December 1 and it received <strong>391</strong> …</a>
 </div>
 </div>
 <div class="metadata">
@@ -25503,7 +25503,7 @@ Aljaž Sluga
 <a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-18-dt_particularities-toby_hocking/index.html --></a>
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">The goal of this blog post is to explain some similarities and differences between the base R <code>data.frame</code> object type, and the <code>data.table</code> object type. We will focus on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -25531,7 +25531,7 @@ Toby Hocking
 <a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html --></a>
+<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external">Among the many reasons to use <code>data.table</code> in your code (which includes the more common answers of speed, memory efficiency, etc.) is the <strong>syntax</strong>. The syntax is</a>
 </div>
 </div>
 <div class="metadata">
@@ -25559,7 +25559,7 @@ Tyson Barrett
 <a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-30-new_governance_new_release-toby_hocking/index.html --></a>
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">I am proud to report that today, the first major new <code>data.table</code> features in several years have been released to CRAN!</a>
 </div>
 </div>
 <div class="metadata">
@@ -25587,7 +25587,7 @@ Toby Dylan Hocking
 <a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-28-piping_data_tables-elio_campitelli/index.html --></a>
+<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">Like a devoted plumber, modern R loves pipes. The magrittr pipe has a long history and it’s fair share of detractors, but with the implementation of the native pipe operator …</a>
 </div>
 </div>
 <div class="metadata">
@@ -25615,7 +25615,7 @@ Elio Campitelli
 <a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-14-ambassador_gorecki-community_team/index.html --></a>
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -25643,7 +25643,7 @@ Kelly Bodwin
 <a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-06-09-ambassador_corrales-community_team/index.html --></a>
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -25671,7 +25671,7 @@ Kelly Bodwin
 <a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-19-LatinR_summary-toby_hocking/index.html --></a>
+<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">Last month, I (Toby) went to the LatinR conference in Montevideo, Uruguay. I had two goals: to teach about <code>data.table</code> in a tutorial, and to find people to work on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -25699,7 +25699,7 @@ Toby Dylan Hocking
 <a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-17-translation_announcement-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">In 2023-2025, National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One…<code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -25724,7 +25724,7 @@ Oct 17, 2023
 <a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">An NSF-POSE funded venture.</a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-15-intro_to_grant-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which means 20 years, can you believe it?</a>
 </div>
 </div>
 <div class="metadata">
@@ -27434,7 +27434,7 @@ No matching items
 <a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-05-20-kelly_bodwin/index.html --></a>
+<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">Two roads diverged in a wood and I, I took the one less traveled by, and that has made all the difference.</a>
 </div>
 </div>
 <div class="metadata">
@@ -27462,7 +27462,7 @@ Kelly Bodwin
 <a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-10-testing_plan-toby_hocking/index.html --></a>
+<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external">One major element of the NSF POSE grant for <code>data.table</code> is create more documentation and testing infrastructure, in order to help expand the <code>data.table</code> ecosystem. This blog…</a>
 </div>
 </div>
 <div class="metadata">
@@ -27490,7 +27490,7 @@ Toby Hocking
 <a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-06-interviews-anirban_chetia/index.html --></a>
+<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">One stipulation of NSF POSE funded projects like this one was to conduct several interviews under NSF’s I-CORPS program (Winter 2024 Cohort), to gather information as to how <code>…</code><strong></strong><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -27518,7 +27518,7 @@ Anirban Chetia
 <a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-25-survey_2023-aljaz_sluga/index.html --></a>
+<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external">Thanks to everyone who helped create, shared, or filled out the first data.table survey! The survey was officially open between October 17 and December 1 and it received <strong>391</strong> …</a>
 </div>
 </div>
 <div class="metadata">
@@ -27546,7 +27546,7 @@ Aljaž Sluga
 <a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-18-dt_particularities-toby_hocking/index.html --></a>
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">The goal of this blog post is to explain some similarities and differences between the base R <code>data.frame</code> object type, and the <code>data.table</code> object type. We will focus on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -27574,7 +27574,7 @@ Toby Hocking
 <a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html --></a>
+<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external">Among the many reasons to use <code>data.table</code> in your code (which includes the more common answers of speed, memory efficiency, etc.) is the <strong>syntax</strong>. The syntax is</a>
 </div>
 </div>
 <div class="metadata">
@@ -27602,7 +27602,7 @@ Tyson Barrett
 <a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-30-new_governance_new_release-toby_hocking/index.html --></a>
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">I am proud to report that today, the first major new <code>data.table</code> features in several years have been released to CRAN!</a>
 </div>
 </div>
 <div class="metadata">
@@ -27630,7 +27630,7 @@ Toby Dylan Hocking
 <a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-28-piping_data_tables-elio_campitelli/index.html --></a>
+<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">Like a devoted plumber, modern R loves pipes. The magrittr pipe has a long history and it’s fair share of detractors, but with the implementation of the native pipe operator …</a>
 </div>
 </div>
 <div class="metadata">
@@ -27658,7 +27658,7 @@ Elio Campitelli
 <a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-14-ambassador_gorecki-community_team/index.html --></a>
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -27686,7 +27686,7 @@ Kelly Bodwin
 <a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-06-09-ambassador_corrales-community_team/index.html --></a>
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -27714,7 +27714,7 @@ Kelly Bodwin
 <a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-19-LatinR_summary-toby_hocking/index.html --></a>
+<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">Last month, I (Toby) went to the LatinR conference in Montevideo, Uruguay. I had two goals: to teach about <code>data.table</code> in a tutorial, and to find people to work on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -27742,7 +27742,7 @@ Toby Dylan Hocking
 <a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-01-travel_grant_announcement-community_team/index.html --></a>
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">We on the community team are very excited to announce another major funding opportunity!</a>
 </div>
 </div>
 <div class="metadata">
@@ -27770,7 +27770,7 @@ Kelly Bodwin
 <a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">An NSF-POSE funded venture.</a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-15-intro_to_grant-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">Hi! My name is Toby Dylan Hocking, and I have been using R since 2003, which means 20 years, can you believe it?</a>
 </div>
 </div>
 <div class="metadata">
@@ -30111,7 +30111,7 @@ No matching items
 <a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-05-20-kelly_bodwin/index.html --></a>
+<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">Two roads diverged in a wood and I, I took the one less traveled by, and that has made all the difference.</a>
 </div>
 </div>
 <div class="metadata">
@@ -30139,7 +30139,7 @@ Kelly Bodwin
 <a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-10-testing_plan-toby_hocking/index.html --></a>
+<a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external">One major element of the NSF POSE grant for <code>data.table</code> is create more documentation and testing infrastructure, in order to help expand the <code>data.table</code> ecosystem. This blog…</a>
 </div>
 </div>
 <div class="metadata">
@@ -30167,7 +30167,7 @@ Toby Hocking
 <a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-03-06-interviews-anirban_chetia/index.html --></a>
+<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">One stipulation of NSF POSE funded projects like this one was to conduct several interviews under NSF’s I-CORPS program (Winter 2024 Cohort), to gather information as to how <code>…</code><strong></strong><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -30195,7 +30195,7 @@ Anirban Chetia
 <a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-25-survey_2023-aljaz_sluga/index.html --></a>
+<a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external">Thanks to everyone who helped create, shared, or filled out the first data.table survey! The survey was officially open between October 17 and December 1 and it received <strong>391</strong> …</a>
 </div>
 </div>
 <div class="metadata">
@@ -30223,7 +30223,7 @@ Aljaž Sluga
 <a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-18-dt_particularities-toby_hocking/index.html --></a>
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">The goal of this blog post is to explain some similarities and differences between the base R <code>data.frame</code> object type, and the <code>data.table</code> object type. We will focus on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -30251,7 +30251,7 @@ Toby Hocking
 <a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html --></a>
+<a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external">Among the many reasons to use <code>data.table</code> in your code (which includes the more common answers of speed, memory efficiency, etc.) is the <strong>syntax</strong>. The syntax is</a>
 </div>
 </div>
 <div class="metadata">
@@ -30279,7 +30279,7 @@ Tyson Barrett
 <a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-30-new_governance_new_release-toby_hocking/index.html --></a>
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">I am proud to report that today, the first major new <code>data.table</code> features in several years have been released to CRAN!</a>
 </div>
 </div>
 <div class="metadata">
@@ -30307,7 +30307,7 @@ Toby Dylan Hocking
 <a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-28-piping_data_tables-elio_campitelli/index.html --></a>
+<a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">Like a devoted plumber, modern R loves pipes. The magrittr pipe has a long history and it’s fair share of detractors, but with the implementation of the native pipe operator …</a>
 </div>
 </div>
 <div class="metadata">
@@ -30335,7 +30335,7 @@ Elio Campitelli
 <a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-01-14-ambassador_gorecki-community_team/index.html --></a>
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -30363,7 +30363,7 @@ Kelly Bodwin
 <a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2024-06-09-ambassador_corrales-community_team/index.html --></a>
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the <code>data.table</code> package. You can find his great work in open-source development…<span class="citation" data-cites="jangorecki"></span><code></code></a>
 </div>
 </div>
 <div class="metadata">
@@ -30391,7 +30391,7 @@ Kelly Bodwin
 <a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-19-LatinR_summary-toby_hocking/index.html --></a>
+<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">Last month, I (Toby) went to the LatinR conference in Montevideo, Uruguay. I had two goals: to teach about <code>data.table</code> in a tutorial, and to find people to work on…</a>
 </div>
 </div>
 <div class="metadata">
@@ -30419,7 +30419,7 @@ Toby Dylan Hocking
 <a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-11-01-travel_grant_announcement-community_team/index.html --></a>
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">We on the community team are very excited to announce another major funding opportunity!</a>
 </div>
 </div>
 <div class="metadata">
@@ -30447,7 +30447,7 @@ Kelly Bodwin
 <a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"><!-- desc(5A0113B34292)[max=175]:posts/2023-10-17-translation_announcement-toby_hocking/index.html --></a>
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">In 2023-2025, National Science Foundation (NSF) has provided funds to support the project “Expanding the data.table ecosystem for efficient big data manipulation in R.” One…<code></code></a>
 </div>
 </div>
 <div class="metadata">
