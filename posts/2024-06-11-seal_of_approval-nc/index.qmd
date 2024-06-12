@@ -1,0 +1,88 @@
+---
+title: "Seal of Approval: nc"
+author: "Toby Dylan Hocking"
+date: "11 June 2024"
+categories: [seal of approval, extension package]
+image: "hex.png"
+draft: true
+---
+
+## [`nc`](https://github.com/tdhock/nc)
+
+*Maintainer:* Toby Dylan Hocking (toby.hocking@r-project.org)
+
+[Seal of Approval](TODO)
+
+![nc hex sticker](hex.png)
+
+User-friendly functions for extracting a data table (row for each match, column for each group) from non-tabular text data using regular expressions, and for melting columns that match a regular expression. Patterns are defined using a readable syntax that makes it easy to build complex patterns in terms of simpler, re-usable sub-patterns. Named R arguments are translated to column names in the output, thereby providing a standard interface to three regular expression 'C' libraries ('PCRE', 'RE2', 'ICU'). Output can also include numeric columns via user-specified type conversion functions.
+
+## Relationship with `data.table`
+
+Whereas `data.table` provides several functions such as `patterns()` and `measure()` which support some regex engines (PCRE, TRE), `nc` interfaces with two other engines (RE2, ICU).
+`nc` imports `data.table`, and always returns regex match results as a `data.table`.
+
+## Overview
+
+`nc` is useful for extracting numeric data from text, for example consider the following strings, which indicate genomic positions, in bases on a chromosome:
+
+```{r}
+chr.pos.vec <- c(
+  "chr10:213,054,000-213,055,000",
+  "chrM:111,000",              # no end.
+  "chr1:110-111 chr2:220-222") # two ranges.
+```
+
+The data above consist of a chromosome name (chr10), followed by a start position, and then optionally a dash and an end position.
+Using `nc`, we can extract these different pieces of information into a data table using the code below, which inputs the data to parse (first argument), along with a regular expression (subsequent arguments).
+
+```{r}
+nc::capture_first_vec(
+  chr.pos.vec,
+  chrom="chr.*?",
+  ":",
+  start="[0-9,]+")
+```
+
+The code above uses `chrom` and `start` as argument names, which are therefore used for column names in the output data table (one row per input subject string, one column per named argument / capture group).
+However the code above only parses the start position (and not the optional end position).
+Below, we create a more complex regex to parse both the start and end, by first defining a common pattern to parse an integer,
+
+```{r}
+keep.digits <- function(x)as.integer(gsub("[^0-9]", "", x))
+int.pattern <- list("[0-9,]+", keep.digits)
+```
+
+In the code above, we use a list to group the regex `"[0-9],]+"` with the function `keep.digits` which will be used for parsing the text that is extracted by that regex. We use that pattern twice in the code below,
+
+```{r}
+range.pattern <- list(
+  chrom="chr.*?",
+  ":",
+  start=int.pattern,
+  list( # un-named list becomes non-capturing group.
+    "-",
+    end=int.pattern
+  ), "?") # chromEnd is optional.
+nc::capture_first_vec(chr.pos.vec, range.pattern)
+```
+
+The result above is a data table containing the first match in each subject (three rows total). Note the second row has `end=NA` because that optional group did not match.
+
+But the last subject has two potential matches (only the first is reported above). What if we wanted to get all matches in each subject? We can use another function, as in the code below.
+
+```{r}
+nc::capture_all_str(chr.pos.vec, range.pattern)
+```
+
+The output above includes all matches in each subject (four rows total), but does not include any information about which subject each row came from, because it treats the subject as a single string to parse. To get that info, we can use `capture_all_str()` for each row, using `by=.I` as in the code below.
+
+```{r}
+library(data.table)
+data.table(chr.pos.vec)[, nc::capture_all_str(
+  chr.pos.vec, range.pattern), by=.I]
+```
+
+The output above includes the additional `I` column which is the index of the subject that each match came from (two rows with `I=3` because there are two matches in the third subject).
+
+For more info about the `nc` package, please read the vignettes on [its CRAN page](https://cran.r-project.org/package=nc).
