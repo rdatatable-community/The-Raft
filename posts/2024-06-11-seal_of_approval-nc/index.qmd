@@ -85,4 +85,23 @@ data.table(chr.pos.vec)[, nc::capture_all_str(
 
 The output above includes the additional `I` column which is the index of the subject that each match came from (two rows with `I=3` because there are two matches in the third subject).
 
+Finally, `data.table::melt()` is used to power the long-to-wide data reshaping functionality in `nc`. In `data.table` we could use `measure()` to specify a set of variables to reshape, as in the code below.
+
+```{r}
+(iris.wide <- data.table(iris)[1])
+melt(iris.wide, measure.vars=measure(value.name, dim, pattern="(.*)[.](.*)"))
+```
+
+The result above has reshaped the four numeric input columns into two numeric output columns (`value.name` is the sentinel/keyword indicating that we want to make a new column for each unique value captured in that group). The equivalent `nc` code would be as below, with the regex defined using a named argument for each capture group (instead of one long `pattern` string with parentheses for each capture group).
+
+```{r}
+nc::capture_melt_multiple(
+  iris.wide,
+  column=".*",
+  "[.]",
+  dim=".*")
+```
+
+The `nc` code above produces the same result, and in fact uses `data.table::melt()` internally.
+
 For more info about the `nc` package, please read the vignettes on [its CRAN page](https://cran.r-project.org/package=nc).
