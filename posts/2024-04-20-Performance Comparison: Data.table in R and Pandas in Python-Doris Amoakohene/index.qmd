@@ -16,7 +16,6 @@ In the `atime::atime()` we define the following arguments:
 The first argument, N, is a sequence of data sizes. This explores computational efficiency, which will compute time/memory usage for different data sizes (N). 
 The second argument setup is an expression that will be evaluated for each value in N, to create data of a given size.
 seconds.limit may optionally be specified. If an expression is slower than this limit for any data size, then no larger data sizes will be measured.
-Lastly, expr.list, which is the list of expressions for which time/memory usage will be measured.
 
 ## Libraries
 
@@ -125,15 +124,15 @@ atime.read <- atime::atime(
     input.csv <- tempfile()
     fwrite(input.df, "data.csv")
     pd <- import("pandas")
-    input_df_pd <- pd$DataFrame(input.df) 
+    input_df_pd <- pd$DataFrame(input.df)
+    pd <- import("pandas")
+    reticulate::py_run_string("import pandas as pd")
   },
   seconds.limit = seconds.limit,
   "data.table::fread" = {
     data.table::fread("data.csv", showProgress = FALSE) 
   },
   "pandas.read_csv " = {
-    pd <- import("pandas")
-    reticulate::py_run_string("import pandas as pd")
     reticulate::py_run_string("pd.read_csv(file_path)")  
   }
 )
@@ -193,6 +192,8 @@ ml.reshape.atime <- atime::atime(
       id = rep(1:N, each = 2),
       category = rep(c("A", "B"), N),
       value = rnorm(2 * N)
+    py_df <- reticulate::r_to_py(df)
+    pd <- import("pandas")
       )
     },
   seconds.limit= seconds.limit,
@@ -200,9 +201,7 @@ ml.reshape.atime <- atime::atime(
     data.table::melt(data.table(df), id.vars = c("id",  "category"),variable.names="variable", value.name = "value")
   },
   "pd.melt" = {
-    py_df <- reticulate::r_to_py(df)
-    pd <- import("pandas")
-    pd$melt(py_df, id_vars = c("id", "category"), value_name = "score")  
+    pd$melt(py_df, id_vars = c("id", "category"), value.name = "score")  
   }
   )
 ```
@@ -258,6 +257,8 @@ ml.long2wide.atime <- atime::atime(
       id = rep(1:N, each = 2),
       category = rep(c("A", "B"), N),
       value = rnorm(2 * N)
+     py_df <- reticulate::r_to_py(df)
+     pd <- import("pandas")
       )
     },
   seconds.limit= seconds.limit,
@@ -265,8 +266,6 @@ ml.long2wide.atime <- atime::atime(
     data.table::dcast(data.table(df), id ~ category, value.var = "value")
   },
   "pd$pivot_table" = {
-    py_df <- reticulate::r_to_py(df)
-    pd <- import("pandas")
     pd$pivot_table(py_df, values = "value", index = "id", columns = "category")
   }
   )
