@@ -2,7 +2,7 @@
 title: "Seal of Approval: nc"
 author: "Toby Dylan Hocking"
 date: "11 June 2024"
-categories: [seal of approval, extension package]
+categories: [seal of approval, application package]
 image: "hex.png"
 draft: true
 ---
