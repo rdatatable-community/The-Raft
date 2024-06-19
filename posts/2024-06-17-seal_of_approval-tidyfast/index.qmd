@@ -1,57 +1,47 @@
 ---
 title: "Seal of Approval: tidyfast"
 author: "Tyson S. Barrett"
-date: "<date>"
-categories: [seal of approval, <extension/application/bridge/partner> package]
-image: "tidyfast_hex.png"
+date: "June 17, 2024"
+categories: [seal of approval, bridge package]
+image: "hex_approved.png"
 draft: true
 ---
 
 ## [`tidyfast`](https://github.com/TysonStanley/tidyfast)
 
-::::{.columns}
-
-:::{.column width="40%"}
-
+::: columns
+::: {.column width="40%"}
 ![`tidyfast` hex sticker](hex.png)
-
 :::
 
-
-:::{.column width="60%"}
-
+::: {.column width="60%"}
 *Author(s):* Tyson S. Barrett, Mark Fairbanks, Ivan Leung, Indrajeet Patil
 
-*Maintainer:*	Tyson S. Barrett (<t.barrett88@gmail.com>)
+*Maintainer:* Tyson S. Barrett ([t.barrett88\@gmail.com](mailto:t.barrett88@gmail.com){.email})
 
-[Seal of Approval](<github.com>)
+[Seal of Approval](github.com)
 
 The goal of `tidyfast` is to provide fast and efficient alternatives to some `tidyr` (and a few `dplyr`) functions using `data.table` under the hood. Each have the prefix of `dt_` to allow for autocomplete in IDEs such as RStudio. These should compliment some of the current functionality in `dtplyr` (but notably does not use the `lazy_dt()` framework of `dtplyr`). This package imports `data.table` and `cpp11` (no other dependencies). These are, in essence, translations from a more tidyverse grammar to `data.table`. Most functions herein are in places where, in my opinion, the `data.table` syntax is not obvious or clear. As such, these functions can translate a simple function call into the fast, efficient, and concise syntax of data.table.
-
 :::
-
-::::
-
+:::
 
 ## Relationship with `data.table`
 
-`tidyfast` was designed to be an extension to and translation of `data.table`. As such, there are three main ways `tidyfast` is related to `data.table`. 
+`tidyfast` was designed to be an extension to and translation of `data.table`. As such, there are three main ways `tidyfast` is related to `data.table`.
 
-1. This package is built directly on `data.table` using direct calls to `[.data.table` and other functions under the hood. 
-2. It only relies on two packages, `cpp11` and `data.table` both stable packages that are unlikely to have breaking changes often. This follows the `data.table` principle of few dependencies.
-3. It was designed to also show how others can use `data.table` within their own package to create functions that flexibly call `data.table` in complex ways.
-
+1.  This package is built directly on `data.table` using direct calls to `[.data.table` and other functions under the hood.
+2.  It only relies on two packages, `cpp11` and `data.table` both stable packages that are unlikely to have breaking changes often. This follows the `data.table` principle of few dependencies.
+3.  It was designed to also show how others can use `data.table` within their own package to create functions that flexibly call `data.table` in complex ways.
 
 ## Overview
 
-As shown on the `tidyfast` GitHub page, `tidyfast` has several functions that have the prefix `dt_`. A few notable functions from the package are shown below. 
+As shown on the `tidyfast` GitHub page, `tidyfast` has several functions that have the prefix `dt_`. A few notable functions from the package are shown below.
 
 ```{r}
 library(tidyfast)
 library(data.table)
 library(magrittr)
 ```
-
 
 ### dt_fill
 
@@ -85,10 +75,9 @@ dt_fill(dt_with_nas,
         .direction = "downup")
 ```
 
-
 ### dt_nest
 
-Nesting data can be useful for a number of reasons, including XX. The `dt_nest()` function takes a `data.table` and ID variables and nests the remaining columns into a list column of `data.table`s as shown below. 
+Nesting data can be useful for a number of reasons, including XX. The `dt_nest()` function takes a `data.table` and ID variables and nests the remaining columns into a list column of `data.table`s as shown below.
 
 ```{r}
 dt <- data.table(
@@ -103,7 +92,6 @@ dt <- data.table(
 nested <- dt_nest(dt, grp)
 nested
 ```
-
 
 ### dt_pivot_longer and dt_pivot_wider
 
@@ -131,5 +119,3 @@ wider <- longer %>%
   )
 wider[, .(artist, track, wk1, wk2)]
 ```
-
-

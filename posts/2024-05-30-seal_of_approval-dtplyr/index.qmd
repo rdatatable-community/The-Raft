@@ -3,8 +3,8 @@ title: "Seal of Approval: dtplyr"
 author: "Kelly Bodwin"
 date: "May 07, 2024"
 categories: [seal of approval, bridge package]
-image: "hex.png"
-draft: true
+image: "hex_approved.png"
+draft: false
 ---
 
 ## [`dtplyr`](https://github.com/tidyverse/dtplyr)
@@ -22,8 +22,6 @@ draft: true
 *Author(s):*	Hadley Wickham, Maximilian Girlich, Mark Fairbanks, Ryan Dickerson, Posit Software PBC
 
 *Maintainer:*	Hadley Wickham (hadley\@posit.co)
-
-[Seal of Approval](<link to approval>)
 
 
 Provides a `data.table` backend for `dplyr`. The goal of `dtplyr` is to allow you to write `dplyr` code that is automatically translated to the equivalent, but usually much faster, `data.table` code.

@@ -1,17 +1,15 @@
 ---
 title: "Seal of Approval: nc"
 author: "Toby Dylan Hocking"
-date: "11 June 2024"
-categories: [seal of approval, application package]
-image: "hex.png"
-draft: true
+date: "June 11, 2024"
+categories: [seal of approval, extension package]
+image: "hex_approved.png"
+draft: false
 ---
 
 ## [`nc`](https://github.com/tdhock/nc)
 
-*Maintainer:* Toby Dylan Hocking (toby.hocking@r-project.org)
-
-[Seal of Approval](TODO)
+*Maintainer:* Toby Dylan Hocking (toby.hocking\@r-project.org)
 
 ![nc hex sticker](hex.png)
 
@@ -19,8 +17,7 @@ User-friendly functions for extracting a data table (row for each match, column 
 
 ## Relationship with `data.table`
 
-Whereas `data.table` provides several functions such as `patterns()` and `measure()` which support some regex engines (PCRE, TRE), `nc` interfaces with two other engines (RE2, ICU).
-`nc` imports `data.table`, and always returns regex match results as a `data.table`.
+Whereas `data.table` provides several functions such as `patterns()` and `measure()` which support some regex engines (PCRE, TRE), `nc` interfaces with two other engines (RE2, ICU). `nc` imports `data.table`, and always returns regex match results as a `data.table`.
 
 ## Overview
 
@@ -33,8 +30,7 @@ chr.pos.vec <- c(
   "chr1:110-111 chr2:220-222") # two ranges.
 ```
 
-The data above consist of a chromosome name (chr10), followed by a start position, and then optionally a dash and an end position.
-Using `nc`, we can extract these different pieces of information into a data table using the code below, which inputs the data to parse (first argument), along with a regular expression (subsequent arguments).
+The data above consist of a chromosome name (chr10), followed by a start position, and then optionally a dash and an end position. Using `nc`, we can extract these different pieces of information into a data table using the code below, which inputs the data to parse (first argument), along with a regular expression (subsequent arguments).
 
 ```{r}
 nc::capture_first_vec(
@@ -44,9 +40,7 @@ nc::capture_first_vec(
   start="[0-9,]+")
 ```
 
-The code above uses `chrom` and `start` as argument names, which are therefore used for column names in the output data table (one row per input subject string, one column per named argument / capture group).
-However the code above only parses the start position (and not the optional end position).
-Below, we create a more complex regex to parse both the start and end, by first defining a common pattern to parse an integer,
+The code above uses `chrom` and `start` as argument names, which are therefore used for column names in the output data table (one row per input subject string, one column per named argument / capture group). However the code above only parses the start position (and not the optional end position). Below, we create a more complex regex to parse both the start and end, by first defining a common pattern to parse an integer,
 
 ```{r}
 keep.digits <- function(x)as.integer(gsub("[^0-9]", "", x))
