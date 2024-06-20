@@ -228,9 +228,9 @@ After fixing, line shows significantly reduced processing time.
 In summary, the graph visually demonstrates how fixing the regression issue led to improved performance in time-based rolling operations. The Fixed line represents the desired outcome, showing faster processing times for larger sample sizes. 
 
 # **Github Action**
-The data.table project has implemented a GitHub Action to automatically review pull requests.
-The process is automated using a GitHub action implemented by @anirban166. This action runs the "atime" package for every pull request and generates plots of the results in a comment within the pull request. [See an example in this pull request](https://github.com/Rdatatable/data.table/pull/5427#issuecomment-2075471806)
-This action allows the maintainers to easily determine if a pull request has any impact on the time or memory usage of the data.table package. To learn more you can visit [Anirban page](https://github.com/Anirban166/Autocomment-atime-results) or this [link](https://github.com/tdhock/atime?tab=readme-ov-file#github-action-for-continuous-performance-testing)
+The data.table project has implemented a GitHub Action to automatically run performance tests.
+The process is automated using a GitHub action implemented by @anirban166. This action runs the `atime` package for every pull request and generates plots of the results in a comment within the pull request. [See an example in this pull request](https://github.com/Rdatatable/data.table/pull/5427#issuecomment-2075471806)
+This action allows the maintainers to easily determine if a pull request has any impact on the time or memory usage of the data.table package. To learn more you can visit [Anirban's documentation](https://github.com/Anirban166/Autocomment-atime-results) or this [link](https://github.com/tdhock/atime?tab=readme-ov-file#github-action-for-continuous-performance-testing)
 
 # **Conclusion**
 
