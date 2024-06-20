@@ -153,9 +153,10 @@ pkg.edit.fun= pkg.edit.fun,
       v2 = sample(5L, N, TRUE))
   },
   expr=data.table:::`[.data.table`(d, , (max(v1)-min(v2)), by = id3),
-"Before"="15f0598b9828d3af2eb8ddc9b38e0356f42afe4f",
-  "Regression"="6f360be0b2a6cf425f6df751ca9a99ec5d35ed93", 
-  "Fixed"="ba32f3cba38ec270587e395f6e6c26a80be36be6")
+  "Before"="793f8545c363d222de18ac892bc7abb80154e724",#parent of the PR that introduced the regression(https://github.com/Rdatatable/data.table/commit/4aadde8f5a51cd7c8f3889964e7280432ec65bbc) as stated here (https://github.com/Rdatatable/data.table/issues/4200#issuecomment-646111420) https://github.com/Rdatatable/data.table/commit/793f8545c363d222de18ac892bc7abb80154e724
+  "Regression"="c152ced0e5799acee1589910c69c1a2c6586b95d", #praent of the first commit in the PR (https://github.com/Rdatatable/data.table/commit/15f0598b9828d3af2eb8ddc9b38e0356f42afe4f)
+  "Fixed"="f750448a2efcd258b3aba57136ee6a95ce56b302")#second commit in the PR that fixes the regression(https://github.com/Rdatatable/data.table/pull/4558/commits)
+)
 ```
 
 Please Note: Commit IDs or SHAs ("Before", "Regression", and "Fixed") refer to different versions of the data.table package. These ids are unique identifiers associated with specific changes made to the package's codebase. They allow for comparing performance or behavior differences between versions and identifying and verifying fixes for regression issues.
@@ -202,9 +203,9 @@ pkg.edit.fun = pkg.edit.fun,
     dt
   },
  expr=data.table:::`[.data.table`(dt, , .(vs = (sum(val))), by = .(id)),
-  "Before"="be2f72e6f5c90622fe72e1c315ca05769a9dc854",
-  "Regression"="e793f53466d99f86e70fc2611b708ae8c601a451", 
-  "Fixed"="58409197426ced4714af842650b0cc3b9e2cb842") 
+ Before = "be2f72e6f5c90622fe72e1c315ca05769a9dc854", # Parent of the regression causing commit (https://github.com/Rdatatable/data.table/commit/e793f53466d99f86e70fc2611b708ae8c601a451) in the PR that introduced the issue (https://github.com/Rdatatable/data.table/pull/4491/commits)
+ Regression = "e793f53466d99f86e70fc2611b708ae8c601a451", # Commit responsible for regression in the PR that introduced the issue (https://github.com/Rdatatable/data.table/pull/4491/commits)
+ Fixed = "58409197426ced4714af842650b0cc3b9e2cb842") # Last commit in the PR that fixed the regression (https://github.com/Rdatatable/data.table/pull/5463/commits)) 
 ```
 
 
