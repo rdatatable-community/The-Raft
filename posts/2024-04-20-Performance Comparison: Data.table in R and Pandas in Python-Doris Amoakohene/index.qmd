@@ -17,6 +17,19 @@ The first argument, N, is a sequence of data sizes. This explores computational 
 The second argument setup is an expression that will be evaluated for each value in N, to create data of a given size.
 seconds.limit may optionally be specified. If an expression is slower than this limit for any data size, then no larger data sizes will be measured.
 
+This analysis will employ the reticulate package in R, which facilitates interoperability between Python and R by providing a robust set of tools for seamless integration. Leveraging this package enables the efficient exchange of data and functionality between both languages, allowing for a more expansive approach to the analysis.
+The package includes facilities for:
+
+1. Calling Python from R in a variety of ways including R Markdown, sourcing Python scripts, importing Python modules, and using Python interactively within an R session.
+
+2. Translation between R and Python objects (for example, between R and Pandas data frames, or between R matrices and NumPy arrays).
+
+3. Flexible binding to different versions of Python including virtual environments and Conda environments.
+
+The reticualte incurs overhead depending on Python code complexity and frequency of R-Python switches. This overhead is typically constant for small scripts, but increases with larger/complex code. The code uses reticulate to benchmark writing a dataframe to CSV using R's data.table and Python's pandas, with key overhead factors being Python environment initialization and data transfer between R and Python. Data transfer overhead is relatively constant due to small dataframe size and minimal changes in dataframe size during processing.
+
+https://github.com/DorisAmoakohene/Slides-and-Blogs/blob/main/Screenshot%202024-06-26%20150315.png
+
 ## Libraries
 
 ```{r setup,warning=FALSE,message=FALSE}
@@ -39,6 +52,8 @@ file_path = 'data.csv'
 ## fwrite: fast CSV writer
 
 Data.table provides the fwrite() function for writing data to a file while Pandas offers the to_csv() function for writing data to a CSV file.
+
+
 
 ## Comparison code
 
@@ -310,6 +325,10 @@ The choice between the two libraries ultimately depends on the specific requirem
 # References: 
 
 My code was copied and modified from the code links below:
+
+[Reticulate package](https://rstudio.github.io/reticulate/)
+
+[Reticulate cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/reticulate.pdf)
 
 [Reshape performance comparison](https://tdhock.github.io/blog/2024/reshape-performance/)
 
