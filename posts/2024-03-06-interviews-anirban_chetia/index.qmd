@@ -1,5 +1,5 @@
 ---
-title: "Community interviews about {data.table}"
+title: "Community interviews about data.table"
 author: "Anirban Chetia"
 date: "2024-03-06"
 categories: [community, grant]
