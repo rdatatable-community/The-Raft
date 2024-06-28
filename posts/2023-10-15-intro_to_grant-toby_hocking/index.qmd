@@ -1,5 +1,5 @@
 ---
-title: "Welcome to the {data.table} ecosystem project!"
+title: "Welcome to the data.table ecosystem project!"
 subtitle: "An NSF-POSE funded venture."
 author: "Toby Hocking"
 date: "2023-10-15"

@@ -1,5 +1,5 @@
 ---
-title: "Column assignment and reference semantics in {data.table}"
+title: "Column assignment and reference semantics in data.table"
 author: "Toby Hocking"
 date: "2024-02-18"
 categories: [tips, tutorials, developer]
