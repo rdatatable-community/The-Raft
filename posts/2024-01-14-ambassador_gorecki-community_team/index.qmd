@@ -11,7 +11,7 @@ draft: false
 
 ![A round of applause!](https://media2.giphy.com/media/ctXgY5wQbzhHyShCnF/giphy.gif?cid=790b7611y919l9yrzx0l7pszuyqcufsq39eoegy1tthi1opa&ep=v1_gifs_search&rid=giphy.gif&ct=g)
 
-Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the `data.table` package.  You can find his great work in open-source development at [github.com/jangorecki](https://github.com/jangorecki).  Find him on Mastodon at [fosstodon.org/@jangorecki](https://fosstodon.org/@jangorecki) to say congratulations, or chat about all things `data.table`.
+Jan is a natural choice for an Ambassador, due to his many years of fantastic contribution to the `data.table` package. You can find his great work in open-source development at [github.com/jangorecki](https://github.com/jangorecki). Find him on Mastodon at [fosstodon.org/\@jangorecki](https://fosstodon.org/@jangorecki) to say congratulations, or chat about all things `data.table`.
 
 ## Talks
 
@@ -19,9 +19,7 @@ As part of his Ambassador role, Jan will be giving three exciting talks this yea
 
 ### [Rolling statistics and moving windows](https://www.meetup.com/edinbr/events/298492818/) in Edinburgh on **January 26th**, with the Edinburgh R Users group.
 
-> Rolling statistics are an interesting topic for optimizations, therefore in my talk I will use R language to present naive implementation, and the optimized implementation, on a simple case of rolling mean.
-Then I will move to data.table implementations of rolling statistics explaining possible optimizations in other functions, which are not that straightforward anymore, like min/max and, actually very complex, median.
-Finally benchmarks will be presented comparing data.table implementations to base R, pandas, polars, slider/dplyr, duckdb and spark.
+> Rolling statistics are an interesting topic for optimizations, therefore in my talk I will use R language to present naive implementation, and the optimized implementation, on a simple case of rolling mean. Then I will move to data.table implementations of rolling statistics explaining possible optimizations in other functions, which are not that straightforward anymore, like min/max and, actually very complex, median. Finally benchmarks will be presented comparing data.table implementations to base R, pandas, polars, slider/dplyr, duckdb and spark.
 
 ### [High-productivity data frame operations with data.table](https://www.meetup.com/sevilla-r-users/events/298628185/) on **February 8th** in Sevilla, Spain with the Sevilla R Users group
 
@@ -29,14 +27,12 @@ Finally benchmarks will be presented comparing data.table implementations to bas
 
 [Register to watch online here](https://bit.ly/SevillaR_data-table)
 
-### The Spanish R Conference in Sevilla, Spain.  (Date and topic TBD)
+### The Spanish R Conference in Sevilla, Spain. (Date and topic TBD)
 
-
-We look forward to Jan's excellent talks, and a forthcoming blog post right here on The Raft to share his experiences - and of course, his continued wonderful contributions to the `data.table` community.  Thank you, Jan!
+We look forward to Jan's excellent talks, and a forthcoming blog post right here on The Raft to share his experiences - and of course, his continued wonderful contributions to the `data.table` community. Thank you, Jan!
 
 ## Become an Ambassador
 
-Do you have ideas for talks about `data.table`?  Do you want to be part of this new community movement?  [Apply now](https://forms.gle/7Nb7E5GweiYdi93o7) for the **data.table Ambassadors Grant** to fund conference travel for presentations related to `data.table`.  More details on the Ambassadors program [at this blog post](https://rdatatable-community.github.io/The-Raft/posts/2023-11-01-travel_grant_announcement-community_team/), and more details on the grant project itself are [here](https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/). 
-
+Do you have ideas for talks about `data.table`? Do you want to be part of this new community movement? [Apply now](https://forms.gle/7Nb7E5GweiYdi93o7) for the **data.table Ambassadors Grant** to fund conference travel for presentations related to `data.table`. More details on the Ambassadors program [at this blog post](https://rdatatable-community.github.io/The-Raft/posts/2023-11-01-travel_grant_announcement-community_team/), and more details on the grant project itself are [here](https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/).
 
 Questions? Email [r.data.table\@gmail.com](mailto:r.data.table@gmail.com) with any and all questions!

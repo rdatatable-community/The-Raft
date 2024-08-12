@@ -1,10 +1,10 @@
 ---
 title: "Seal of Approval: tidyfast"
 author: "Tyson S. Barrett"
-date: "June 17, 2024"
+date: "Aug 01, 2024"
 categories: [seal of approval, bridge package]
 image: "hex_approved.png"
-draft: true
+draft: false
 ---
 
 ## [`tidyfast`](https://github.com/TysonStanley/tidyfast)

@@ -1,7 +1,7 @@
 ---
 title: "Seal of Approval: nc"
 author: "Toby Dylan Hocking"
-date: "June 11, 2024"
+date: "Aug 01, 2024"
 categories: [seal of approval, extension package]
 image: "hex_approved.png"
 draft: false
@@ -43,7 +43,8 @@ nc::capture_first_vec(
 The code above uses `chrom` and `start` as argument names, which are therefore used for column names in the output data table (one row per input subject string, one column per named argument / capture group). However the code above only parses the start position (and not the optional end position). Below, we create a more complex regex to parse both the start and end, by first defining a common pattern to parse an integer,
 
 ```{r}
-keep.digits <- function(x)as.integer(gsub("[^0-9]", "", x))
+keep.digits <- function(x) as.integer(gsub("[^0-9]", "", x))
+
 int.pattern <- list("[0-9,]+", keep.digits)
 ```
 

@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="">
+<meta name="author" content="Anirban Chetia">
+<meta name="dcterms.date" content="2024-03-06">
 
-<title>Blog - Seal of Approval: </title>
+<title>Blog - Community interviews about {data.table}</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -195,10 +196,10 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Seal of Approval: <package name=""></package></h1>
+      <h1 class="title">Community interviews about {data.table}</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">seal of approval</div>
-                <div class="quarto-category"><extension application="" bridge="" partner=""> package</extension></div>
+                <div class="quarto-category">community</div>
+                <div class="quarto-category">grant</div>
               </div>
                   </div>
   </div>
@@ -209,14 +210,14 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p><your name=""> </your></p>
+               <p>Anirban Chetia </p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">Invalid Date</p>
+        <p class="date">March 6, 2024</p>
       </div>
     </div>
     
@@ -235,26 +236,165 @@ window.Quarto = {
 
 
 
-<section id="package-name" class="level2">
-<h2 class="anchored" data-anchor-id="package-name"><a href="link to package github"><code>&lt;Package Name&gt;</code></a></h2>
-<p><em>Author(s):</em> <package authors=""></package></p>
-<p><em>Maintainer:</em> <package maintainer=""> (<maintainer email="">)</maintainer></package></p>
-<p><a href="link to PR on data.table github showing approval">Seal of Approval</a></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="hex.png" class="img-fluid figure-img"></p>
-<figcaption><package name=""> hex sticker</package></figcaption>
-</figure>
-</div>
-<p>&lt;one or two sentence description of package; e.g.&nbsp;from CRAN&gt;</p>
+<section id="whats-it-all-about" class="level2">
+<h2 class="anchored" data-anchor-id="whats-it-all-about">What’s it all about?</h2>
+<p>One stipulation of <a href="https://new.nsf.gov/funding/opportunities/pathways-enable-open-source-ecosystems-pose">NSF POSE</a> funded projects like this one was to conduct several interviews under <a href="https://new.nsf.gov/funding/initiatives/i-corps">NSF’s I-CORPS</a> program (Winter 2024 Cohort), to gather information as to how <code>data.table</code> as an open-source project can improve and remain sustainable. For four weeks starting on the 17th of January, I conducted a total of <strong>60 interviews</strong> with R Users and <code>data.table</code> contributors. <a href="https://github.com/Rdatatable/data.table/issues/5880">Issue#5880 on the data.table GitHub</a> mentions this, and has a link to the Google Doc that contains the list of people interviewed.</p>
+<p><img src="index.jpeg" class="img-fluid" style="width:60.0%"></p>
+<p>Project PI Toby Hocking assigned me to do these interviews and serve as the EL (<em>Entrepreneurial Lead</em>) for the <code>data.table</code> team. In addition to the interviews, this position involves tasks such as making and giving various presentations. Having successfully completed the program and conducted the interviews, it’s time to share the insights I gathered from them as a source of open-ended knowledge for the community.</p>
+<p>But before you head below to read those parts, I would like to convey a big <strong>Thank you!</strong> to everyone who took part in this; from making availability and scheduling, to providing comprehensive feedback, and all the while being extremely communicative. I sincerely appreciate it. Not just for the value of your insights brought to the table, but also for being great people to talk with in general!</p>
 </section>
-<section id="relationship-with-data.table" class="level2">
-<h2 class="anchored" data-anchor-id="relationship-with-data.table">Relationship with <code>data.table</code></h2>
-<p>&lt;Discussion of how this package extends, expands, translates, or partners with <code>data.table</code>. Aim for a few sentences.&gt;</p>
+<section id="selected-quotes" class="level2">
+<h2 class="anchored" data-anchor-id="selected-quotes">Selected Quotes</h2>
+<p>We begin with some direct (anonymous) quotes from the interviews giving positive feedback and general statements about <code>data.table</code>.</p>
+<blockquote class="blockquote">
+<p>“<code>data.table</code> would be one of the few arguments (in addition to Shiny) that I could bring forward to make people use R instead of Python”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“Using <code>data.table</code>, it becomes easier to read, manipulate, and represent data in a more appropriate way for my needs”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“If I give my script to somebody, knowing that only <code>data.table</code> needs to be installed is reassuring”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“I like it for minimalism and since it’s backward compatible with <code>data.frame</code>”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“<code>data.table</code> was small enough to put my data into RAM (noticeable copy reduction compared to <code>dplyr</code>) and do analyses on my old laptop”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“Very convenient to operate on lists as columns, wherein the base structure in which <code>mlr3</code> is programmed around is in essence, a <code>data.table</code>”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“Not something I’d recommend to everyone because of its peculiar syntax, but once you are used to it, I believe it can be very expressive while reducing lines of code dramatically”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“I’m happy to see the community mobilization around this package since it brings such a valuable contribution to base R and is used by so many other packages.”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“All the <code>f-xyz</code>functions are super useful. For example, it takes ages to read a big CSV with <code>read_csv</code>, while using <code>fread</code> sometimes doesn’t even allow me to grab a cup of coffee :)”</p>
+</blockquote>
+<p>Next we will summarize some consistent themes that will help guide the grant moving forward.</p>
 </section>
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>&lt;A quick example of the main functionality of the package. Aim for about half a page. Feel free to borrow (with attribution) from the package’s vignette.&gt;</p>
+<section id="theme-1-contribution-of-package-development" class="level2">
+<h2 class="anchored" data-anchor-id="theme-1-contribution-of-package-development">Theme 1: Contribution of package development</h2>
+<p>The first theme of the interviews was what values motivate people or prevent people in contributing to the <code>data.table</code> project. These varied from person to person, but I summarize a few common answers below.</p>
+<section id="positive-motivations" class="level3">
+<h3 class="anchored" data-anchor-id="positive-motivations">Positive motivations</h3>
+<ul>
+<li><p>For work reasons, wherein their core goal is to help maintain their own software/package (downstream dependencies) by contributing back.</p></li>
+<li><p>For visibility or for employment where <code>data.table</code> is a required/preferred tool of trade, and adds to their CV.</p></li>
+<li><p>Using the software for not just work but for a personal project of interest where they derive usefulness from functions exported by <code>data.table</code>.</p></li>
+<li><p>Making one a better programmer. This comes to be not just by contributing directly, but also by learning from others’ contributions.</p></li>
+<li><p>Trying to be a part of the <code>data.table</code> community, wherein the feeling of being a part of something big and crucial tends to be in play here. Making connections in the open-source community also tends to be an attraction.</p></li>
+<li><p>Financial gain or incentives from working on the project. None of the people interviewed were paid to do so, but nearly all of them agreed that a paid position could be a win-win for the interested ones. For example, the author of <code>data.table</code>, Matt Dowle, was able to work on the package as part of his previous paid position at <a href="https://h2o.ai/">H20.ai</a>.</p></li>
+</ul>
+</section>
+<section id="barriers" class="level3">
+<h3 class="anchored" data-anchor-id="barriers">Barriers</h3>
+<ul>
+<li><p>Not being a heavy user of the package. To both be reliant on active maintenance of the currently offered functionality and to see the value of time invested in contributing, one has to use <code>data.table</code> often enough - something not everyone does. The pressing need to rely on the tool needs to be existent for some to contribute.</p></li>
+<li><p>It is not something they use in their current toolchain. This specifically applies to the people who were former contributors or users - For them <code>data.table</code> is a technology they used in the past for their former work/interests, and not something they require to or would consider using for their job at present. For some, they might need an entire career switch to even use R as well!</p></li>
+<li><p>Lack of professional motivation and brevity. Some users are tightly occupied with work and do not have the time to contribute to open-source projects, let alone <code>data.table</code> (would be an addition to their list of competing priorities). For the few who do, they choose not to contribute either due to the lack of incentive, or due to the lack of motivation, primarily fueled by them thinking their contributions would not be satisfactory in comparison to what they would usually contribute to for the products they develop for their job.</p></li>
+<li><p>The feeling of not having adequate knowledge to make meaningful contributions. For a handful, the codebase is overwhelming, and/or they are new to GitHub itself and not sure where to start digging, and/or they are not used to working with that type or level of code in R.</p></li>
+<li><p>Lack of C programming knowledge. Although at the surface there is R, the core still has C and thus a fair proportion of the people interviewed mentioned that their inexperience with the language is one reason that holds them back from making contributions (especially ones that involve diving a bit deeper).</p></li>
+<li><p>Time in between submission and merging of a PR being rather long. This resonated with a few who contributed in the past, and some were just concerned for the ones who have or are contributing, as they may opt out of future contributions if their pull requests are left hanging for a long time. Given that it takes time to be thorough with changes introduced in pull requests (PRs), there is room for understanding if they are not merged timely or fast enough since in the long run, unintended consequences are always a possibility after the foreign code has been integrated (might break stuff and make it harder to debug later on). People do feel that taking the quick and easy route in merging PRs (especially big ones) can be challenging or that contributors and reviewing volunteers have limited time, however, they also think it can be faster (especially if more people are involved) and massive delays (ranging from several weeks to months) can be avoided. (especially since people would also lose context regarding their contributions and would need to revisit the discussion as a whole)</p></li>
+<li><p>Some users find the tone in the wording used to bring in people to be close-ended. They would be inclined and interested to contribute if the available reading material (such as the FAQ and Readme) is more inviting and friendly.</p></li>
+<li><p>Diversity and inclusion: For many, English is not their primary language, and a fair amount of jargon exists while going in the vignettes and documentation. The inclusion of more people through translations would be something to look forward to. A few also referenced wanting a welcoming culture in contribution. A broader approach might be required for newcomers to open issues and pull requests. Additionally, people tend to adopt the ‘contributor mode’ when sought upon - simple things like making it explicit on the GitHub repository that contributors are needed can pull them towards deciding to push a change.</p></li>
+</ul>
+</section>
+<section id="summary-and-takeaways" class="level3">
+<h3 class="anchored" data-anchor-id="summary-and-takeaways">Summary and Takeaways</h3>
+<p><em>Section added by Kelly Bodwin</em></p>
+<p>Based on these findings, we on the grant team see three major directions for encouraging more contribution to <code>data.table</code>:</p>
+<ol type="1">
+<li><p><strong>Use in projects:</strong> Interviewees reported adding their own functionality to <code>data.table</code> based on needs in personal or work projects. Others cited their own lack of <code>data.table</code> use as a reason not to be more involved. The more we can encourage practical adoption of <code>data.table</code>, where it can be useful to users, the more contribution we will see from users.</p></li>
+<li><p><strong>Feeling of community and culture of inclusion:</strong> This is already a focus of the grant project, and it is great to hear that this is already valued by the users and community members! We hope to vastly expand the beginner-friendliness and language diversity of documentation.</p></li>
+<li><p><strong>Beginner-friendliness and support:</strong> Interviewees reported not having the programming skills to add to <code>data.table</code>. Going forward, we hope to better denote and emphasize the areas of contribution for less experienced programmers, and to provide more supporting resources for new community members to learn about the structure of the package.</p></li>
+<li><p><strong>Financial and professional benefits:</strong> Contributors report that developing for <code>data.table</code> has positive impact on professional development and hireability, and that they would welcome financial incentives as well. I believe we should experiment with structure that help support our developers in concrete ways.</p></li>
+<li><p><strong>Pull Request process and timeline:</strong> We believe that the newly established <a href="https://github.com/Rdatatable/data.table/blob/master/GOVERNANCE.md">Governance Document</a> for the package will help clarify and streamline the contributor process for the future.</p></li>
+</ol>
+</section>
+</section>
+<section id="theme-2-adoption-of-data.table" class="level2">
+<h2 class="anchored" data-anchor-id="theme-2-adoption-of-data.table">Theme 2: Adoption of <code>data.table</code></h2>
+<p>The second theme is what drives people to be regular users of the <code>data.table</code> package. We mostly focused on barriers to adpotion.</p>
+<section id="individual-reasons-to-not-adopt" class="level3">
+<h3 class="anchored" data-anchor-id="individual-reasons-to-not-adopt">Individual reasons to not adopt</h3>
+<p>People cited various reasons for not utilizing or transitioning to <code>data.table</code>:</p>
+<ul>
+<li><p>Low rationale to switch to <code>data.table</code> when dealing with small datasets. In comparison to other R packages that achieve the same functionality, notable efficiency is mostly observed when the data being dealt with is considerably large (wherein the operations performed on them scale well to see a visible difference).</p></li>
+<li><p>On the flip side, there are rare cases where people found <code>data.table</code> to be not scalable enough, and instead use database tools like <code>DuckDB</code> for their datasets which are increasingly larger than memory. (Some mentioned that making operations work on-disk would be something to look out for and implement in the future). An intermediate solution for them here would be to have a syntax translator tool that would translate <code>data.table</code> syntax to SQL queries, similar to what <code>dbplyr</code> is for <code>dplyr</code> commands, as they prefer the <code>data.table</code> way to write code and only require things to be more scalable.</p></li>
+<li><p>Not enough resources online to learn <code>data.table</code> in an easy yet detailed manner. This comes in stark contrast to abundant resources available for topics such as <code>data.frame</code> and <code>dplyr</code> for instance.</p></li>
+<li><p>Lack of an integration with <code>tidyverse</code>.</p></li>
+<li><p>Not working with a group of collaborators/coworkers who primarily use <code>data.table</code>.</p></li>
+<li><p>For a handful, the syntax does not come to be natural although they potentially benefit from the speed. They would stick to <code>tidyverse</code> or Base R in terms of being easier to use, unless they are running big computations where time is key.</p></li>
+<li><p>Some feel that <code>data.table</code> requires a certain level of understanding and experience in R prior to using it. They believe that it isn’t easy for newbies to adapt reasonably quickly, with regards to their own experiences in learning it. For reasons discussed above again, people with beginner-level experience in R or not enough reason to have code be the most efficient tend to stick with easier-to-use packages and functions, which is especially common in entry-level data science courses.</p></li>
+</ul>
+</section>
+<section id="areas-of-improvement" class="level3">
+<h3 class="anchored" data-anchor-id="areas-of-improvement">Areas of improvement</h3>
+<p>Specific areas were identified by the interviewed population, including regular users, that they would like to see improvement in or be worked upon.</p>
+<p>In terms of technical improvements:</p>
+<ul>
+<li><p>People miss <code>fread</code> being able to read fixed-width files, although there is <code>iotools</code> now.</p></li>
+<li><p>An R core member gingerly pointed out that after several years of abundant reports of installation problems on MacOS, <code>data.table</code> still shows as being unable to detect OpenMP support and use multiple threads on the platform (while the same is not prevalent on Windows or Linux), even after including OpenMP run-time in CRAN R releases specifically for <code>data.table</code>. I noticed the same issue too on OS X being prevalent till date (and it has been there for a while as it appears, as I first <a href="https://github.com/Anirban166/Mac-Issues/issues/2">encountered</a> it more than two years ago).</p></li>
+<li><p>Few desired additional functionality for working with spatial geometries and mixed-model packages (such as <code>glmmTMB</code> and <code>lme4</code>).</p></li>
+<li><p>Some people found using the Walrus operator to be weird, especially given that not every <code>data.table</code> operation requires that. They don’t like keeping in mind the names of columns (they tend to move towards the set function for explicitly assigning) as well. The in-place assignment using <code>:=</code> is acceptable as they feel, but they would ideally want to be able to do <code>DT$x &lt;- y</code> meaning <code>DT[, x := y]</code>.</p></li>
+<li><p><code>dataset[get("categoricalColumn")]</code> could be optimized further (for reference, please check <a href="https://cran.r-project.org/web/packages/getDTeval/vignettes/Introduction_to_getDTeval.html">getDTeval</a> or <a href="https://ieeexplore.ieee.org/document/10099092">this paper</a>).</p></li>
+<li><p>A few people find the syntax of <code>dcast</code> and <code>melt</code> to be confusing, and often end up making mistakes since those reshaping operations complement each other (long to wide and vice versa respectively) or are the reverse. Probably not best to change this given it would break things and is just something to be learned over time, but more examples might help.</p></li>
+<li><p>More often a mild inconvenience than a common source of error, but to a few, the masking of functions from other packages (such as <code>between</code>, <code>first</code>, and <code>last</code> from <code>dplyr</code>, or <code>transpose</code> from <code>purrr</code>) is something they do not like.</p></li>
+</ul>
+<p>In terms of the community revolving around <code>data.table</code>:</p>
+<ul>
+<li><p>Documentation tends to be lacking, i.e.&nbsp;not enough well-documented <code>data.table</code> resources or online materials (blogs/articles, videos) exist. Even experienced developers feel that it isn’t entirely straightforward to find out how to do more complex things, so more extensive documentation and examples would be great, if not a necessity. Things that read as friendly and expressive while maintaining details are a go-to. Making the existing documentation more lucid and navigable is another point mentioned by a few.</p></li>
+<li><p>More involvement is required on Stack Exchange or QA-oriented platforms that programmers and alike frequent. People mentioned that when they are looking for answers on Stack Overflow for questions that they come across in R, they find that <code>data.table</code>-based answers are lacking compared to <code>dplyr</code>.</p></li>
+<li><p>More edu-centric approaches need to be undertaken. Most educational institutions do not resort to having <code>data.table</code> as part of their curriculum in R-based courses. While the coursework tends to be easier for newcomers, having more resources accessible can help people learn the more optimized version right from scratch and avoid learning it in the long run (almost all of the interviewees had to explore <code>data.table</code> on their own!) when efficiency or just the concise way of writing things is found to be better for some. Thus, it might help if instructors can start incorporating lessons using the package.</p></li>
+</ul>
+</section>
+<section id="summary-and-takeaways-1" class="level3">
+<h3 class="anchored" data-anchor-id="summary-and-takeaways-1">Summary and Takeaways</h3>
+<p><em>Section added by Kelly Bodwin</em></p>
+<ol type="1">
+<li><p><strong>Education and Resources:</strong> It has been clear from the outset of this project that <code>data.table</code> could benefit from a <strong>lot</strong> more documentation, guides, tutorials, etc. This is always a tough issue, because creating such materials can be a thankless task with not a lot of concrete payoff. However, thanks to the grant, we are able to fund time for this project! Expect good things on the horizon in this category.</p></li>
+<li><p><strong>Syntax and the R sub-languages:</strong> The diversity of R syntax is a blessing and a curse, and everyone has their favorite sytax style, from <code>tidyverse</code> to formula style to Base R to <code>data.table</code>, and every combination in between. Ultimately, our goal should be to be as flexible and possible and offer ways for <code>data.table</code> to interface smoothly with other styles, without losing it’s core syntax structure and personality! (<code>dtplyr</code> and <code>tidyfast</code> are lovely examples of such interfacing.)</p></li>
+<li><p><strong>Applicability to the problem at hand:</strong> This is an interesting one. Can we do better at defining what dataset sizes and types are the best use cases for <code>data.table</code>? Can we provide more options for interfacing with databases, so that users can perhaps pull data using database tools, but analyze on-disk with <code>data.table</code>?</p></li>
+</ol>
+</section>
+</section>
+<section id="theme-3-open-source-sustainability" class="level2">
+<h2 class="anchored" data-anchor-id="theme-3-open-source-sustainability">Theme 3: Open-source sustainability</h2>
+<p>Finally, we asked interviewees what might be necessary to give <code>data.table</code> long term sustainability.</p>
+<ul>
+<li><p>Developers and maintainers of packages dependent on <code>data.table</code> said they would be concerned if it was no longer maintained. Most of them said they don’t have the resources to maintain a fork and can’t depend on something that’s not developed as much. They would be happy to sponsor and help sustain the project.</p></li>
+<li><p>Even if <code>data.table</code> were to go into maintenance mode, people would continue using it as long as the existing functionality isn’t broken.</p></li>
+<li><p>Occasional users are not keen to become contributors. Heavy users are but would likely step back at one point. Any external contributors (non-users with generic contributions) are not sustainable. Most people were of the opinion that there will always be an influx of contributors given that <code>data.table</code> is a prominent package in the R ecosystem. Thus, stability can be achieved by a set of core (active) members plus a constant inflow of newcomers or periphery (drive-by) contributors.</p></li>
+<li><p>Community growth tends to be crucial in the long run, as people recognize that motivations to contribute are fluid and subject to change in the long run (career changes or simply switching to a different focus at some point in time). It becomes essential for maintainers to share knowledge to help onboard new active contributors, and for others to connect with them (a peer network is mutually beneficial).</p></li>
+<li><p>Academia is one source for bringing in contributors, as professors or researchers can pay people to do services or research work. People believe there might be ample spare money from grants or educational funding.</p></li>
+<li><p>Becoming part of a foundation or community can help to share struggles and grant opportunities.</p></li>
+<li><p>Big companies look for people who are experts in a tool they use. Since <code>data.table</code> is in demand for data science and related roles in the job market, this might potentially bring in more contributors to learn and be good at the software.</p></li>
+<li><p>GitHub Sponsors is a convenient way for people on GitHub to fund the project. Individual developers and maintainers of <code>data.table</code> can have their pages as they deem necessary, or some other source of sponsorship (such as Patreon or Buy Me a Coffee).</p></li>
+<li><p>A fair proportion is willing to contribute to such a central fund. As for how and to whom will these funds be dispersed, or what would be a good way to distribute them proportionately, remains a question.</p></li>
+</ul>
+<section id="summary-and-takeaways-2" class="level3">
+<h3 class="anchored" data-anchor-id="summary-and-takeaways-2">Summary and Takeaways</h3>
+<p><em>Section added by Kelly Bodwin</em></p>
+<p>I don’t have much to add to this one - it’s clear that we need more support structure for open-source maintenance, whether from private sources or public grants or community sponsorship.</p>
+</section>
+</section>
+<section id="anis-roadmap" class="level2">
+<h2 class="anchored" data-anchor-id="anis-roadmap">Ani’s Roadmap</h2>
+<p><img src="roadmap.png" class="img-fluid" style="width:60.0%"></p>
+<p>Here is my list of ideas to potentially do or keep in mind for the agenda going forward:</p>
+<ul>
+<li><p>Creating a GitHub Sponsors page for the Rdatatable organization.</p></li>
+<li><p>Applying for funding from organizations such as NumFocus (<a href="https://github.com/Rdatatable/data.table/issues/5675">5675</a>) and being a part of communities such as rOpenSci.</p></li>
+<li><p>Applying for R Consortium grants, and using Kickstarter crowdfunding if required (for project maintenance and implementation of complex features) in the long run.</p></li>
+<li><p>Getting people involved in <code>data.table</code>-based projects for Summer/Winter of Code programs, such as Google Summer of Code (Interested? Check our <a href="https://github.com/rstats-gsoc/gsoc2024/wiki/data.table">page</a> for this year if you would like to apply or take part!).</p></li>
+<li><p>Brainstorming and organizing Hackathons to spur interest, or some form of <code>data.table</code>-based events (like how tidy-dev-day exists for tidyverse).</p></li>
+<li><p>Promoting <code>data.table</code> via conferences and open-ended blogs/articles, showcasing its features and benefits of adoption.</p></li>
+<li><p>Creating videos and interactive tutorials.</p></li>
+<li><p>Classifying more of issues (if applicable) that fall under or are labelled as ‘<a href="https://github.com/Rdatatable/data.table/issues?q=is%3Aissue+is%3Aopen+label%3Abeginner-task">beginner-task</a>’.</p></li>
+</ul>
 
 
 
@@ -430,7 +570,70 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="8" data-listing-file-modified-sort="1715120890188">
+<div class="quarto-post image-right" data-index="8" data-listing-file-modified-sort="1723483018369">
+<div class="thumbnail">
+<p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index-listing.json" class="no-external"></a></p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index-listing.json" class="no-external">
+</a><p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index-listing.json" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index-listing.json" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index-listing.json" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index-listing.json" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index-listing.json" class="no-external"></a></p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index-listing.json" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="9" data-listing-file-modified-sort="1723483018367">
+<div class="thumbnail">
+<p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.feed-full-staged" class="no-external">
+</a><p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.feed-full-staged" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.feed-full-staged" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.feed-full-staged" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.feed-full-staged" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.feed-full-staged" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="10" data-listing-file-modified-sort="1723483018440">
+<div class="thumbnail">
+<p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">
+</a><p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="11" data-listing-file-modified-sort="1715120890188">
 <div class="thumbnail">
 <p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/translate.jpeg" class="no-external"></a></p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/translate.jpeg" class="no-external">
 </a><p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/translate.jpeg" class="no-external"></a></p>
@@ -451,7 +654,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="9" data-listing-file-modified-sort="1715120890189">
+<div class="quarto-post image-right" data-index="12" data-listing-file-modified-sort="1715120890189">
 <div class="thumbnail">
 <p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/image.jpg" class="no-external"></a></p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/image.jpg" class="no-external">
 </a><p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/image.jpg" class="no-external"></a></p>
@@ -472,7 +675,70 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="10" data-listing-file-modified-sort="1715120890191">
+<div class="quarto-post image-right" data-index="13" data-listing-file-modified-sort="1723483017377">
+<div class="thumbnail">
+<p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index-listing.json" class="no-external"></a></p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index-listing.json" class="no-external">
+</a><p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index-listing.json" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index-listing.json" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index-listing.json" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index-listing.json" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index-listing.json" class="no-external"></a></p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index-listing.json" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="14" data-listing-file-modified-sort="1723483017375">
+<div class="thumbnail">
+<p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.feed-full-staged" class="no-external">
+</a><p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.feed-full-staged" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.feed-full-staged" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.feed-full-staged" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.feed-full-staged" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.feed-full-staged" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="15" data-listing-file-modified-sort="1723483017439">
+<div class="thumbnail">
+<p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a></p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">
+</a><p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a></p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="16" data-listing-file-modified-sort="1715120890191">
 <div class="thumbnail">
 <p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/LatinR-translation.jpg" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/LatinR-translation.jpg" class="no-external">
 </a><p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/LatinR-translation.jpg" class="no-external"></a></p>
@@ -493,7 +759,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="11" data-listing-file-modified-sort="1715120890192">
+<div class="quarto-post image-right" data-index="17" data-listing-file-modified-sort="1715120890192">
 <div class="thumbnail">
 <p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/LatinR-tutorial.jpg" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/LatinR-tutorial.jpg" class="no-external">
 </a><p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/LatinR-tutorial.jpg" class="no-external"></a></p>
@@ -514,7 +780,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="12" data-listing-file-modified-sort="1715120890192">
+<div class="quarto-post image-right" data-index="18" data-listing-file-modified-sort="1715120890192">
 <div class="thumbnail">
 <p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/image.jpg" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/image.jpg" class="no-external">
 </a><p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/image.jpg" class="no-external"></a></p>
@@ -535,7 +801,70 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="13" data-listing-file-modified-sort="1715120890193">
+<div class="quarto-post image-right" data-index="19" data-listing-file-modified-sort="1723483012736">
+<div class="thumbnail">
+<p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external">
+</a><p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="20" data-listing-file-modified-sort="1723483012733">
+<div class="thumbnail">
+<p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external">
+</a><p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="21" data-listing-file-modified-sort="1723483012813">
+<div class="thumbnail">
+<p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">
+</a><p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="22" data-listing-file-modified-sort="1715120890193">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/jan.png" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/jan.png" class="no-external">
 </a><p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/jan.png" class="no-external"></a></p>
@@ -556,7 +885,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="14" data-listing-file-modified-sort="1715120890194">
+<div class="quarto-post image-right" data-index="23" data-listing-file-modified-sort="1715120890194">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/image.jpg" class="no-external"></a></p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/image.jpg" class="no-external">
 </a><p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/image.jpg" class="no-external"></a></p>
@@ -577,7 +906,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="15" data-listing-file-modified-sort="1715120890195">
+<div class="quarto-post image-right" data-index="24" data-listing-file-modified-sort="1715120890195">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/styles.css" class="no-external"></a></p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/styles.css" class="no-external">
 </a><p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/styles.css" class="no-external"></a></p>
@@ -598,7 +927,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="16" data-listing-file-modified-sort="1715120890195">
+<div class="quarto-post image-right" data-index="25" data-listing-file-modified-sort="1715120890195">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/New-Release.jpg" class="no-external"></a></p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/New-Release.jpg" class="no-external">
 </a><p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/New-Release.jpg" class="no-external"></a></p>
@@ -619,7 +948,70 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="17" data-listing-file-modified-sort="1715120890196">
+<div class="quarto-post image-right" data-index="26" data-listing-file-modified-sort="1723483016403">
+<div class="thumbnail">
+<p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index-listing.json" class="no-external">
+</a><p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index-listing.json" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index-listing.json" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index-listing.json" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index-listing.json" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index-listing.json" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="27" data-listing-file-modified-sort="1723483016400">
+<div class="thumbnail">
+<p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.feed-full-staged" class="no-external">
+</a><p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.feed-full-staged" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.feed-full-staged" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.feed-full-staged" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.feed-full-staged" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.feed-full-staged" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="28" data-listing-file-modified-sort="1723483016478">
+<div class="thumbnail">
+<p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">
+</a><p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="29" data-listing-file-modified-sort="1715120890196">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/timeline.png" class="no-external"></a></p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/timeline.png" class="no-external">
 </a><p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/timeline.png" class="no-external"></a></p>
@@ -640,7 +1032,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="18" data-listing-file-modified-sort="1715120890196">
+<div class="quarto-post image-right" data-index="30" data-listing-file-modified-sort="1715120890196">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/brackets.png" class="no-external"></a></p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/brackets.png" class="no-external">
 </a><p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/brackets.png" class="no-external"></a></p>
@@ -661,7 +1053,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="19" data-listing-file-modified-sort="1715120890196">
+<div class="quarto-post image-right" data-index="31" data-listing-file-modified-sort="1715120890196">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/image.jpg" class="no-external"></a></p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/image.jpg" class="no-external">
 </a><p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/image.jpg" class="no-external"></a></p>
@@ -682,7 +1074,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="20" data-listing-file-modified-sort="1715120890197">
+<div class="quarto-post image-right" data-index="32" data-listing-file-modified-sort="1715120890197">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/copy_on_modify.png" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/copy_on_modify.png" class="no-external">
 </a><p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/copy_on_modify.png" class="no-external"></a></p>
@@ -703,7 +1095,91 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="21" data-listing-file-modified-sort="1715120890198">
+<div class="quarto-post image-right" data-index="33" data-listing-file-modified-sort="1723483013990">
+<div class="thumbnail">
+<p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index-listing.json" class="no-external">
+</a><p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index-listing.json" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index-listing.json" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index-listing.json" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index-listing.json" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index-listing.json" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="34" data-listing-file-modified-sort="1723483013988">
+<div class="thumbnail">
+<p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.feed-full-staged" class="no-external">
+</a><p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.feed-full-staged" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.feed-full-staged" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.feed-full-staged" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.feed-full-staged" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.feed-full-staged" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="35" data-listing-file-modified-sort="1723483014065">
+<div class="thumbnail">
+<p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">
+</a><p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="36" data-listing-file-modified-sort="1718837289848">
+<div class="thumbnail">
+<p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external">
+</a><p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="37" data-listing-file-modified-sort="1715120890198">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/contribution_area.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/contribution_area.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/contribution_area.png" class="no-external"></a></p>
@@ -724,7 +1200,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="22" data-listing-file-modified-sort="1715120890198">
+<div class="quarto-post image-right" data-index="38" data-listing-file-modified-sort="1715120890198">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/experience.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/experience.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/experience.png" class="no-external"></a></p>
@@ -745,7 +1221,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="23" data-listing-file-modified-sort="1715120890199">
+<div class="quarto-post image-right" data-index="39" data-listing-file-modified-sort="1715120890199">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/importance_vs_satisfaction_area.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/importance_vs_satisfaction_area.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/importance_vs_satisfaction_area.png" class="no-external"></a></p>
@@ -766,7 +1242,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="24" data-listing-file-modified-sort="1715120890200">
+<div class="quarto-post image-right" data-index="40" data-listing-file-modified-sort="1715120890200">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/pipe_helper.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/pipe_helper.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/pipe_helper.png" class="no-external"></a></p>
@@ -787,7 +1263,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="25" data-listing-file-modified-sort="1715120890200">
+<div class="quarto-post image-right" data-index="41" data-listing-file-modified-sort="1715120890200">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area.png" class="no-external"></a></p>
@@ -808,7 +1284,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="26" data-listing-file-modified-sort="1715120890201">
+<div class="quarto-post image-right" data-index="42" data-listing-file-modified-sort="1715120890201">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area_experience.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area_experience.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area_experience.png" class="no-external"></a></p>
@@ -829,7 +1305,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="27" data-listing-file-modified-sort="1715120890202">
+<div class="quarto-post image-right" data-index="43" data-listing-file-modified-sort="1715120890202">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality.png" class="no-external"></a></p>
@@ -850,7 +1326,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="28" data-listing-file-modified-sort="1715120890202">
+<div class="quarto-post image-right" data-index="44" data-listing-file-modified-sort="1715120890202">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality_experience.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality_experience.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality_experience.png" class="no-external"></a></p>
@@ -871,7 +1347,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="29" data-listing-file-modified-sort="1715120890203">
+<div class="quarto-post image-right" data-index="45" data-listing-file-modified-sort="1715120890203">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_area.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_area.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_area.png" class="no-external"></a></p>
@@ -892,7 +1368,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="30" data-listing-file-modified-sort="1715120890203">
+<div class="quarto-post image-right" data-index="46" data-listing-file-modified-sort="1715120890203">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_context.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_context.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_context.png" class="no-external"></a></p>
@@ -913,7 +1389,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="31" data-listing-file-modified-sort="1715120890204">
+<div class="quarto-post image-right" data-index="47" data-listing-file-modified-sort="1715120890204">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_frequency.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_frequency.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_frequency.png" class="no-external"></a></p>
@@ -934,7 +1410,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="32" data-listing-file-modified-sort="1715120890204">
+<div class="quarto-post image-right" data-index="48" data-listing-file-modified-sort="1715120890204">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/walrus_alias.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/walrus_alias.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/walrus_alias.png" class="no-external"></a></p>
@@ -955,7 +1431,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="33" data-listing-file-modified-sort="1715120890208">
+<div class="quarto-post image-right" data-index="49" data-listing-file-modified-sort="1715120890208">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-06-interviews-anirban_chetia/index.jpeg" class="no-external"></a></p><a href="../../posts/2024-03-06-interviews-anirban_chetia/index.jpeg" class="no-external">
 </a><p><a href="../../posts/2024-03-06-interviews-anirban_chetia/index.jpeg" class="no-external"></a></p>
@@ -976,7 +1452,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="34" data-listing-file-modified-sort="1715120890213">
+<div class="quarto-post image-right" data-index="50" data-listing-file-modified-sort="1715120890213">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-06-interviews-anirban_chetia/roadmap.png" class="no-external"></a></p><a href="../../posts/2024-03-06-interviews-anirban_chetia/roadmap.png" class="no-external">
 </a><p><a href="../../posts/2024-03-06-interviews-anirban_chetia/roadmap.png" class="no-external"></a></p>
@@ -997,7 +1473,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="35" data-listing-file-modified-sort="1715120890213">
+<div class="quarto-post image-right" data-index="51" data-listing-file-modified-sort="1715120890213">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/code_testing.png" class="no-external"></a></p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/code_testing.png" class="no-external">
 </a><p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/code_testing.png" class="no-external"></a></p>
@@ -1018,7 +1494,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="36" data-listing-file-modified-sort="1715120890214">
+<div class="quarto-post image-right" data-index="52" data-listing-file-modified-sort="1715120890214">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/revdep_sig_diffs.png" class="no-external"></a></p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/revdep_sig_diffs.png" class="no-external">
 </a><p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/revdep_sig_diffs.png" class="no-external"></a></p>
@@ -1039,7 +1515,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="37" data-listing-file-modified-sort="1715120890214">
+<div class="quarto-post image-right" data-index="53" data-listing-file-modified-sort="1715120890214">
 <div class="thumbnail">
 <p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/image.jpg" class="no-external"></a></p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/image.jpg" class="no-external">
 </a><p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/image.jpg" class="no-external"></a></p>
@@ -1060,7 +1536,133 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="38" data-listing-file-modified-sort="1718837289995">
+<div class="quarto-post image-right" data-index="54" data-listing-file-modified-sort="1723483019568">
+<div class="thumbnail">
+<p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index-listing.json" class="no-external">
+</a><p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index-listing.json" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index-listing.json" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index-listing.json" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index-listing.json" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index-listing.json" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="55" data-listing-file-modified-sort="1723483019565">
+<div class="thumbnail">
+<p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index.feed-full-staged" class="no-external">
+</a><p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index.feed-full-staged" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index.feed-full-staged" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index.feed-full-staged" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index.feed-full-staged" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index.feed-full-staged" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="56" data-listing-file-modified-sort="1723483019647">
+<div class="thumbnail">
+<p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index.html" class="no-external"></a></p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index.html" class="no-external">
+</a><p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index.html" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index.html" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index.html" class="no-external"></a></p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="57" data-listing-file-modified-sort="1723483015217">
+<div class="thumbnail">
+<p><a href="../../posts/2024-05-20-kelly_bodwin/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/index-listing.json" class="no-external">
+</a><p><a href="../../posts/2024-05-20-kelly_bodwin/index-listing.json" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-05-20-kelly_bodwin/index-listing.json" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-05-20-kelly_bodwin/index-listing.json" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-05-20-kelly_bodwin/index-listing.json" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-05-20-kelly_bodwin/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/index-listing.json" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="58" data-listing-file-modified-sort="1723483015215">
+<div class="thumbnail">
+<p><a href="../../posts/2024-05-20-kelly_bodwin/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/index.feed-full-staged" class="no-external">
+</a><p><a href="../../posts/2024-05-20-kelly_bodwin/index.feed-full-staged" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-05-20-kelly_bodwin/index.feed-full-staged" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-05-20-kelly_bodwin/index.feed-full-staged" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-05-20-kelly_bodwin/index.feed-full-staged" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-05-20-kelly_bodwin/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/index.feed-full-staged" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="59" data-listing-file-modified-sort="1723483015280">
+<div class="thumbnail">
+<p><a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">
+</a><p><a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="60" data-listing-file-modified-sort="1718837289995">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/losdos.png" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/losdos.png" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/losdos.png" class="no-external"></a></p>
@@ -1081,7 +1683,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="39" data-listing-file-modified-sort="1718837289995">
+<div class="quarto-post image-right" data-index="61" data-listing-file-modified-sort="1718837289995">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/orwell.jpeg" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/orwell.jpeg" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/orwell.jpeg" class="no-external"></a></p>
@@ -1102,7 +1704,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="40" data-listing-file-modified-sort="1718837289995">
+<div class="quarto-post image-right" data-index="62" data-listing-file-modified-sort="1718837289995">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/paths.jpg" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/paths.jpg" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/paths.jpg" class="no-external"></a></p>
@@ -1123,7 +1725,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="41" data-listing-file-modified-sort="1718837289995">
+<div class="quarto-post image-right" data-index="63" data-listing-file-modified-sort="1718837289995">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/porque.jpg" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/porque.jpg" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/porque.jpg" class="no-external"></a></p>
@@ -1144,7 +1746,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="42" data-listing-file-modified-sort="1718837290001">
+<div class="quarto-post image-right" data-index="64" data-listing-file-modified-sort="1718837290001">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/quote_bubble.jpeg" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/quote_bubble.jpeg" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/quote_bubble.jpeg" class="no-external"></a></p>
@@ -1165,7 +1767,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="43" data-listing-file-modified-sort="1718837290002">
+<div class="quarto-post image-right" data-index="65" data-listing-file-modified-sort="1718837290002">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/xkcd.png" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/xkcd.png" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/xkcd.png" class="no-external"></a></p>
@@ -1186,7 +1788,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="44" data-listing-file-modified-sort="1718837290002">
+<div class="quarto-post image-right" data-index="66" data-listing-file-modified-sort="1718837290002">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-30-seal_of_approval-dtplyr/hex.png" class="no-external"></a></p><a href="../../posts/2024-05-30-seal_of_approval-dtplyr/hex.png" class="no-external">
 </a><p><a href="../../posts/2024-05-30-seal_of_approval-dtplyr/hex.png" class="no-external"></a></p>
@@ -1207,7 +1809,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="45" data-listing-file-modified-sort="1718837727657">
+<div class="quarto-post image-right" data-index="67" data-listing-file-modified-sort="1718837727657">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-30-seal_of_approval-dtplyr/hex_approved.png" class="no-external"></a></p><a href="../../posts/2024-05-30-seal_of_approval-dtplyr/hex_approved.png" class="no-external">
 </a><p><a href="../../posts/2024-05-30-seal_of_approval-dtplyr/hex_approved.png" class="no-external"></a></p>
@@ -1228,7 +1830,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="46" data-listing-file-modified-sort="1721050359244">
+<div class="quarto-post image-right" data-index="68" data-listing-file-modified-sort="1721050359244">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-30-seal_of_approval-dtplyr/hex_dtplyr.psd" class="no-external"></a></p><a href="../../posts/2024-05-30-seal_of_approval-dtplyr/hex_dtplyr.psd" class="no-external">
 </a><p><a href="../../posts/2024-05-30-seal_of_approval-dtplyr/hex_dtplyr.psd" class="no-external"></a></p>
@@ -1249,7 +1851,70 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="47" data-listing-file-modified-sort="1718837290004">
+<div class="quarto-post image-right" data-index="69" data-listing-file-modified-sort="1723483020575">
+<div class="thumbnail">
+<p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index-listing.json" class="no-external">
+</a><p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index-listing.json" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index-listing.json" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index-listing.json" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index-listing.json" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index-listing.json" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="70" data-listing-file-modified-sort="1723483020572">
+<div class="thumbnail">
+<p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.feed-full-staged" class="no-external">
+</a><p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.feed-full-staged" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.feed-full-staged" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.feed-full-staged" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.feed-full-staged" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.feed-full-staged" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="71" data-listing-file-modified-sort="1723483020652">
+<div class="thumbnail">
+<p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">
+</a><p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="72" data-listing-file-modified-sort="1718837290004">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/jan.png" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/jan.png" class="no-external">
 </a><p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/jan.png" class="no-external"></a></p>
@@ -1270,7 +1935,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="48" data-listing-file-modified-sort="1718837449541">
+<div class="quarto-post image-right" data-index="73" data-listing-file-modified-sort="1718837449541">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-11-seal_of_approval-nc/hex.png" class="no-external"></a></p><a href="../../posts/2024-06-11-seal_of_approval-nc/hex.png" class="no-external">
 </a><p><a href="../../posts/2024-06-11-seal_of_approval-nc/hex.png" class="no-external"></a></p>
@@ -1291,7 +1956,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="49" data-listing-file-modified-sort="1718837814018">
+<div class="quarto-post image-right" data-index="74" data-listing-file-modified-sort="1718837814018">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-11-seal_of_approval-nc/hex_approved.png" class="no-external"></a></p><a href="../../posts/2024-06-11-seal_of_approval-nc/hex_approved.png" class="no-external">
 </a><p><a href="../../posts/2024-06-11-seal_of_approval-nc/hex_approved.png" class="no-external"></a></p>
@@ -1312,7 +1977,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="50" data-listing-file-modified-sort="1721050343573">
+<div class="quarto-post image-right" data-index="75" data-listing-file-modified-sort="1721050343573">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-11-seal_of_approval-nc/hex_nc.psd" class="no-external"></a></p><a href="../../posts/2024-06-11-seal_of_approval-nc/hex_nc.psd" class="no-external">
 </a><p><a href="../../posts/2024-06-11-seal_of_approval-nc/hex_nc.psd" class="no-external"></a></p>
@@ -1333,7 +1998,70 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="51" data-listing-file-modified-sort="1718837449544">
+<div class="quarto-post image-right" data-index="76" data-listing-file-modified-sort="1723483027303">
+<div class="thumbnail">
+<p><a href="../../posts/2024-06-11-seal_of_approval-nc/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-06-11-seal_of_approval-nc/index-listing.json" class="no-external">
+</a><p><a href="../../posts/2024-06-11-seal_of_approval-nc/index-listing.json" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-06-11-seal_of_approval-nc/index-listing.json" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-06-11-seal_of_approval-nc/index-listing.json" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-06-11-seal_of_approval-nc/index-listing.json" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-06-11-seal_of_approval-nc/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-06-11-seal_of_approval-nc/index-listing.json" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="77" data-listing-file-modified-sort="1723483027300">
+<div class="thumbnail">
+<p><a href="../../posts/2024-06-11-seal_of_approval-nc/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-06-11-seal_of_approval-nc/index.feed-full-staged" class="no-external">
+</a><p><a href="../../posts/2024-06-11-seal_of_approval-nc/index.feed-full-staged" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-06-11-seal_of_approval-nc/index.feed-full-staged" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-06-11-seal_of_approval-nc/index.feed-full-staged" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-06-11-seal_of_approval-nc/index.feed-full-staged" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-06-11-seal_of_approval-nc/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-06-11-seal_of_approval-nc/index.feed-full-staged" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="78" data-listing-file-modified-sort="1723483027385">
+<div class="thumbnail">
+<p><a href="../../posts/2024-06-11-seal_of_approval-nc/index.html" class="no-external"></a></p><a href="../../posts/2024-06-11-seal_of_approval-nc/index.html" class="no-external">
+</a><p><a href="../../posts/2024-06-11-seal_of_approval-nc/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-06-11-seal_of_approval-nc/index.html" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-06-11-seal_of_approval-nc/index.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-06-11-seal_of_approval-nc/index.html" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-06-11-seal_of_approval-nc/index.html" class="no-external"></a></p><a href="../../posts/2024-06-11-seal_of_approval-nc/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="79" data-listing-file-modified-sort="1718837449544">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/hex.png" class="no-external"></a></p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/hex.png" class="no-external">
 </a><p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/hex.png" class="no-external"></a></p>
@@ -1354,7 +2082,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="52" data-listing-file-modified-sort="1718837894885">
+<div class="quarto-post image-right" data-index="80" data-listing-file-modified-sort="1718837894885">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/hex_approved.png" class="no-external"></a></p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/hex_approved.png" class="no-external">
 </a><p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/hex_approved.png" class="no-external"></a></p>
@@ -1375,7 +2103,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="53" data-listing-file-modified-sort="1721050331959">
+<div class="quarto-post image-right" data-index="81" data-listing-file-modified-sort="1721050331959">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/hex_tidyfast.psd" class="no-external"></a></p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/hex_tidyfast.psd" class="no-external">
 </a><p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/hex_tidyfast.psd" class="no-external"></a></p>
@@ -1396,7 +2124,70 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="54" data-listing-file-modified-sort="1715120890216">
+<div class="quarto-post image-right" data-index="82" data-listing-file-modified-sort="1723483011781">
+<div class="thumbnail">
+<p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index-listing.json" class="no-external">
+</a><p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index-listing.json" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index-listing.json" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index-listing.json" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index-listing.json" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index-listing.json" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="83" data-listing-file-modified-sort="1723483011777">
+<div class="thumbnail">
+<p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index.feed-full-staged" class="no-external">
+</a><p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index.feed-full-staged" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index.feed-full-staged" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index.feed-full-staged" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index.feed-full-staged" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index.feed-full-staged" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="84" data-listing-file-modified-sort="1723483011862">
+<div class="thumbnail">
+<p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index.html" class="no-external"></a></p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index.html" class="no-external">
+</a><p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index.html" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index.html" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index.html" class="no-external"></a></p><a href="../../posts/2024-06-17-seal_of_approval-tidyfast/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="85" data-listing-file-modified-sort="1715120890216">
 <div class="thumbnail">
 <p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/hex.png" class="no-external"></a></p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/hex.png" class="no-external">
 </a><p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/hex.png" class="no-external"></a></p>
@@ -1417,7 +2208,70 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="55" data-listing-file-modified-sort="1715120890216">
+<div class="quarto-post image-right" data-index="86" data-listing-file-modified-sort="1723483010566">
+<div class="thumbnail">
+<p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index-listing.json" class="no-external"></a></p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index-listing.json" class="no-external">
+</a><p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index-listing.json" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index-listing.json" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index-listing.json" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index-listing.json" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index-listing.json" class="no-external"></a></p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index-listing.json" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="87" data-listing-file-modified-sort="1723483010563">
+<div class="thumbnail">
+<p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.feed-full-staged" class="no-external">
+</a><p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.feed-full-staged" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.feed-full-staged" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.feed-full-staged" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.feed-full-staged" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.feed-full-staged" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="88" data-listing-file-modified-sort="1723483010654">
+<div class="thumbnail">
+<p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.html" class="no-external"></a></p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.html" class="no-external">
+</a><p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.html" class="no-external"></a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.html" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.html" class="no-external"></a></p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="89" data-listing-file-modified-sort="1715120890216">
 <div class="thumbnail">
 <p><a href="../../posts/images/.DS_Store" class="no-external"></a></p><a href="../../posts/images/.DS_Store" class="no-external">
 </a><p><a href="../../posts/images/.DS_Store" class="no-external"></a></p>
@@ -1438,7 +2292,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="56" data-listing-file-modified-sort="1715120890217">
+<div class="quarto-post image-right" data-index="90" data-listing-file-modified-sort="1715120890217">
 <div class="thumbnail">
 <p><a href="../../posts/images/NSF.svg" class="no-external"></a></p><a href="../../posts/images/NSF.svg" class="no-external">
 </a><p><a href="../../posts/images/NSF.svg" class="no-external"></a></p>
@@ -1459,7 +2313,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="57" data-listing-file-modified-sort="1715120890219">
+<div class="quarto-post image-right" data-index="91" data-listing-file-modified-sort="1715120890219">
 <div class="thumbnail">
 <p><a href="../../posts/images/banner.jpeg" class="no-external"></a></p><a href="../../posts/images/banner.jpeg" class="no-external">
 </a><p><a href="../../posts/images/banner.jpeg" class="no-external"></a></p>
@@ -1480,7 +2334,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="58" data-listing-file-modified-sort="1715120890224">
+<div class="quarto-post image-right" data-index="92" data-listing-file-modified-sort="1715120890224">
 <div class="thumbnail">
 <p><a href="../../posts/images/banner_tall.jpeg" class="no-external"></a></p><a href="../../posts/images/banner_tall.jpeg" class="no-external">
 </a><p><a href="../../posts/images/banner_tall.jpeg" class="no-external"></a></p>
@@ -1501,7 +2355,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="59" data-listing-file-modified-sort="1715120890225">
+<div class="quarto-post image-right" data-index="93" data-listing-file-modified-sort="1715120890225">
 <div class="thumbnail">
 <p><a href="../../posts/images/banner_tall_small.jpeg" class="no-external"></a></p><a href="../../posts/images/banner_tall_small.jpeg" class="no-external">
 </a><p><a href="../../posts/images/banner_tall_small.jpeg" class="no-external"></a></p>
@@ -1522,7 +2376,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="60" data-listing-file-modified-sort="1715120890230">
+<div class="quarto-post image-right" data-index="94" data-listing-file-modified-sort="1715120890230">
 <div class="thumbnail">
 <p><a href="../../posts/images/banner_yellow.jpeg" class="no-external"></a></p><a href="../../posts/images/banner_yellow.jpeg" class="no-external">
 </a><p><a href="../../posts/images/banner_yellow.jpeg" class="no-external"></a></p>
@@ -1543,7 +2397,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="61" data-listing-file-modified-sort="1715120890230">
+<div class="quarto-post image-right" data-index="95" data-listing-file-modified-sort="1715120890230">
 <div class="thumbnail">
 <p><a href="../../posts/images/hex.png" class="no-external"></a></p><a href="../../posts/images/hex.png" class="no-external">
 </a><p><a href="../../posts/images/hex.png" class="no-external"></a></p>
@@ -1564,7 +2418,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="62" data-listing-file-modified-sort="1715120890230">
+<div class="quarto-post image-right" data-index="96" data-listing-file-modified-sort="1715120890230">
 <div class="thumbnail">
 <p><a href="../../posts/images/hocking-nau.jpg" class="no-external"></a></p><a href="../../posts/images/hocking-nau.jpg" class="no-external">
 </a><p><a href="../../posts/images/hocking-nau.jpg" class="no-external"></a></p>
@@ -1585,7 +2439,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="63" data-listing-file-modified-sort="1715120890231">
+<div class="quarto-post image-right" data-index="97" data-listing-file-modified-sort="1715120890231">
 <div class="thumbnail">
 <p><a href="../../posts/images/old_man.jpg" class="no-external"></a></p><a href="../../posts/images/old_man.jpg" class="no-external">
 </a><p><a href="../../posts/images/old_man.jpg" class="no-external"></a></p>
@@ -1606,7 +2460,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="64" data-listing-file-modified-sort="1715120890231">
+<div class="quarto-post image-right" data-index="98" data-listing-file-modified-sort="1715120890231">
 <div class="thumbnail">
 <p><a href="../../posts/images/old_man.svg" class="no-external"></a></p><a href="../../posts/images/old_man.svg" class="no-external">
 </a><p><a href="../../posts/images/old_man.svg" class="no-external"></a></p>
@@ -1627,7 +2481,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="65" data-listing-file-modified-sort="1715120890232">
+<div class="quarto-post image-right" data-index="99" data-listing-file-modified-sort="1715120890232">
 <div class="thumbnail">
 <p><a href="../../posts/images/sea_lions.jpg" class="no-external"></a></p><a href="../../posts/images/sea_lions.jpg" class="no-external">
 </a><p><a href="../../posts/images/sea_lions.jpg" class="no-external"></a></p>
@@ -1648,7 +2502,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="66" data-categories="announcements,grant,ambassadors,travel" data-listing-date-sort="1718175600000" data-listing-file-modified-sort="1718837482179" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="196">
+<div class="quarto-post image-right" data-index="100" data-categories="announcements,grant,ambassadors,travel" data-listing-date-sort="1718175600000" data-listing-file-modified-sort="1718837482179" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="196">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">
 <p><img data-src="../../posts/2024-06-09-ambassador_corrales-community_team/jan.png" class="thumbnail-image"></p>
@@ -1676,7 +2530,7 @@ Toby Dylan Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="67" data-categories="seal of approval,extension package" data-listing-date-sort="1718089200000" data-listing-file-modified-sort="1718849401811" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="693">
+<div class="quarto-post image-right" data-index="101" data-categories="seal of approval,extension package" data-listing-date-sort="1718089200000" data-listing-file-modified-sort="1718849401811" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="693">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-11-seal_of_approval-nc/index.html" class="no-external"></a></p><a href="../../posts/2024-06-11-seal_of_approval-nc/index.html" class="no-external">
 <p><img data-src="../../posts/2024-06-11-seal_of_approval-nc/hex_approved.png" class="thumbnail-image"></p>
@@ -1704,7 +2558,7 @@ Toby Dylan Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="68" data-categories="opinion" data-listing-date-sort="1717484400000" data-listing-file-modified-sort="1718837289994" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1415">
+<div class="quarto-post image-right" data-index="102" data-categories="opinion" data-listing-date-sort="1717484400000" data-listing-file-modified-sort="1718837289994" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1415">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">
 <p><img data-src="../../posts/2024-05-20-kelly_bodwin/paths.jpg" class="thumbnail-image"></p>
@@ -1732,7 +2586,7 @@ Kelly Bodwin
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="69" data-categories="seal of approval,bridge package" data-listing-date-sort="1715065200000" data-listing-file-modified-sort="1718837959879" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="253">
+<div class="quarto-post image-right" data-index="103" data-categories="seal of approval,bridge package" data-listing-date-sort="1715065200000" data-listing-file-modified-sort="1718837959879" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="253">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-30-seal_of_approval-dtplyr/index.html" class="no-external"></a></p><a href="../../posts/2024-05-30-seal_of_approval-dtplyr/index.html" class="no-external">
 <p><img data-src="../../posts/2024-05-30-seal_of_approval-dtplyr/hex_approved.png" class="thumbnail-image"></p>
@@ -1760,7 +2614,7 @@ Kelly Bodwin
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="70" data-categories="grant,testing,developer" data-listing-date-sort="1710057600000" data-listing-file-modified-sort="1715120890213" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1524">
+<div class="quarto-post image-right" data-index="104" data-categories="grant,testing,developer" data-listing-date-sort="1710057600000" data-listing-file-modified-sort="1715120890213" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1524">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external">
 <p><img data-src="../../posts/2024-03-10-testing_plan-toby_hocking/code_testing.png" class="thumbnail-image"></p>
@@ -1788,35 +2642,7 @@ Toby Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="71" data-categories="community,grant" data-listing-date-sort="1709712000000" data-listing-file-modified-sort="1715120890212" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17" data-listing-word-count-sort="3396">
-<div class="thumbnail">
-<p><a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a></p><a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">
-<p><img data-src="../../posts/2024-03-06-interviews-anirban_chetia/index.jpeg" class="thumbnail-image"></p>
-</a><p><a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">Community interviews about {data.table}</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">One stipulation of NSF POSE funded projects like this one was to conduct several interviews under NSF’s I-CORPS program (Winter 2024 Cohort), to gather information as to how <code>…</code><strong></strong><code></code></a>
-</div>
-</div>
-<div class="metadata">
-<a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">
-<div class="listing-date">
-Mar 6, 2024
-</div>
-<div class="listing-author">
-Anirban Chetia
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="72" data-categories="community,guest post,governance" data-listing-date-sort="1708848000000" data-listing-file-modified-sort="1715120890199" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1190">
+<div class="quarto-post image-right" data-index="105" data-categories="community,guest post,governance" data-listing-date-sort="1708848000000" data-listing-file-modified-sort="1715120890199" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1190">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external">
 <p><img data-src="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_frequency.png" class="thumbnail-image"></p>
@@ -1844,7 +2670,7 @@ Aljaž Sluga
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="73" data-categories="tips,tutorials,developer" data-listing-date-sort="1708243200000" data-listing-file-modified-sort="1715120890197" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="918">
+<div class="quarto-post image-right" data-index="106" data-categories="tips,tutorials,developer" data-listing-date-sort="1708243200000" data-listing-file-modified-sort="1715120890197" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="918">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">
 <p><img data-src="../../posts/2024-02-18-dt_particularities-toby_hocking/copy_on_modify.png" class="thumbnail-image"></p>
@@ -1872,7 +2698,7 @@ Toby Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="74" data-categories="tips,tutorials,documentation" data-listing-date-sort="1707120000000" data-listing-file-modified-sort="1715120890197" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="914">
+<div class="quarto-post image-right" data-index="107" data-categories="tips,tutorials,documentation" data-listing-date-sort="1707120000000" data-listing-file-modified-sort="1715120890197" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="914">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"></a></p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external">
 <p><img data-src="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/brackets.png" class="thumbnail-image"></p>
@@ -1900,7 +2726,7 @@ Tyson Barrett
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="75" data-categories="governance,releases" data-listing-date-sort="1706601600000" data-listing-file-modified-sort="1715120890195" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="696">
+<div class="quarto-post image-right" data-index="108" data-categories="governance,releases" data-listing-date-sort="1706601600000" data-listing-file-modified-sort="1715120890195" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="696">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">
 <p><img data-src="../../posts/2024-01-30-new_governance_new_release-toby_hocking/New-Release.jpg" class="thumbnail-image"></p>
@@ -1928,7 +2754,7 @@ Toby Dylan Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="76" data-categories="tips,tutorials,documentation,guest post" data-listing-date-sort="1706428800000" data-listing-file-modified-sort="1715120890194" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="988">
+<div class="quarto-post image-right" data-index="109" data-categories="tips,tutorials,documentation,guest post" data-listing-date-sort="1706428800000" data-listing-file-modified-sort="1715120890194" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="988">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a></p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">
 <p><img data-src="../../posts/2024-01-28-piping_data_tables-elio_campitelli/image.jpg" class="thumbnail-image"></p>
@@ -1956,7 +2782,7 @@ Elio Campitelli
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="77" data-categories="announcements,grant,ambassadors" data-listing-date-sort="1705219200000" data-listing-file-modified-sort="1715120890193" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="298">
+<div class="quarto-post image-right" data-index="110" data-categories="announcements,grant,ambassadors" data-listing-date-sort="1705219200000" data-listing-file-modified-sort="1715120890193" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="298">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">
 <p><img data-src="../../posts/2024-01-14-ambassador_gorecki-community_team/jan.png" class="thumbnail-image"></p>
@@ -1984,7 +2810,7 @@ Kelly Bodwin
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="78" data-categories="conferences" data-listing-date-sort="1700380800000" data-listing-file-modified-sort="1715120890193" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="581">
+<div class="quarto-post image-right" data-index="111" data-categories="conferences" data-listing-date-sort="1700380800000" data-listing-file-modified-sort="1715120890193" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="581">
 <div class="thumbnail">
 <p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">
 <p><img data-src="../../posts/2023-11-19-LatinR_summary-toby_hocking/image.jpg" class="thumbnail-image"></p>
@@ -2012,7 +2838,7 @@ Toby Dylan Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="79" data-categories="announcements,grant,funding opportunity" data-listing-date-sort="1698822000000" data-listing-file-modified-sort="1715120890190" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="428">
+<div class="quarto-post image-right" data-index="112" data-categories="announcements,grant,funding opportunity" data-listing-date-sort="1698822000000" data-listing-file-modified-sort="1715120890190" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="428">
 <div class="thumbnail">
 <p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a></p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">
 <p><img data-src="../../posts/2023-11-01-travel_grant_announcement-community_team/image.jpg" class="thumbnail-image"></p>
@@ -2040,7 +2866,7 @@ Kelly Bodwin
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="80" data-categories="announcements,grant,funding opportunity" data-listing-date-sort="1697526000000" data-listing-file-modified-sort="1715120890188" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="664">
+<div class="quarto-post image-right" data-index="113" data-categories="announcements,grant,funding opportunity" data-listing-date-sort="1697526000000" data-listing-file-modified-sort="1715120890188" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="664">
 <div class="thumbnail">
 <p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">
 <p><img data-src="../../posts/2023-10-17-translation_announcement-toby_hocking/translate.jpeg" class="thumbnail-image"></p>
@@ -2065,7 +2891,7 @@ Oct 17, 2023
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="81" data-categories="announcements,grant" data-listing-date-sort="1697353200000" data-listing-file-modified-sort="1717561423761" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="640">
+<div class="quarto-post image-right" data-index="114" data-categories="announcements,grant" data-listing-date-sort="1697353200000" data-listing-file-modified-sort="1717561423761" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="640">
 <div class="thumbnail">
 <p><a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">
 <p><img data-src="../../posts/2023-10-15-intro_to_grant-toby_hocking/sea_lions.jpg" class="thumbnail-image"></p>

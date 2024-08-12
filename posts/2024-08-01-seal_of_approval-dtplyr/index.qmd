@@ -1,7 +1,7 @@
 ---
 title: "Seal of Approval: dtplyr"
 author: "Kelly Bodwin"
-date: "May 07, 2024"
+date: "Aug 01, 2024"
 categories: [seal of approval, bridge package]
 image: "hex_approved.png"
 draft: false
