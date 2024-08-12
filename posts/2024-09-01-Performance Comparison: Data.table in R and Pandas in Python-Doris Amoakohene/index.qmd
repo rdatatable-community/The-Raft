@@ -3,6 +3,8 @@ title: 'Performance Comparison: Data.table in R and Pandas in Python'
 author: "Doris Amoakohene"
 date: "2024-09-01"
 draft: true
+execute:
+  eval: false
 ---
 
 # Introduction:
@@ -31,7 +33,7 @@ library(reshape2)
 library(atime)
 library(ggplot2)
 library(reticulate)
-use_python("C:/Users/amoak/AppData/Local/Programs/Python/Python312/python.exe") #If you want to reproduce, please change to the path of python on your computer.
+#use_python("C:/Users/amoak/AppData/Local/Programs/Python/Python312/python.exe") #If you want to reproduce, please change to the path of python on your computer.
 virtualenv_create("fm-proj")
 use_virtualenv("fm-proj", required = F)
 ```

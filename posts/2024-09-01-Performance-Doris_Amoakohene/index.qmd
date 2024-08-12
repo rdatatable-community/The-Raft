@@ -3,6 +3,8 @@ title: "Visualizing performance regression of data.table with atime"
 author: "Doris Afriyie Amoakohene"
 date: "2024-09-01"
 draft: true
+execute:
+  eval: false
 ---
 
 Since August 2023, I have been working on performance testing, which could be useful for expanding the open-source ecosystem around data.table package in R. This could increase confidence in code contributions by ensuring the sustained efficiency of the data.table package.
