@@ -1,0 +1,9 @@
+---
+title: "Announcement: The 'Seal of Approval'"
+author: "Kelly Bodwin"
+date: "2024-07-31"
+categories: [announcements, grant, seal of approval]
+image: "seal_of_approval.png"
+draft: true
+---
+

@@ -44,10 +44,10 @@
   {
     "listing": "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
     "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
       "/posts/2024-05-20-kelly_bodwin/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
       "/posts/2024-03-06-interviews-anirban_chetia/index.html",
       "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
       "/posts/2024-02-18-dt_particularities-toby_hocking/index.html",
@@ -62,9 +62,10 @@
     ]
   },
   {
-    "listing": "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
+    "listing": "/posts/2024-08-01-seal_of_approval-nc/index.html",
     "items": [
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
       "/posts/2024-05-20-kelly_bodwin/index.html",
       "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
       "/posts/2024-03-06-interviews-anirban_chetia/index.html",
@@ -83,10 +84,10 @@
   {
     "listing": "/posts/2024-01-28-piping_data_tables-elio_campitelli/index.html",
     "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
       "/posts/2024-05-20-kelly_bodwin/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
       "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
       "/posts/2024-03-06-interviews-anirban_chetia/index.html",
       "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
@@ -103,28 +104,9 @@
   {
     "listing": "/posts/2023-10-02-post_template/index.html",
     "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
-      "/posts/2024-05-20-kelly_bodwin/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
-      "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
-      "/posts/2024-03-06-interviews-anirban_chetia/index.html",
-      "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
-      "/posts/2024-02-18-dt_particularities-toby_hocking/index.html",
-      "/posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html",
-      "/posts/2024-01-30-new_governance_new_release-toby_hocking/index.html",
-      "/posts/2024-01-28-piping_data_tables-elio_campitelli/index.html",
-      "/posts/2024-01-14-ambassador_gorecki-community_team/index.html",
-      "/posts/2023-11-19-LatinR_summary-toby_hocking/index.html",
-      "/posts/2023-11-01-travel_grant_announcement-community_team/index.html",
-      "/posts/2023-10-17-translation_announcement-toby_hocking/index.html",
-      "/posts/2023-10-15-intro_to_grant-toby_hocking/index.html"
-    ]
-  },
-  {
-    "listing": "/posts/2024-06-11-seal_of_approval-nc/index.html",
-    "items": [
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
       "/posts/2024-05-20-kelly_bodwin/index.html",
       "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
       "/posts/2024-03-06-interviews-anirban_chetia/index.html",
@@ -141,12 +123,11 @@
     ]
   },
   {
-    "listing": "/posts/2024-04-01-conveyor_belt-kelly_bodwin/index.html",
+    "listing": "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
     "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
       "/posts/2024-05-20-kelly_bodwin/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
       "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
       "/posts/2024-03-06-interviews-anirban_chetia/index.html",
       "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
@@ -162,12 +143,12 @@
     ]
   },
   {
-    "listing": "/posts/2023-11-01-travel_grant_announcement-community_team/index.html",
+    "listing": "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
     "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
       "/posts/2024-05-20-kelly_bodwin/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
       "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
       "/posts/2024-03-06-interviews-anirban_chetia/index.html",
       "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
@@ -177,16 +158,99 @@
       "/posts/2024-01-28-piping_data_tables-elio_campitelli/index.html",
       "/posts/2024-01-14-ambassador_gorecki-community_team/index.html",
       "/posts/2023-11-19-LatinR_summary-toby_hocking/index.html",
+      "/posts/2023-11-01-travel_grant_announcement-community_team/index.html",
       "/posts/2023-10-17-translation_announcement-toby_hocking/index.html",
       "/posts/2023-10-15-intro_to_grant-toby_hocking/index.html"
     ]
   },
   {
-    "listing": "/posts/2024-05-20-kelly_bodwin/index.html",
+    "listing": "/posts/2023-10-17-translation_announcement-toby_hocking/index.html",
     "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
+      "/posts/2024-05-20-kelly_bodwin/index.html",
+      "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
+      "/posts/2024-03-06-interviews-anirban_chetia/index.html",
+      "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
+      "/posts/2024-02-18-dt_particularities-toby_hocking/index.html",
+      "/posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html",
+      "/posts/2024-01-30-new_governance_new_release-toby_hocking/index.html",
+      "/posts/2024-01-28-piping_data_tables-elio_campitelli/index.html",
+      "/posts/2024-01-14-ambassador_gorecki-community_team/index.html",
+      "/posts/2023-11-19-LatinR_summary-toby_hocking/index.html",
+      "/posts/2023-11-01-travel_grant_announcement-community_team/index.html",
+      "/posts/2023-10-15-intro_to_grant-toby_hocking/index.html"
+    ]
+  },
+  {
+    "listing": "/posts/2024-01-30-new_governance_new_release-toby_hocking/index.html",
+    "items": [
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
+      "/posts/2024-05-20-kelly_bodwin/index.html",
+      "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
+      "/posts/2024-03-06-interviews-anirban_chetia/index.html",
+      "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
+      "/posts/2024-02-18-dt_particularities-toby_hocking/index.html",
+      "/posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html",
+      "/posts/2024-01-28-piping_data_tables-elio_campitelli/index.html",
+      "/posts/2024-01-14-ambassador_gorecki-community_team/index.html",
+      "/posts/2023-11-19-LatinR_summary-toby_hocking/index.html",
+      "/posts/2023-11-01-travel_grant_announcement-community_team/index.html",
+      "/posts/2023-10-17-translation_announcement-toby_hocking/index.html",
+      "/posts/2023-10-15-intro_to_grant-toby_hocking/index.html"
+    ]
+  },
+  {
+    "listing": "/posts/2024-02-18-dt_particularities-toby_hocking/index.html",
+    "items": [
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
+      "/posts/2024-05-20-kelly_bodwin/index.html",
+      "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
+      "/posts/2024-03-06-interviews-anirban_chetia/index.html",
+      "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
+      "/posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html",
+      "/posts/2024-01-30-new_governance_new_release-toby_hocking/index.html",
+      "/posts/2024-01-28-piping_data_tables-elio_campitelli/index.html",
+      "/posts/2024-01-14-ambassador_gorecki-community_team/index.html",
+      "/posts/2023-11-19-LatinR_summary-toby_hocking/index.html",
+      "/posts/2023-11-01-travel_grant_announcement-community_team/index.html",
+      "/posts/2023-10-17-translation_announcement-toby_hocking/index.html",
+      "/posts/2023-10-15-intro_to_grant-toby_hocking/index.html"
+    ]
+  },
+  {
+    "listing": "/posts/2024-08-20-translation_projects-community_team/index.html",
+    "items": [
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
+      "/posts/2024-05-20-kelly_bodwin/index.html",
+      "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
+      "/posts/2024-03-06-interviews-anirban_chetia/index.html",
+      "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
+      "/posts/2024-02-18-dt_particularities-toby_hocking/index.html",
+      "/posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html",
+      "/posts/2024-01-30-new_governance_new_release-toby_hocking/index.html",
+      "/posts/2024-01-28-piping_data_tables-elio_campitelli/index.html",
+      "/posts/2024-01-14-ambassador_gorecki-community_team/index.html",
+      "/posts/2023-11-19-LatinR_summary-toby_hocking/index.html",
+      "/posts/2023-11-01-travel_grant_announcement-community_team/index.html",
+      "/posts/2023-10-17-translation_announcement-toby_hocking/index.html",
+      "/posts/2023-10-15-intro_to_grant-toby_hocking/index.html"
+    ]
+  },
+  {
+    "listing": "/posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.html",
+    "items": [
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
+      "/posts/2024-05-20-kelly_bodwin/index.html",
       "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
       "/posts/2024-03-06-interviews-anirban_chetia/index.html",
       "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
@@ -222,12 +286,11 @@
     ]
   },
   {
-    "listing": "/posts/YYYY-MM-DD-seal_of_approval-pkg_name/index.html",
+    "listing": "/posts/2024-05-20-kelly_bodwin/index.html",
     "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
-      "/posts/2024-05-20-kelly_bodwin/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
       "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
       "/posts/2024-03-06-interviews-anirban_chetia/index.html",
       "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
@@ -243,12 +306,12 @@
     ]
   },
   {
-    "listing": "/posts/2024-06-17-seal_of_approval-tidyfast/index.html",
+    "listing": "/posts/2023-11-01-travel_grant_announcement-community_team/index.html",
     "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
       "/posts/2024-05-20-kelly_bodwin/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
       "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
       "/posts/2024-03-06-interviews-anirban_chetia/index.html",
       "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
@@ -258,73 +321,12 @@
       "/posts/2024-01-28-piping_data_tables-elio_campitelli/index.html",
       "/posts/2024-01-14-ambassador_gorecki-community_team/index.html",
       "/posts/2023-11-19-LatinR_summary-toby_hocking/index.html",
-      "/posts/2023-11-01-travel_grant_announcement-community_team/index.html",
       "/posts/2023-10-17-translation_announcement-toby_hocking/index.html",
       "/posts/2023-10-15-intro_to_grant-toby_hocking/index.html"
     ]
   },
   {
-    "listing": "/posts/2024-02-18-dt_particularities-toby_hocking/index.html",
-    "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
-      "/posts/2024-05-20-kelly_bodwin/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
-      "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
-      "/posts/2024-03-06-interviews-anirban_chetia/index.html",
-      "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
-      "/posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html",
-      "/posts/2024-01-30-new_governance_new_release-toby_hocking/index.html",
-      "/posts/2024-01-28-piping_data_tables-elio_campitelli/index.html",
-      "/posts/2024-01-14-ambassador_gorecki-community_team/index.html",
-      "/posts/2023-11-19-LatinR_summary-toby_hocking/index.html",
-      "/posts/2023-11-01-travel_grant_announcement-community_team/index.html",
-      "/posts/2023-10-17-translation_announcement-toby_hocking/index.html",
-      "/posts/2023-10-15-intro_to_grant-toby_hocking/index.html"
-    ]
-  },
-  {
-    "listing": "/posts/2024-01-30-new_governance_new_release-toby_hocking/index.html",
-    "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
-      "/posts/2024-05-20-kelly_bodwin/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
-      "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
-      "/posts/2024-03-06-interviews-anirban_chetia/index.html",
-      "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
-      "/posts/2024-02-18-dt_particularities-toby_hocking/index.html",
-      "/posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html",
-      "/posts/2024-01-28-piping_data_tables-elio_campitelli/index.html",
-      "/posts/2024-01-14-ambassador_gorecki-community_team/index.html",
-      "/posts/2023-11-19-LatinR_summary-toby_hocking/index.html",
-      "/posts/2023-11-01-travel_grant_announcement-community_team/index.html",
-      "/posts/2023-10-17-translation_announcement-toby_hocking/index.html",
-      "/posts/2023-10-15-intro_to_grant-toby_hocking/index.html"
-    ]
-  },
-  {
-    "listing": "/posts/2023-10-17-translation_announcement-toby_hocking/index.html",
-    "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
-      "/posts/2024-05-20-kelly_bodwin/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
-      "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
-      "/posts/2024-03-06-interviews-anirban_chetia/index.html",
-      "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
-      "/posts/2024-02-18-dt_particularities-toby_hocking/index.html",
-      "/posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html",
-      "/posts/2024-01-30-new_governance_new_release-toby_hocking/index.html",
-      "/posts/2024-01-28-piping_data_tables-elio_campitelli/index.html",
-      "/posts/2024-01-14-ambassador_gorecki-community_team/index.html",
-      "/posts/2023-11-19-LatinR_summary-toby_hocking/index.html",
-      "/posts/2023-11-01-travel_grant_announcement-community_team/index.html",
-      "/posts/2023-10-15-intro_to_grant-toby_hocking/index.html"
-    ]
-  },
-  {
-    "listing": "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
+    "listing": "/posts/2024-04-01-conveyor_belt-kelly_bodwin/index.html",
     "items": [
       "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
       "/posts/2024-08-01-seal_of_approval-nc/index.html",
@@ -345,12 +347,32 @@
     ]
   },
   {
+    "listing": "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+    "items": [
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
+      "/posts/2024-05-20-kelly_bodwin/index.html",
+      "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
+      "/posts/2024-03-06-interviews-anirban_chetia/index.html",
+      "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
+      "/posts/2024-02-18-dt_particularities-toby_hocking/index.html",
+      "/posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html",
+      "/posts/2024-01-30-new_governance_new_release-toby_hocking/index.html",
+      "/posts/2024-01-28-piping_data_tables-elio_campitelli/index.html",
+      "/posts/2024-01-14-ambassador_gorecki-community_team/index.html",
+      "/posts/2023-11-19-LatinR_summary-toby_hocking/index.html",
+      "/posts/2023-11-01-travel_grant_announcement-community_team/index.html",
+      "/posts/2023-10-17-translation_announcement-toby_hocking/index.html",
+      "/posts/2023-10-15-intro_to_grant-toby_hocking/index.html"
+    ]
+  },
+  {
     "listing": "/posts/2024-03-06-interviews-anirban_chetia/index.html",
     "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
       "/posts/2024-05-20-kelly_bodwin/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
       "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
       "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
       "/posts/2024-02-18-dt_particularities-toby_hocking/index.html",
@@ -367,10 +389,10 @@
   {
     "listing": "/posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html",
     "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
       "/posts/2024-05-20-kelly_bodwin/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
       "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
       "/posts/2024-03-06-interviews-anirban_chetia/index.html",
       "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
@@ -387,10 +409,10 @@
   {
     "listing": "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
     "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
       "/posts/2024-05-20-kelly_bodwin/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
       "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
       "/posts/2024-03-06-interviews-anirban_chetia/index.html",
       "/posts/2024-02-18-dt_particularities-toby_hocking/index.html",
@@ -407,10 +429,10 @@
   {
     "listing": "/posts/2023-10-15-intro_to_grant-toby_hocking/index.html",
     "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
       "/posts/2024-05-20-kelly_bodwin/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
       "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
       "/posts/2024-03-06-interviews-anirban_chetia/index.html",
       "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
@@ -427,10 +449,10 @@
   {
     "listing": "/posts/2023-11-19-LatinR_summary-toby_hocking/index.html",
     "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
       "/posts/2024-05-20-kelly_bodwin/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
       "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
       "/posts/2024-03-06-interviews-anirban_chetia/index.html",
       "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
@@ -447,10 +469,10 @@
   {
     "listing": "/about.html",
     "items": [
-      "/posts/2024-06-09-ambassador_corrales-community_team/index.html",
-      "/posts/2024-06-11-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-dtplyr/index.html",
+      "/posts/2024-08-01-seal_of_approval-nc/index.html",
+      "/posts/2024-08-01-seal_of_approval-tidyfast/index.html",
       "/posts/2024-05-20-kelly_bodwin/index.html",
-      "/posts/2024-05-30-seal_of_approval-dtplyr/index.html",
       "/posts/2024-03-10-testing_plan-toby_hocking/index.html",
       "/posts/2024-03-06-interviews-anirban_chetia/index.html",
       "/posts/2024-02-25-survey_2023-aljaz_sluga/index.html",
