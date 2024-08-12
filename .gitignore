@@ -12,3 +12,6 @@
 # Emacs temporary files
 \#*
 *~
+
+# macOS-specific files
+.DS_Store
