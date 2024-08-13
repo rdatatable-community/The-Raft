@@ -9,11 +9,22 @@ draft: false
 
 ## [`nc`](https://github.com/tdhock/nc)
 
+::: columns
+::: {.column width="40%"}
+
+![`nc` hex sticker](hex.png)
+
+:::
+
+::: {.column width="60%"}
+
 *Maintainer:* Toby Dylan Hocking (toby.hocking\@r-project.org)
 
-![nc hex sticker](hex.png)
 
 User-friendly functions for extracting a data table (row for each match, column for each group) from non-tabular text data using regular expressions, and for melting columns that match a regular expression. Patterns are defined using a readable syntax that makes it easy to build complex patterns in terms of simpler, re-usable sub-patterns. Named R arguments are translated to column names in the output, thereby providing a standard interface to three regular expression 'C' libraries ('PCRE', 'RE2', 'ICU'). Output can also include numeric columns via user-specified type conversion functions.
+
+:::
+::::
 
 ## Relationship with `data.table`
 

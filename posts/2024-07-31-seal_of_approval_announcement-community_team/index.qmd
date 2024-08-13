@@ -2,8 +2,30 @@
 title: "Announcement: The 'Seal of Approval'"
 author: "Kelly Bodwin"
 date: "2024-07-31"
-categories: [announcements, grant, seal of approval]
+categories: [announcements, grant, community, seal of approval]
 image: "seal_of_approval.png"
-draft: true
+draft: false
 ---
+
+The Community Team, alongside a group of regular `data.table` contributors, is very please to announce a new **Seal of Approval** program!
+
+Our goal is to collect packages that significantly support, extend, or rely on `data.table`.  We identify four broad categories of "sister" packages:
+
+* **Extension packages**: These add to the internal functionality of `data.table` objects or functions.
+
+* **Application packages:** These use `data.table`, often "under the hood" to efficiently accomplish a particular task or analysis.
+
+* **Bridge package:** These translate `data.table` syntax to different syntax, or provides helper functions for transitioning between `data.table` and another object type.
+
+* **Partner package:** These are not necessarily directly connected to `data.table`, but they conciously and deliberately are designed to follow the [core philosophies of `data.table`](https://github.com/Rdatatable/data.table/blob/master/GOVERNANCE.md).
+
+Approved packages may be found [on the `data.table` GitHub](https://github.com/Rdatatable/data.table/blob/master/Seal_of_Approval.md); and will also appear on this blog.
+
+![This AI-generated seal definitely approves.](seal_of_approval_2.png)
+
+To submit a package for the Seal, please Pull Request [the Raft GitHub](https://github.com/rdatatable-community/The-Raft), making sure to follow all instructions carefully in the PR template.  
+
+*(You need not be the author or maintainer of a package to submit it for approval, but you must notify the current maintainer if you do so.)*
+
+Oh, and if your package is approved - shoot us an email at [rdatatable@gmail.com](mailto:rdatatable@gmail.com) and we'll send you a special, limited-edition Seal of Approval sticker!
 
