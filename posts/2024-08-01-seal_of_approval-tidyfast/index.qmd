@@ -1,0 +1,119 @@
+---
+title: "Seal of Approval: tidyfast"
+author: "Tyson S. Barrett"
+date: "Aug 01, 2024"
+categories: [seal of approval, bridge package]
+image: "hex_approved.png"
+draft: false
+---
+
+## [`tidyfast`](https://github.com/TysonStanley/tidyfast)
+
+::: columns
+::: {.column width="40%"}
+![`tidyfast` hex sticker](hex.png)
+:::
+
+::: {.column width="60%"}
+*Author(s):* Tyson S. Barrett, Mark Fairbanks, Ivan Leung, Indrajeet Patil
+
+*Maintainer:* Tyson S. Barrett ([t.barrett88\@gmail.com](mailto:t.barrett88@gmail.com){.email})
+
+The goal of `tidyfast` is to provide fast and efficient alternatives to some `tidyr` (and a few `dplyr`) functions using `data.table` under the hood. Each have the prefix of `dt_` to allow for autocomplete in IDEs such as RStudio. These should compliment some of the current functionality in `dtplyr` (but notably does not use the `lazy_dt()` framework of `dtplyr`). This package imports `data.table` and `cpp11` (no other dependencies). These are, in essence, translations from a more tidyverse grammar to `data.table`. Most functions herein are in places where, in my opinion, the `data.table` syntax is not obvious or clear. As such, these functions can translate a simple function call into the fast, efficient, and concise syntax of data.table.
+:::
+:::
+
+## Relationship with `data.table`
+
+`tidyfast` was designed to be an extension to and translation of `data.table`. As such, there are three main ways `tidyfast` is related to `data.table`.
+
+1.  This package is built directly on `data.table` using direct calls to `[.data.table` and other functions under the hood.
+2.  It only relies on two packages, `cpp11` and `data.table` both stable packages that are unlikely to have breaking changes often. This follows the `data.table` principle of few dependencies.
+3.  It was designed to also show how others can use `data.table` within their own package to create functions that flexibly call `data.table` in complex ways.
+
+## Overview
+
+As shown on the `tidyfast` GitHub page, `tidyfast` has several functions that have the prefix `dt_`. A few notable functions from the package are shown below.
+
+```{r}
+library(tidyfast)
+library(data.table)
+library(magrittr)
+```
+
+### dt_fill
+
+Filling NAs is a useful function but `tidyr::fill()`, especially when done by many, many groups can become too slow. `dt_fill()` is useful for this and can be used a few different ways.
+
+```{r}
+x = 1:10
+dt_with_nas <- data.table(
+  x = x,
+  y = shift(x, 2L),
+  z = shift(x, -2L),
+  a = sample(c(rep(NA, 10), x), 10),
+  id = sample(1:3, 10, replace = TRUE)
+)
+
+# Original
+dt_with_nas
+
+# All defaults
+dt_fill(dt_with_nas, y, z, a, immutable = FALSE)
+
+# by id variable called `grp`
+dt_fill(dt_with_nas, 
+        y, z, a, 
+        id = list(id))
+
+# both down and then up filling by group
+dt_fill(dt_with_nas, 
+        y, z, a, 
+        id = list(id), 
+        .direction = "downup")
+```
+
+### dt_nest
+
+Nesting data can be useful for a number of reasons, including XX. The `dt_nest()` function takes a `data.table` and ID variables and nests the remaining columns into a list column of `data.table`s as shown below.
+
+```{r}
+dt <- data.table(
+   x = rnorm(1e5),
+   y = runif(1e5),
+   grp = sample(1L:5L, 1e5, replace = TRUE),
+   nested1 = lapply(1:10, sample, 10, replace = TRUE),
+   nested2 = lapply(c("thing1", "thing2"), sample, 10, replace = TRUE),
+   id = 1:1e5
+)
+
+nested <- dt_nest(dt, grp)
+nested
+```
+
+### dt_pivot_longer and dt_pivot_wider
+
+The last example for this brief post is pivoting. In my opinion, the pivot syntax is easy to remember and use and as such, is nice to have that syntax with the performance of `melt()` and `dcast()`. The syntax, although it doesn't have the full functionality of `tidyr`'s pivot functions, can do most things you need to do with reshaping data.
+
+```{r}
+billboard <- tidyr::billboard 
+
+longer <- billboard %>%
+  dt_pivot_longer(
+     cols = c(-artist, -track, -date.entered),
+     names_to = "week",
+     values_to = "rank"
+  )
+longer
+```
+
+Can also take that long data set and turn it wide again.
+
+```{r}
+wider <- longer %>% 
+  dt_pivot_wider(
+    names_from = week,
+    values_from = rank
+  )
+wider[, .(artist, track, wk1, wk2)]
+```

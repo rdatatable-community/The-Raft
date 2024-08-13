@@ -1,0 +1,26 @@
+---
+title: "Newly awarded travel and translation projects"
+author: "Toby Dylan Hocking"
+date: "2024-06-12"
+categories: [announcements, grant, ambassadors, travel]
+image: "jan.png"
+draft: true
+---
+
+## Paola Corrales tutorial at useR 2024
+
+We are pleased to award travel support for Paola Corrales, who will present a tutorial on "Efficient Data Analysis with Data.Table" at the international useR 2024 conference in Salzburg, Austria on Monday, July 8 at 9:00 to 12:30.
+
+For more info, please see the [tutorial web page](https://userconf2024.sched.com/event/1c8yF/tutorial-efficient-data-analysis-with-datatable-paola-corrales-r-ladiesropenscicarpentries-elio-campitelli-universidad-de-buenos-aires-pre-registration-required), which also shows the abstract and co-authors for the tutorial (Carpentries, Elio Campitelli).
+
+## French translation project
+
+We are pleased to fund a French translation project, led by Philippe Grosjean, who is also the leader of the base R French translation. Co-authors include Christian Wia, Vincent Rocher, Vincent Runge, and Elise Maigné. The project has been awarded US\$2000 to create and maintain the following translations:
+
+-   all messages from the R-data.table.pot and data.table.pot files (approximately 1300 errors, warnings, etc).
+-   all 12 vignettes.
+-   the cheatsheet, which was recently updated!
+
+## Portuguese translation project
+
+We are please to fund a Portuguese translation project, led by Leonardo Ferreira Fontenelle. Co-authors include Rafael Ferreira Fontenelle and Italo de Oliveira Santos. The aim is to provide a `pt_BR` translation which would make `data.table` more accessible to the 200 million people in Brazil. This team has been awarded US\$2000 to create and maintain translations of the messages (errors, warnings, etc).
