@@ -75,7 +75,7 @@ dt_fill(dt_with_nas,
 
 ### dt_nest
 
-Nesting data can be useful for a number of reasons, including XX. The `dt_nest()` function takes a `data.table` and ID variables and nests the remaining columns into a list column of `data.table`s as shown below.
+Nesting data can be useful for a number of reasons, including TODO. The `dt_nest()` function takes a `data.table` and ID variables and nests the remaining columns into a list column of `data.table`s as shown below.
 
 ```{r}
 dt <- data.table(
