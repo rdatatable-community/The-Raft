@@ -29,7 +29,7 @@ A little-known historical tidbit is that Robert Frost's *The Road Less Traveled*
 
 I bring this up because, like in the poem, I believe we in the R community often overdramatize moments of divergence between different R dialects, packages, and syntaxes.
 
-And I, like poor Robert Frost, also feel there may be some misunderstanding around the my intent here.  
+And I, like poor Robert Frost, also feel there may be some misunderstanding around my intent here.  
 
 So to make sure my opinions are loud and clear, we'll get some help from this cartoon lady to shout out the things I most want y'all to hear from me:
 
@@ -130,7 +130,7 @@ I can't tell you how to pick what works for you.
 :::
 ::::
 
-The idea of "loyalty" to a package is nonsense.  A package is a tool.  You might have admiration, respect, or even loyalty to a package *developer*; you might even therefore trust that its worth your time and energy to follow their recommendations.  
+The idea of "loyalty" to a package is nonsense.  A package is a tool.  You might have admiration, respect, or even loyalty to a package *developer*; you might even therefore trust that it's worth your time and energy to follow their recommendations.  
 
 But if you start feeling *bad* when you sprinkle a little Base R into your tidy workflow... if you are ashamed for piping a `data.table` object into `ggplot`... well that's getting us nowhere, is it?  We are blessed with an overabundance of useful tools and we shouldn't be limiting ourselves!
 
@@ -177,7 +177,7 @@ But - as seems to be the norm on the internet - a vocal subset of this conversat
 ![Rabblerabblerabble](./orwell.jpeg){width="50%"}
 
 
-It's important to note that the primary developers themselves - Hadley Wickham and Matt Dowle - were **not** the cause of the drama.  In fact, this good conversations from this Twitter whirlwind lead to the creation of on of my favorite packages, [`dtplyr`](https://dtplyr.tidyverse.org/)!
+It's important to note that the primary developers themselves - Hadley Wickham and Matt Dowle - were **not** the cause of the drama.  In fact, this good conversations from this Twitter whirlwind lead to the creation of one of my favorite packages, [`dtplyr`](https://dtplyr.tidyverse.org/)!
 
 So why am I partially digging up a buried hatchet?
 
