@@ -1,6 +1,6 @@
 # Contributing to this Blog
 
-**IMPORTANT:** Please only pull request this repository if you have already been invited or approved by the data.table community team.
+**IMPORTANT:** Please only pull request this repository if you have already been invited or approved by the data.table community team, or if you are proposing a new Seal of Approval package by following the template.
 If you would like to propose a guest blog post, email r.data.table@gmail.com and we will get back to you shortly.
 
 1. Fork this repository.
