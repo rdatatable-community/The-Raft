@@ -1,0 +1,104 @@
+---
+title: "Seal of Approval: mlr3"
+author: "Maximilian Mücke"
+date: "Sep 24, 2024"
+categories: [seal of approval, application package]
+image: "hex.png"
+draft: true
+---
+
+## [`mlr3`](https://mlr3.mlr-org.com/)
+
+*Author(s):*	Michel Lang, Bernd Bischl, Jakob Richter, Patrick Schratz, Martin Binder, Florian Pfisterer, Raphael Sonabend, Marc Becker, Sebastian Fischer
+
+*Maintainer:*	Marc Becker (marcbecker\@posteo.de)
+
+[Seal of Approval](https://github.com/Rdatatable/data.table/pull/6430)
+
+![mlr3 hex sticker](hex.png)
+
+A modern object-oriented machine learning framework. Successor of [mlr](https://github.com/mlr-org/mlr).
+
+## Relationship with `data.table`
+
+`mlr3` was designed to integrate closely with `data.table` for efficient data handling in
+machine learning workflows. There are two main ways `mlr3` is related to `data.table`:
+
+1. **Data Backend**: `mlr3` uses `data.table` as the core data backend for all `Task` objects.
+   This means that when you work with tasks in `mlr3`, the underlying data is stored and
+   managed using `data.table`. Moreover, users can leverage `data.table` syntax directly
+   within `mlr3` workflows. Accessing task data via `task$data()` returns a `data.table`,
+   enabling you to apply `data.table` operations for data preprocessing, feature engineering,
+   and subsetting without any additional conversion or overhead.
+2. **Result Storage**: `mlr3` stores various results such as predictions, resampling outcomes,
+   and benchmarking results as `data.table` objects.
+
+## Overview
+
+*Excerpted from the [`mlr3` book](https://mlr3book.mlr-org.com/chapters/chapter1/introduction_and_overview.html)*
+
+The mlr3 universe includes a wide range of tools taking you from basic ML to complex experiments.
+To get started, here is an example of the simplest functionality – training a model and making predictions.
+
+```{r}
+#| label: setup
+#| include: false
+lgr::get_logger("mlr3")$set_threshold("warn")
+lgr::get_logger("bbotk")$set_threshold("warn")
+```
+
+```{r}
+library(mlr3)
+
+task = tsk("penguins")
+split = partition(task)
+learner = lrn("classif.rpart")
+
+learner$train(task, row_ids = split$train)
+learner$model
+```
+
+```{r}
+prediction = learner$predict(task, row_ids = split$test)
+prediction
+```
+
+```{r}
+prediction$score(msr("classif.acc"))
+```
+
+In this example, we trained a decision tree on a subset of the `penguins` dataset,
+made predictions on the rest of the data and then evaluated these with the accuracy measure.
+
+The `mlr3` interface also lets you run more complicated experiments in just a few lines of code:
+
+```{r}
+#| warning: false
+library(mlr3verse)
+
+tasks = tsks(c("german_credit", "sonar"))
+
+glrn_rf_tuned = as_learner(ppl("robustify") %>>% auto_tuner(
+    tnr("grid_search", resolution = 5),
+    lrn("classif.ranger", num.trees = to_tune(200, 500)),
+    rsmp("holdout")
+))
+glrn_rf_tuned$id = "RF"
+
+glrn_stack = as_learner(ppl("robustify") %>>% ppl("stacking",
+    lrns(c("classif.rpart", "classif.kknn")),
+    lrn("classif.log_reg")
+))
+glrn_stack$id = "Stack"
+
+learners = c(glrn_rf_tuned, glrn_stack)
+bmr = benchmark(benchmark_grid(tasks, learners, rsmp("cv", folds = 3)))
+
+bmr$aggregate(msr("classif.acc"))
+```
+
+In this (much more complex!) example we chose two tasks and two learners and used automated
+tuning to optimize the number of trees in the random forest learner, and a machine learning
+pipeline that imputes missing data, collapses factor levels, and stacks models.
+We also showed basic features like loading learnersand choosing resampling strategies for benchmarking.
+Finally, we compared the performance of the models using the mean accuracy with three-fold cross-validation.
