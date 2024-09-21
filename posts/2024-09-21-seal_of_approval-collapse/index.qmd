@@ -27,7 +27,7 @@ It is [highly and interactively configurable](https://sebkrantz.github.io/collap
 
 ## Overview
 
-The easiest way to load `collapse` and `data.table` together is via the `fastverse` package: 
+The easiest way to load `collapse` and `data.table` together is via the [`fastverse` package](https://github.com/fastverse/fastverse): 
 
 ```{r, include = FALSE}
 options(fastverse.styling = FALSE, width = 120)
