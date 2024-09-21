@@ -62,6 +62,8 @@ mtcDTagg[, new2 := 1][1:3] # Still a data.table
 Or simply, convenience functions like `collap()` for fast multi-type aggregation:
 
 ```{r}
+# World Development Dataset (see ?wlddev)
+head(wlddev, 3) 
 # Population weighted mean for numeric and mode for non-numeric columns (multithreaded and 
 # vectorized across groups and columns, the default in statistical functions is na.rm = TRUE)
 wlddev |> collap(~ year + income, fmean, fmode, w = ~ POP, nthreads = 4) |> ss(1:3)
@@ -97,7 +99,7 @@ whichv(m, 5.76) # get the indices back...
 It is also fairly easy to do more involved data exploration and manipulation:
 
 ```{r}
-# Groningen Growth and Development Center 10 Sector Database
+# Groningen Growth and Development Center 10 Sector Database (see ?GGDC10S)
 namlab(GGDC10S, N = TRUE, Ndistinct = TRUE, class = TRUE)
 # Describe total Employment and Value-Added
 descr(GGDC10S, SUM ~ Variable)
@@ -117,7 +119,7 @@ GGDC_med_growth <- pivot(GGDC10S_growth,
 ) |> qDT()
 GGDC_med_growth[1:3]
 
-# Finally, join this to wlddev (= World Development Dataset)
+# Finally, lets just join this to wlddev, enabling multiple matches (cartesian product)
 # -> on average 61 years x 11 sectors = 671 records per unique (country) match
 join(wlddev, GGDC_med_growth, on = c("iso3c" = "Country"), 
      how = "inner", multiple = TRUE) |> ss(1:3)
