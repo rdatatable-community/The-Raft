@@ -111,8 +111,8 @@ GGDC10S_growth <- tfmv(GGDC10S, AGR:SUM, fgrowth, # tfmv = transform variables. 
 GGDC_med_growth <- pivot(GGDC10S_growth,
   ids = c("Country", "Regioncode", "Region"),
   values = slt(GGDC10S, AGR:SUM, return = "names"), # slt = shorthand for fselect()
-  names = list(from = "Variable", to = "Sector"),
-  labels = list(to = "Label"), 
+  names = list(from = "Variable", to = "Sectorcode"),
+  labels = list(to = "Sector"), 
   FUN = fmedian,  # Fast function = vectorized
   how = "recast"  # Recast (transposition) method
 ) |> qDT()
