@@ -75,11 +75,10 @@ fmean(mtcars$mpg, mtcars$g)
 # Grouping object from multiple columns
 g <- GRP(mtcars, c("cyl", "vs", "am"))
 fmean(mtcars$mpg, g)
-cols <- c("carb", "hp", "qsec") # columns to aggregate
+vars <- c("carb", "hp", "qsec") # columns to aggregate
 # Aggreagting: weighted mean: vectorized across groups and columns 
-add_vars(
-  g$groups, 
-  fmean(get_vars(mtcars, cols), g, 
+add_vars(g$groups, # Grouping columns
+  fmean(get_vars(mtcars, vars), g, 
         w = mtcars$wt, use.g.names = FALSE)
 )
 # Let's aggregate a matrix 
