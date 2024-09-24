@@ -15,13 +15,13 @@ draft: true
 
 ![collapse hex sticker](hex.png)
 
-`collapse` is a large C/C++-based infrastructure package facilitating complex statistical computing, data transformation, and exploration tasks in R - at outstanding levels of performance and memory efficiency. It also implements a class-agnostic approach to R programming supporting vector, matrix and data frame-like objects (includings *xts*, *tibble*, ***data.table***, and *sf*). It has a stable API, depends on *Rcpp*, and supports R versions >= 3.4.0. 
+`collapse` is a large C/C++-based infrastructure package facilitating complex statistical computing, data transformation, and exploration tasks in R - at outstanding levels of performance and memory efficiency. It also implements a class-agnostic approach to R programming supporting vector, matrix and data frame-like objects (including *xts*, *tibble*, ***data.table***, and *sf*). It has a stable API, depends on *Rcpp*, and supports R versions >= 3.4.0. 
 
 ## Relationship with `data.table`
 
-At the C-level, `collapse` took much inspiration from `data.table`, and leverages some of its core algorithms like radixsort, while adding significant [statistical functionality](https://sebkrantz.github.io/collapse/reference/collapse-documentation.html) and [new algorithms](https://sebkrantz.github.io/collapse/reference/fast-grouping-ordering.html) within a [class-agnostic programming framework](https://sebkrantz.github.io/collapse/articles/collapse_object_handling.html) that seamslessly supports `data.table`. Notably, [`collapse::qDT()`](https://sebkrantz.github.io/collapse/reference/quick-conversion.html) is a highly efficient anything to `data.table` converter, and all manipulation functions in `collapse`, if passed `data.table`'s, return valid `data.table`'s, allowing for subsequent reference operations (`:=`). 
+At the C-level, `collapse` took much inspiration from `data.table`, and leverages some of its core algorithms like radixsort, while adding significant [statistical functionality](https://sebkrantz.github.io/collapse/reference/collapse-documentation.html) and [new algorithms](https://sebkrantz.github.io/collapse/reference/fast-grouping-ordering.html) within a [class-agnostic programming framework](https://sebkrantz.github.io/collapse/articles/collapse_object_handling.html) that seamlessly supports `data.table`. Notably, [`collapse::qDT()`](https://sebkrantz.github.io/collapse/reference/quick-conversion.html) is a highly efficient anything to `data.table` converter, and all manipulation functions in `collapse` return a valid `data.table` object when a `data.table` is passed, enabling subsequent reference operations (`:=`).
 
-It's added functionality includes a rich set of [Fast Statistical Functions](https://sebkrantz.github.io/collapse/reference/fast-statistical-functions.html) supporting vectorized (grouped, weighted) statistical operations on matrix-like objects. These are integrated with fast [data manipulation functions](https://sebkrantz.github.io/collapse/reference/fast-data-manipulation.html) in a way that also [more complex statistical expressions can be vectorized across groups](https://andrewghazi.github.io/posts/collapse_is_sick/sick.html). It also adds [flexible time series functions and classes](https://sebkrantz.github.io/collapse/reference/time-series-panel-series.html) supporting irregular series and panels, [(panel-)data transformations](https://sebkrantz.github.io/collapse/reference/data-transformations.html), [vectorized hash-joins](https://sebkrantz.github.io/collapse/reference/join.html), [fast aggregation and recast pivots](https://sebkrantz.github.io/collapse/reference/pivot.html), [(internal) support for variable labels](https://sebkrantz.github.io/collapse/reference/small-helpers.html), [powerful descriptive tools](https://sebkrantz.github.io/collapse/reference/summary-statistics.html), [memory efficient programming tools](https://sebkrantz.github.io/collapse/reference/efficient-programming.html), and [recursive tools for heterogeneous nested data](https://sebkrantz.github.io/collapse/reference/list-processing.html). 
+Its added functionality includes a rich set of [Fast Statistical Functions](https://sebkrantz.github.io/collapse/reference/fast-statistical-functions.html) supporting vectorized (grouped, weighted) statistical operations on matrix-like objects. These are integrated with fast [data manipulation functions](https://sebkrantz.github.io/collapse/reference/fast-data-manipulation.html) in a way that also [more complex statistical expressions can be vectorized across groups](https://andrewghazi.github.io/posts/collapse_is_sick/sick.html). It also adds [flexible time series functions and classes](https://sebkrantz.github.io/collapse/reference/time-series-panel-series.html) supporting irregular series and panels, [(panel-)data transformations](https://sebkrantz.github.io/collapse/reference/data-transformations.html), [vectorized hash-joins](https://sebkrantz.github.io/collapse/reference/join.html), [fast aggregation and recast pivots](https://sebkrantz.github.io/collapse/reference/pivot.html), [(internal) support for variable labels](https://sebkrantz.github.io/collapse/reference/small-helpers.html), [powerful descriptive tools](https://sebkrantz.github.io/collapse/reference/summary-statistics.html), [memory efficient programming tools](https://sebkrantz.github.io/collapse/reference/efficient-programming.html), and [recursive tools for heterogeneous nested data](https://sebkrantz.github.io/collapse/reference/list-processing.html). 
 
 It is [highly and interactively configurable](https://sebkrantz.github.io/collapse/reference/collapse-options.html). A navigable [internal documentation/overview](https://sebkrantz.github.io/collapse/reference/collapse-documentation.html) facilitates its use.
 
@@ -55,7 +55,7 @@ mtcDTagg <- mtcarsDT |>
              mpg_wtd_mode = fmode(mpg, wt, ties = "max"),   # Weighted maximum mode 
              mpg_range = fmax(mpg) %-=% fmin(mpg),          # Range: vectorized and memory efficient   
              lm_mpg_carb = fsum(mpg, W(carb)) %/=% fsum(W(carb)^2)) # coef(lm(mpg ~ carb)): vectorized
-# Note: for increased parsimony, can appreviate fgroup_by -> gby, fsummarise -> smr
+# Note: for increased parsimony, can abbreviate fgroup_by -> gby, fsummarise -> smr
 mtcDTagg[, new2 := 1][1:3] # Still a data.table
 ```
 
@@ -78,7 +78,7 @@ fmean(mtcars$mpg, mtcars$g)
 g <- GRP(mtcars, c("cyl", "vs", "am"))
 fmean(mtcars$mpg, g)
 vars <- c("carb", "hp", "qsec") # columns to aggregate
-# Aggreagting: weighted mean: vectorized across groups and columns 
+# Aggregating: weighted mean - vectorized across groups and columns 
 add_vars(g$groups, # Grouping columns
   fmean(get_vars(mtcars, vars), g, 
         w = mtcars$wt, use.g.names = FALSE)
