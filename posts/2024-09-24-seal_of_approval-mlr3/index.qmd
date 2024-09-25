@@ -100,5 +100,5 @@ bmr$aggregate(msr("classif.acc"))
 In this (much more complex!) example we chose two tasks and two learners and used automated
 tuning to optimize the number of trees in the random forest learner, and a machine learning
 pipeline that imputes missing data, collapses factor levels, and stacks models.
-We also showed basic features like loading learnersand choosing resampling strategies for benchmarking.
+We also showed basic features like loading learners and choosing resampling strategies for benchmarking.
 Finally, we compared the performance of the models using the mean accuracy with three-fold cross-validation.
