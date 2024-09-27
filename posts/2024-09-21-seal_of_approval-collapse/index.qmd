@@ -3,15 +3,15 @@ title: "Seal of Approval: collapse"
 author: "Sebastian Krantz"
 date: "Sept 21, 2024"
 categories: [seal of approval, partner package]
-image: "hex.png"
-draft: true
+image: "hex_approved.png"
+draft: false
 ---
 
 ## [`collapse`](https://github.com/SebKrantz/collapse)
 
-*Author(s):*	Sebastian Krantz
+*Author(s):* Sebastian Krantz
 
-*Maintainer:*	Sebastian Krantz (sebastian.krantz@graduateinstitute.ch)
+*Maintainer:* Sebastian Krantz (sebastian.krantz\@graduateinstitute.ch)
 
 ![collapse hex sticker](hex.png)
 
@@ -27,7 +27,7 @@ It is [highly and interactively configurable](https://sebkrantz.github.io/collap
 
 ## Overview
 
-The easiest way to load `collapse` and `data.table` together is via the [`fastverse` package](https://github.com/fastverse/fastverse): 
+The easiest way to load `collapse` and `data.table` together is via the [`fastverse` package](https://github.com/fastverse/fastverse):
 
 ```{r, include = FALSE}
 options(fastverse.styling = FALSE, width = 120)
@@ -125,4 +125,4 @@ join(wlddev, GGDC_med_growth, on = c("iso3c" = "Country"),
      how = "inner", multiple = TRUE) |> ss(1:3)
 ```
 
-**In summary:** `collapse` provides flexible high-performance statistical and data manipulation tools, which extend and seamlessly integrate with `data.table`. The package follows a similar development philosophy emphasizing API stability, parsimonious syntax, and zero dependencies (apart from `Rcpp`). `data.table` users may wish to employ `collapse` for some of the advanced statistical and manipulation functionality showcased above, but also to efficiently manipulate other data frame-like objects, such as [`sf` data frames](https://sebkrantz.github.io/collapse/articles/collapse_and_sf.html). 
+**In summary:** `collapse` provides flexible high-performance statistical and data manipulation tools, which extend and seamlessly integrate with `data.table`. The package follows a similar development philosophy emphasizing API stability, parsimonious syntax, and zero dependencies (apart from `Rcpp`). `data.table` users may wish to employ `collapse` for some of the advanced statistical and manipulation functionality showcased above, but also to efficiently manipulate other data frame-like objects, such as [`sf` data frames](https://sebkrantz.github.io/collapse/articles/collapse_and_sf.html).
