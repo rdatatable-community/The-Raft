@@ -1,0 +1,87 @@
+---
+title: "Comparing data.table reshape to duckdb and polars"
+author: "Toby Hocking"
+date: "2024-03-10"
+categories: [tips, tutorials, developer, benchmarks]
+draft: false
+---
+
+One element of [the NSF POSE grant for
+`data.table`](https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/)
+is to create benchmarks which can inform users about when `data.table`
+could be more performant than similar software. Two examples of
+similar software are duckdb and polars, which each provide in-memory
+database operations. This post explores the differences in
+computational requirements, and in functionality, for data reshaping
+operations. 
+
+## Wide-to-long data reshape (unpivot) using `data.table::melt`
+
+Data reshaping means changing the shape of the data, in order to get
+it into a more appropriate format, for learning/plotting/etc. It is
+perhaps best explained using a simple example. Here we consider the
+iris data, which has four numeric columns:
+
+```{r}
+library(data.table)
+(iris.wide <- data.table(iris))
+```
+
+What if we wanted to make a facetted histogram of the numeric iris
+data columns, with one panel/facet for each column? With ggplots we
+would use `geom_histogram(aes(numeric_variable))`, where
+`numeric_variable` would be the column name of a data table containing
+all of the numbers that we want to show in the histogram. To construct
+that table, we would have to first reshape to "long" (or unpivoted)
+format.  To easily understand what the reshape operation does, we show
+a subset of the data (first and last rows) below:
+
+```{r}
+(two.iris.wide <- iris.wide[c(1,.N)])
+```
+
+Note the table above has 8 numbers, arranged into a table of 2 rows
+and 4 columns. To reshape these data to "long" (or unpivoted) format,
+we can use `data.table::melt`, as in the code below.
+
+```{r}
+melt(two.iris.wide, measure.vars=measure(part, dim, sep="."))
+```
+
+Note the table above has the same 8 numbers, but arranged into  1 column in a table
+with 8 rows, which is the desired input for ggplots.
+Below we do the same reshape with the full iris data set, and then plot the data in a histogram:
+
+```{r hist}
+(iris.tall <- melt(iris.wide, measure.vars=measure(part, dim, sep=".")))
+library(ggplot2)
+ggplot()+
+  geom_histogram(aes(
+    value),
+    bins=50,
+    data=iris.tall)+
+  facet_grid(part ~ dim, labeller=label_both)
+```
+
+## Similar operations in polars and duckdb
+
+## Wide-to-long performance comparison
+
+## Long-to-wide data reshape using `data.table::dcast`
+
+
+
+## Conclusion
+
+We have discussed the plan for augmenting the testing infrastructure available for `data.table` (performance testing, benchmarking, and revdep checking). Hopefully the new testing infrastructure will allow contributors to be more confident about merging PRs with bug fixes and new features.
+
+## Attribution
+
+Parts of this blog post were copied from [my more extensive comparison
+blog](https://tdhock.github.io/blog/2024/collapse-reshape/).
+
+## Session info
+
+```{r}
+sessionInfo()
+```
