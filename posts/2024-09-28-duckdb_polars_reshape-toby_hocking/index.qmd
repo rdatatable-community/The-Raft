@@ -15,10 +15,37 @@ database operations. This post explores the differences in
 computational requirements, and in functionality, for data reshaping
 operations. 
 
-## Wide-to-long data reshape (unpivot) using `data.table::melt`
+# Terminology and functions in R, `data.table`, and SQL
 
 Data reshaping means changing the shape of the data, in order to get
-it into a more appropriate format, for learning/plotting/etc. It is
+it into a more appropriate format, for learning/plotting/etc. In R we
+use the terms "wide" (many columns, few rows) and "long" (few columns,
+many rows) to describe the different data shapes (and these terms come
+from `?stats::reshape`), wheras in SQL we use the terms "pivoted" and
+"unpivoted" to describe these two table types.
+
+| R table type | SQL table type | rows | columns |
+|--------------|----------------|------|---------|
+| tall         | unpivoted      | many | few     |
+| wide         | pivoted        | few  | many    |
+
+For the wide-to-tall reshape operation, `data.table` has `melt()` and
+SQL has `UNPIVOT`; for the tall-to-wide reshape operation,
+`data.table` has `dcast()` and SQL has `PIVOT`.
+
+| Reshape operation | `data.table` function | SQL function |
+|-------------------|-----------------------|--------------|
+| Wide-to-long      | `melt`                | `UNPIVOT`    |
+| Long-to-wide      | `dcast`               | `PIVOT`      |
+
+# Wide-to-long operations
+
+We begin with a discussion of wide-to-long reshape operations, also
+known as unpivot in SQL.
+
+## Wide-to-long data reshape (unpivot) using `data.table::melt`
+
+Wide-to-long reshape is often necessary before plotting. It is
 perhaps best explained using a simple example. Here we consider the
 iris data, which has four numeric columns:
 
@@ -48,27 +75,121 @@ we can use `data.table::melt`, as in the code below.
 melt(two.iris.wide, measure.vars=measure(part, dim, sep="."))
 ```
 
-Note the table above has the same 8 numbers, but arranged into  1 column in a table
-with 8 rows, which is the desired input for ggplots.
-Below we do the same reshape with the full iris data set, and then plot the data in a histogram:
+Note the table above has the same 8 numbers, but arranged into 1
+column in a table with 8 rows, which is the desired input for ggplots.
+Also note that the reshaped column names (`Petal.Length`,
+`Sepal.Width`, etc) each consist of two components, which become two
+different columns in the output: `part` (`Sepal` or `Petal`) and `dim`
+(`Length` or `Width`). In the code above, we used `sep="."` to specify
+that we want to split all of the iris column names using a dot, and
+then reshape all of the columns whose names split into the max number
+of items. The corresponding column names of the output are specified
+as the arguments of `measure()`, and for more info about this
+functionality, please read [its man
+page](https://rdatatable.gitlab.io/data.table/reference/measure.html).
 
-```{r hist}
-(iris.tall <- melt(iris.wide, measure.vars=measure(part, dim, sep=".")))
+Below we do the same reshape with the full iris data set, and then
+plot the data in a histogram:
+
+```{r dcast-hist}
+(iris.long <- melt(iris.wide, measure.vars=measure(part, dim, sep=".")))
 library(ggplot2)
 ggplot()+
   geom_histogram(aes(
     value),
     bins=50,
-    data=iris.tall)+
+    data=iris.long)+
   facet_grid(part ~ dim, labeller=label_both)
 ```
 
-## Similar operations in polars and duckdb
+## Wide-to-long reshape via unpivot in polars
+
+polars is an implementation of data frames in Rust, with bindings in R
+and Python. In polars, the wide-to-long data reshape operation is
+documented on the [man page for
+unpivot](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.unpivot.html#polars.DataFrame.unpivot). In
+our case, we use the code below:
+
+```{r}
+(iris.long.polars <- polars::as_polars_df(iris)$unpivot(
+  index="Species",
+  on=c("Sepal.Length","Petal.Length","Sepal.Width","Petal.Width"),
+  variable_name="part.dim",
+  value_name="cm"))
+```
+
+The output above is analogous to the result from `data.table::melt`,
+but with one column named `part.dim` instead of the two columns named
+`part` and `dim`, because polars does not support splitting the
+reshaped column names into more than one output column. So with
+polars, if we wanted separate `part` and `dim` columns, we would have
+to specify that in a separate step, after the reshape. Or we could
+just use `facet_wrap` instead of `facet_grid`, as in the code below:
+
+```{r polars-hist}
+ggplot()+
+  geom_histogram(aes(
+    cm),
+    bins=50,
+    data=iris.long.polars)+
+  facet_wrap(. ~ part.dim, labeller=label_both)
+```
+
+We can see in the plot above that there is a facet for each of the
+variables, but only one `part.dim` strip for each, instead of two
+(`part` and `dim`).
+
+### Wide-to-long reshape via UNPIVOT in duckdb
+
+duckdb is a column-oriented database implemented in C++, with an R
+package that supports a DBI-complient SQL interface. That means that
+we use R functions like `DBI::dbGetQuery` to get results, just like we
+would with any other database (Postgres, MySQL, etc).  This is
+documented in the [duckdb R API](https://duckdb.org/docs/api/r.html)
+docs, which explain how to create a database connection, and then copy
+data from R to the database, as in the code below,
+
+```{r}
+con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
+DBI::dbWriteTable(con, "iris_wide", iris)
+```
+
+The [duckdb unpivot man page](https://duckdb.org/docs/sql/statements/unpivot.html) explains how to do wide-to-tall reshape operations.
+In our case, we use the code below:
+
+```{r}
+iris.long.duckdb <- DBI::dbGetQuery(con, '
+UNPIVOT iris_wide
+ON "Sepal.Length", "Petal.Length", "Sepal.Width", "Petal.Width" 
+INTO NAME part_dim 
+VALUE cm')
+str(iris.long.duckdb)
+```
+
+Above we use `str` to show a brief summary of the structure of the
+output, which is a `data.frame` with 600 rows.
+With duckbdb, the output has one column named `part_dim` (dots in column names are not allowed so we use an underscore here instead), because it does not support splitting the reshaped column names into more than one output column. So with duckdb, if we wanted separate `part` and `dim` columns, we would have to specify that in a separate step, after the reshape. One way to do that would be via `data.table::tstrsplit`, as in the code below:
+
+```{r}
+data.table(iris.long.duckdb)[, c("part","dim") := tstrsplit(part_dim,split="[.]")][]
+```
+
+For visualization, either `facet_grid` or `facet_wrap` could be used, similar to the examples above.
 
 ## Wide-to-long performance comparison
 
+# Long-to-wide
+
 ## Long-to-wide data reshape using `data.table::dcast`
 
+## Similar long-to-wide reshape operations in polars and duckdb
+
+UPDATE 26 sept 2024 added polars row based on docs for
+[pivot](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.pivot.html)
+and
+
+
+ [pivot](https://duckdb.org/docs/sql/statements/pivot.html),Note that duckdb supports multiple value columns, and multiple aggregation functions, but you need to specify each combination of column/aggregation in a separate entry of `USING`, so this is less convenient than `data.table::dcast`, which computes each aggregation function for each value column.
 
 
 ## Conclusion
