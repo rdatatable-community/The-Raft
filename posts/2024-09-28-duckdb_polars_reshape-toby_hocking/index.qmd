@@ -267,13 +267,11 @@ unpivot.res <- atime::atime(
   "polars\nunpivot"=polars_df$unpivot(index="Species", value_name="cm"),
   "data.table\nmelt"=melt(N.dt, id.vars="Species", value.name="cm"))
 unpivot.refs <- atime::references_best(unpivot.res)
-unpivot.pred <- predict(unpivot.refs, seconds=seconds.limit, kilobytes=1000)
+unpivot.pred <- predict(unpivot.refs)
 plot(unpivot.pred)+coord_cartesian(xlim=c(1e1,1e7))
 ```
 
-In the plot above we see there are some differences:
-* In the top panel, the memory usage in kilobytes is plotted as a function of `N`, the number of input rows to reshape. The horizontal reference line is drawn at 1000kb, and the `N` highlighted for `duckdb` and `data.table` are the number of rows that can be processed within that memory budget. We see that `data.table` is slightly more efficient than `duckdb`, and that `polars` is constant (polars/rust memory allocation is not measurable by `atime`).
-* In the bottom panel, the computation time in seconds is plotted as a function of `N`, the number of input rows to reshape. The horizontal reference line is drawn at `r seconds.limit` seconds, and the `N` highlighted corresponds to the throughput given that time limit. We see that `data.table` is slightly faster than `polars` (within 2x), and both are much faster than `duckdb` (more than 10x).
+In the plot above, the computation time in seconds is plotted as a function of `N`, the number of input rows to reshape. The horizontal reference line is drawn at `r seconds.limit` seconds, and the `N` highlighted corresponds to the throughput given that time limit. We see that `data.table` is slightly faster than `polars` (within 2x), and both are much faster than `duckdb` (more than 10x).
 
 Above there are several confounding factors in the comparison, most notably that data must be copied to `duckdb` and `polars` before and after processing. In contrast, `data.table` provides `setDT` and `setDF` functions, which can convert to/from data tables, without copying. So when data originates in R, or needs to come back to R, we should include the copy time for a more fair comparison. Below we run that comparison:
 
@@ -297,7 +295,7 @@ unpivot.copy.res <- atime::atime(
   },
   "data.table\nset+melt"=setDF(melt(setDT(N.df), id.vars="Species", value.name="cm")))
 unpivot.copy.refs <- atime::references_best(unpivot.copy.res)
-unpivot.copy.pred <- predict(unpivot.copy.refs, seconds=seconds.limit, kilobytes=500)
+unpivot.copy.pred <- predict(unpivot.copy.refs)
 plot(unpivot.copy.pred)+coord_cartesian(xlim=c(1e1,1e7))
 ```
 
@@ -319,29 +317,260 @@ In this section, we showed that `data.table` provides an efficient and feature-r
 * `setDT` and `setDF` can be used to avoid un-necessary copies with `data.table`. In contrast, `duckdb`/`polars` require copies to/from regular R memory, which can add significant time/memory requirements.
 * `data.table` was fastest and most memory efficient in the comparisons we examined (both with and without consideration of copying).
 
-| feature          | `data.table` | `polars` | `duckdb` |
-|------------------|--------------|----------|----------|
-| sep/regex        | yes          | no       | no       |
-| multiple outputs | yes          | no       | no       |
-| avoid copies     | yes          | no       | no       |
+The table below summarizes support for different features in each software package.
+
+| how to specify        | `data.table`     | `polars`        | `duckdb`    |
+|-----------------------|------------------|-----------------|-------------|
+| function              | `melt`           | `unpivot`       | `UNPIVOT`   |
+| reshape cols          | `measure.vars`   | `on`            | `ON`        |
+| other cols            | `id.vars`        | `index`         | -           |
+| output name (data)    | `value.name`     | `value_name`    | `VALUE`     |
+| output name (columns) | `variable.name`  | `variable_name` | `INTO NAME` |
+| separator             | `sep`            | -               | -           |
+| regex                 | `pattern`        | no              | no          |
+| multiple outputs      | `value.name`     | -               | -           |
+| avoid copies          | `setDT`, `setDF` | -               | -           |
 
 # Long-to-wide
 
+Another kind of reshape operation starts with a long table (many rows, few cols), and creates a wide table (many cols, few rows). I frequently use this operation when comparing results of machine learning algorithms (computing mean/SD over folds, p-values, etc). For examples of those use cases, please read my blog about [Visualizing prediction error](https://tdhock.github.io/blog/2024/viz-pred-err/). 
+
 ## Long-to-wide data reshape using `data.table::dcast`
 
-## Similar long-to-wide reshape operations in polars and duckdb
+Here we continue with the iris data example. We will present three different reshape operations involving the iris data. The code below adds a column `flower` which contains the row number.
 
-UPDATE 26 sept 2024 added polars row based on docs for
-[pivot](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.pivot.html)
-and
+```{r}
+iris.wide[, flower := .I][]
+```
 
+Then we do a wide-to-long reshape using the code below (same as previous section),
 
- [pivot](https://duckdb.org/docs/sql/statements/pivot.html),Note that duckdb supports multiple value columns, and multiple aggregation functions, but you need to specify each combination of column/aggregation in a separate entry of `USING`, so this is less convenient than `data.table::dcast`, which computes each aggregation function for each value column.
+```{r}
+(iris.long.i <- melt(iris.wide, measure.vars=measure(part, dim, sep=".")))
+```
 
+The table above has an additional column for `flower`, which we use in
+the code below on the left side of the formula (used to define output
+rows), along with `part + dim` on the right side of the formula (used
+to define output columns). The code below can therefore be used to
+reshape the data back into their original wide format:
 
-## Conclusion
+```{r}
+dcast(# wide reshape 1
+  data=iris.long.i,
+  formula=flower + Species ~ part + dim,
+  sep=".")
+```
 
-We have discussed the plan for augmenting the testing infrastructure available for `data.table` (performance testing, benchmarking, and revdep checking). Hopefully the new testing infrastructure will allow contributors to be more confident about merging PRs with bug fixes and new features.
+We can see that the result above is almost the same as the original
+iris data (but with the columns in a different order). Another kind of
+reshape involves computing an aggregation function, such as
+`mean`. Note in the code below that `.` on the right side of the
+formula indicates a single output column.
+
+```{r}
+dcast(# wide reshape 2
+  data=iris.long.i,
+  formula=Species + part + dim ~ .,
+  fun.aggregate=mean,
+  sep=".")
+```
+
+The output above has a row for every unique combination of `Species`,
+`part`, and `dim`, and a column (`.`)` for the mean of the
+corresponding data.
+The more complex reshape below involves multiple aggregations, and multiple value variables.
+
+```{r}
+options(width=100)
+dcast(# wide reshape 3
+  data=iris.long.parts,
+  formula=dim ~ Species,
+  fun.aggregate=list(mean,sd),
+  value.var=c("Sepal","Petal"))
+```
+
+The output above includes two rows, and a column for every unique
+combination of `value.var` (`Sepal` or `Petal`), of `fun.aggregate`
+(`mean` or `sd`), and of `Species` (`setosa`, `versicolor`,
+`virginica`).
+
+## Long-to-wide reshape in polars 
+
+`polars` supports long-to-wide reshape via [the `pivot` method](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.pivot.html), as in the code below.
+
+```{r}
+(polars.wide <- polars::as_polars_df(
+  iris.long.i
+)$pivot(# wide reshape 1
+  on=c("part","dim"),
+  index=c("flower","Species"),
+  values="value"))
+names(polars.wide)
+```
+
+The output above is consistent with the results from `data.table::dcast`, and the original iris data, although the names are unusual. The next reshape example below shows that we need to create a dummy variable to use as the `on` argument.
+
+```{r}
+polars::as_polars_df(
+  iris.long.i[, dummy := "."]
+)$pivot(# wide reshape 2
+  on="dummy", # have to create dummy var for on.
+  index=c("Species","part","dim"),
+  values="value",
+  aggregate_function="mean")
+```
+
+The output above is consistent with the results from `data.table::dcast`.
+Currently `polars` only supports a single aggregation function, so we can not calculate both `mean` and `sd` at the same time, but we can at least do the `mean` for multiple `values` in the code below:
+
+```{r}
+polars::as_polars_df(
+  iris.long.parts
+)$pivot(# wide reshape 3
+  on="Species",
+  index="dim",
+  values=c("Sepal","Petal"),
+  aggregate_function="mean")#multiple agg not supported.
+```
+
+Above we see the result only has 6 columns (for `mean`), whereas the analogous result from `data.table::dcast` above had 12 columns (with additionally the `sd`).
+
+## Long-to-wide reshape in duckdb
+
+`duckdb` support long-to-wide reshape via [the SQL `PIVOT` command](https://duckdb.org/docs/sql/statements/pivot.html), which can be used to recover the original iris data via the command below:
+
+```{r}
+duckdb::dbWriteTable(con, "iris_long_i", iris.long.i, overwrite=TRUE)
+DBI::dbGetQuery(# wide reshape 1
+  con, '
+PIVOT iris_long_i 
+ON part,dim 
+USING sum(value) 
+GROUP BY flower,Species 
+ORDER BY flower')
+```
+
+We can see that the result above is consistent with the previous sections.
+Below the code uses `mean` as an aggregation function.
+
+```{r}
+DBI::dbGetQuery(# wide reshape 2
+  con, '
+PIVOT iris_long_i 
+USING mean(value) 
+AS "." 
+GROUP BY Species,part,dim')
+```
+
+The result above is consistent with previous results.
+Finally, we can do multiple aggregation via the code below, which requires enumerating each combination of aggregation function and input column to aggregate.
+
+```{r}
+duckdb::dbWriteTable(con, "iris_long_parts", iris.long.parts, overwrite=TRUE)
+DBI::dbGetQuery(# wide reshape 3
+  con, '
+PIVOT iris_long_parts 
+ON Species 
+USING 
+ mean(Sepal) AS Sepal_mean, 
+ stddev(Sepal) AS Sepal_sd, 
+ mean(Petal) AS Petal_mean, 
+ stddev(Petal) AS Petal_sd 
+GROUP BY dim')
+```
+
+The result above is consistent with the result from
+`data.table::dcast`. Because all combinations of aggregation/columns
+must be enumerated, the `duckdb` code is a bit more repetitive than
+the corresponding `data.table` code (which is more convenient).
+
+## Long-to-wide performance comparison
+
+Below we conduct an `atime` benchmark to measure the time/memory usage of the reshape operation (without including the copy operation).
+
+```{r}
+seconds.limit <- 0.1
+pivot.res <- atime::atime(
+  N=2^seq(1,50),
+  setup={
+    (row.id.vec <- 1+(seq(0,N-1) %% nrow(iris.long.i)))
+    N.dt <- iris.long.i[row.id.vec]
+    N.df <- data.frame(N.dt)
+    N_polars <- polars::as_polars_df(N.df)
+    duckdb::dbWriteTable(con, "iris_long_i", N.df, overwrite=TRUE)
+  },
+  seconds.limit=seconds.limit,
+  "duckdb\nPIVOT"=DBI::dbGetQuery(con, 'PIVOT iris_long_i USING mean(value) AS "." GROUP BY Species,part,dim'),
+  "polars\npivot"=N_polars$pivot(on="dummy", index=c("Species","part","dim"), values="value", aggregate_function="mean"),
+  "data.table\ndcast"=dcast(N.dt, Species + part + dim ~ ., mean))
+pivot.refs <- atime::references_best(pivot.res)
+pivot.pred <- predict(pivot.refs)
+plot(pivot.pred)+coord_cartesian(xlim=c(1e1,1e7))
+```
+
+The result above shows that `data.table::dcast` is about as fast as
+the others (bottom facet), although `duckdb` is slightly faster, and `polars` is
+slightly slower (less than 2x). Memory usage is not informative (top facet), because `atime` does not measure memory usage outside of R.
+Below we run a more complex benchmark which also measures time/memory for the copy operation (in addition to the reshape).
+
+```{r}
+seconds.limit <- 0.1
+pivot.copy.res <- atime::atime(
+  N=2^seq(1,50),
+  setup={
+    (row.id.vec <- 1+(seq(0,N-1) %% nrow(iris.long.i)))
+    N.df <- data.frame(iris.long.i[row.id.vec])
+  },
+  seconds.limit=seconds.limit,
+  "duckdb\ncopy+PIVOT"={
+    duckdb::dbWriteTable(con, "iris_long_i", N.df, overwrite=TRUE)
+    DBI::dbGetQuery(con, 'PIVOT iris_long_i USING mean(value) AS "." GROUP BY Species,part,dim')
+  },
+  "polars\ncopy+pivot"={
+    polars_pivot <- polars::as_polars_df(
+      N.df
+    )$pivot(# wide reshape 2
+      on="dummy", # have to create dummy var for on.
+      index=c("Species","part","dim"),
+      values="value",
+      aggregate_function="mean")
+    as.data.frame(polars_pivot)
+  },
+  "data.table\nset+dcast"=setDF(dcast(setDT(N.df), Species + part + dim ~ ., mean)))
+pivot.copy.refs <- atime::references_best(pivot.copy.res)
+pivot.copy.pred <- predict(pivot.copy.refs)
+plot(pivot.copy.pred)+coord_cartesian(xlim=c(1e1,1e7))
+```
+
+The result above shows that `data.table` is quite a bit faster than the others (5x). Again 
+
+## Summary of long-to-wide reshaping
+
+In this section, we showed that `data.table` provides an efficient and feature-rich implementation of long-to-wide data reshaping. 
+* The formula interface allows specifying a dot (`.`) which is a convenient way to specify output of only one row/column. In contrast, `polars` requires creating a dummy variable to do that.
+* The `fun.aggregate` argument may be a list of functions, each of which will be used on each of the `value.var` (a convenient way of specifying all combinations). In contrast, `duckdb` requires specifying each combination separately (more tedious/error-prone), and `polars` only supports one aggregation function (not a list).
+
+| how to specify | `data.table`     | `polars`             | `duckdb`               |
+|----------------|------------------|----------------------|------------------------|
+| function       | `dcast`          | `pivot`              | `PIVOT`                |
+| rows           | LHS of formula   | `index`              | `GROUP BY`             |
+| columns        | RHS of formula   | `on`                 | `ON`                   |
+| no columns     | dot `.`          | dummy variable       | omit `ON`              |
+| values         | `value.var`      | `values`             | `USING`                |
+| aggregation    | `aggregate.fun`  | `aggregate_function` | `USING`                |
+| multiple agg.  | all combinations | one function         | specified combinations |
+
+# Conclusion
+
+We have compared the reshaping functions in `data.table` to `duckdb`
+and `polars`.  Although all three provide similar functionality for
+basic operations, we observed that `data.table` has several advantages
+for advanced/complex/efficient operations (reshaping columns which
+match a regex/separator, reshaping into multiple columns, avoiding
+copies, multiple aggregation). We also observed that the speed of
+`data.table` functions is comparable, if not faster, than the other
+packages.
 
 ## Attribution
 
