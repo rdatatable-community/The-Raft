@@ -350,7 +350,7 @@ The table below summarizes support for different features in each software packa
 | output name (data)    | `value.name`     | `value_name`    | `VALUE`     |
 | output name (columns) | `variable.name`  | `variable_name` | `INTO NAME` |
 | separator             | `sep`            | -               | -           |
-| regex                 | `pattern`        | no              | no          |
+| regex                 | `pattern`        | -               | -           |
 | multiple outputs      | `value.name`     | -               | -           |
 | avoid copies          | `setDT`, `setDF` | -               | -           |
 
