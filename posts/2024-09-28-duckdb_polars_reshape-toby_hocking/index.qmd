@@ -1,7 +1,7 @@
 ---
 title: "Comparing data.table reshape to duckdb and polars"
-author: "Toby Hocking"
-date: "2024-03-10"
+author: "Toby Dylan Hocking"
+date: "2024-10-07"
 categories: [tips, tutorials, developer, benchmarks]
 draft: false
 ---
