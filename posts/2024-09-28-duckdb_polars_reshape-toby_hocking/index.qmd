@@ -340,7 +340,7 @@ In this section, we showed that `data.table` provides an efficient and feature-r
 * `setDT` and `setDF` can be used to avoid un-necessary copies with `data.table`. In contrast, `duckdb`/`polars` require copies to/from regular R memory, which can add significant time/memory requirements.
 * `data.table` was fastest and most memory efficient in the comparisons we examined (both with and without consideration of copying).
 
-The table below summarizes support for different features in each software package.
+The table below summarizes support for different features in each software package (dash - means no support).
 
 | how to specify        | `data.table`     | `polars`        | `duckdb`    |
 |-----------------------|------------------|-----------------|-------------|
