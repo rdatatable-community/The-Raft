@@ -1,5 +1,5 @@
 ---
-title: "Comparing data.table reshape to duckdb and polars"
+title: "Comparing `data.table` reshape to `duckdb` and `polars`"
 author: "Toby Dylan Hocking"
 date: "2024-10-07"
 categories: [tips, tutorials, developer, benchmarks]
@@ -10,7 +10,7 @@ One element of [the NSF POSE grant for
 `data.table`](https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/)
 is to create benchmarks which can inform users about when `data.table`
 could be more performant than similar software. Two examples of
-similar software are duckdb and polars, which each provide in-memory
+similar software are `duckdb` and `polars`, which each provide in-memory
 database operations. This post explores the differences in
 computational requirements, and in functionality, for data reshaping
 operations. 
@@ -111,7 +111,7 @@ We can see in the plot above that there is a top strip for each `dim`
 and a right strip for each `part`, and each facet/panel contains a
 histogram of the corresponding subset of data.
 
-## Wide-to-long reshape via unpivot in polars
+## Wide-to-long reshape via unpivot in `polars`
 
 `polars` is an implementation of data frames in Rust, with bindings in R
 and Python. In `polars`, the wide-to-long data reshape operation is
@@ -129,9 +129,9 @@ our case, we use the code below:
 
 The output above is analogous to the result from `data.table::melt`,
 but with one column named `part.dim` instead of the two columns named
-`part` and `dim`, because polars does not support splitting the
+`part` and `dim`, because `polars` does not support splitting the
 reshaped column names into more than one output column. So with
-polars, if we wanted separate `part` and `dim` columns, we would have
+`polars`, if we wanted separate `part` and `dim` columns, we would have
 to specify that in a separate step, after the reshape. Or we could
 just use `facet_wrap` instead of `facet_grid`, as in the code below:
 
@@ -148,13 +148,13 @@ We can see in the plot above that there is a facet for each of the
 variables, but only one `part.dim` strip for each, instead of two strips
 (`part` and `dim`), as was the case for the previous plot.
 
-### Wide-to-long reshape via UNPIVOT in duckdb
+### Wide-to-long reshape via UNPIVOT in `duckdb`
 
 `duckdb` is a column-oriented database implemented in C++, with an R
 package that supports a DBI-compliant SQL interface. That means that
 we use R functions like `DBI::dbGetQuery` to get results, just like we
 would with any other database (Postgres, MySQL, etc). This is
-documented in the [duckdb R API](https://duckdb.org/docs/api/r.html)
+documented in the [`duckdb` R API](https://duckdb.org/docs/api/r.html)
 docs, which explain how to create a database connection, and then copy
 data from R to the database, as in the code below,
 
@@ -163,7 +163,7 @@ con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
 DBI::dbWriteTable(con, "iris_wide", iris)
 ```
 
-The [duckdb unpivot man
+The [`duckdb` unpivot man
 page](https://duckdb.org/docs/sql/statements/unpivot.html) explains
 how to do wide-to-long reshape operations, which requires specifying names of columns to reshape (no support for separator, nor regex).  In our case, we use the
 code below:
@@ -179,7 +179,7 @@ str(iris.long.duckdb)
 
 Above we use `str` to show a brief summary of the structure of the
 output, which is a `data.frame` with 600 rows.
-With `duckdb`, the output has one column named `part_dim` (dots in column names are not allowed so we use an underscore here instead), because it does not support splitting the reshaped column names into more than one output column. So with duckdb, if we wanted separate `part` and `dim` columns, we would have to specify that in a separate step, after the reshape. 
+With `duckdb`, the output has one column named `part_dim` (dots in column names are not allowed so we use an underscore here instead), because it does not support splitting the reshaped column names into more than one output column. So with `duckdb`, if we wanted separate `part` and `dim` columns, we would have to specify that in a separate step, after the reshape. 
 
 ## Creating `part` and `dim` columns
 
@@ -418,7 +418,7 @@ combination of `value.var` (`Sepal` or `Petal`), of `fun.aggregate`
 (`mean` or `sd`), and of `Species` (`setosa`, `versicolor`,
 `virginica`).
 
-## Long-to-wide reshape in polars 
+## Long-to-wide reshape in `polars`
 
 `polars` supports long-to-wide reshape via [the `pivot` method](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.pivot.html), as in the code below.
 
@@ -459,7 +459,7 @@ polars::as_polars_df(
 
 Above we see the result only has 6 columns (for `mean`), whereas the analogous result from `data.table::dcast` above had 12 columns (with additionally the `sd`).
 
-## Long-to-wide reshape in duckdb
+## Long-to-wide reshape in `duckdb`
 
 `duckdb` supports long-to-wide reshape via [the SQL `PIVOT` command](https://duckdb.org/docs/sql/statements/pivot.html), which can be used to recover the original iris data via the command below:
 
