@@ -26,11 +26,11 @@ from `?stats::reshape`), whereas in SQL we use the terms "pivoted" and
 
 | R table type | SQL table type | rows | columns |
 |--------------|----------------|------|---------|
-| tall         | unpivoted      | many | few     |
+| long         | unpivoted      | many | few     |
 | wide         | pivoted        | few  | many    |
 
-For the wide-to-tall reshape operation, `data.table` has `melt()` and
-SQL has `UNPIVOT`; for the tall-to-wide reshape operation,
+For the wide-to-long reshape operation, `data.table` has `melt()` and
+SQL has `UNPIVOT`; for the long-to-wide reshape operation,
 `data.table` has `dcast()` and SQL has `PIVOT`.
 
 | Reshape operation | `data.table` function | SQL function |
@@ -165,7 +165,7 @@ DBI::dbWriteTable(con, "iris_wide", iris)
 
 The [duckdb unpivot man
 page](https://duckdb.org/docs/sql/statements/unpivot.html) explains
-how to do wide-to-tall reshape operations, which requires specifying names of columns to reshape (no support for separator, nor regex).  In our case, we use the
+how to do wide-to-long reshape operations, which requires specifying names of columns to reshape (no support for separator, nor regex).  In our case, we use the
 code below:
 
 ```{r}
@@ -195,6 +195,22 @@ data.table(iris.long.duckdb)[
 ][]
 ```
 
+The code above first converts to `data.table`, then uses the square
+brackets to assign new columns. Inside the square brackets, there is a walrus assignment:
+* `,` comma because there is no first argument (no subset, use all rows)
+* `c("part","dim")` is the left side of the walrus `:=` assignment,
+  which specifies the new column names to create.
+* on the right side of the walrus, the result of `tstrsplit(part_dim,
+  split="[.]")` is used as the value to assign to the new columns
+  (`part_dim` is the column to split, and `"[.]"` is the regex to use
+  for splitting). 
+* Since `tstrsplit` returns a list of two character vectors, there
+  will be two new columns.
+
+Finally after the walrus square brackets, we use another empty square
+brackets `[]` to enable printing (there is no printing immediately
+after assigning new columns using the walrus operator).
+
 Another way of doing that, by specifying a regex, would be via
 `nc::capture_first_df` (recently given the `data.table` [Seal of
 Approval](https://rdatatable-community.github.io/The-Raft/posts/2024-08-01-seal_of_approval-nc/)),
@@ -206,6 +222,11 @@ nc::capture_first_df(iris.long.duckdb, part_dim=list(
   "[.]",
   dim=".*"))
 ```
+
+The code above specifies:
+* `capture_first_df`, a function for applying capturing regex to columns of a data frame;
+* `iris.long.duckdb` is the input data frame, in which there is the `part_dim` column to split;
+* `part=".*", "[.]", dim=".*"` makes the capturing regex; R argument names are used to define the new column names, based on the text captured in the corresponding regex (`".*"` means zero or more non-newline characters).
 
 Both results above are data tables with extra cols `part` and `dim`. For visualization, these data tables could be used with either `facet_grid` or `facet_wrap`, similar to the examples above.
 
@@ -222,7 +243,7 @@ In the ggplot system, we would need to compute a data table with columns `Sepal`
 
 Again, the `measure()` function in the code above operates by
 splitting the input column names using `sep`, which results in two
-groups (`Sepal` and `Width`, etc) for each of the measured
+groups (`Sepal.Width` split into `Sepal` and `Width`, etc) for each of the measured
 columns. The `value.name` keyword indicates that each unique value in
 the first group (`Sepal` and `Petal`) should be used as the name of an
 output column.
@@ -249,9 +270,9 @@ large data. To answer that question, we will use `atime`, which is an
 R package that allows us to see how much time/memory is required for
 computations in R, as a function of data size `N`. In the `setup`
 argument of the code below, we repeat the iris data for a certain
-number of rows `N`. The code in the other arguments is run for the time/memory measurement, and is very similar to the code presented in previous sections. One difference is that for `data.table` we use `id.vars` instead of `measure()`, to more closely match the arguments provided to the other unpivot functions.
+number of rows `N`. The code in the other arguments is run for the time/memory measurement, and is very similar to the code presented in previous sections. One difference is that for `data.table` we use `id.vars` instead of `measure()`, to more closely match the arguments provided to the other unpivot functions (for a more fair comparison).
 
-```{r}
+```{r atime-unpivot}
 seconds.limit <- 0.1
 unpivot.res <- atime::atime(
   N=2^seq(1,50),
@@ -271,11 +292,11 @@ unpivot.pred <- predict(unpivot.refs)
 plot(unpivot.pred)+coord_cartesian(xlim=c(1e1,1e7))
 ```
 
-In the plot above, the computation time in seconds is plotted as a function of `N`, the number of input rows to reshape. The horizontal reference line is drawn at `r seconds.limit` seconds, and the `N` highlighted corresponds to the throughput given that time limit. We see that `data.table` is comparable to, or slightly faster than `polars` (within 2x), and both are much faster than `duckdb` (more than 10x).
+In the plot above, the computation time in seconds is plotted as a function of `N`, the number of input rows to reshape. The horizontal reference line is drawn at `r seconds.limit` seconds, and the `N` highlighted corresponds to the throughput given that time limit. When we compare the `N` values shown for the different methods, we see that `data.table` is comparable to `polars` (within 2x), and both are much faster than `duckdb` (about 10x).
 
 Above there are several confounding factors in the comparison, most notably that data must be copied to `duckdb` and `polars` before and after processing. In contrast, `data.table` provides `setDT` and `setDF` functions, which can convert to/from data tables, without copying. So when data originates in R, or needs to come back to R, we should include the copy time for a more fair comparison. Below we run that comparison:
 
-```{r}
+```{r atime-unpivot-copy}
 seconds.limit <- 0.1
 unpivot.copy.res <- atime::atime(
   N=2^seq(1,50),
@@ -299,11 +320,11 @@ unpivot.copy.pred <- predict(unpivot.copy.refs)
 plot(unpivot.copy.pred)+coord_cartesian(xlim=c(1e1,1e7))
 ```
 
-The result above again shows that `data.table` is most efficient in
-terms of computation time. In this comparison, `data.table` is
-faster than `polars` by a much larger amount (more than 5x).
+The result above shows that `data.table` is most efficient in terms of
+computation time. In this comparison, `data.table` is clearly faster
+than `polars` (about 10x), and much faster than `duckdb` (about 100x).
 
-## Wide-to-long summary
+## Wide-to-long summary of functionality
 
 In this section, we showed that `data.table` provides an efficient and feature-rich implementation of wide-to-long data reshaping. 
 * `measure()` allows specification of columns to reshape using either
@@ -331,7 +352,7 @@ The table below summarizes support for different features in each software packa
 | multiple outputs      | `value.name`     | -               | -           |
 | avoid copies          | `setDT`, `setDF` | -               | -           |
 
-# Long-to-wide
+# Long-to-wide operations
 
 Another kind of reshape operation starts with a long table (many rows, few cols), and creates a wide table (many cols, few rows). I frequently use this operation when comparing results of machine learning algorithms (computing mean/SD over folds, p-values, etc). For examples of those use cases, please read my blog about [Visualizing prediction error](https://tdhock.github.io/blog/2024/viz-pred-err/). 
 
@@ -409,7 +430,7 @@ combination of `value.var` (`Sepal` or `Petal`), of `fun.aggregate`
 names(polars.wide)
 ```
 
-The output above is consistent with the results from `data.table::dcast`, and the original iris data, although the names are unusual. The next reshape example below shows that we need to create a dummy variable to use as the `on` argument.
+The output above is consistent with the results from `data.table::dcast`, and the original iris data, although the names are unusual (with curly braces and double quotes). The next reshape example below shows that we need to create a dummy variable to use as the `on` argument.
 
 ```{r}
 polars::as_polars_df(
@@ -442,13 +463,14 @@ Above we see the result only has 6 columns (for `mean`), whereas the analogous r
 
 ```{r}
 duckdb::dbWriteTable(con, "iris_long_i", iris.long.i, overwrite=TRUE)
-DBI::dbGetQuery(# wide reshape 1
+iris.wide.again.duckdb <- DBI::dbGetQuery(# wide reshape 1
   con, '
 PIVOT iris_long_i 
 ON part,dim 
 USING sum(value) 
 GROUP BY flower,Species 
 ORDER BY flower')
+str(iris.wide.again.duckdb)
 ```
 
 We can see that the result above is consistent with the previous sections.
@@ -487,9 +509,9 @@ the corresponding `data.table` code (which is more convenient).
 
 ## Long-to-wide performance comparison
 
-Below we conduct an `atime` benchmark to measure the computation time of the reshape operation (without including the copy operation).
+Below we conduct an `atime` benchmark to measure the computation time of the reshape operation (without controlling for the copy operation).
 
-```{r}
+```{r atime-pivot}
 seconds.limit <- 0.1
 pivot.res <- atime::atime(
   N=2^seq(1,50),
@@ -514,7 +536,7 @@ the others (bottom facet), although `duckdb` is slightly faster, and `polars` is
 slightly slower (less than 2x). 
 Below we run a more complex benchmark which also measures computation time for the copy operation (in addition to the reshape).
 
-```{r}
+```{r atime-pivot-copy}
 seconds.limit <- 0.1
 pivot.copy.res <- atime::atime(
   N=2^seq(1,50),
@@ -543,7 +565,7 @@ pivot.copy.pred <- predict(pivot.copy.refs)
 plot(pivot.copy.pred)+coord_cartesian(xlim=c(1e1,1e7))
 ```
 
-The result above shows that `data.table` is quite a bit faster than the others (5x). 
+The result above shows that `data.table` is quite a bit faster than the others (5x or more). 
 
 ## Summary of long-to-wide reshaping
 
