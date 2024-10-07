@@ -197,6 +197,7 @@ data.table(iris.long.duckdb)[
 
 The code above first converts to `data.table`, then uses the square
 brackets to assign new columns. Inside the square brackets, there is a walrus assignment:
+
 * `,` comma because there is no first argument (no subset, use all rows)
 * `c("part","dim")` is the left side of the walrus `:=` assignment,
   which specifies the new column names to create.
@@ -224,6 +225,7 @@ nc::capture_first_df(iris.long.duckdb, part_dim=list(
 ```
 
 The code above specifies:
+
 * `capture_first_df`, a function for applying capturing regex to columns of a data frame;
 * `iris.long.duckdb` is the input data frame, in which there is the `part_dim` column to split;
 * `part=".*", "[.]", dim=".*"` makes the capturing regex; R argument names are used to define the new column names, based on the text captured in the corresponding regex (`".*"` means zero or more non-newline characters).
