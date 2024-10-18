@@ -4,32 +4,34 @@ author: "Community Team"
 date: "2024-06-12"
 categories: [announcements, grant, ambassadors, travel]
 image: "Paola_Corrales.jpg"
-draft: true
+draft: false
 ---
 
 ## Please join me in congratulting our new **data.table Ambassador: Paola Corrales**!
 
 ![A round of applause!](https://media2.giphy.com/media/ctXgY5wQbzhHyShCnF/giphy.gif?cid=790b7611y919l9yrzx0l7pszuyqcufsq39eoegy1tthi1opa&ep=v1_gifs_search&rid=giphy.gif&ct=g)
 
-. You can find his great work in open-source development at [github.com/jangorecki](https://github.com/jangorecki). Find him on Mastodon at [fosstodon.org/\@jangorecki](https://fosstodon.org/@jangorecki) to say congratulations, or chat about all things `data.table`.
+Paola is a professor teaching Data Science at Guillermo Brown University in Argentina, a developer of R packages and teaching materials, and a leader of the LatinR community. She has used `data.table` in her research work for over 6 years, and is an active participant in many Spanish translation projects for `data.table` and other R packages.  You can find more of her projects, teaching, and blog posts - in Spanish and English - at [https://paocorrales.github.io/](https://paocorrales.github.io/). Find her on Mastodon at [fosstodon.org/\@jangorecki](https://fosstodon.org/@paocorrales) to say congratulations, or chat about all things `data.table`.
 
 ## Talks
 
-As part of his Ambassador role, Jan will be giving three exciting talks this year:
+As part of his Ambassador role, Paola will be conducting a pre-conference tutorial at the 2024 UseR! meetings in Salzburg, Austria. 
 
-### [Rolling statistics and moving windows](https://www.meetup.com/edinbr/events/298492818/) in Edinburgh on **January 26th**, with the Edinburgh R Users group.
+### [Efficient Data Analysis with `data.table`](https://github.com/paocorrales/intro-datatable) 
 
-> Rolling statistics are an interesting topic for optimizations, therefore in my talk I will use R language to present naive implementation, and the optimized implementation, on a simple case of rolling mean. Then I will move to data.table implementations of rolling statistics explaining possible optimizations in other functions, which are not that straightforward anymore, like min/max and, actually very complex, median. Finally benchmarks will be presented comparing data.table implementations to base R, pandas, polars, slider/dplyr, duckdb and spark.
-
-### [High-productivity data frame operations with data.table](https://www.meetup.com/sevilla-r-users/events/298628185/) on **February 8th** in Sevilla, Spain with the Sevilla R Users group
-
-![Talk with SevillaR](https://secure.meetupstatic.com/photos/event/c/1/1/c/600_518569436.webp?w=750)
-
-[Register to watch online here](https://bit.ly/SevillaR_data-table)
-
-### The Spanish R Conference in Sevilla, Spain. (Date and topic TBD)
-
-We look forward to Jan's excellent talks, and a forthcoming blog post right here on The Raft to share his experiences - and of course, his continued wonderful contributions to the `data.table` community. Thank you, Jan!
+> data.table is one of the most efficient open-source in-memory data manipulation
+packages available today. It can summarise, compute new variables, re-arrange
+tables and perform group-wise operations quickly, and memory efficiently thanks to
+its highly optimised C code. It also provides fast alternatives to base R functions for
+reading and writing files.
+This three-hour tutorial will introduce participants to data.table’s basics. Through live
+coding sessions and hands-on exercises, participants will learn how to use
+data.table as part of their data analysis pipeline; from reading data into memory to
+writing the results back, including exploration, data manipulation and joins. The
+tutorial will also lay the foundations for learning more advanced features, such as
+special symbols and combined operations.
+We will finish the tutorial with an invitation to join the data.table community and learn
+how to contribute to the package.
 
 ## Become an Ambassador
 
