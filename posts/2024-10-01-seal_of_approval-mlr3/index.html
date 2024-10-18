@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Toby Hocking">
-<meta name="dcterms.date" content="2024-02-18">
+<meta name="author" content="Maximilian Mücke">
+<meta name="dcterms.date" content="2024-10-01">
 
-<title>Column assignment and reference semantics in {data.table} – Blog</title>
+<title>Seal of Approval: mlr3 – Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -230,11 +230,10 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Column assignment and reference semantics in {data.table}</h1>
+      <h1 class="title">Seal of Approval: mlr3</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">tips</div>
-                <div class="quarto-category">tutorials</div>
-                <div class="quarto-category">developer</div>
+                <div class="quarto-category">seal of approval</div>
+                <div class="quarto-category">application package</div>
               </div>
                   </div>
   </div>
@@ -245,14 +244,14 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Toby Hocking </p>
+               <p>Maximilian Mücke </p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 18, 2024</p>
+        <p class="date">October 1, 2024</p>
       </div>
     </div>
     
@@ -271,212 +270,110 @@ window.Quarto = {
 
 
 
-<p>The goal of this blog post is to explain some similarities and differences between the base R <code>data.frame</code> object type, and the <code>data.table</code> object type. We will focus on accessing and assigning values, and discuss two major differences:</p>
-<ul>
-<li><p><strong>Syntax</strong> means the structure of the code that is used: the characters and symbols that execute tasks. The <code>data.table</code> package uses a syntax where most operations can be done within the square brackets: <code>DT[i, j, by]</code>.</p></li>
-<li><p><strong>Semantics</strong> refers to the internal structure of an object or variable. We say that a <code>data.table</code> object has <em>reference semantics</em>, meaning we can modify a <code>data.table</code> from within a function, and see those modifications after the function is done executing. In other words, two different R variables can point to, and modify, the same <code>data.table</code>.</p></li>
-</ul>
-<section id="difference-in-syntax" class="level2">
-<h2 class="anchored" data-anchor-id="difference-in-syntax">Difference in syntax</h2>
-<p>To break down the similarities and differences in syntax, consider the data below,</p>
-<div class="cell">
-<details class="code-fold">
-<summary>See source code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>syntax <span class="ot">&lt;-</span> <span class="cf">function</span>(type, name, columns, code){</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  mcall <span class="ot">&lt;-</span> <span class="fu">match.call</span>()</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  dt.args <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">as.list</span>(mcall[<span class="sc">-</span><span class="dv">1</span>]), paste)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do.call</span>(data.table, dt.args)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>syntax.tab <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">syntax</span>(frame, literal, one, <span class="st">"df$col_name &lt;- value"</span>),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">syntax</span>(table, literal, one, <span class="st">"DT[, col_name := value]"</span>),</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">syntax</span>(frame, variable, multiple, <span class="st">'df[, col_names_list] &lt;- values'</span>),</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">syntax</span>(table, variable, multiple, <span class="st">'DT[, (col_names_list) := values]'</span>))</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>syntax.tab <span class="sc">|&gt;</span> <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">type</th>
-<th style="text-align: left;">name</th>
-<th style="text-align: left;">columns</th>
-<th style="text-align: left;">code</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">frame</td>
-<td style="text-align: left;">literal</td>
-<td style="text-align: left;">one</td>
-<td style="text-align: left;">df$col_name &lt;- value</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">table</td>
-<td style="text-align: left;">literal</td>
-<td style="text-align: left;">one</td>
-<td style="text-align: left;">DT[, col_name := value]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">frame</td>
-<td style="text-align: left;">variable</td>
-<td style="text-align: left;">multiple</td>
-<td style="text-align: left;">df[, col_names_list] &lt;- values</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">table</td>
-<td style="text-align: left;">variable</td>
-<td style="text-align: left;">multiple</td>
-<td style="text-align: left;">DT[, (col_names_list) := values]</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>The table above defines the different syntax required to do column assignment in data tables (<code>DT</code>) and frames (<code>df</code>).</p>
-<ul>
-<li><p><code>type</code> indicates object type: <em>frame</em> or <em>table</em>.</p></li>
-<li><p><code>name</code> indicates whether the column(s) to assign are literally written in the code (<code>col_name</code>), or if the names are stored in a variable (<code>col_names_list</code>).</p></li>
-<li><p><code>columns</code> indicates whether only one or multiple (one or more) columns can be assigned using the syntax.</p></li>
-<li><p><code>code</code> is the exact syntax of the R code used for the assignment.</p></li>
-</ul>
-<p>Note that there are other ways to do column assignment. For example,</p>
-<ul>
-<li><p><code>DF[["col_name"]] &lt;- value</code> can also be used for single column assignment in a data frame.</p></li>
-<li><p><code>set(DT, j=col_name_list, value=values)</code> is a more efficient version of column assignment for data tables, that is recommended for use in loops, as it avoids the overhead of the <code>[.data.table</code> method.</p></li>
-</ul>
-<p>Below is a reshaped version of the table above, to facilitate easier comparison between <code>frame</code> and <code>table</code> versions:</p>
-<div class="cell">
-<details class="code-fold">
-<summary>See source code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">width=</span><span class="dv">100</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">dcast</span>(syntax.tab, name <span class="sc">+</span> columns <span class="sc">~</span> type, <span class="at">value.var=</span><span class="st">"code"</span>)  <span class="sc">|&gt;</span> <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 37%">
-<col style="width: 40%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">name</th>
-<th style="text-align: left;">columns</th>
-<th style="text-align: left;">frame</th>
-<th style="text-align: left;">table</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">literal</td>
-<td style="text-align: left;">one</td>
-<td style="text-align: left;">df$col_name &lt;- value</td>
-<td style="text-align: left;">DT[, col_name := value]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">variable</td>
-<td style="text-align: left;">multiple</td>
-<td style="text-align: left;">df[, col_names_list] &lt;- values</td>
-<td style="text-align: left;">DT[, (col_names_list) := values]</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>The table above shows the equivalent code for assignment of columns using either a <code>data.frame</code> or <code>data.table</code>. In fact, the code in the <em>frame</em> column above can also be used for assignment of a <code>data.table</code>, but it may be less efficient than the data table square brackets, as we will discuss in the next section.</p>
-<p>One reason why <code>data.table</code> uses a custom assignment syntax is for consistency: the same syntax can be used, with square brackets and <code>:=</code>, for one or multiple column assignment. (Note the use parentheses around <code>col_names_list</code> in the second row of the <em>table</em> column above, to indicate that the left side of <code>:=</code> is a variable storing column names or numbers, instead of a direct unquoted column name.)</p>
-<p>Another reason why <code>data.table</code> uses a custom assignment syntax is for efficiency, as we see in the next section.</p>
-</section>
-<section id="base-copy-on-write-versus-data.table-reference-semantics" class="level2">
-<h2 class="anchored" data-anchor-id="base-copy-on-write-versus-data.table-reference-semantics">Base “copy on write” versus <code>data.table</code> reference semantics</h2>
-<p>R has “copy on write” semantics, meaning that in base R if a variable is modified inside a function, a copy is made of the whole variable. For example, consider the code below</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dt_outside <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>base_assign <span class="ot">&lt;-</span> <span class="cf">function</span>(dt_inside, variable, value){</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  dt_inside[<span class="dv">1</span>,variable] <span class="ot">&lt;-</span> value <span class="co"># makes a copy of input variable!</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">base_assign</span>(dt_outside, <span class="st">"x"</span>, <span class="dv">0</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>dt_outside</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       x
-   &lt;int&gt;
-1:     1
-2:     2
-3:     3</code></pre>
-</div>
-</div>
-<p>In the code above, we pass <code>dt_outside</code> to the <code>base_assign</code> function, which makes a copy called <code>dt_inside</code> before it is modified, so that the data in <code>dt_outside</code> is unchanged after the function is done. Compare with the code below,</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dt_assign <span class="ot">&lt;-</span> <span class="cf">function</span>(dt_inside, variable, value){</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  dt_inside[<span class="dv">1</span>, (variable) <span class="sc">:</span><span class="er">=</span> value] <span class="co"># directly modifies input variable</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dt_assign</span>(dt_outside, <span class="st">"x"</span>, <span class="dv">0</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>dt_outside</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       x
-   &lt;int&gt;
-1:     0
-2:     2
-3:     3</code></pre>
-</div>
-</div>
-<p>The output above shows that by using the square brackets and <code>:=</code> assignment, we can modify <code>data.table</code> objects in functions without copying them. Here, the variables <code>dt_inside</code> and <code>dt_outside</code> point to the same underlying data.</p>
-<section id="efficiency-of-reference-semantics" class="level3">
-<h3 class="anchored" data-anchor-id="efficiency-of-reference-semantics">Efficiency of reference semantics</h3>
-<p>Reference semantics mean that <code>data.table</code> assignment is potentially much more efficient than base R, in terms of time and memory usage. To demonstrate, we use the following benchmark. Assume we have a table with <span class="math inline">\(N\)</span> rows, but we just want to modify one row. This should be a constant time/space operation (independent of <span class="math inline">\(N\)</span>), but because of the base R copy on write semantics, it will be a linear time/space operation, <span class="math inline">\(O(N)\)</span>.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>See source code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>atime_result <span class="ot">&lt;-</span> atime<span class="sc">::</span><span class="fu">atime</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">N =</span> <span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">7</span>, <span class="at">by =</span> <span class="fl">0.5</span>),</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">setup =</span> {</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    dt <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span>N)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  },</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dt_assign =</span> <span class="fu">dt_assign</span>(dt, <span class="st">"x"</span>, <span class="dv">0</span>),</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">base_assign =</span> <span class="fu">base_assign</span>(dt, <span class="st">"x"</span>, <span class="dv">0</span>))</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(atime_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
+<section id="mlr3" class="level2">
+<h2 class="anchored" data-anchor-id="mlr3"><a href="https://mlr3.mlr-org.com/"><code>mlr3</code></a></h2>
+<p><em>Author(s):</em> Michel Lang, Bernd Bischl, Jakob Richter, Patrick Schratz, Martin Binder, Florian Pfisterer, Raphael Sonabend, Marc Becker, Sebastian Fischer</p>
+<p><em>Maintainer:</em> Marc Becker (marcbecker@posteo.de)</p>
+<p><a href="https://github.com/Rdatatable/data.table/pull/6430">Seal of Approval</a></p>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="hex.png" class="img-fluid figure-img"></p>
+<figcaption>mlr3 hex sticker</figcaption>
 </figure>
 </div>
-</div>
-</div>
-<p>We can see from the plot above that for <code>base_assign</code>, both time and space increase with <span class="math inline">\(N\)</span>, because the entire table is copied; whereas <code>dt_assign</code> is constant time/space, because only one row is modified with no copy necessary.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The code in this section used a <code>data.table</code> object in both function calls to illustrate the constant time/space assignment which is possible, but the visualized result also applies to other data structures.</p>
-<p>As an exercise, add two more expressions to the <code>atime</code> benchmark: <code>base_assign</code> with a <code>data.frame</code> object and <code>tibble</code> object. You should see linear time/space for both.</p>
-</div>
-</div>
+<p>A modern object-oriented machine learning framework. Successor of <a href="https://github.com/mlr-org/mlr">mlr</a>.</p>
 </section>
+<section id="relationship-with-data.table" class="level2">
+<h2 class="anchored" data-anchor-id="relationship-with-data.table">Relationship with <code>data.table</code></h2>
+<p><code>mlr3</code> was designed to integrate closely with <code>data.table</code> for efficient data handling in machine learning workflows. There are two main ways <code>mlr3</code> is related to <code>data.table</code>:</p>
+<ol type="1">
+<li><strong>Data Backend</strong>: <code>mlr3</code> uses <code>data.table</code> as the core data backend for all <code>Task</code> objects. This means that when you work with tasks in <code>mlr3</code>, the underlying data is stored and managed using <code>data.table</code>. Moreover, users can leverage <code>data.table</code> syntax directly within <code>mlr3</code> workflows. Accessing task data via <code>task$data()</code> returns a <code>data.table</code>, enabling you to apply <code>data.table</code> operations for data preprocessing, feature engineering, and subsetting without any additional conversion or overhead.</li>
+<li><strong>Result Storage</strong>: <code>mlr3</code> stores various results such as predictions, resampling outcomes, and benchmarking results as <code>data.table</code> objects.</li>
+</ol>
 </section>
-<section id="conclusions" class="level2">
-<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>In this post we have explored the syntax and semantics for assignment using base R and <code>data.table</code> square brackets with <code>:=</code>, and we have seen how the reference semantics of <code>data.table</code> can be very beneficial for computational efficiency.</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p><em>Excerpted from the <a href="https://mlr3book.mlr-org.com/chapters/chapter1/introduction_and_overview.html"><code>mlr3</code> book</a></em></p>
+<p>The mlr3 universe includes a wide range of tools taking you from basic ML to complex experiments. To get started, here is an example of the simplest functionality – training a model and making predictions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>task <span class="ot">=</span> <span class="fu">tsk</span>(<span class="st">"penguins"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>split <span class="ot">=</span> <span class="fu">partition</span>(task)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">lrn</span>(<span class="st">"classif.rpart"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span><span class="fu">train</span>(task, <span class="at">row_ids =</span> split<span class="sc">$</span>train)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>n= 230 
+
+node), split, n, loss, yval, (yprob)
+      * denotes terminal node
+
+1) root 230 124 Adelie (0.460869565 0.191304348 0.347826087)  
+  2) flipper_length&lt; 207 148  44 Adelie (0.702702703 0.290540541 0.006756757)  
+    4) bill_length&lt; 43.35 105   4 Adelie (0.961904762 0.038095238 0.000000000) *
+    5) bill_length&gt;=43.35 43   4 Chinstrap (0.069767442 0.906976744 0.023255814) *
+  3) flipper_length&gt;=207 82   3 Gentoo (0.024390244 0.012195122 0.963414634) *</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>prediction <span class="ot">=</span> learner<span class="sc">$</span><span class="fu">predict</span>(task, <span class="at">row_ids =</span> split<span class="sc">$</span>test)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>prediction</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;PredictionClassif&gt; for 114 observations:
+    row_ids     truth  response
+          4    Adelie    Adelie
+          5    Adelie    Adelie
+         10    Adelie    Adelie
+---                            
+        340 Chinstrap    Gentoo
+        343 Chinstrap    Gentoo
+        344 Chinstrap Chinstrap</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>prediction<span class="sc">$</span><span class="fu">score</span>(<span class="fu">msr</span>(<span class="st">"classif.acc"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>classif.acc 
+  0.9473684 </code></pre>
+</div>
+</div>
+<p>In this example, we trained a decision tree on a subset of the <code>penguins</code> dataset, made predictions on the rest of the data and then evaluated these with the accuracy measure.</p>
+<p>The <code>mlr3</code> interface also lets you run more complicated experiments in just a few lines of code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3verse)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>tasks <span class="ot">=</span> <span class="fu">tsks</span>(<span class="fu">c</span>(<span class="st">"german_credit"</span>, <span class="st">"sonar"</span>))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>glrn_rf_tuned <span class="ot">=</span> <span class="fu">as_learner</span>(<span class="fu">ppl</span>(<span class="st">"robustify"</span>) <span class="sc">%&gt;&gt;%</span> <span class="fu">auto_tuner</span>(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tnr</span>(<span class="st">"grid_search"</span>, <span class="at">resolution =</span> <span class="dv">5</span>),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lrn</span>(<span class="st">"classif.ranger"</span>, <span class="at">num.trees =</span> <span class="fu">to_tune</span>(<span class="dv">200</span>, <span class="dv">500</span>)),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rsmp</span>(<span class="st">"holdout"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>glrn_rf_tuned<span class="sc">$</span>id <span class="ot">=</span> <span class="st">"RF"</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>glrn_stack <span class="ot">=</span> <span class="fu">as_learner</span>(<span class="fu">ppl</span>(<span class="st">"robustify"</span>) <span class="sc">%&gt;&gt;%</span> <span class="fu">ppl</span>(<span class="st">"stacking"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lrns</span>(<span class="fu">c</span>(<span class="st">"classif.rpart"</span>, <span class="st">"classif.kknn"</span>)),</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lrn</span>(<span class="st">"classif.log_reg"</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>glrn_stack<span class="sc">$</span>id <span class="ot">=</span> <span class="st">"Stack"</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>learners <span class="ot">=</span> <span class="fu">c</span>(glrn_rf_tuned, glrn_stack)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>bmr <span class="ot">=</span> <span class="fu">benchmark</span>(<span class="fu">benchmark_grid</span>(tasks, learners, <span class="fu">rsmp</span>(<span class="st">"cv"</span>, <span class="at">folds =</span> <span class="dv">3</span>)))</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>bmr<span class="sc">$</span><span class="fu">aggregate</span>(<span class="fu">msr</span>(<span class="st">"classif.acc"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      nr       task_id learner_id resampling_id iters classif.acc
+   &lt;int&gt;        &lt;char&gt;     &lt;char&gt;        &lt;char&gt; &lt;int&gt;       &lt;num&gt;
+1:     1 german_credit         RF            cv     3   0.7749966
+2:     2 german_credit      Stack            cv     3   0.7450175
+3:     3         sonar         RF            cv     3   0.8077295
+4:     4         sonar      Stack            cv     3   0.7121463
+Hidden columns: resample_result</code></pre>
+</div>
+</div>
+<p>In this more complex example, we selected two tasks and two learners, used automated tuning to optimize the number of trees in the random forest learner, and employed a machine learning pipeline that imputes missing data, consolidates factor levels, and stacks models. We also showed basic features like loading learners and choosing resampling strategies for benchmarking. Finally, we compared the performance of the models using the mean accuracy with three-fold cross-validation.</p>
 
 
 
@@ -757,70 +654,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="13" data-listing-file-modified-sort="1729223277457">
-<div class="thumbnail">
-<p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index-listing.json" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index-listing.json" class="no-external">
-</a><p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index-listing.json" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index-listing.json" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index-listing.json" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index-listing.json" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index-listing.json" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index-listing.json" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="14" data-listing-file-modified-sort="1729223277453">
-<div class="thumbnail">
-<p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.feed-full-staged" class="no-external">
-</a><p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.feed-full-staged" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.feed-full-staged" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.feed-full-staged" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.feed-full-staged" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.feed-full-staged" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="15" data-listing-file-modified-sort="1729223277553">
-<div class="thumbnail">
-<p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">
-</a><p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="16" data-listing-file-modified-sort="1729223273501">
+<div class="quarto-post image-right" data-index="13" data-listing-file-modified-sort="1729223273501">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external">
 </a><p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external"></a></p>
@@ -841,7 +675,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="17" data-listing-file-modified-sort="1729223273497">
+<div class="quarto-post image-right" data-index="14" data-listing-file-modified-sort="1729223273497">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external">
 </a><p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external"></a></p>
@@ -862,7 +696,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="18" data-listing-file-modified-sort="1729223273597">
+<div class="quarto-post image-right" data-index="15" data-listing-file-modified-sort="1729223273597">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">
 </a><p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a></p>
@@ -883,7 +717,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="19" data-listing-file-modified-sort="1729223250465">
+<div class="quarto-post image-right" data-index="16" data-listing-file-modified-sort="1729223250465">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/jan.png" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/jan.png" class="no-external">
 </a><p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/jan.png" class="no-external"></a></p>
@@ -904,7 +738,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="20" data-listing-file-modified-sort="1729223250465">
+<div class="quarto-post image-right" data-index="17" data-listing-file-modified-sort="1729223250465">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/image.jpg" class="no-external"></a></p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/image.jpg" class="no-external">
 </a><p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/image.jpg" class="no-external"></a></p>
@@ -925,7 +759,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="21" data-listing-file-modified-sort="1729223271721">
+<div class="quarto-post image-right" data-index="18" data-listing-file-modified-sort="1729223271721">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index-listing.json" class="no-external">
 </a><p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index-listing.json" class="no-external"></a></p>
@@ -946,7 +780,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="22" data-listing-file-modified-sort="1729223271717">
+<div class="quarto-post image-right" data-index="19" data-listing-file-modified-sort="1729223271717">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.feed-full-staged" class="no-external">
 </a><p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.feed-full-staged" class="no-external"></a></p>
@@ -967,7 +801,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="23" data-listing-file-modified-sort="1729223271821">
+<div class="quarto-post image-right" data-index="20" data-listing-file-modified-sort="1729223271821">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a></p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">
 </a><p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a></p>
@@ -988,7 +822,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="24" data-listing-file-modified-sort="1729223250465">
+<div class="quarto-post image-right" data-index="21" data-listing-file-modified-sort="1729223250465">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/styles.css" class="no-external"></a></p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/styles.css" class="no-external">
 </a><p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/styles.css" class="no-external"></a></p>
@@ -1009,7 +843,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="25" data-listing-file-modified-sort="1729223250465">
+<div class="quarto-post image-right" data-index="22" data-listing-file-modified-sort="1729223250465">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/New-Release.jpg" class="no-external"></a></p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/New-Release.jpg" class="no-external">
 </a><p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/New-Release.jpg" class="no-external"></a></p>
@@ -1030,7 +864,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="26" data-listing-file-modified-sort="1729223250465">
+<div class="quarto-post image-right" data-index="23" data-listing-file-modified-sort="1729223250465">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/timeline.png" class="no-external"></a></p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/timeline.png" class="no-external">
 </a><p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/timeline.png" class="no-external"></a></p>
@@ -1051,7 +885,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="27" data-listing-file-modified-sort="1729223250465">
+<div class="quarto-post image-right" data-index="24" data-listing-file-modified-sort="1729223250465">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/brackets.png" class="no-external"></a></p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/brackets.png" class="no-external">
 </a><p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/brackets.png" class="no-external"></a></p>
@@ -1072,7 +906,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="28" data-listing-file-modified-sort="1729223250465">
+<div class="quarto-post image-right" data-index="25" data-listing-file-modified-sort="1729223250465">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/image.jpg" class="no-external"></a></p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/image.jpg" class="no-external">
 </a><p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/image.jpg" class="no-external"></a></p>
@@ -1093,7 +927,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="29" data-listing-file-modified-sort="1729223250465">
+<div class="quarto-post image-right" data-index="26" data-listing-file-modified-sort="1729223250465">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/copy_on_modify.png" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/copy_on_modify.png" class="no-external">
 </a><p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/copy_on_modify.png" class="no-external"></a></p>
@@ -1114,28 +948,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="30" data-listing-file-modified-sort="1729223250133">
-<div class="thumbnail">
-<p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external">
-</a><p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="31" data-listing-file-modified-sort="1729223250465">
+<div class="quarto-post image-right" data-index="27" data-listing-file-modified-sort="1729223250465">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/contribution_area.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/contribution_area.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/contribution_area.png" class="no-external"></a></p>
@@ -1156,7 +969,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="32" data-listing-file-modified-sort="1729223250469">
+<div class="quarto-post image-right" data-index="28" data-listing-file-modified-sort="1729223250469">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/experience.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/experience.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/experience.png" class="no-external"></a></p>
@@ -1177,7 +990,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="33" data-listing-file-modified-sort="1729223250469">
+<div class="quarto-post image-right" data-index="29" data-listing-file-modified-sort="1729223250469">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/importance_vs_satisfaction_area.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/importance_vs_satisfaction_area.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/importance_vs_satisfaction_area.png" class="no-external"></a></p>
@@ -1198,7 +1011,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="34" data-listing-file-modified-sort="1729223250469">
+<div class="quarto-post image-right" data-index="30" data-listing-file-modified-sort="1729223250469">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/pipe_helper.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/pipe_helper.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/pipe_helper.png" class="no-external"></a></p>
@@ -1219,7 +1032,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="35" data-listing-file-modified-sort="1729223250469">
+<div class="quarto-post image-right" data-index="31" data-listing-file-modified-sort="1729223250469">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area.png" class="no-external"></a></p>
@@ -1240,7 +1053,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="36" data-listing-file-modified-sort="1729223250469">
+<div class="quarto-post image-right" data-index="32" data-listing-file-modified-sort="1729223250469">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area_experience.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area_experience.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area_experience.png" class="no-external"></a></p>
@@ -1261,7 +1074,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="37" data-listing-file-modified-sort="1729223250469">
+<div class="quarto-post image-right" data-index="33" data-listing-file-modified-sort="1729223250469">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality.png" class="no-external"></a></p>
@@ -1282,7 +1095,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="38" data-listing-file-modified-sort="1729223250473">
+<div class="quarto-post image-right" data-index="34" data-listing-file-modified-sort="1729223250473">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality_experience.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality_experience.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality_experience.png" class="no-external"></a></p>
@@ -1303,7 +1116,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="39" data-listing-file-modified-sort="1729223250473">
+<div class="quarto-post image-right" data-index="35" data-listing-file-modified-sort="1729223250473">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_area.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_area.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_area.png" class="no-external"></a></p>
@@ -1324,7 +1137,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="40" data-listing-file-modified-sort="1729223250473">
+<div class="quarto-post image-right" data-index="36" data-listing-file-modified-sort="1729223250473">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_context.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_context.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_context.png" class="no-external"></a></p>
@@ -1345,7 +1158,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="41" data-listing-file-modified-sort="1729223250473">
+<div class="quarto-post image-right" data-index="37" data-listing-file-modified-sort="1729223250473">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_frequency.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_frequency.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_frequency.png" class="no-external"></a></p>
@@ -1366,7 +1179,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="42" data-listing-file-modified-sort="1729223250473">
+<div class="quarto-post image-right" data-index="38" data-listing-file-modified-sort="1729223250473">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/walrus_alias.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/walrus_alias.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/walrus_alias.png" class="no-external"></a></p>
@@ -1387,7 +1200,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="43" data-listing-file-modified-sort="1729223250477">
+<div class="quarto-post image-right" data-index="39" data-listing-file-modified-sort="1729223250477">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-06-interviews-anirban_chetia/index.jpeg" class="no-external"></a></p><a href="../../posts/2024-03-06-interviews-anirban_chetia/index.jpeg" class="no-external">
 </a><p><a href="../../posts/2024-03-06-interviews-anirban_chetia/index.jpeg" class="no-external"></a></p>
@@ -1408,7 +1221,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="44" data-listing-file-modified-sort="1729223250477">
+<div class="quarto-post image-right" data-index="40" data-listing-file-modified-sort="1729223250477">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-06-interviews-anirban_chetia/roadmap.png" class="no-external"></a></p><a href="../../posts/2024-03-06-interviews-anirban_chetia/roadmap.png" class="no-external">
 </a><p><a href="../../posts/2024-03-06-interviews-anirban_chetia/roadmap.png" class="no-external"></a></p>
@@ -1429,7 +1242,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="45" data-listing-file-modified-sort="1729223250477">
+<div class="quarto-post image-right" data-index="41" data-listing-file-modified-sort="1729223250477">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/code_testing.png" class="no-external"></a></p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/code_testing.png" class="no-external">
 </a><p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/code_testing.png" class="no-external"></a></p>
@@ -1450,7 +1263,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="46" data-listing-file-modified-sort="1729223250477">
+<div class="quarto-post image-right" data-index="42" data-listing-file-modified-sort="1729223250477">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/revdep_sig_diffs.png" class="no-external"></a></p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/revdep_sig_diffs.png" class="no-external">
 </a><p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/revdep_sig_diffs.png" class="no-external"></a></p>
@@ -1471,7 +1284,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="47" data-listing-file-modified-sort="1729223250477">
+<div class="quarto-post image-right" data-index="43" data-listing-file-modified-sort="1729223250477">
 <div class="thumbnail">
 <p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/image.jpg" class="no-external"></a></p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/image.jpg" class="no-external">
 </a><p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/image.jpg" class="no-external"></a></p>
@@ -1492,7 +1305,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="48" data-listing-file-modified-sort="1729223250477">
+<div class="quarto-post image-right" data-index="44" data-listing-file-modified-sort="1729223250477">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/losdos.png" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/losdos.png" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/losdos.png" class="no-external"></a></p>
@@ -1513,7 +1326,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="49" data-listing-file-modified-sort="1729223250477">
+<div class="quarto-post image-right" data-index="45" data-listing-file-modified-sort="1729223250477">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/orwell.jpeg" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/orwell.jpeg" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/orwell.jpeg" class="no-external"></a></p>
@@ -1534,7 +1347,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="50" data-listing-file-modified-sort="1729223250477">
+<div class="quarto-post image-right" data-index="46" data-listing-file-modified-sort="1729223250477">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/paths.jpg" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/paths.jpg" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/paths.jpg" class="no-external"></a></p>
@@ -1555,7 +1368,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="51" data-listing-file-modified-sort="1729223250477">
+<div class="quarto-post image-right" data-index="47" data-listing-file-modified-sort="1729223250477">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/porque.jpg" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/porque.jpg" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/porque.jpg" class="no-external"></a></p>
@@ -1576,7 +1389,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="52" data-listing-file-modified-sort="1729223250489">
+<div class="quarto-post image-right" data-index="48" data-listing-file-modified-sort="1729223250489">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/quote_bubble.jpeg" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/quote_bubble.jpeg" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/quote_bubble.jpeg" class="no-external"></a></p>
@@ -1597,7 +1410,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="53" data-listing-file-modified-sort="1729223250489">
+<div class="quarto-post image-right" data-index="49" data-listing-file-modified-sort="1729223250489">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/xkcd.png" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/xkcd.png" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/xkcd.png" class="no-external"></a></p>
@@ -1618,7 +1431,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="54" data-listing-file-modified-sort="1729223250489">
+<div class="quarto-post image-right" data-index="50" data-listing-file-modified-sort="1729223250489">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/Paola_Corrales.jpg" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/Paola_Corrales.jpg" class="no-external">
 </a><p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/Paola_Corrales.jpg" class="no-external"></a></p>
@@ -1639,7 +1452,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="55" data-listing-file-modified-sort="1729223269657">
+<div class="quarto-post image-right" data-index="51" data-listing-file-modified-sort="1729223269657">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index-listing.json" class="no-external">
 </a><p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index-listing.json" class="no-external"></a></p>
@@ -1660,7 +1473,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="56" data-listing-file-modified-sort="1729223269653">
+<div class="quarto-post image-right" data-index="52" data-listing-file-modified-sort="1729223269653">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.feed-full-staged" class="no-external">
 </a><p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.feed-full-staged" class="no-external"></a></p>
@@ -1681,7 +1494,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="57" data-listing-file-modified-sort="1729223269749">
+<div class="quarto-post image-right" data-index="53" data-listing-file-modified-sort="1729223269749">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">
 </a><p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a></p>
@@ -1702,7 +1515,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="58" data-listing-file-modified-sort="1729223250493">
+<div class="quarto-post image-right" data-index="54" data-listing-file-modified-sort="1729223250493">
 <div class="thumbnail">
 <p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/image.jpg" class="no-external"></a></p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/image.jpg" class="no-external">
 </a><p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/image.jpg" class="no-external"></a></p>
@@ -1723,7 +1536,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="59" data-listing-file-modified-sort="1729223250493">
+<div class="quarto-post image-right" data-index="55" data-listing-file-modified-sort="1729223250493">
 <div class="thumbnail">
 <p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/seal_of_approval.png" class="no-external"></a></p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/seal_of_approval.png" class="no-external">
 </a><p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/seal_of_approval.png" class="no-external"></a></p>
@@ -1744,7 +1557,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="60" data-listing-file-modified-sort="1729223250497">
+<div class="quarto-post image-right" data-index="56" data-listing-file-modified-sort="1729223250497">
 <div class="thumbnail">
 <p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/seal_of_approval_2.png" class="no-external"></a></p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/seal_of_approval_2.png" class="no-external">
 </a><p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/seal_of_approval_2.png" class="no-external"></a></p>
@@ -1765,7 +1578,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="61" data-listing-file-modified-sort="1729223250497">
+<div class="quarto-post image-right" data-index="57" data-listing-file-modified-sort="1729223250497">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex.png" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex.png" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex.png" class="no-external"></a></p>
@@ -1786,7 +1599,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="62" data-listing-file-modified-sort="1729223250497">
+<div class="quarto-post image-right" data-index="58" data-listing-file-modified-sort="1729223250497">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex_approved.png" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex_approved.png" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex_approved.png" class="no-external"></a></p>
@@ -1807,7 +1620,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="63" data-listing-file-modified-sort="1729223250505">
+<div class="quarto-post image-right" data-index="59" data-listing-file-modified-sort="1729223250505">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex_dtplyr.psd" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex_dtplyr.psd" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex_dtplyr.psd" class="no-external"></a></p>
@@ -1828,7 +1641,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="64" data-listing-file-modified-sort="1729223250505">
+<div class="quarto-post image-right" data-index="60" data-listing-file-modified-sort="1729223250505">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex.png" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex.png" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex.png" class="no-external"></a></p>
@@ -1849,7 +1662,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="65" data-listing-file-modified-sort="1729223250505">
+<div class="quarto-post image-right" data-index="61" data-listing-file-modified-sort="1729223250505">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex_approved.png" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex_approved.png" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex_approved.png" class="no-external"></a></p>
@@ -1870,7 +1683,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="66" data-listing-file-modified-sort="1729223250509">
+<div class="quarto-post image-right" data-index="62" data-listing-file-modified-sort="1729223250509">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex_nc.psd" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex_nc.psd" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex_nc.psd" class="no-external"></a></p>
@@ -1891,7 +1704,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="67" data-listing-file-modified-sort="1729223250513">
+<div class="quarto-post image-right" data-index="63" data-listing-file-modified-sort="1729223250513">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex.png" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex.png" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex.png" class="no-external"></a></p>
@@ -1912,7 +1725,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="68" data-listing-file-modified-sort="1729223250513">
+<div class="quarto-post image-right" data-index="64" data-listing-file-modified-sort="1729223250513">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex_approved.png" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex_approved.png" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex_approved.png" class="no-external"></a></p>
@@ -1933,7 +1746,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="69" data-listing-file-modified-sort="1729223250521">
+<div class="quarto-post image-right" data-index="65" data-listing-file-modified-sort="1729223250521">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex_tidyfast.psd" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex_tidyfast.psd" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex_tidyfast.psd" class="no-external"></a></p>
@@ -1954,7 +1767,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="70" data-listing-file-modified-sort="1729223250521">
+<div class="quarto-post image-right" data-index="66" data-listing-file-modified-sort="1729223250521">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-20-translation_projects-community_team/Paola_Corrales.jpg" class="no-external"></a></p><a href="../../posts/2024-08-20-translation_projects-community_team/Paola_Corrales.jpg" class="no-external">
 </a><p><a href="../../posts/2024-08-20-translation_projects-community_team/Paola_Corrales.jpg" class="no-external"></a></p>
@@ -1975,7 +1788,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="71" data-listing-file-modified-sort="1729223250525">
+<div class="quarto-post image-right" data-index="67" data-listing-file-modified-sort="1729223250525">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-20-translation_projects-community_team/languages.jpeg" class="no-external"></a></p><a href="../../posts/2024-08-20-translation_projects-community_team/languages.jpeg" class="no-external">
 </a><p><a href="../../posts/2024-08-20-translation_projects-community_team/languages.jpeg" class="no-external"></a></p>
@@ -1996,70 +1809,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="72" data-listing-file-modified-sort="1729223278485">
-<div class="thumbnail">
-<p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index-listing.json" class="no-external">
-</a><p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index-listing.json" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index-listing.json" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index-listing.json" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index-listing.json" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index-listing.json" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="73" data-listing-file-modified-sort="1729223278481">
-<div class="thumbnail">
-<p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.feed-full-staged" class="no-external">
-</a><p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.feed-full-staged" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.feed-full-staged" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.feed-full-staged" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.feed-full-staged" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.feed-full-staged" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="74" data-listing-file-modified-sort="1729223278489">
-<div class="thumbnail">
-<p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.html" class="no-external"></a></p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.html" class="no-external">
-</a><p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.html" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.html" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.html" class="no-external"></a></p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="75" data-listing-file-modified-sort="1729223250525">
+<div class="quarto-post image-right" data-index="68" data-listing-file-modified-sort="1729223250525">
 <div class="thumbnail">
 <p><a href="../../posts/2024-09-21-seal_of_approval-collapse/hex.png" class="no-external"></a></p><a href="../../posts/2024-09-21-seal_of_approval-collapse/hex.png" class="no-external">
 </a><p><a href="../../posts/2024-09-21-seal_of_approval-collapse/hex.png" class="no-external"></a></p>
@@ -2080,7 +1830,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="76" data-listing-file-modified-sort="1729223250525">
+<div class="quarto-post image-right" data-index="69" data-listing-file-modified-sort="1729223250525">
 <div class="thumbnail">
 <p><a href="../../posts/2024-09-21-seal_of_approval-collapse/hex_approved.png" class="no-external"></a></p><a href="../../posts/2024-09-21-seal_of_approval-collapse/hex_approved.png" class="no-external">
 </a><p><a href="../../posts/2024-09-21-seal_of_approval-collapse/hex_approved.png" class="no-external"></a></p>
@@ -2101,7 +1851,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="77" data-listing-file-modified-sort="1729223250525">
+<div class="quarto-post image-right" data-index="70" data-listing-file-modified-sort="1729223250525">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/hex.png" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/hex.png" class="no-external">
 </a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/hex.png" class="no-external"></a></p>
@@ -2122,7 +1872,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="78" data-listing-file-modified-sort="1729223250525">
+<div class="quarto-post image-right" data-index="71" data-listing-file-modified-sort="1729223250525">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/hex_approved.png" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/hex_approved.png" class="no-external">
 </a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/hex_approved.png" class="no-external"></a></p>
@@ -2143,91 +1893,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="79" data-listing-file-modified-sort="1729223275605">
-<div class="thumbnail">
-<p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index-listing.json" class="no-external">
-</a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index-listing.json" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index-listing.json" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index-listing.json" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index-listing.json" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index-listing.json" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="80" data-listing-file-modified-sort="1729223275601">
-<div class="thumbnail">
-<p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.feed-full-staged" class="no-external">
-</a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.feed-full-staged" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.feed-full-staged" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.feed-full-staged" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.feed-full-staged" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.feed-full-staged" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="81" data-listing-file-modified-sort="1729223275705">
-<div class="thumbnail">
-<p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external">
-</a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="82" data-listing-file-modified-sort="1729223250525">
-<div class="thumbnail">
-<p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/__packages" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/__packages" class="no-external">
-</a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/__packages" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/__packages" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/__packages" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/__packages" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/__packages" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/__packages" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="83" data-listing-file-modified-sort="1729223250525">
+<div class="quarto-post image-right" data-index="72" data-listing-file-modified-sort="1729223250525">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.RData" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.RData" class="no-external">
 </a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.RData" class="no-external"></a></p>
@@ -2248,7 +1914,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="84" data-listing-file-modified-sort="1729223250553">
+<div class="quarto-post image-right" data-index="73" data-listing-file-modified-sort="1729223250553">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.rdb" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.rdb" class="no-external">
 </a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.rdb" class="no-external"></a></p>
@@ -2269,7 +1935,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="85" data-listing-file-modified-sort="1729223250553">
+<div class="quarto-post image-right" data-index="74" data-listing-file-modified-sort="1729223250553">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.rdx" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.rdx" class="no-external">
 </a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.rdx" class="no-external"></a></p>
@@ -2290,7 +1956,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="86" data-listing-file-modified-sort="1729223250553">
+<div class="quarto-post image-right" data-index="75" data-listing-file-modified-sort="1729223250553">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-17-Performance-Doris_Amoakohene/atime.png" class="no-external"></a></p><a href="../../posts/2024-10-17-Performance-Doris_Amoakohene/atime.png" class="no-external">
 </a><p><a href="../../posts/2024-10-17-Performance-Doris_Amoakohene/atime.png" class="no-external"></a></p>
@@ -2311,7 +1977,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="87" data-listing-file-modified-sort="1729223250553">
+<div class="quarto-post image-right" data-index="76" data-listing-file-modified-sort="1729223250553">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-17-Performance-Doris_Amoakohene/atime_list_4200.png" class="no-external"></a></p><a href="../../posts/2024-10-17-Performance-Doris_Amoakohene/atime_list_4200.png" class="no-external">
 </a><p><a href="../../posts/2024-10-17-Performance-Doris_Amoakohene/atime_list_4200.png" class="no-external"></a></p>
@@ -2332,7 +1998,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="88" data-listing-file-modified-sort="1729223250553">
+<div class="quarto-post image-right" data-index="77" data-listing-file-modified-sort="1729223250553">
 <div class="thumbnail">
 <p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/hex.png" class="no-external"></a></p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/hex.png" class="no-external">
 </a><p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/hex.png" class="no-external"></a></p>
@@ -2353,7 +2019,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="89" data-listing-file-modified-sort="1729223250553">
+<div class="quarto-post image-right" data-index="78" data-listing-file-modified-sort="1729223250553">
 <div class="thumbnail">
 <p><a href="../../posts/images/.DS_Store" class="no-external"></a></p><a href="../../posts/images/.DS_Store" class="no-external">
 </a><p><a href="../../posts/images/.DS_Store" class="no-external"></a></p>
@@ -2374,7 +2040,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="90" data-listing-file-modified-sort="1729223250553">
+<div class="quarto-post image-right" data-index="79" data-listing-file-modified-sort="1729223250553">
 <div class="thumbnail">
 <p><a href="../../posts/images/NSF.svg" class="no-external"></a></p><a href="../../posts/images/NSF.svg" class="no-external">
 </a><p><a href="../../posts/images/NSF.svg" class="no-external"></a></p>
@@ -2395,7 +2061,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="91" data-listing-file-modified-sort="1729223250557">
+<div class="quarto-post image-right" data-index="80" data-listing-file-modified-sort="1729223250557">
 <div class="thumbnail">
 <p><a href="../../posts/images/banner.jpeg" class="no-external"></a></p><a href="../../posts/images/banner.jpeg" class="no-external">
 </a><p><a href="../../posts/images/banner.jpeg" class="no-external"></a></p>
@@ -2416,7 +2082,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="92" data-listing-file-modified-sort="1729223250565">
+<div class="quarto-post image-right" data-index="81" data-listing-file-modified-sort="1729223250565">
 <div class="thumbnail">
 <p><a href="../../posts/images/banner_tall.jpeg" class="no-external"></a></p><a href="../../posts/images/banner_tall.jpeg" class="no-external">
 </a><p><a href="../../posts/images/banner_tall.jpeg" class="no-external"></a></p>
@@ -2437,7 +2103,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="93" data-listing-file-modified-sort="1729223250565">
+<div class="quarto-post image-right" data-index="82" data-listing-file-modified-sort="1729223250565">
 <div class="thumbnail">
 <p><a href="../../posts/images/banner_tall_small.jpeg" class="no-external"></a></p><a href="../../posts/images/banner_tall_small.jpeg" class="no-external">
 </a><p><a href="../../posts/images/banner_tall_small.jpeg" class="no-external"></a></p>
@@ -2458,7 +2124,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="94" data-listing-file-modified-sort="1729223250573">
+<div class="quarto-post image-right" data-index="83" data-listing-file-modified-sort="1729223250573">
 <div class="thumbnail">
 <p><a href="../../posts/images/banner_yellow.jpeg" class="no-external"></a></p><a href="../../posts/images/banner_yellow.jpeg" class="no-external">
 </a><p><a href="../../posts/images/banner_yellow.jpeg" class="no-external"></a></p>
@@ -2479,7 +2145,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="95" data-listing-file-modified-sort="1729223250573">
+<div class="quarto-post image-right" data-index="84" data-listing-file-modified-sort="1729223250573">
 <div class="thumbnail">
 <p><a href="../../posts/images/hex.png" class="no-external"></a></p><a href="../../posts/images/hex.png" class="no-external">
 </a><p><a href="../../posts/images/hex.png" class="no-external"></a></p>
@@ -2500,7 +2166,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="96" data-listing-file-modified-sort="1729223250573">
+<div class="quarto-post image-right" data-index="85" data-listing-file-modified-sort="1729223250573">
 <div class="thumbnail">
 <p><a href="../../posts/images/hocking-nau.jpg" class="no-external"></a></p><a href="../../posts/images/hocking-nau.jpg" class="no-external">
 </a><p><a href="../../posts/images/hocking-nau.jpg" class="no-external"></a></p>
@@ -2521,7 +2187,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="97" data-listing-file-modified-sort="1729223250573">
+<div class="quarto-post image-right" data-index="86" data-listing-file-modified-sort="1729223250573">
 <div class="thumbnail">
 <p><a href="../../posts/images/old_man.jpg" class="no-external"></a></p><a href="../../posts/images/old_man.jpg" class="no-external">
 </a><p><a href="../../posts/images/old_man.jpg" class="no-external"></a></p>
@@ -2542,7 +2208,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="98" data-listing-file-modified-sort="1729223250573">
+<div class="quarto-post image-right" data-index="87" data-listing-file-modified-sort="1729223250573">
 <div class="thumbnail">
 <p><a href="../../posts/images/old_man.svg" class="no-external"></a></p><a href="../../posts/images/old_man.svg" class="no-external">
 </a><p><a href="../../posts/images/old_man.svg" class="no-external"></a></p>
@@ -2563,7 +2229,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="99" data-listing-file-modified-sort="1729223250573">
+<div class="quarto-post image-right" data-index="88" data-listing-file-modified-sort="1729223250573">
 <div class="thumbnail">
 <p><a href="../../posts/images/sea_lions.jpg" class="no-external"></a></p><a href="../../posts/images/sea_lions.jpg" class="no-external">
 </a><p><a href="../../posts/images/sea_lions.jpg" class="no-external"></a></p>
@@ -2584,7 +2250,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="100" data-categories="performance,testing,developer" data-listing-date-sort="1728518400000" data-listing-file-modified-sort="1729223250553" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2217">
+<div class="quarto-post image-right" data-index="89" data-categories="performance,testing,developer" data-listing-date-sort="1728518400000" data-listing-file-modified-sort="1729223250553" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2217">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-17-Performance-Doris_Amoakohene/index.html" class="no-external"></a></p><a href="../../posts/2024-10-17-Performance-Doris_Amoakohene/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-10-17-Performance-Doris_Amoakohene/atime.png" class="thumbnail-image"></p>
@@ -2612,35 +2278,7 @@ Doris Afriyie Amoakohene
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="101" data-categories="seal of approval,application package" data-listing-date-sort="1727740800000" data-listing-file-modified-sort="1729223250525" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="381">
-<div class="thumbnail">
-<p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external">
-<p><img loading="lazy" data-src="../../posts/2024-10-01-seal_of_approval-mlr3/hex_approved.png" class="thumbnail-image"></p>
-</a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external">Seal of Approval: mlr3</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"><em>Author(s):</em> Michel Lang, Bernd Bischl, Jakob Richter, Patrick Schratz, Martin Binder, Florian Pfisterer, Raphael Sonabend, Marc Becker, Sebastian Fischer</a>
-</div>
-</div>
-<div class="metadata">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external">
-<div class="listing-date">
-Oct 1, 2024
-</div>
-<div class="listing-author">
-Maximilian Mücke
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="102" data-categories="seal of approval,partner package" data-listing-date-sort="1726876800000" data-listing-file-modified-sort="1729223250525" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="981">
+<div class="quarto-post image-right" data-index="90" data-categories="seal of approval,partner package" data-listing-date-sort="1726876800000" data-listing-file-modified-sort="1729223250525" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="981">
 <div class="thumbnail">
 <p><a href="../../posts/2024-09-21-seal_of_approval-collapse/index.html" class="no-external"></a></p><a href="../../posts/2024-09-21-seal_of_approval-collapse/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-09-21-seal_of_approval-collapse/hex_approved.png" class="thumbnail-image"></p>
@@ -2668,7 +2306,7 @@ Sebastian Krantz
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="103" data-categories="announcements,grant,translation" data-listing-date-sort="1724112000000" data-listing-file-modified-sort="1729223250521" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="140">
+<div class="quarto-post image-right" data-index="91" data-categories="announcements,grant,translation" data-listing-date-sort="1724112000000" data-listing-file-modified-sort="1729223250521" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="140">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-20-translation_projects-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-08-20-translation_projects-community_team/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-08-20-translation_projects-community_team/languages.png" class="thumbnail-image"></p>
@@ -2696,7 +2334,7 @@ Toby Dylan Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="104" data-categories="seal of approval,bridge package" data-listing-date-sort="1722470400000" data-listing-file-modified-sort="1729223250505" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="253">
+<div class="quarto-post image-right" data-index="92" data-categories="seal of approval,bridge package" data-listing-date-sort="1722470400000" data-listing-file-modified-sort="1729223250505" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="253">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/index.html" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-08-01-seal_of_approval-dtplyr/hex_approved.png" class="thumbnail-image"></p>
@@ -2724,7 +2362,7 @@ Kelly Bodwin
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="105" data-categories="seal of approval,extension package" data-listing-date-sort="1722470400000" data-listing-file-modified-sort="1729223250509" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="698">
+<div class="quarto-post image-right" data-index="93" data-categories="seal of approval,extension package" data-listing-date-sort="1722470400000" data-listing-file-modified-sort="1729223250509" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="698">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-nc/index.html" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-nc/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-08-01-seal_of_approval-nc/hex_approved.png" class="thumbnail-image"></p>
@@ -2752,7 +2390,7 @@ Toby Dylan Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="106" data-categories="seal of approval,bridge package" data-listing-date-sort="1722470400000" data-listing-file-modified-sort="1729223250521" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="657">
+<div class="quarto-post image-right" data-index="94" data-categories="seal of approval,bridge package" data-listing-date-sort="1722470400000" data-listing-file-modified-sort="1729223250521" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="657">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/index.html" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-08-01-seal_of_approval-tidyfast/hex_approved.png" class="thumbnail-image"></p>
@@ -2780,7 +2418,7 @@ Tyson S. Barrett
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="107" data-categories="announcements,grant,community,seal of approval" data-listing-date-sort="1722384000000" data-listing-file-modified-sort="1729223250493" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="215">
+<div class="quarto-post image-right" data-index="95" data-categories="announcements,grant,community,seal of approval" data-listing-date-sort="1722384000000" data-listing-file-modified-sort="1729223250493" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="215">
 <div class="thumbnail">
 <p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-07-31-seal_of_approval_announcement-community_team/seal_of_approval.png" class="thumbnail-image"></p>
@@ -2808,7 +2446,7 @@ Kelly Bodwin
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="108" data-categories="announcements,grant,ambassadors,travel" data-listing-date-sort="1718150400000" data-listing-file-modified-sort="1729223250493" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="311">
+<div class="quarto-post image-right" data-index="96" data-categories="announcements,grant,ambassadors,travel" data-listing-date-sort="1718150400000" data-listing-file-modified-sort="1729223250493" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="311">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-06-09-ambassador_corrales-community_team/Paola_Corrales.jpg" class="thumbnail-image"></p>
@@ -2836,7 +2474,7 @@ Community Team
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="109" data-categories="opinion" data-listing-date-sort="1717459200000" data-listing-file-modified-sort="1729223250477" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1412">
+<div class="quarto-post image-right" data-index="97" data-categories="opinion" data-listing-date-sort="1717459200000" data-listing-file-modified-sort="1729223250477" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1412">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-05-20-kelly_bodwin/paths.jpg" class="thumbnail-image"></p>
@@ -2864,7 +2502,7 @@ Kelly Bodwin
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="110" data-categories="grant,testing,developer" data-listing-date-sort="1710028800000" data-listing-file-modified-sort="1729223250477" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1527">
+<div class="quarto-post image-right" data-index="98" data-categories="grant,testing,developer" data-listing-date-sort="1710028800000" data-listing-file-modified-sort="1729223250477" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1527">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-03-10-testing_plan-toby_hocking/code_testing.png" class="thumbnail-image"></p>
@@ -2892,7 +2530,7 @@ Toby Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="111" data-categories="community,grant" data-listing-date-sort="1709683200000" data-listing-file-modified-sort="1729223250477" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17" data-listing-word-count-sort="3396">
+<div class="quarto-post image-right" data-index="99" data-categories="community,grant" data-listing-date-sort="1709683200000" data-listing-file-modified-sort="1729223250477" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17" data-listing-word-count-sort="3396">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a></p><a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-03-06-interviews-anirban_chetia/index.jpeg" class="thumbnail-image"></p>
@@ -2920,7 +2558,7 @@ Anirban Chetia
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="112" data-categories="community,guest post,governance" data-listing-date-sort="1708819200000" data-listing-file-modified-sort="1729223250469" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1190">
+<div class="quarto-post image-right" data-index="100" data-categories="community,guest post,governance" data-listing-date-sort="1708819200000" data-listing-file-modified-sort="1729223250469" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1190">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_frequency.png" class="thumbnail-image"></p>
@@ -2948,7 +2586,35 @@ Aljaž Sluga
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="113" data-categories="tips,tutorials,documentation" data-listing-date-sort="1707091200000" data-listing-file-modified-sort="1729223250465" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="914">
+<div class="quarto-post image-right" data-index="101" data-categories="tips,tutorials,developer" data-listing-date-sort="1708214400000" data-listing-file-modified-sort="1729223250465" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="918">
+<div class="thumbnail">
+<p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">
+<p><img loading="lazy" data-src="../../posts/2024-02-18-dt_particularities-toby_hocking/copy_on_modify.png" class="thumbnail-image"></p>
+</a><p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">Column assignment and reference semantics in data.table</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">The goal of this blog post is to explain some similarities and differences between the base R <code>data.frame</code> object type, and the <code>data.table</code> object type. We will focus on…</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">
+<div class="listing-date">
+Feb 18, 2024
+</div>
+<div class="listing-author">
+Toby Hocking
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="102" data-categories="tips,tutorials,documentation" data-listing-date-sort="1707091200000" data-listing-file-modified-sort="1729223250465" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="914">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"></a></p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/brackets.png" class="thumbnail-image"></p>
@@ -2976,7 +2642,7 @@ Tyson Barrett
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="114" data-categories="governance,releases" data-listing-date-sort="1706572800000" data-listing-file-modified-sort="1729223250465" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="696">
+<div class="quarto-post image-right" data-index="103" data-categories="governance,releases" data-listing-date-sort="1706572800000" data-listing-file-modified-sort="1729223250465" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="696">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-01-30-new_governance_new_release-toby_hocking/New-Release.jpg" class="thumbnail-image"></p>
@@ -3004,7 +2670,7 @@ Toby Dylan Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="115" data-categories="tips,tutorials,documentation,guest post" data-listing-date-sort="1706400000000" data-listing-file-modified-sort="1729223250465" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="988">
+<div class="quarto-post image-right" data-index="104" data-categories="tips,tutorials,documentation,guest post" data-listing-date-sort="1706400000000" data-listing-file-modified-sort="1729223250465" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="988">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a></p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-01-28-piping_data_tables-elio_campitelli/image.jpg" class="thumbnail-image"></p>
@@ -3032,7 +2698,7 @@ Elio Campitelli
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="116" data-categories="announcements,grant,ambassadors" data-listing-date-sort="1705190400000" data-listing-file-modified-sort="1729223250465" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="292">
+<div class="quarto-post image-right" data-index="105" data-categories="announcements,grant,ambassadors" data-listing-date-sort="1705190400000" data-listing-file-modified-sort="1729223250465" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="292">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-01-14-ambassador_gorecki-community_team/jan.png" class="thumbnail-image"></p>
@@ -3060,7 +2726,7 @@ Kelly Bodwin
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="117" data-categories="conferences" data-listing-date-sort="1700352000000" data-listing-file-modified-sort="1729223250465" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="581">
+<div class="quarto-post image-right" data-index="106" data-categories="conferences" data-listing-date-sort="1700352000000" data-listing-file-modified-sort="1729223250465" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="581">
 <div class="thumbnail">
 <p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2023-11-19-LatinR_summary-toby_hocking/image.jpg" class="thumbnail-image"></p>
@@ -3088,7 +2754,7 @@ Toby Dylan Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="118" data-categories="announcements,grant,funding opportunity" data-listing-date-sort="1698796800000" data-listing-file-modified-sort="1729223250461" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="428">
+<div class="quarto-post image-right" data-index="107" data-categories="announcements,grant,funding opportunity" data-listing-date-sort="1698796800000" data-listing-file-modified-sort="1729223250461" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="428">
 <div class="thumbnail">
 <p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a></p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2023-11-01-travel_grant_announcement-community_team/image.jpg" class="thumbnail-image"></p>
@@ -3116,7 +2782,7 @@ Kelly Bodwin
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="119" data-categories="announcements,grant,funding opportunity" data-listing-date-sort="1697500800000" data-listing-file-modified-sort="1729223250461" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="664">
+<div class="quarto-post image-right" data-index="108" data-categories="announcements,grant,funding opportunity" data-listing-date-sort="1697500800000" data-listing-file-modified-sort="1729223250461" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="664">
 <div class="thumbnail">
 <p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2023-10-17-translation_announcement-toby_hocking/translate.jpeg" class="thumbnail-image"></p>
@@ -3141,7 +2807,7 @@ Oct 17, 2023
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="120" data-categories="announcements,grant" data-listing-date-sort="1697328000000" data-listing-file-modified-sort="1729223250457" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="640">
+<div class="quarto-post image-right" data-index="109" data-categories="announcements,grant" data-listing-date-sort="1697328000000" data-listing-file-modified-sort="1729223250457" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="640">
 <div class="thumbnail">
 <p><a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2023-10-15-intro_to_grant-toby_hocking/sea_lions.jpg" class="thumbnail-image"></p>
