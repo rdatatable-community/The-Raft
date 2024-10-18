@@ -1,10 +1,10 @@
 ---
 title: "Seal of Approval: mlr3"
 author: "Maximilian Mücke"
-date: "Sep 24, 2024"
+date: "Oct 01, 2024"
 categories: [seal of approval, application package]
 image: "hex_approved.png"
-draft: true
+draft: false
 ---
 
 ## [`mlr3`](https://mlr3.mlr-org.com/)

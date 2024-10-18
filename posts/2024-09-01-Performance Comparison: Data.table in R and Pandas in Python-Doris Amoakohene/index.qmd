@@ -1,33 +1,55 @@
 ---
-title: 'Performance Comparison: Data.table in R and Pandas in Python'
+title: 'Performance Comparison: `data.table` in R and `pandas` in Python'
 author: "Doris Amoakohene"
-date: "2024-09-01"
+date: "2024-10-10"
 draft: true
 execute:
   eval: false
 ---
 
-# Introduction:
+R and Python are two programming languages that have gained immense popularity among data scientists, statisticians, and researchers. In this blog, we will explore two widely used libraries, `data.table` in R and `pandas` in Python, both of which excel in data manipulation and provide versatile functionalities for working with data, focusing on their capabilities for reading, writing, and reshaping data. We will also explain how to graphically demonstrate the time taken by each operation. We will use the `atime` R package to compare and visualize the asymptotic performance (time and memory usage) of the different functions mentioned above. By comparing the asymptotic performance of these packages in these programming languages, we aim to provide insights and help data scientists make informed choices when it comes to data manipulation and analysis.
 
-R and Python are two programming languages that have gained immense popularity among data scientists, statisticians, and researchers. In this blog, we will explore two widely used libraries, data.table in R and pandas in Python, both of which excel in data manipulation and provide versatile functionalities for working with data, focusing on their capabilities for reading, writing, and reshaping data. We will also explain how to graphically demonstrate the time taken by each operation. We will use the atime package to compare and visualize the asymptotic performance (time and memory usage) of the different functions mentioned above. By comparing the asymptotic performance of these packages in these programming languages, We aim to provide insights into their usage and help data scientists make informed choices when it comes to data manipulation and analysis.
+## Performance testing with `atime`
 
-In the `atime::atime()` we define the following arguments: The first argument, N, is a sequence of data sizes. This explores computational efficiency, which will compute time/memory usage for different data sizes (N). The second argument setup is an expression that will be evaluated for each value in N, to create data of a given size. seconds.limit may optionally be specified. If an expression is slower than this limit for any data size, then no larger data sizes will be measured.
+The `atime::atime()` function requires the following arguments: 
 
-This analysis will employ the reticulate package in R, which facilitates interoperability between Python and R by providing a robust set of tools for seamless integration. Leveraging this package enables the efficient exchange of data and functionality between both languages, allowing for a more expansive approach to the analysis. The package includes facilities for:
+* `N`: A sequence of parameters that control dataset sizes. Peformance tests will measure time/memory usage across the different data sizes, as measured by values of `N`. 
 
-1.  Calling Python from R in a variety of ways including R Markdown, sourcing Python scripts, importing Python modules, and using Python interactively within an R session.
+* `setup`: A code expression that will be run for each value in `N` to create data of various sizes.
 
-2.  Translation between R and Python objects (for example, between R and Pandas data frames, or between R matrices and NumPy arrays).
+* `expr`: A code expression that will be evaluated for each value in `N`, after data creation, and tested for computational performance.
+
+* `seconds.limit` (optional): A cutoff time; if an expression is slower than this limit for any data size, then no larger data sizes will be measured.
+
+## Interfacing Python and R with `reticulate`
+
+This analysis will employ the `reticulate` package in R, which facilitates interoperability between Python and R by providing a robust set of tools for seamless integration. Leveraging this package enables the efficient exchange of data and functionality between both languages, allowing for a more expansive approach to the analysis. The package includes facilities for:
+
+1.  Calling Python from R, including raw code or sourcing Python scripts and modules.
+
+2.  Translation between R and Python objects; for example, between R and pandas data frames, or between R matrices and NumPy arrays.
 
 3.  Flexible binding to different versions of Python including virtual environments and Conda environments.
 
-The reticualte incurs overhead depending on Python code complexity and frequency of R-Python switches. This overhead is typically constant for small scripts, but increases with larger/complex code. The code uses reticulate to benchmark writing a dataframe to CSV using R's data.table and Python's pandas, with key overhead factors being Python environment initialization and data transfer between R and Python. Data transfer overhead is relatively constant due to small dataframe size and minimal changes in dataframe size during processing.
+The `reticulate` translation incurs overhead depending on Python code complexity and frequency of R-Python switches. This overhead is typically constant for small scripts, but increases with larger/complex code. The code uses reticulate to benchmark writing a dataframe to CSV using R's data.table and Python's pandas, with key overhead factors being Python environment initialization and data transfer between R and Python. Data transfer overhead is relatively constant due to small dataframe size and minimal changes in dataframe size during processing.
+
+<!-- que? download the image below -->
 
 https://github.com/DorisAmoakohene/Slides-and-Blogs/blob/main/Screenshot%202024-06-26%20150315.png
 
-## Libraries
+## Example 1: Writing a CSV File with data.table::fwrite() and pandas::to_csv()
 
-```{r setup,warning=FALSE,message=FALSE}
+### Setup
+
+To reproduce this analysis, you will need the packages loaded in the code chunks shown below, as well as the code to setup a virtual environment using your choice of local Python install.
+
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+#| eval: false
+
 library(data.table)
 library(reshape2)
 library(atime)
@@ -38,11 +60,12 @@ virtualenv_create("fm-proj")
 use_virtualenv("fm-proj", required = F)
 ```
 
+<!-- is this needed? -->
+
 ```{python}
 file_path = 'data.csv'
 ```
 
-# Example 1: Writing a CSV File with data.table::fwrite() and pandas::to_csv()
 
 ## fwrite: fast CSV writer
 
