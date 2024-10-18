@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Toby Hocking">
-<meta name="dcterms.date" content="2024-02-18">
+<meta name="author" content="Doris Afriyie Amoakohene">
+<meta name="dcterms.date" content="2024-10-10">
 
-<title>Column assignment and reference semantics in {data.table} – Blog</title>
+<title>Visualizing performance regression of data.table with atime – Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -230,10 +230,10 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Column assignment and reference semantics in {data.table}</h1>
+      <h1 class="title">Visualizing performance regression of <code>data.table</code> with <code>atime</code></h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">tips</div>
-                <div class="quarto-category">tutorials</div>
+                <div class="quarto-category">performance</div>
+                <div class="quarto-category">testing</div>
                 <div class="quarto-category">developer</div>
               </div>
                   </div>
@@ -245,14 +245,14 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Toby Hocking </p>
+               <p>Doris Afriyie Amoakohene </p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 18, 2024</p>
+        <p class="date">October 10, 2024</p>
       </div>
     </div>
     
@@ -271,193 +271,109 @@ window.Quarto = {
 
 
 
-<p>The goal of this blog post is to explain some similarities and differences between the base R <code>data.frame</code> object type, and the <code>data.table</code> object type. We will focus on accessing and assigning values, and discuss two major differences:</p>
-<ul>
-<li><p><strong>Syntax</strong> means the structure of the code that is used: the characters and symbols that execute tasks. The <code>data.table</code> package uses a syntax where most operations can be done within the square brackets: <code>DT[i, j, by]</code>.</p></li>
-<li><p><strong>Semantics</strong> refers to the internal structure of an object or variable. We say that a <code>data.table</code> object has <em>reference semantics</em>, meaning we can modify a <code>data.table</code> from within a function, and see those modifications after the function is done executing. In other words, two different R variables can point to, and modify, the same <code>data.table</code>.</p></li>
-</ul>
-<section id="difference-in-syntax" class="level2">
-<h2 class="anchored" data-anchor-id="difference-in-syntax">Difference in syntax</h2>
-<p>To break down the similarities and differences in syntax, consider the data below,</p>
-<div class="cell">
-<details class="code-fold">
-<summary>See source code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>syntax <span class="ot">&lt;-</span> <span class="cf">function</span>(type, name, columns, code){</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  mcall <span class="ot">&lt;-</span> <span class="fu">match.call</span>()</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  dt.args <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">as.list</span>(mcall[<span class="sc">-</span><span class="dv">1</span>]), paste)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do.call</span>(data.table, dt.args)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>syntax.tab <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">syntax</span>(frame, literal, one, <span class="st">"df$col_name &lt;- value"</span>),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">syntax</span>(table, literal, one, <span class="st">"DT[, col_name := value]"</span>),</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">syntax</span>(frame, variable, multiple, <span class="st">'df[, col_names_list] &lt;- values'</span>),</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">syntax</span>(table, variable, multiple, <span class="st">'DT[, (col_names_list) := values]'</span>))</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>syntax.tab <span class="sc">|&gt;</span> <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">type</th>
-<th style="text-align: left;">name</th>
-<th style="text-align: left;">columns</th>
-<th style="text-align: left;">code</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">frame</td>
-<td style="text-align: left;">literal</td>
-<td style="text-align: left;">one</td>
-<td style="text-align: left;">df$col_name &lt;- value</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">table</td>
-<td style="text-align: left;">literal</td>
-<td style="text-align: left;">one</td>
-<td style="text-align: left;">DT[, col_name := value]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">frame</td>
-<td style="text-align: left;">variable</td>
-<td style="text-align: left;">multiple</td>
-<td style="text-align: left;">df[, col_names_list] &lt;- values</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">table</td>
-<td style="text-align: left;">variable</td>
-<td style="text-align: left;">multiple</td>
-<td style="text-align: left;">DT[, (col_names_list) := values]</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>The table above defines the different syntax required to do column assignment in data tables (<code>DT</code>) and frames (<code>df</code>).</p>
-<ul>
-<li><p><code>type</code> indicates object type: <em>frame</em> or <em>table</em>.</p></li>
-<li><p><code>name</code> indicates whether the column(s) to assign are literally written in the code (<code>col_name</code>), or if the names are stored in a variable (<code>col_names_list</code>).</p></li>
-<li><p><code>columns</code> indicates whether only one or multiple (one or more) columns can be assigned using the syntax.</p></li>
-<li><p><code>code</code> is the exact syntax of the R code used for the assignment.</p></li>
-</ul>
-<p>Note that there are other ways to do column assignment. For example,</p>
-<ul>
-<li><p><code>DF[["col_name"]] &lt;- value</code> can also be used for single column assignment in a data frame.</p></li>
-<li><p><code>set(DT, j=col_name_list, value=values)</code> is a more efficient version of column assignment for data tables, that is recommended for use in loops, as it avoids the overhead of the <code>[.data.table</code> method.</p></li>
-</ul>
-<p>Below is a reshaped version of the table above, to facilitate easier comparison between <code>frame</code> and <code>table</code> versions:</p>
-<div class="cell">
-<details class="code-fold">
-<summary>See source code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">width=</span><span class="dv">100</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">dcast</span>(syntax.tab, name <span class="sc">+</span> columns <span class="sc">~</span> type, <span class="at">value.var=</span><span class="st">"code"</span>)  <span class="sc">|&gt;</span> <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 37%">
-<col style="width: 40%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">name</th>
-<th style="text-align: left;">columns</th>
-<th style="text-align: left;">frame</th>
-<th style="text-align: left;">table</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">literal</td>
-<td style="text-align: left;">one</td>
-<td style="text-align: left;">df$col_name &lt;- value</td>
-<td style="text-align: left;">DT[, col_name := value]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">variable</td>
-<td style="text-align: left;">multiple</td>
-<td style="text-align: left;">df[, col_names_list] &lt;- values</td>
-<td style="text-align: left;">DT[, (col_names_list) := values]</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>The table above shows the equivalent code for assignment of columns using either a <code>data.frame</code> or <code>data.table</code>. In fact, the code in the <em>frame</em> column above can also be used for assignment of a <code>data.table</code>, but it may be less efficient than the data table square brackets, as we will discuss in the next section.</p>
-<p>One reason why <code>data.table</code> uses a custom assignment syntax is for consistency: the same syntax can be used, with square brackets and <code>:=</code>, for one or multiple column assignment. (Note the use parentheses around <code>col_names_list</code> in the second row of the <em>table</em> column above, to indicate that the left side of <code>:=</code> is a variable storing column names or numbers, instead of a direct unquoted column name.)</p>
-<p>Another reason why <code>data.table</code> uses a custom assignment syntax is for efficiency, as we see in the next section.</p>
+<p>Since August 2023, I have been working on performance testing, which could be useful for expanding the open-source ecosystem around <code>data.table</code> package in R. This could increase confidence in code contributions by ensuring the sustained efficiency of the <code>data.table</code> package.</p>
+<p>In <code>data.table</code>, the term “performance regression” refers to a change to the <code>data.table</code> source code, or to the core R build, that causes an increase in either time metrics and memory metrics.</p>
+<p>It is important that we prevent significant performance regression from reaching the current release of the <code>data.table</code> package. Slowness or big memory usage can be frustrating; and in fact, are the issues <code>data.table</code> is most used to solve. Any performance regression that makes it into a version release will degrade user experience.</p>
+<p>In this blog post, I will demonstrate the use of benchmarking techniques to verify whether reported issues on <code>data.table</code> have been successfully resolved.</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<section id="understanding-performance-in-data.table" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-performance-in-data.table">Understanding performance in <code>data.table</code></h3>
+<p><code>data.table</code> is an extension of R’s <code>data.frame</code>, designed to handle large datasets efficiently. It provides a syntax that is both concise and expressive, allowing users to perform complex data manipulations with ease. Its efficiency is particularly evident when dealing with tasks like filtering, grouping, aggregating, and joining data.</p>
+<p>The development team behind <code>data.table</code> is committed to continuously improving its performance. Over the years, several major version changes have been introduced, aiming to enhance speed and efficiency. These changes include algorithmic optimizations, memory management improvements, and enhancements to parallel processing capabilities. Upgrading to the latest version ensures that users can leverage the most recent performance enhancements.</p>
 </section>
-<section id="base-copy-on-write-versus-data.table-reference-semantics" class="level2">
-<h2 class="anchored" data-anchor-id="base-copy-on-write-versus-data.table-reference-semantics">Base “copy on write” versus <code>data.table</code> reference semantics</h2>
-<p>R has “copy on write” semantics, meaning that in base R if a variable is modified inside a function, a copy is made of the whole variable. For example, consider the code below</p>
+<section id="why-do-we-run-performance-tests-on-github-commits" class="level3">
+<h3 class="anchored" data-anchor-id="why-do-we-run-performance-tests-on-github-commits">Why do we run performance tests on GitHub commits?</h3>
+<p>Running performance tests on GitHub commits helps maintain a high-performance standard for the package, detect and fix performance regressions, optimize code, validate performance improvements, ensure consistent performance over time and to encourage confidence in code contributions from new people.</p>
+<p>It is an essential practice to deliver a performant and reliable package to end-users.</p>
+</section>
+<section id="benchmarking-for-performance-evaluation" class="level3">
+<h3 class="anchored" data-anchor-id="benchmarking-for-performance-evaluation">Benchmarking for performance evaluation</h3>
+<p>To evaluate <code>data.table</code> performance, it is essential to employ benchmarking methodologies. The approach I used utilizes the <code>atime_versions</code> function from the <code>atime</code> package, which measures the actual execution time of specific operations. This function allows for accurate comparisons between different versions of the <code>data.table</code> package, by benchmarking against time and memory usage and giving a graphical visualization of the results.</p>
+</section>
+</section>
+<section id="details-of-the-performance-tests" class="level2">
+<h2 class="anchored" data-anchor-id="details-of-the-performance-tests">Details of the performance tests</h2>
+<p>The primary function <code>atime_versions</code> has six main arguments:</p>
+<ol type="1">
+<li><p><code>pkg.path</code>: This argument specifies the location on your system where you have stored a git clone of the <code>data.table</code> package.</p></li>
+<li><p><code>pkg.edit.fun</code>: The default behavior of pkg.edit.fun is designed to work with Rcpp packages and involves replacing instances of “PKG” with “PKG.SHA” in the package code. Any occurrences of the string “PKG” within the package code will be replaced with “PKG.SHA”, where “SHA” represents the commit SHA/ids associated with the version being installed.</p></li>
+<li><p><code>N</code>: This argument determines the number of iterations for the benchmarking process. It is a sequence of numbers that define different data sizes to test the performance of the operation.</p></li>
+<li><p><code>setup</code>: This section contains the setup code for generating the dataset used in the benchmarking process, the setup is determined by the value of <code>N</code>.</p></li>
+<li><p><code>expr</code>: This section contains the expression that represents the operation being benchmarked. It uses the <code>data.table::</code>[.data.table`` syntax to perform the operation on the dataset.</p></li>
+</ol>
+<p>In the given syntax <code>data.table::`[.data.table`</code>, the first part <code>data.table::</code> installs and loads different versions of the data.table package based on the specified commit ids. Hence, data.table:: will be translated to data.table.SHA1:: for some version hash SHA1. Following that, the expression specified within <code>`[.data.table</code> `` is executed on each installed version. This process is repeated for all the specified commit IDs in the code.</p>
+<p>For example:</p>
+<pre><code>data.table.ec1259af1bf13fc0c96a1d3f9e84d55d8106a9a4:::`[.data.table`(DT, , .(v3=mean(v3, na.rm=TRUE)), by=id3, verbose=TRUE)</code></pre>
+<p>In this example, the expression <code>[.data.table</code> is executed on the <code>DT</code> dataset using the specified commit ID (<code>ec1259af1bf13fc0c96a1d3f9e84d55d8106a9a4</code>) of the data.table package. The expression calculates the mean of the <code>v3</code> column (ignoring missing values) grouped by <code>id3</code>, and the <code>verbose=TRUE</code> argument enables verbose output during the operation. This process is typically repeated for all commit IDs in your code to compare the performance of different versions of the data.table package.</p>
+<ol start="6" type="1">
+<li><code>...</code> : This specifies the different versions of the data.table packages that will be tested. It includes three versions: “Before,” “Regression,” and “Fixed.” Each version is associated with a specific commit id.</li>
+</ol>
+<section id="test-procedure" class="level3">
+<h3 class="anchored" data-anchor-id="test-procedure">Test procedure</h3>
+<p>We run the full performance regression with <code>atime</code>:</p>
+<ol type="1">
+<li>Before the change causing performance regression is made (Before)</li>
+<li>When the change causing performance regression is first submitted (Regression)</li>
+<li>After the Pull Request (PR) which fixes the performance regression (Fixed)</li>
+</ol>
+</section>
+<section id="overall-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="overall-workflow">Overall workflow</h3>
+<p>When a fixing Pull Request is submitted, our procedure automatically takes the following steps:</p>
+<ol type="1">
+<li><p>Pass the hashes for different branches (Before, Regression, Fix) to <code>atime_versions</code>; along with various parameters for the test (number of simulations, code expression to run, etc.).</p></li>
+<li><p>Use the <code>atime_versions</code> function to measure time and memory usage across different versions.</p></li>
+<li><p>Generate a plot to showcase the test results, using the <code>atime</code> package built in plotting functions.</p></li>
+<li><p>Display the plot and test results as a comment on the submitted Pull Request.</p></li>
+</ol>
+<p>Here is an example of how to perform the <a href="https://github.com/DorisAmoakohene/Efficiency-and-Performance-Test.RData.table">atime test</a>. More documentation of the atime package can be found <a href="https://github.com/tdhock/atime">here</a>.</p>
+</section>
+</section>
+<section id="example" class="level2">
+<h2 class="anchored" data-anchor-id="example">Example</h2>
+<p>The first example we will show is an issue reported on performing group computations, specifically when running R’s C eval: <a href="https://github.com/Rdatatable/data.table/issues/4200">link to GitHub Issue that reported regression</a>. This regression was caused by <a href="https://github.com/Rdatatable/data.table/commit/c0052964694a4c618ab182aa474f924d40576d94">the inclusion of the certain code within the <code>#if</code> block.</a> <a href="https://github.com/Rdatatable/data.table/pull/4558">This PR</a> discusses the <a href="https://github.com/Rdatatable/data.table/issues/4200#issue-555186870">specific C code in q7 and q8 in the “db-benchmark”</a> which causes the regression.</p>
+<p><a href="https://github.com/Rdatatable/data.table/pull/4558/files">This PR</a> fixed the regression problem.</p>
+<p>The details of the code problems and solutions are not required for the example; we link them only to share a map of the regression-and-fix process.</p>
+<p>To produce performance test results, we first load package dependencies, as well as the current GitHub snapshot of <code>data.table</code> in development:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dt_outside <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>base_assign <span class="ot">&lt;-</span> <span class="cf">function</span>(dt_inside, variable, value){</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  dt_inside[<span class="dv">1</span>,variable] <span class="ot">&lt;-</span> value <span class="co"># makes a copy of input variable!</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(atime)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>tdir <span class="ot">&lt;-</span> <span class="fu">tempfile</span>()</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(tdir)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>git2r<span class="sc">::</span><span class="fu">clone</span>(<span class="st">"https://github.com/Rdatatable/data.table"</span>, tdir ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we establish our performance test. Here, we will create a <code>data.table</code> object and then compute the range by group. We vary the size of the object by varying values of <code>N</code> across tests.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.table</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">id3 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">seq.int</span>(N<span class="sc">*</span><span class="fl">0.9</span>), <span class="fu">sample</span>(N<span class="sc">*</span><span class="fl">0.9</span>, N<span class="sc">*</span><span class="fl">0.1</span>, <span class="cn">TRUE</span>))),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">v1 =</span> <span class="fu">sample</span>(<span class="dv">5</span>L, N, <span class="cn">TRUE</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">v2 =</span> <span class="fu">sample</span>(<span class="dv">5</span>L, N, <span class="cn">TRUE</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      )</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">base_assign</span>(dt_outside, <span class="st">"x"</span>, <span class="dv">0</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>dt_outside</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       x
-   &lt;int&gt;
-1:     1
-2:     2
-3:     3</code></pre>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>data.table<span class="sc">:::</span><span class="st">`</span><span class="at">[.data.table</span><span class="st">`</span>(d, , (<span class="fu">max</span>(v1)<span class="sc">-</span><span class="fu">min</span>(v2)), <span class="at">by =</span> id3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>In the code above, we pass <code>dt_outside</code> to the <code>base_assign</code> function, which makes a copy called <code>dt_inside</code> before it is modified, so that the data in <code>dt_outside</code> is unchanged after the function is done. Compare with the code below,</p>
+<p>This setup and expression is then passed to <code>atime_versions</code>, along with a bit of package management information, and hashes (a.k.a. “Commit ID” or “SHA”) for the commits before, during, and after the performance regression.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dt_assign <span class="ot">&lt;-</span> <span class="cf">function</span>(dt_inside, variable, value){</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  dt_inside[<span class="dv">1</span>, (variable) <span class="sc">:</span><span class="er">=</span> value] <span class="co"># directly modifies input variable</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dt_assign</span>(dt_outside, <span class="st">"x"</span>, <span class="dv">0</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>dt_outside</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       x
-   &lt;int&gt;
-1:     0
-2:     2
-3:     3</code></pre>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>atime.list<span class="fl">.4200</span> <span class="ot">&lt;-</span> atime<span class="sc">::</span><span class="fu">atime_versions</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">pkg.path =</span> tdir,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">pkg.edit.fun =</span> pkg.edit.fun,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">N =</span> <span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">20</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">setup =</span> { </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">108</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    d <span class="ot">&lt;-</span> <span class="fu">data.table</span>(</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">id3 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">seq.int</span>(N<span class="sc">*</span><span class="fl">0.9</span>), <span class="fu">sample</span>(N<span class="sc">*</span><span class="fl">0.9</span>, N<span class="sc">*</span><span class="fl">0.1</span>, <span class="cn">TRUE</span>))),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">v1 =</span> <span class="fu">sample</span>(<span class="dv">5</span>L, N, <span class="cn">TRUE</span>),</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">v2 =</span> <span class="fu">sample</span>(<span class="dv">5</span>L, N, <span class="cn">TRUE</span>))</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  },</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">expr =</span> data.table<span class="sc">:::</span><span class="st">`</span><span class="at">[.data.table</span><span class="st">`</span>(d, , (<span class="fu">max</span>(v1)<span class="sc">-</span><span class="fu">min</span>(v2)), <span class="at">by =</span> id3),</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Before"</span> <span class="ot">=</span> <span class="st">"793f8545c363d222de18ac892bc7abb80154e724"</span>, <span class="co"># commit hash in PR prior to regression</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Regression"</span> <span class="ot">=</span> <span class="st">"c152ced0e5799acee1589910c69c1a2c6586b95d"</span>, <span class="co"># commit hash in PR causing regression</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Fixed"</span> <span class="ot">=</span> <span class="st">"f750448a2efcd258b3aba57136ee6a95ce56b302"</span> <span class="co"># commit hash in PR that fixes the regression</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>The output above shows that by using the square brackets and <code>:=</code> assignment, we can modify <code>data.table</code> objects in functions without copying them. Here, the variables <code>dt_inside</code> and <code>dt_outside</code> point to the same underlying data.</p>
-<section id="efficiency-of-reference-semantics" class="level3">
-<h3 class="anchored" data-anchor-id="efficiency-of-reference-semantics">Efficiency of reference semantics</h3>
-<p>Reference semantics mean that <code>data.table</code> assignment is potentially much more efficient than base R, in terms of time and memory usage. To demonstrate, we use the following benchmark. Assume we have a table with <span class="math inline">\(N\)</span> rows, but we just want to modify one row. This should be a constant time/space operation (independent of <span class="math inline">\(N\)</span>), but because of the base R copy on write semantics, it will be a linear time/space operation, <span class="math inline">\(O(N)\)</span>.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>See source code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>atime_result <span class="ot">&lt;-</span> atime<span class="sc">::</span><span class="fu">atime</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">N =</span> <span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">7</span>, <span class="at">by =</span> <span class="fl">0.5</span>),</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">setup =</span> {</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    dt <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span>N)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  },</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dt_assign =</span> <span class="fu">dt_assign</span>(dt, <span class="st">"x"</span>, <span class="dv">0</span>),</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">base_assign =</span> <span class="fu">base_assign</span>(dt, <span class="st">"x"</span>, <span class="dv">0</span>))</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(atime_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>We can see from the plot above that for <code>base_assign</code>, both time and space increase with <span class="math inline">\(N\)</span>, because the entire table is copied; whereas <code>dt_assign</code> is constant time/space, because only one row is modified with no copy necessary.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -468,15 +384,98 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The code in this section used a <code>data.table</code> object in both function calls to illustrate the constant time/space assignment which is possible, but the visualized result also applies to other data structures.</p>
-<p>As an exercise, add two more expressions to the <code>atime</code> benchmark: <code>base_assign</code> with a <code>data.frame</code> object and <code>tibble</code> object. You should see linear time/space for both.</p>
+<p>The function <code>pkg.edit.fun</code> that is passed to <code>atime_versions</code> above is a custom function written to manage the packages and paths on the server running this test.</p>
+<p>You can see the code below if you wish.</p>
 </div>
 </div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pkg.edit.fun<span class="ot">=</span><span class="cf">function</span>(old.Package, new.Package, sha, new.pkg.path){</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>      pkg_find_replace <span class="ot">&lt;-</span> <span class="cf">function</span>(glob, FIND, REPLACE){</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        atime<span class="sc">::</span><span class="fu">glob_find_replace</span>(<span class="fu">file.path</span>(new.pkg.path, glob), FIND, REPLACE)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      Package_regex <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"."</span>, <span class="st">"_?"</span>, old.Package, <span class="at">fixed=</span><span class="cn">TRUE</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      Package_ <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"."</span>, <span class="st">"_"</span>, old.Package, <span class="at">fixed=</span><span class="cn">TRUE</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      new.Package_ <span class="ot">&lt;-</span> <span class="fu">paste0</span>(Package_, <span class="st">"_"</span>, sha)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pkg_find_replace</span>(</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"DESCRIPTION"</span>, </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">paste0</span>(<span class="st">"Package:</span><span class="sc">\\</span><span class="st">s+"</span>, old.Package),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">paste</span>(<span class="st">"Package:"</span>, new.Package))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pkg_find_replace</span>(</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">file.path</span>(<span class="st">"src"</span>,<span class="st">"Makevars.*in"</span>),</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        Package_regex,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        new.Package_)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pkg_find_replace</span>(</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">file.path</span>(<span class="st">"R"</span>, <span class="st">"onLoad.R"</span>),</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        Package_regex,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        new.Package_)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pkg_find_replace</span>(</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">file.path</span>(<span class="st">"R"</span>, <span class="st">"onLoad.R"</span>),</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sprintf</span>(<span class="st">'packageVersion</span><span class="sc">\\</span><span class="st">("%s"</span><span class="sc">\\</span><span class="st">)'</span>, old.Package),</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sprintf</span>(<span class="st">'packageVersion</span><span class="sc">\\</span><span class="st">("%s"</span><span class="sc">\\</span><span class="st">)'</span>, new.Package))</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pkg_find_replace</span>(</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">file.path</span>(<span class="st">"src"</span>, <span class="st">"init.c"</span>),</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">paste0</span>(<span class="st">"R_init_"</span>, Package_regex),</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">paste0</span>(<span class="st">"R_init_"</span>, <span class="fu">gsub</span>(<span class="st">"[.]"</span>, <span class="st">"_"</span>, new.Package_)))</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pkg_find_replace</span>(</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">"NAMESPACE"</span>,</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sprintf</span>(<span class="st">'useDynLib</span><span class="sc">\\</span><span class="st">("?%s"?'</span>, Package_regex),</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>        <span class="fu">paste0</span>(<span class="st">'useDynLib('</span>, new.Package_))</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="results" class="level3">
+<h3 class="anchored" data-anchor-id="results">Results</h3>
+<p>The <code>atime</code> package uses the results of the performance test to create the following plot:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="atime_list_4200.png" class="img-fluid figure-img"></p>
+<figcaption>Plot showing the 3 branches (Regression, Fixed and Before) of the issues in #4200</figcaption>
+</figure>
+</div>
+<p>The graph compares the time required to execute the operation before, during, and after fixing a regression issue. The x-axis (N) represents the size of the data on a logarithmic scale. The y-axis represents the median time in milliseconds (logarithmic scale).</p>
+<p><em>Lines:</em></p>
+<p>“Before”: Indicates performance before fixing the regression; we hope to achieve this performance after fixing.</p>
+<p>“Regression”: Represents an ideal or target performance level.</p>
+<p>“Fixed”: Shows improved performance after fixing.</p>
+<p>In the graph, as data size (N) increases, there’s an initial increase in median time, but after addressing the regression issue, there is a significant reduction in the median time, indicating improved performance (fix). The regression issue was successfully addressed.</p>
+<!-- # Example Two -->
+<!-- In the specific case of issue *#5366*, there was a significant slowdown in the performance of data.table's time-based rolling aggregation compared to pandas' rolling aggregation. The cause of this regression was identified to be related to the addition of the `snprintf` function in the `assign.c` file. To address this issue, a fix was implemented by creating the `targetDesc` function and adding the `snprintf` function in the `assign.c` file. This fix resolved the regression and improved the performance of the time-based rolling aggregation in data.table. -->
+<!-- ```{r,warning = FALSE, message = FALSE} -->
+<!-- atime.list.5366 <- atime::atime_versions( -->
+<!-- pkg.path=tdir, -->
+<!-- pkg.edit.fun = pkg.edit.fun, -->
+<!--   N= 10^seq(1,4), -->
+<!--   setup={  -->
+<!--     set.seed(123L) -->
+<!--     dt <- data.table( -->
+<!--       id = seq_len(N), -->
+<!--       val = rnorm(N)) -->
+<!--     dt -->
+<!--   }, -->
+<!--  expr=data.table:::`[.data.table`(dt, , .(vs = (sum(val))), by = .(id)), -->
+<!--  Before = "be2f72e6f5c90622fe72e1c315ca05769a9dc854", # Parent of the regression causing commit (https://github.com/Rdatatable/data.table/commit/e793f53466d99f86e70fc2611b708ae8c601a451) in the PR that introduced the issue (https://github.com/Rdatatable/data.table/pull/4491/commits) -->
+<!--  Regression = "e793f53466d99f86e70fc2611b708ae8c601a451", # Commit responsible for regression in the PR that introduced the issue (https://github.com/Rdatatable/data.table/pull/4491/commits) -->
+<!--  Fixed = "58409197426ced4714af842650b0cc3b9e2cb842") # Last commit in the PR that fixed the regression (https://github.com/Rdatatable/data.table/pull/5463/commits))  -->
+<!-- ``` -->
+<!-- ## Significantly slower performance time-based rolling -->
+<!-- ![Plot showing the 3 branches(Regression, Fixed and Before) of Issues5366](https://github.com/DorisAmoakohene/Efficiency-and-Performance-Test.RData.table/blob/main/atime.list.5366.png) Graph overview: The graph depicts the performance improvement over time after fixing a regression issue Y-axis: Represents time in milliseconds. X-axis: Represents the sample size N (ranging from 10 to 10,000). -->
+<!-- *Three lines:* -->
+<!-- “Before Fixed”: Indicates performance before fixing the regression. “Fixed”: Represents improved performance after fixing. “Regression”: Shows the regression issue. The Regression line initially increases steeply with larger N, indicating slow performance. After fixing, line shows significantly reduced processing time. -->
+<!-- In summary, the graph visually demonstrates how fixing the regression issue led to improved performance in time-based rolling operations. The Fixed line represents the desired outcome, showing faster processing times for larger sample sizes. -->
 </section>
 </section>
-<section id="conclusions" class="level2">
-<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>In this post we have explored the syntax and semantics for assignment using base R and <code>data.table</code> square brackets with <code>:=</code>, and we have seen how the reference semantics of <code>data.table</code> can be very beneficial for computational efficiency.</p>
+<section id="automated-testing-with-github-actions" class="level2">
+<h2 class="anchored" data-anchor-id="automated-testing-with-github-actions">Automated testing with <strong>Github Actions</strong></h2>
+<p>As part of the <code>data.table</code> ecosystem project, Anirban Chetia has implemented a GitHub Action to automatically run performance tests any time the <code>data.table</code> repository is Pull Requested. This action runs the <code>atime</code> performance test and generates plots of the results in a comment within the pull request. <a href="https://github.com/Rdatatable/data.table/pull/5427#issuecomment-2075471806">See an example in this pull request.</a></p>
+<p>This action allows the package maintainers to easily determine if a Pull Request has any impact on the time or memory usage of the build for the <code>data.table</code> package. To learn more you can visit <a href="https://github.com/Anirban166/Autocomment-atime-results">Anirban’s documentation</a> or <a href="https://github.com/tdhock/atime?tab=readme-ov-file#github-action-for-continuous-performance-testing">this ReadMe about the <code>atime</code> package</a></p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>In this blog post, we have delved into the use of the <code>atime</code> package to compare the asymptotic time and memory usage of different development versions of the <code>data.table</code> package. Specifically, we visualized the comparisons between the “Before,” “Regression,” and “Fixed” versions for a specific performance regression issue.</p>
+<p>By employing benchmarking methodologies like <code>atime</code>, we gain valuable insights into the performance characteristics of proposed updates to the <code>data.table</code> package. This allowed us to identify and address performance regressions, ensuring that each new version of the package has indeed solved the particular issue reported.</p>
+<p>For more examples or practice with <code>atime</code> and regression, you can visit <a href="https://github.com/Rdatatable/data.table/issues/4311">this link</a> and the corresponding fix PR <a href="https://github.com/Rdatatable/data.table/pull/4440">here</a>.</p>
 
 
 
@@ -757,133 +756,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="13" data-listing-file-modified-sort="1729225986583">
-<div class="thumbnail">
-<p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index-listing.json" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index-listing.json" class="no-external">
-</a><p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index-listing.json" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index-listing.json" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index-listing.json" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index-listing.json" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index-listing.json" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index-listing.json" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="14" data-listing-file-modified-sort="1729225986579">
-<div class="thumbnail">
-<p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.feed-full-staged" class="no-external">
-</a><p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.feed-full-staged" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.feed-full-staged" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.feed-full-staged" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.feed-full-staged" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.feed-full-staged" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="15" data-listing-file-modified-sort="1729225986683">
-<div class="thumbnail">
-<p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">
-</a><p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="16" data-listing-file-modified-sort="1729225982491">
-<div class="thumbnail">
-<p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external">
-</a><p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index-listing.json" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="17" data-listing-file-modified-sort="1729225982487">
-<div class="thumbnail">
-<p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external">
-</a><p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.feed-full-staged" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="18" data-listing-file-modified-sort="1729225982587">
-<div class="thumbnail">
-<p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">
-</a><p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="19" data-listing-file-modified-sort="1729225956411">
+<div class="quarto-post image-right" data-index="13" data-listing-file-modified-sort="1729225956411">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/jan.png" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/jan.png" class="no-external">
 </a><p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/jan.png" class="no-external"></a></p>
@@ -904,7 +777,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="20" data-listing-file-modified-sort="1729225956411">
+<div class="quarto-post image-right" data-index="14" data-listing-file-modified-sort="1729225956411">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/image.jpg" class="no-external"></a></p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/image.jpg" class="no-external">
 </a><p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/image.jpg" class="no-external"></a></p>
@@ -925,7 +798,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="21" data-listing-file-modified-sort="1729225978371">
+<div class="quarto-post image-right" data-index="15" data-listing-file-modified-sort="1729225978371">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index-listing.json" class="no-external">
 </a><p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index-listing.json" class="no-external"></a></p>
@@ -946,7 +819,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="22" data-listing-file-modified-sort="1729225978367">
+<div class="quarto-post image-right" data-index="16" data-listing-file-modified-sort="1729225978367">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.feed-full-staged" class="no-external">
 </a><p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.feed-full-staged" class="no-external"></a></p>
@@ -967,7 +840,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="23" data-listing-file-modified-sort="1729225978471">
+<div class="quarto-post image-right" data-index="17" data-listing-file-modified-sort="1729225978471">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a></p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">
 </a><p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a></p>
@@ -988,7 +861,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="24" data-listing-file-modified-sort="1729225956411">
+<div class="quarto-post image-right" data-index="18" data-listing-file-modified-sort="1729225956411">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/styles.css" class="no-external"></a></p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/styles.css" class="no-external">
 </a><p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/styles.css" class="no-external"></a></p>
@@ -1009,7 +882,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="25" data-listing-file-modified-sort="1729225956411">
+<div class="quarto-post image-right" data-index="19" data-listing-file-modified-sort="1729225956411">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/New-Release.jpg" class="no-external"></a></p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/New-Release.jpg" class="no-external">
 </a><p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/New-Release.jpg" class="no-external"></a></p>
@@ -1030,7 +903,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="26" data-listing-file-modified-sort="1729225956411">
+<div class="quarto-post image-right" data-index="20" data-listing-file-modified-sort="1729225956411">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/timeline.png" class="no-external"></a></p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/timeline.png" class="no-external">
 </a><p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/timeline.png" class="no-external"></a></p>
@@ -1051,7 +924,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="27" data-listing-file-modified-sort="1729225956411">
+<div class="quarto-post image-right" data-index="21" data-listing-file-modified-sort="1729225956411">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/brackets.png" class="no-external"></a></p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/brackets.png" class="no-external">
 </a><p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/brackets.png" class="no-external"></a></p>
@@ -1072,7 +945,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="28" data-listing-file-modified-sort="1729225956411">
+<div class="quarto-post image-right" data-index="22" data-listing-file-modified-sort="1729225956411">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/image.jpg" class="no-external"></a></p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/image.jpg" class="no-external">
 </a><p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/image.jpg" class="no-external"></a></p>
@@ -1093,7 +966,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="29" data-listing-file-modified-sort="1729225956411">
+<div class="quarto-post image-right" data-index="23" data-listing-file-modified-sort="1729225956411">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/copy_on_modify.png" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/copy_on_modify.png" class="no-external">
 </a><p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/copy_on_modify.png" class="no-external"></a></p>
@@ -1114,28 +987,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="30" data-listing-file-modified-sort="1729225956043">
-<div class="thumbnail">
-<p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external">
-</a><p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index_files/figure-html/unnamed-chunk-5-1.png" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="31" data-listing-file-modified-sort="1729225956411">
+<div class="quarto-post image-right" data-index="24" data-listing-file-modified-sort="1729225956411">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/contribution_area.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/contribution_area.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/contribution_area.png" class="no-external"></a></p>
@@ -1156,7 +1008,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="32" data-listing-file-modified-sort="1729225956411">
+<div class="quarto-post image-right" data-index="25" data-listing-file-modified-sort="1729225956411">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/experience.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/experience.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/experience.png" class="no-external"></a></p>
@@ -1177,7 +1029,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="33" data-listing-file-modified-sort="1729225956415">
+<div class="quarto-post image-right" data-index="26" data-listing-file-modified-sort="1729225956415">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/importance_vs_satisfaction_area.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/importance_vs_satisfaction_area.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/importance_vs_satisfaction_area.png" class="no-external"></a></p>
@@ -1198,7 +1050,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="34" data-listing-file-modified-sort="1729225956415">
+<div class="quarto-post image-right" data-index="27" data-listing-file-modified-sort="1729225956415">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/pipe_helper.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/pipe_helper.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/pipe_helper.png" class="no-external"></a></p>
@@ -1219,7 +1071,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="35" data-listing-file-modified-sort="1729225956415">
+<div class="quarto-post image-right" data-index="28" data-listing-file-modified-sort="1729225956415">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area.png" class="no-external"></a></p>
@@ -1240,7 +1092,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="36" data-listing-file-modified-sort="1729225956415">
+<div class="quarto-post image-right" data-index="29" data-listing-file-modified-sort="1729225956415">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area_experience.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area_experience.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_area_experience.png" class="no-external"></a></p>
@@ -1261,7 +1113,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="37" data-listing-file-modified-sort="1729225956415">
+<div class="quarto-post image-right" data-index="30" data-listing-file-modified-sort="1729225956415">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality.png" class="no-external"></a></p>
@@ -1282,7 +1134,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="38" data-listing-file-modified-sort="1729225956415">
+<div class="quarto-post image-right" data-index="31" data-listing-file-modified-sort="1729225956415">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality_experience.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality_experience.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/satisfaction_functionality_experience.png" class="no-external"></a></p>
@@ -1303,7 +1155,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="39" data-listing-file-modified-sort="1729225956415">
+<div class="quarto-post image-right" data-index="32" data-listing-file-modified-sort="1729225956415">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_area.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_area.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_area.png" class="no-external"></a></p>
@@ -1324,7 +1176,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="40" data-listing-file-modified-sort="1729225956419">
+<div class="quarto-post image-right" data-index="33" data-listing-file-modified-sort="1729225956419">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_context.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_context.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_context.png" class="no-external"></a></p>
@@ -1345,7 +1197,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="41" data-listing-file-modified-sort="1729225956419">
+<div class="quarto-post image-right" data-index="34" data-listing-file-modified-sort="1729225956419">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_frequency.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_frequency.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_frequency.png" class="no-external"></a></p>
@@ -1366,7 +1218,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="42" data-listing-file-modified-sort="1729225956419">
+<div class="quarto-post image-right" data-index="35" data-listing-file-modified-sort="1729225956419">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/walrus_alias.png" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/walrus_alias.png" class="no-external">
 </a><p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/walrus_alias.png" class="no-external"></a></p>
@@ -1387,7 +1239,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="43" data-listing-file-modified-sort="1729225956423">
+<div class="quarto-post image-right" data-index="36" data-listing-file-modified-sort="1729225956423">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-06-interviews-anirban_chetia/index.jpeg" class="no-external"></a></p><a href="../../posts/2024-03-06-interviews-anirban_chetia/index.jpeg" class="no-external">
 </a><p><a href="../../posts/2024-03-06-interviews-anirban_chetia/index.jpeg" class="no-external"></a></p>
@@ -1408,7 +1260,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="44" data-listing-file-modified-sort="1729225956423">
+<div class="quarto-post image-right" data-index="37" data-listing-file-modified-sort="1729225956423">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-06-interviews-anirban_chetia/roadmap.png" class="no-external"></a></p><a href="../../posts/2024-03-06-interviews-anirban_chetia/roadmap.png" class="no-external">
 </a><p><a href="../../posts/2024-03-06-interviews-anirban_chetia/roadmap.png" class="no-external"></a></p>
@@ -1429,7 +1281,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="45" data-listing-file-modified-sort="1729225956423">
+<div class="quarto-post image-right" data-index="38" data-listing-file-modified-sort="1729225956423">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/code_testing.png" class="no-external"></a></p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/code_testing.png" class="no-external">
 </a><p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/code_testing.png" class="no-external"></a></p>
@@ -1450,7 +1302,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="46" data-listing-file-modified-sort="1729225956423">
+<div class="quarto-post image-right" data-index="39" data-listing-file-modified-sort="1729225956423">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/revdep_sig_diffs.png" class="no-external"></a></p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/revdep_sig_diffs.png" class="no-external">
 </a><p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/revdep_sig_diffs.png" class="no-external"></a></p>
@@ -1471,7 +1323,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="47" data-listing-file-modified-sort="1729225956423">
+<div class="quarto-post image-right" data-index="40" data-listing-file-modified-sort="1729225956423">
 <div class="thumbnail">
 <p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/image.jpg" class="no-external"></a></p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/image.jpg" class="no-external">
 </a><p><a href="../../posts/2024-04-01-conveyor_belt-kelly_bodwin/image.jpg" class="no-external"></a></p>
@@ -1492,7 +1344,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="48" data-listing-file-modified-sort="1729225956423">
+<div class="quarto-post image-right" data-index="41" data-listing-file-modified-sort="1729225956423">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/losdos.png" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/losdos.png" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/losdos.png" class="no-external"></a></p>
@@ -1513,7 +1365,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="49" data-listing-file-modified-sort="1729225956423">
+<div class="quarto-post image-right" data-index="42" data-listing-file-modified-sort="1729225956423">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/orwell.jpeg" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/orwell.jpeg" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/orwell.jpeg" class="no-external"></a></p>
@@ -1534,7 +1386,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="50" data-listing-file-modified-sort="1729225956423">
+<div class="quarto-post image-right" data-index="43" data-listing-file-modified-sort="1729225956423">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/paths.jpg" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/paths.jpg" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/paths.jpg" class="no-external"></a></p>
@@ -1555,7 +1407,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="51" data-listing-file-modified-sort="1729225956423">
+<div class="quarto-post image-right" data-index="44" data-listing-file-modified-sort="1729225956423">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/porque.jpg" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/porque.jpg" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/porque.jpg" class="no-external"></a></p>
@@ -1576,7 +1428,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="52" data-listing-file-modified-sort="1729225956435">
+<div class="quarto-post image-right" data-index="45" data-listing-file-modified-sort="1729225956435">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/quote_bubble.jpeg" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/quote_bubble.jpeg" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/quote_bubble.jpeg" class="no-external"></a></p>
@@ -1597,7 +1449,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="53" data-listing-file-modified-sort="1729225956435">
+<div class="quarto-post image-right" data-index="46" data-listing-file-modified-sort="1729225956435">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/xkcd.png" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/xkcd.png" class="no-external">
 </a><p><a href="../../posts/2024-05-20-kelly_bodwin/xkcd.png" class="no-external"></a></p>
@@ -1618,7 +1470,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="54" data-listing-file-modified-sort="1729225956435">
+<div class="quarto-post image-right" data-index="47" data-listing-file-modified-sort="1729225956435">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/Paola_Corrales.jpg" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/Paola_Corrales.jpg" class="no-external">
 </a><p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/Paola_Corrales.jpg" class="no-external"></a></p>
@@ -1639,7 +1491,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="55" data-listing-file-modified-sort="1729225976227">
+<div class="quarto-post image-right" data-index="48" data-listing-file-modified-sort="1729225976227">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index-listing.json" class="no-external">
 </a><p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index-listing.json" class="no-external"></a></p>
@@ -1660,7 +1512,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="56" data-listing-file-modified-sort="1729225976223">
+<div class="quarto-post image-right" data-index="49" data-listing-file-modified-sort="1729225976223">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.feed-full-staged" class="no-external">
 </a><p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.feed-full-staged" class="no-external"></a></p>
@@ -1681,7 +1533,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="57" data-listing-file-modified-sort="1729225976323">
+<div class="quarto-post image-right" data-index="50" data-listing-file-modified-sort="1729225976323">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">
 </a><p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a></p>
@@ -1702,7 +1554,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="58" data-listing-file-modified-sort="1729225956435">
+<div class="quarto-post image-right" data-index="51" data-listing-file-modified-sort="1729225956435">
 <div class="thumbnail">
 <p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/image.jpg" class="no-external"></a></p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/image.jpg" class="no-external">
 </a><p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/image.jpg" class="no-external"></a></p>
@@ -1723,7 +1575,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="59" data-listing-file-modified-sort="1729225956439">
+<div class="quarto-post image-right" data-index="52" data-listing-file-modified-sort="1729225956439">
 <div class="thumbnail">
 <p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/seal_of_approval.png" class="no-external"></a></p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/seal_of_approval.png" class="no-external">
 </a><p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/seal_of_approval.png" class="no-external"></a></p>
@@ -1744,7 +1596,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="60" data-listing-file-modified-sort="1729225956443">
+<div class="quarto-post image-right" data-index="53" data-listing-file-modified-sort="1729225956443">
 <div class="thumbnail">
 <p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/seal_of_approval_2.png" class="no-external"></a></p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/seal_of_approval_2.png" class="no-external">
 </a><p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/seal_of_approval_2.png" class="no-external"></a></p>
@@ -1765,7 +1617,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="61" data-listing-file-modified-sort="1729225956443">
+<div class="quarto-post image-right" data-index="54" data-listing-file-modified-sort="1729225956443">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex.png" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex.png" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex.png" class="no-external"></a></p>
@@ -1786,7 +1638,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="62" data-listing-file-modified-sort="1729225956443">
+<div class="quarto-post image-right" data-index="55" data-listing-file-modified-sort="1729225956443">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex_approved.png" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex_approved.png" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex_approved.png" class="no-external"></a></p>
@@ -1807,7 +1659,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="63" data-listing-file-modified-sort="1729225956451">
+<div class="quarto-post image-right" data-index="56" data-listing-file-modified-sort="1729225956451">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex_dtplyr.psd" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex_dtplyr.psd" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/hex_dtplyr.psd" class="no-external"></a></p>
@@ -1828,7 +1680,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="64" data-listing-file-modified-sort="1729225956451">
+<div class="quarto-post image-right" data-index="57" data-listing-file-modified-sort="1729225956451">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex.png" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex.png" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex.png" class="no-external"></a></p>
@@ -1849,7 +1701,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="65" data-listing-file-modified-sort="1729225956451">
+<div class="quarto-post image-right" data-index="58" data-listing-file-modified-sort="1729225956451">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex_approved.png" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex_approved.png" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex_approved.png" class="no-external"></a></p>
@@ -1870,7 +1722,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="66" data-listing-file-modified-sort="1729225956455">
+<div class="quarto-post image-right" data-index="59" data-listing-file-modified-sort="1729225956455">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex_nc.psd" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex_nc.psd" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-nc/hex_nc.psd" class="no-external"></a></p>
@@ -1891,7 +1743,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="67" data-listing-file-modified-sort="1729225956459">
+<div class="quarto-post image-right" data-index="60" data-listing-file-modified-sort="1729225956459">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex.png" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex.png" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex.png" class="no-external"></a></p>
@@ -1912,7 +1764,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="68" data-listing-file-modified-sort="1729225956459">
+<div class="quarto-post image-right" data-index="61" data-listing-file-modified-sort="1729225956459">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex_approved.png" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex_approved.png" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex_approved.png" class="no-external"></a></p>
@@ -1933,7 +1785,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="69" data-listing-file-modified-sort="1729225956463">
+<div class="quarto-post image-right" data-index="62" data-listing-file-modified-sort="1729225956463">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex_tidyfast.psd" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex_tidyfast.psd" class="no-external">
 </a><p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/hex_tidyfast.psd" class="no-external"></a></p>
@@ -1954,7 +1806,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="70" data-listing-file-modified-sort="1729225956467">
+<div class="quarto-post image-right" data-index="63" data-listing-file-modified-sort="1729225956467">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-20-translation_projects-community_team/languages.jpeg" class="no-external"></a></p><a href="../../posts/2024-08-20-translation_projects-community_team/languages.jpeg" class="no-external">
 </a><p><a href="../../posts/2024-08-20-translation_projects-community_team/languages.jpeg" class="no-external"></a></p>
@@ -1975,70 +1827,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="71" data-listing-file-modified-sort="1729225987635">
-<div class="thumbnail">
-<p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index-listing.json" class="no-external">
-</a><p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index-listing.json" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index-listing.json" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index-listing.json" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index-listing.json" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index-listing.json" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="72" data-listing-file-modified-sort="1729225987631">
-<div class="thumbnail">
-<p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.feed-full-staged" class="no-external">
-</a><p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.feed-full-staged" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.feed-full-staged" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.feed-full-staged" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.feed-full-staged" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.feed-full-staged" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="73" data-listing-file-modified-sort="1729225987639">
-<div class="thumbnail">
-<p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.html" class="no-external"></a></p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.html" class="no-external">
-</a><p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.html" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.html" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.html" class="no-external"></a></p><a href="../../posts/2024-09-01-Performance Comparison: Data.table in R and Pandas in Python-Doris Amoakohene/index.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="74" data-listing-file-modified-sort="1729225956467">
+<div class="quarto-post image-right" data-index="64" data-listing-file-modified-sort="1729225956467">
 <div class="thumbnail">
 <p><a href="../../posts/2024-09-21-seal_of_approval-collapse/hex.png" class="no-external"></a></p><a href="../../posts/2024-09-21-seal_of_approval-collapse/hex.png" class="no-external">
 </a><p><a href="../../posts/2024-09-21-seal_of_approval-collapse/hex.png" class="no-external"></a></p>
@@ -2059,7 +1848,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="75" data-listing-file-modified-sort="1729225956467">
+<div class="quarto-post image-right" data-index="65" data-listing-file-modified-sort="1729225956467">
 <div class="thumbnail">
 <p><a href="../../posts/2024-09-21-seal_of_approval-collapse/hex_approved.png" class="no-external"></a></p><a href="../../posts/2024-09-21-seal_of_approval-collapse/hex_approved.png" class="no-external">
 </a><p><a href="../../posts/2024-09-21-seal_of_approval-collapse/hex_approved.png" class="no-external"></a></p>
@@ -2080,7 +1869,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="76" data-listing-file-modified-sort="1729225956467">
+<div class="quarto-post image-right" data-index="66" data-listing-file-modified-sort="1729225956467">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/hex.png" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/hex.png" class="no-external">
 </a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/hex.png" class="no-external"></a></p>
@@ -2101,7 +1890,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="77" data-listing-file-modified-sort="1729225956467">
+<div class="quarto-post image-right" data-index="67" data-listing-file-modified-sort="1729225956467">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/hex_approved.png" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/hex_approved.png" class="no-external">
 </a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/hex_approved.png" class="no-external"></a></p>
@@ -2122,70 +1911,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="78" data-listing-file-modified-sort="1729225984643">
-<div class="thumbnail">
-<p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index-listing.json" class="no-external">
-</a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index-listing.json" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index-listing.json" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index-listing.json" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index-listing.json" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index-listing.json" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="79" data-listing-file-modified-sort="1729225984639">
-<div class="thumbnail">
-<p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.feed-full-staged" class="no-external">
-</a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.feed-full-staged" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.feed-full-staged" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.feed-full-staged" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.feed-full-staged" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.feed-full-staged" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="80" data-listing-file-modified-sort="1729225984747">
-<div class="thumbnail">
-<p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external">
-</a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="81" data-listing-file-modified-sort="1729225956467">
+<div class="quarto-post image-right" data-index="68" data-listing-file-modified-sort="1729225956467">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/__packages" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/__packages" class="no-external">
 </a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/__packages" class="no-external"></a></p>
@@ -2206,7 +1932,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="82" data-listing-file-modified-sort="1729225956467">
+<div class="quarto-post image-right" data-index="69" data-listing-file-modified-sort="1729225956467">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.RData" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.RData" class="no-external">
 </a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.RData" class="no-external"></a></p>
@@ -2227,7 +1953,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="83" data-listing-file-modified-sort="1729225956495">
+<div class="quarto-post image-right" data-index="70" data-listing-file-modified-sort="1729225956495">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.rdb" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.rdb" class="no-external">
 </a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.rdb" class="no-external"></a></p>
@@ -2248,7 +1974,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="84" data-listing-file-modified-sort="1729225956495">
+<div class="quarto-post image-right" data-index="71" data-listing-file-modified-sort="1729225956495">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.rdx" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.rdx" class="no-external">
 </a><p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index_cache/html/unnamed-chunk-5_63e114cf0657fd4da586031ad736983c.rdx" class="no-external"></a></p>
@@ -2269,7 +1995,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="85" data-listing-file-modified-sort="1729225956495">
+<div class="quarto-post image-right" data-index="72" data-listing-file-modified-sort="1729225956495">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/atime.png" class="no-external"></a></p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/atime.png" class="no-external">
 </a><p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/atime.png" class="no-external"></a></p>
@@ -2290,7 +2016,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="86" data-listing-file-modified-sort="1729225956495">
+<div class="quarto-post image-right" data-index="73" data-listing-file-modified-sort="1729225956495">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/atime_list_4200.png" class="no-external"></a></p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/atime_list_4200.png" class="no-external">
 </a><p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/atime_list_4200.png" class="no-external"></a></p>
@@ -2311,70 +2037,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="87" data-listing-file-modified-sort="1729225980611">
-<div class="thumbnail">
-<p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index-listing.json" class="no-external">
-</a><p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index-listing.json" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index-listing.json" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index-listing.json" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index-listing.json" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index-listing.json" class="no-external"></a></p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index-listing.json" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="88" data-listing-file-modified-sort="1729225980607">
-<div class="thumbnail">
-<p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.feed-full-staged" class="no-external">
-</a><p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.feed-full-staged" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.feed-full-staged" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.feed-full-staged" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.feed-full-staged" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.feed-full-staged" class="no-external"></a></p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.feed-full-staged" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="89" data-listing-file-modified-sort="1729225980719">
-<div class="thumbnail">
-<p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.html" class="no-external"></a></p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.html" class="no-external">
-</a><p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.html" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.html" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.html" class="no-external"></a></p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="90" data-listing-file-modified-sort="1729225956495">
+<div class="quarto-post image-right" data-index="74" data-listing-file-modified-sort="1729225956495">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-17-duckdb_polars_reshape-toby_hocking/duckdb.png" class="no-external"></a></p><a href="../../posts/2024-10-17-duckdb_polars_reshape-toby_hocking/duckdb.png" class="no-external">
 </a><p><a href="../../posts/2024-10-17-duckdb_polars_reshape-toby_hocking/duckdb.png" class="no-external"></a></p>
@@ -2395,7 +2058,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="91" data-listing-file-modified-sort="1729225956495">
+<div class="quarto-post image-right" data-index="75" data-listing-file-modified-sort="1729225956495">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-17-duckdb_polars_reshape-toby_hocking/seal_duck.jpg" class="no-external"></a></p><a href="../../posts/2024-10-17-duckdb_polars_reshape-toby_hocking/seal_duck.jpg" class="no-external">
 </a><p><a href="../../posts/2024-10-17-duckdb_polars_reshape-toby_hocking/seal_duck.jpg" class="no-external"></a></p>
@@ -2416,7 +2079,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="92" data-listing-file-modified-sort="1729225956503">
+<div class="quarto-post image-right" data-index="76" data-listing-file-modified-sort="1729225956503">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-17-duckdb_polars_reshape-toby_hocking/seal_polar.png" class="no-external"></a></p><a href="../../posts/2024-10-17-duckdb_polars_reshape-toby_hocking/seal_polar.png" class="no-external">
 </a><p><a href="../../posts/2024-10-17-duckdb_polars_reshape-toby_hocking/seal_polar.png" class="no-external"></a></p>
@@ -2437,7 +2100,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="93" data-listing-file-modified-sort="1729225956507">
+<div class="quarto-post image-right" data-index="77" data-listing-file-modified-sort="1729225956507">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-17-duckdb_polars_reshape-toby_hocking/wide_long.jpeg" class="no-external"></a></p><a href="../../posts/2024-10-17-duckdb_polars_reshape-toby_hocking/wide_long.jpeg" class="no-external">
 </a><p><a href="../../posts/2024-10-17-duckdb_polars_reshape-toby_hocking/wide_long.jpeg" class="no-external"></a></p>
@@ -2458,7 +2121,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="94" data-listing-file-modified-sort="1729225956507">
+<div class="quarto-post image-right" data-index="78" data-listing-file-modified-sort="1729225956507">
 <div class="thumbnail">
 <p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/hex.png" class="no-external"></a></p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/hex.png" class="no-external">
 </a><p><a href="../../posts/YYYY-MM-DD-seal_of_approval-pkg_name/hex.png" class="no-external"></a></p>
@@ -2479,7 +2142,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="95" data-listing-file-modified-sort="1729225956507">
+<div class="quarto-post image-right" data-index="79" data-listing-file-modified-sort="1729225956507">
 <div class="thumbnail">
 <p><a href="../../posts/images/.DS_Store" class="no-external"></a></p><a href="../../posts/images/.DS_Store" class="no-external">
 </a><p><a href="../../posts/images/.DS_Store" class="no-external"></a></p>
@@ -2500,7 +2163,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="96" data-listing-file-modified-sort="1729225956507">
+<div class="quarto-post image-right" data-index="80" data-listing-file-modified-sort="1729225956507">
 <div class="thumbnail">
 <p><a href="../../posts/images/NSF.svg" class="no-external"></a></p><a href="../../posts/images/NSF.svg" class="no-external">
 </a><p><a href="../../posts/images/NSF.svg" class="no-external"></a></p>
@@ -2521,7 +2184,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="97" data-listing-file-modified-sort="1729225956511">
+<div class="quarto-post image-right" data-index="81" data-listing-file-modified-sort="1729225956511">
 <div class="thumbnail">
 <p><a href="../../posts/images/banner.jpeg" class="no-external"></a></p><a href="../../posts/images/banner.jpeg" class="no-external">
 </a><p><a href="../../posts/images/banner.jpeg" class="no-external"></a></p>
@@ -2542,7 +2205,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="98" data-listing-file-modified-sort="1729225956519">
+<div class="quarto-post image-right" data-index="82" data-listing-file-modified-sort="1729225956519">
 <div class="thumbnail">
 <p><a href="../../posts/images/banner_tall.jpeg" class="no-external"></a></p><a href="../../posts/images/banner_tall.jpeg" class="no-external">
 </a><p><a href="../../posts/images/banner_tall.jpeg" class="no-external"></a></p>
@@ -2563,7 +2226,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="99" data-listing-file-modified-sort="1729225956519">
+<div class="quarto-post image-right" data-index="83" data-listing-file-modified-sort="1729225956519">
 <div class="thumbnail">
 <p><a href="../../posts/images/banner_tall_small.jpeg" class="no-external"></a></p><a href="../../posts/images/banner_tall_small.jpeg" class="no-external">
 </a><p><a href="../../posts/images/banner_tall_small.jpeg" class="no-external"></a></p>
@@ -2584,7 +2247,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="100" data-listing-file-modified-sort="1729225956523">
+<div class="quarto-post image-right" data-index="84" data-listing-file-modified-sort="1729225956523">
 <div class="thumbnail">
 <p><a href="../../posts/images/banner_yellow.jpeg" class="no-external"></a></p><a href="../../posts/images/banner_yellow.jpeg" class="no-external">
 </a><p><a href="../../posts/images/banner_yellow.jpeg" class="no-external"></a></p>
@@ -2605,7 +2268,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="101" data-listing-file-modified-sort="1729225956523">
+<div class="quarto-post image-right" data-index="85" data-listing-file-modified-sort="1729225956523">
 <div class="thumbnail">
 <p><a href="../../posts/images/hex.png" class="no-external"></a></p><a href="../../posts/images/hex.png" class="no-external">
 </a><p><a href="../../posts/images/hex.png" class="no-external"></a></p>
@@ -2626,7 +2289,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="102" data-listing-file-modified-sort="1729225956523">
+<div class="quarto-post image-right" data-index="86" data-listing-file-modified-sort="1729225956523">
 <div class="thumbnail">
 <p><a href="../../posts/images/hocking-nau.jpg" class="no-external"></a></p><a href="../../posts/images/hocking-nau.jpg" class="no-external">
 </a><p><a href="../../posts/images/hocking-nau.jpg" class="no-external"></a></p>
@@ -2647,7 +2310,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="103" data-listing-file-modified-sort="1729225956523">
+<div class="quarto-post image-right" data-index="87" data-listing-file-modified-sort="1729225956523">
 <div class="thumbnail">
 <p><a href="../../posts/images/old_man.jpg" class="no-external"></a></p><a href="../../posts/images/old_man.jpg" class="no-external">
 </a><p><a href="../../posts/images/old_man.jpg" class="no-external"></a></p>
@@ -2668,7 +2331,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="104" data-listing-file-modified-sort="1729225956527">
+<div class="quarto-post image-right" data-index="88" data-listing-file-modified-sort="1729225956527">
 <div class="thumbnail">
 <p><a href="../../posts/images/old_man.svg" class="no-external"></a></p><a href="../../posts/images/old_man.svg" class="no-external">
 </a><p><a href="../../posts/images/old_man.svg" class="no-external"></a></p>
@@ -2689,7 +2352,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="105" data-listing-file-modified-sort="1729225956527">
+<div class="quarto-post image-right" data-index="89" data-listing-file-modified-sort="1729225956527">
 <div class="thumbnail">
 <p><a href="../../posts/images/sea_lions.jpg" class="no-external"></a></p><a href="../../posts/images/sea_lions.jpg" class="no-external">
 </a><p><a href="../../posts/images/sea_lions.jpg" class="no-external"></a></p>
@@ -2710,7 +2373,7 @@ Note
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="106" data-categories="tips,tutorials,developer,benchmarks" data-listing-date-sort="1729123200000" data-listing-file-modified-sort="1729225956495" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4201">
+<div class="quarto-post image-right" data-index="90" data-categories="tips,tutorials,developer,benchmarks" data-listing-date-sort="1729123200000" data-listing-file-modified-sort="1729225956495" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4201">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-17-duckdb_polars_reshape-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2024-10-17-duckdb_polars_reshape-toby_hocking/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-10-17-duckdb_polars_reshape-toby_hocking/duckdb.png" class="thumbnail-image"></p>
@@ -2738,35 +2401,7 @@ Toby Dylan Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="107" data-categories="performance,testing,developer" data-listing-date-sort="1728518400000" data-listing-file-modified-sort="1729225956495" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2217">
-<div class="thumbnail">
-<p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.html" class="no-external"></a></p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.html" class="no-external">
-<p><img loading="lazy" data-src="../../posts/2024-10-10-Performance-Doris_Amoakohene/atime.png" class="thumbnail-image"></p>
-</a><p><a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.html" class="no-external">Visualizing performance regression of <code>data.table</code> with <code>atime</code></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.html" class="no-external">Since August 2023, I have been working on performance testing, which could be useful for expanding the open-source ecosystem around <code>data.table</code> package in R. This could…<code></code></a>
-</div>
-</div>
-<div class="metadata">
-<a href="../../posts/2024-10-10-Performance-Doris_Amoakohene/index.html" class="no-external">
-<div class="listing-date">
-Oct 10, 2024
-</div>
-<div class="listing-author">
-Doris Afriyie Amoakohene
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="108" data-categories="seal of approval,application package" data-listing-date-sort="1727740800000" data-listing-file-modified-sort="1729225956467" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="381">
+<div class="quarto-post image-right" data-index="91" data-categories="seal of approval,application package" data-listing-date-sort="1727740800000" data-listing-file-modified-sort="1729225956467" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="381">
 <div class="thumbnail">
 <p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external"></a></p><a href="../../posts/2024-10-01-seal_of_approval-mlr3/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-10-01-seal_of_approval-mlr3/hex_approved.png" class="thumbnail-image"></p>
@@ -2794,7 +2429,7 @@ Maximilian Mücke
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="109" data-categories="seal of approval,partner package" data-listing-date-sort="1726876800000" data-listing-file-modified-sort="1729225956467" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="981">
+<div class="quarto-post image-right" data-index="92" data-categories="seal of approval,partner package" data-listing-date-sort="1726876800000" data-listing-file-modified-sort="1729225956467" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="981">
 <div class="thumbnail">
 <p><a href="../../posts/2024-09-21-seal_of_approval-collapse/index.html" class="no-external"></a></p><a href="../../posts/2024-09-21-seal_of_approval-collapse/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-09-21-seal_of_approval-collapse/hex_approved.png" class="thumbnail-image"></p>
@@ -2822,7 +2457,7 @@ Sebastian Krantz
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="110" data-categories="announcements,grant,translation" data-listing-date-sort="1724112000000" data-listing-file-modified-sort="1729225956463" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="140">
+<div class="quarto-post image-right" data-index="93" data-categories="announcements,grant,translation" data-listing-date-sort="1724112000000" data-listing-file-modified-sort="1729225956463" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="140">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-20-translation_projects-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-08-20-translation_projects-community_team/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-08-20-translation_projects-community_team/languages.jpeg" class="thumbnail-image"></p>
@@ -2850,7 +2485,7 @@ Toby Dylan Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="111" data-categories="seal of approval,bridge package" data-listing-date-sort="1722470400000" data-listing-file-modified-sort="1729225956451" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="253">
+<div class="quarto-post image-right" data-index="94" data-categories="seal of approval,bridge package" data-listing-date-sort="1722470400000" data-listing-file-modified-sort="1729225956451" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="253">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/index.html" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-dtplyr/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-08-01-seal_of_approval-dtplyr/hex_approved.png" class="thumbnail-image"></p>
@@ -2878,7 +2513,7 @@ Kelly Bodwin
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="112" data-categories="seal of approval,extension package" data-listing-date-sort="1722470400000" data-listing-file-modified-sort="1729225956455" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="698">
+<div class="quarto-post image-right" data-index="95" data-categories="seal of approval,extension package" data-listing-date-sort="1722470400000" data-listing-file-modified-sort="1729225956455" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="698">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-nc/index.html" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-nc/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-08-01-seal_of_approval-nc/hex_approved.png" class="thumbnail-image"></p>
@@ -2906,7 +2541,7 @@ Toby Dylan Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="113" data-categories="seal of approval,bridge package" data-listing-date-sort="1722470400000" data-listing-file-modified-sort="1729225956463" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="657">
+<div class="quarto-post image-right" data-index="96" data-categories="seal of approval,bridge package" data-listing-date-sort="1722470400000" data-listing-file-modified-sort="1729225956463" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="657">
 <div class="thumbnail">
 <p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/index.html" class="no-external"></a></p><a href="../../posts/2024-08-01-seal_of_approval-tidyfast/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-08-01-seal_of_approval-tidyfast/hex_approved.png" class="thumbnail-image"></p>
@@ -2934,7 +2569,7 @@ Tyson S. Barrett
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="114" data-categories="announcements,grant,community,seal of approval" data-listing-date-sort="1722384000000" data-listing-file-modified-sort="1729225956435" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="215">
+<div class="quarto-post image-right" data-index="97" data-categories="announcements,grant,community,seal of approval" data-listing-date-sort="1722384000000" data-listing-file-modified-sort="1729225956435" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="215">
 <div class="thumbnail">
 <p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-07-31-seal_of_approval_announcement-community_team/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-07-31-seal_of_approval_announcement-community_team/seal_of_approval.png" class="thumbnail-image"></p>
@@ -2962,7 +2597,7 @@ Kelly Bodwin
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="115" data-categories="announcements,grant,ambassadors,travel" data-listing-date-sort="1718150400000" data-listing-file-modified-sort="1729225956435" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="311">
+<div class="quarto-post image-right" data-index="98" data-categories="announcements,grant,ambassadors,travel" data-listing-date-sort="1718150400000" data-listing-file-modified-sort="1729225956435" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="311">
 <div class="thumbnail">
 <p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-06-09-ambassador_corrales-community_team/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-06-09-ambassador_corrales-community_team/Paola_Corrales.jpg" class="thumbnail-image"></p>
@@ -2990,7 +2625,7 @@ Community Team
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="116" data-categories="opinion" data-listing-date-sort="1717459200000" data-listing-file-modified-sort="1729225956423" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1412">
+<div class="quarto-post image-right" data-index="99" data-categories="opinion" data-listing-date-sort="1717459200000" data-listing-file-modified-sort="1729225956423" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1412">
 <div class="thumbnail">
 <p><a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external"></a></p><a href="../../posts/2024-05-20-kelly_bodwin/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-05-20-kelly_bodwin/paths.jpg" class="thumbnail-image"></p>
@@ -3018,7 +2653,7 @@ Kelly Bodwin
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="117" data-categories="grant,testing,developer" data-listing-date-sort="1710028800000" data-listing-file-modified-sort="1729225956423" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1527">
+<div class="quarto-post image-right" data-index="100" data-categories="grant,testing,developer" data-listing-date-sort="1710028800000" data-listing-file-modified-sort="1729225956423" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1527">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2024-03-10-testing_plan-toby_hocking/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-03-10-testing_plan-toby_hocking/code_testing.png" class="thumbnail-image"></p>
@@ -3046,7 +2681,7 @@ Toby Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="118" data-categories="community,grant" data-listing-date-sort="1709683200000" data-listing-file-modified-sort="1729225956423" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17" data-listing-word-count-sort="3396">
+<div class="quarto-post image-right" data-index="101" data-categories="community,grant" data-listing-date-sort="1709683200000" data-listing-file-modified-sort="1729225956423" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17" data-listing-word-count-sort="3396">
 <div class="thumbnail">
 <p><a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external"></a></p><a href="../../posts/2024-03-06-interviews-anirban_chetia/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-03-06-interviews-anirban_chetia/index.jpeg" class="thumbnail-image"></p>
@@ -3074,7 +2709,7 @@ Anirban Chetia
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="119" data-categories="community,guest post,governance" data-listing-date-sort="1708819200000" data-listing-file-modified-sort="1729225956415" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1190">
+<div class="quarto-post image-right" data-index="102" data-categories="community,guest post,governance" data-listing-date-sort="1708819200000" data-listing-file-modified-sort="1729225956415" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1190">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external"></a></p><a href="../../posts/2024-02-25-survey_2023-aljaz_sluga/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-02-25-survey_2023-aljaz_sluga/usage_frequency.png" class="thumbnail-image"></p>
@@ -3102,7 +2737,35 @@ Aljaž Sluga
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="120" data-categories="tips,tutorials,documentation" data-listing-date-sort="1707091200000" data-listing-file-modified-sort="1729225956411" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="914">
+<div class="quarto-post image-right" data-index="103" data-categories="tips,tutorials,developer" data-listing-date-sort="1708214400000" data-listing-file-modified-sort="1729225956411" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="918">
+<div class="thumbnail">
+<p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">
+<p><img loading="lazy" data-src="../../posts/2024-02-18-dt_particularities-toby_hocking/copy_on_modify.png" class="thumbnail-image"></p>
+</a><p><a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">Column assignment and reference semantics in data.table</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">The goal of this blog post is to explain some similarities and differences between the base R <code>data.frame</code> object type, and the <code>data.table</code> object type. We will focus on…</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../../posts/2024-02-18-dt_particularities-toby_hocking/index.html" class="no-external">
+<div class="listing-date">
+Feb 18, 2024
+</div>
+<div class="listing-author">
+Toby Hocking
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="104" data-categories="tips,tutorials,documentation" data-listing-date-sort="1707091200000" data-listing-file-modified-sort="1729225956411" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="914">
 <div class="thumbnail">
 <p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external"></a></p><a href="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-02-05-tips_tricks_1-tyson_barrett/brackets.png" class="thumbnail-image"></p>
@@ -3130,7 +2793,7 @@ Tyson Barrett
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="121" data-categories="governance,releases" data-listing-date-sort="1706572800000" data-listing-file-modified-sort="1729225956411" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="696">
+<div class="quarto-post image-right" data-index="105" data-categories="governance,releases" data-listing-date-sort="1706572800000" data-listing-file-modified-sort="1729225956411" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="696">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2024-01-30-new_governance_new_release-toby_hocking/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-01-30-new_governance_new_release-toby_hocking/New-Release.jpg" class="thumbnail-image"></p>
@@ -3158,7 +2821,7 @@ Toby Dylan Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="122" data-categories="tips,tutorials,documentation,guest post" data-listing-date-sort="1706400000000" data-listing-file-modified-sort="1729225956411" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="988">
+<div class="quarto-post image-right" data-index="106" data-categories="tips,tutorials,documentation,guest post" data-listing-date-sort="1706400000000" data-listing-file-modified-sort="1729225956411" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="988">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external"></a></p><a href="../../posts/2024-01-28-piping_data_tables-elio_campitelli/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-01-28-piping_data_tables-elio_campitelli/image.jpg" class="thumbnail-image"></p>
@@ -3186,7 +2849,7 @@ Elio Campitelli
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="123" data-categories="announcements,grant,ambassadors" data-listing-date-sort="1705190400000" data-listing-file-modified-sort="1729225956411" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="292">
+<div class="quarto-post image-right" data-index="107" data-categories="announcements,grant,ambassadors" data-listing-date-sort="1705190400000" data-listing-file-modified-sort="1729225956411" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="292">
 <div class="thumbnail">
 <p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external"></a></p><a href="../../posts/2024-01-14-ambassador_gorecki-community_team/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2024-01-14-ambassador_gorecki-community_team/jan.png" class="thumbnail-image"></p>
@@ -3214,7 +2877,7 @@ Kelly Bodwin
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="124" data-categories="conferences" data-listing-date-sort="1700352000000" data-listing-file-modified-sort="1729225956411" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="581">
+<div class="quarto-post image-right" data-index="108" data-categories="conferences" data-listing-date-sort="1700352000000" data-listing-file-modified-sort="1729225956411" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="581">
 <div class="thumbnail">
 <p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2023-11-19-LatinR_summary-toby_hocking/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2023-11-19-LatinR_summary-toby_hocking/image.jpg" class="thumbnail-image"></p>
@@ -3242,7 +2905,7 @@ Toby Dylan Hocking
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="125" data-categories="announcements,grant,funding opportunity" data-listing-date-sort="1698796800000" data-listing-file-modified-sort="1729225956407" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="428">
+<div class="quarto-post image-right" data-index="109" data-categories="announcements,grant,funding opportunity" data-listing-date-sort="1698796800000" data-listing-file-modified-sort="1729225956407" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="428">
 <div class="thumbnail">
 <p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external"></a></p><a href="../../posts/2023-11-01-travel_grant_announcement-community_team/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2023-11-01-travel_grant_announcement-community_team/image.jpg" class="thumbnail-image"></p>
@@ -3270,7 +2933,7 @@ Kelly Bodwin
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="126" data-categories="announcements,grant,funding opportunity" data-listing-date-sort="1697500800000" data-listing-file-modified-sort="1729225956407" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="664">
+<div class="quarto-post image-right" data-index="110" data-categories="announcements,grant,funding opportunity" data-listing-date-sort="1697500800000" data-listing-file-modified-sort="1729225956407" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="664">
 <div class="thumbnail">
 <p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2023-10-17-translation_announcement-toby_hocking/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2023-10-17-translation_announcement-toby_hocking/translate.jpeg" class="thumbnail-image"></p>
@@ -3295,7 +2958,7 @@ Oct 17, 2023
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="127" data-categories="announcements,grant" data-listing-date-sort="1697328000000" data-listing-file-modified-sort="1729225956403" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="640">
+<div class="quarto-post image-right" data-index="111" data-categories="announcements,grant" data-listing-date-sort="1697328000000" data-listing-file-modified-sort="1729225956403" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="640">
 <div class="thumbnail">
 <p><a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external"></a></p><a href="../../posts/2023-10-15-intro_to_grant-toby_hocking/index.html" class="no-external">
 <p><img loading="lazy" data-src="../../posts/2023-10-15-intro_to_grant-toby_hocking/sea_lions.jpg" class="thumbnail-image"></p>
