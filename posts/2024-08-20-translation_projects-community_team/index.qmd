@@ -1,17 +1,11 @@
 ---
-title: "Newly awarded travel and translation projects"
+title: "Newly awarded translation projects"
 author: "Toby Dylan Hocking"
-date: "2024-06-12"
-categories: [announcements, grant, ambassadors, travel]
-image: "jan.png"
-draft: true
+date: "2024-08-20"
+categories: [announcements, grant, translation]
+image: "languages.png"
+draft: false
 ---
-
-## Paola Corrales tutorial at useR 2024
-
-We are pleased to award travel support for Paola Corrales, who will present a tutorial on "Efficient Data Analysis with Data.Table" at the international useR 2024 conference in Salzburg, Austria on Monday, July 8 at 9:00 to 12:30.
-
-For more info, please see the [tutorial web page](https://userconf2024.sched.com/event/1c8yF/tutorial-efficient-data-analysis-with-datatable-paola-corrales-r-ladiesropenscicarpentries-elio-campitelli-universidad-de-buenos-aires-pre-registration-required), which also shows the abstract and co-authors for the tutorial (Carpentries, Elio Campitelli).
 
 ## French translation project
 

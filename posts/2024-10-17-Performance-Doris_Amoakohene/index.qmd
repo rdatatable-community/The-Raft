@@ -4,6 +4,7 @@ author: "Doris Afriyie Amoakohene"
 date: "2024-10-10"
 draft: false
 image: "atime.png"
+categories: [performance, testing, developer]
 execute:
   eval: false
 ---
