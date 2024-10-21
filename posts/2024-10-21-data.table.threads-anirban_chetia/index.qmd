@@ -1,0 +1,8 @@
+---
+title: "`data.table.threads` - find the best thread count!"
+author: "Anirban Chetia"
+date: "2024-10-17"
+categories: [developer, benchmarks]
+image: ""
+draft: false
+---
