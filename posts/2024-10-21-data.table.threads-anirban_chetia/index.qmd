@@ -12,3 +12,6 @@ draft: false
 When working with large datasets, leveraging system resources like multiple CPU threads for shared-memory parallelization can significantly reduce computation time. However, it isn’t straightforward to determine the optimal thread count to obtain the lowest runtime for an operation, or on the other hand, the number of threads required for efficient speedup scaling.
 
 In an R package like `data.table` where parallelization is extensively utilized (or by most operations), it can be convenient to automatically figure out the number of threads to use for achieving the fastest execution time in the case of a particular routine, without the user needing to rely on ad-hoc experiments. Likewise, it would be handy if the user could set the thread count keeping in mind maximum (or a user-defined ratio) scalability in terms of the speedup obtained, which otherwise can be tricky or time-consuming to figure out manually.
+
+This is where data.table.threads comes in - A package designed to assist in finding the most suitable thread count for the various parallelized operations within data.table.
+
