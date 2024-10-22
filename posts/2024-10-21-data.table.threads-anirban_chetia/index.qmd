@@ -15,3 +15,12 @@ In an R package like `data.table` where parallelization is extensively utilized 
 
 This is where data.table.threads comes in - A package designed to assist in finding the most suitable thread count for the various parallelized operations within data.table.
 
+## Key features
+
+`findOptimalThreadCount(rowCount, columnCount, ...)`, the main user-facing function, runs a set of predefined benchmarks for each applicable function across varying thread counts (iteratively from one to the highest number available as per the user's system) and involves computation of speedup along with the recommended<sup>1</sup> thread counts for each function aside from the optimal/ideal case. It returns a `data.table` object of a custom class (`print` and `plot` methods have been provided), which contains the optimal thread count for each function along with plot data consisting of speedup trends and key points.
+
+Printing this object would enlist the fastest median runtime (in milliseconds) along with the thread count that achieved it for each function.
+
+Plotting the object would generate a plot that shows the ideal, recommended, and measured speedup trends for each benchmarked `data.table` function.
+
+<sup>1</sup>The recommended value represents the point of near-maximum gain in terms of thread-use efficiency, and stems from the highest intersection between sub-optimal (50% speedup efficiency by default, can be configured by the `recommendedEfficiency` argument for `findOptimalThreadCount`) and measured speedup data.
