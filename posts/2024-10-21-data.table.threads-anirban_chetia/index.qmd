@@ -17,7 +17,7 @@ This is where data.table.threads comes in - A package designed to assist in find
 
 ## Key features
 
-`findOptimalThreadCount(rowCount, columnCount, ...)`, the main user-facing function, runs a set of predefined benchmarks for each applicable function across varying thread counts (iteratively from one to the highest number available as per the user's system) and involves computation of speedup along with the recommended<sup>1</sup> thread counts for each function aside from the optimal/ideal case. It returns a `data.table` object of a custom class (`print` and `plot` methods have been provided), which contains the optimal thread count for each function along with plot data consisting of speedup trends and key points.
+`findOptimalThreadCount(rowCount, columnCount, ...)`, the main user-facing function, runs a set of predefined benchmarks for each applicable function across varying thread counts (iteratively from one to the highest number available as per the user's system) and involves computation of speedup along with the recommended<sup>1</sup> thread counts for each function aside from the optimal/ideal case. It returns a `data.table` object of a custom class (`print` and `plot` methods have been provided), which contains the optimal thread count for each function. It also provides plot data (consisting of speedup trends and key points) as attributes.
 
 Printing this object would enlist the fastest median runtime (in milliseconds) along with the thread count that achieved it for each function.
 
