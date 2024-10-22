@@ -2,7 +2,7 @@
 title: "`data.table.threads` - find the best thread count!"
 author: "Anirban Chetia"
 date: "2024-10-21"
-categories: [developer, benchmarks]
+categories: [developer, benchmarks, speedup, parallelization]
 image: ""
 draft: false
 ---
