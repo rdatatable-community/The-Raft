@@ -24,3 +24,16 @@ Printing this object would enlist the fastest median runtime (in milliseconds) a
 Plotting the object would generate a plot that shows the ideal, recommended, and measured speedup trends for each benchmarked `data.table` function.
 
 <sup>1</sup>The recommended value represents the point of near-maximum gain in terms of thread-use efficiency, and stems from the highest intersection between sub-optimal (50% speedup efficiency by default, can be configured by the `recommendedEfficiency` argument for `findOptimalThreadCount`) and measured speedup data.
+
+Here is an example:
+```{r}
+library(data.table.threads)
+
+(benchmarkData <- data.table.threads::findOptimalThreadCount(1e7, 10, verbose = FALSE, recommendedEfficiency = 0.6))
+plot(benchmarkData)
+```
+
+In order to set the thread count based on observed results for a user-specified function and speedup efficiency value, the `setThreadCount(benchmarkData, functionName, efficiencyFactor)` function can then be used:
+```{r}
+setOptimalThreadCount(benchmarks, functionName = "forder")
+```
