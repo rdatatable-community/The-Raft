@@ -17,20 +17,22 @@ This is where `data.table.threads` comes in - A package designed to assist in fi
 
 ## Key features
 
-`findOptimalThreadCount(rowCount, columnCount, ...)`, the main user-facing function, runs a set of predefined benchmarks for each applicable function across varying thread counts (iteratively from one to the highest number available as per the user's system) and involves computation of speedup along with the recommended<sup>1</sup> thread counts for each function aside from the optimal/ideal case. It returns a `data.table` object of a custom class (`print` and `plot` methods have been provided), which contains the optimal thread count for each function. It also provides plot data (consisting of speedup trends and key points) as attributes.
+`findOptimalThreadCount(rowCount, columnCount, ...)`, the main user-facing function, runs a set of predefined benchmarks for each applicable function across varying thread counts (iteratively from one to the highest number available as per the user's system) and involves computation to find the optimal/ideal speedup and thread count for each function. It returns a `data.table` object of a custom class (`print` and `plot` methods have been provided), which contains the optimal thread count for each function. It also provides plot data (consisting of speedup trends and key points) as attributes.
 
 Printing this object would enlist the fastest median runtime (in milliseconds) along with the thread count that achieved it for each function.
 
 Plotting the object would generate a plot that shows the ideal, recommended, and measured speedup trends for each benchmarked `data.table` function.
 
-<sup>1</sup>The recommended value represents the point of near-maximum gain in terms of thread-use efficiency, and stems from the highest intersection between sub-optimal (50% speedup efficiency by default, can be configured by the `recommendedEfficiency` argument for `findOptimalThreadCount`) and measured speedup data.
+If the user wants to factor in a specified speedup efficiency, they can use the function `addRecommendedEfficiency` to add a speedup line with a slope configured by input argument `efficiencyFactor` (default value is 0.5, or 50% efficiency), along with a point representing the recommended thread count which stems from the highest intersection between this line (of specified thread-use efficiency) and measured speedup data for each function.
 
 Here is an example:
 ```{r}
 library(data.table.threads)
 
-(benchmarkData <- data.table.threads::findOptimalThreadCount(1e7, 10, verbose = FALSE, recommendedEfficiency = 0.6))
+(benchmarkData <- data.table.threads::findOptimalThreadCount(1e7, 10, verbose = FALSE))
 plot(benchmarkData)
+benchmarkData_r <- addRecommendedEfficiency(benchmarkData, recommendedEfficiency = 0.6)
+plot(benchmarkData_r)
 ```
 
 In order to set the thread count based on observed results for a user-specified function and speedup efficiency value, the `setThreadCount(benchmarkData, functionName, efficiencyFactor)` function can then be used:
