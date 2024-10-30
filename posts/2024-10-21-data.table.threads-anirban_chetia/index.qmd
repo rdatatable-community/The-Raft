@@ -23,19 +23,19 @@ Printing this object would enlist the fastest median runtime (in milliseconds) a
 
 Plotting the object would generate a plot that shows the ideal, recommended, and measured speedup trends for each benchmarked `data.table` function.
 
-If the user wants to factor in a specified speedup efficiency, they can use the function `addRecommendedEfficiency` to add a speedup line with a slope configured by input argument `efficiencyFactor` (default value is 0.5, or 50% efficiency), along with a point representing the recommended thread count which stems from the highest intersection between this line (of specified thread-use efficiency) and measured speedup data for each function.
+If the user wants to factor in a specified speedup efficiency, they can use the function `addRecommendedEfficiency` to add a speedup line (with a slope configured by input argument `efficiencyFactor`; default value is 0.5, or 50% efficiency) along with a point representing the recommended thread count which stems from the highest intersection between this line (of specified thread-use efficiency) and measured speedup data for each function.
 
 Here is an example:
 ```{r}
 library(data.table.threads)
 
-(benchmarkData <- data.table.threads::findOptimalThreadCount(1e7, 10, verbose = FALSE))
-plot(benchmarkData)
-benchmarkData_r <- addRecommendedEfficiency(benchmarkData, recommendedEfficiency = 0.6)
-plot(benchmarkData_r)
+(benchmarks <- data.table.threads::findOptimalThreadCount(1e7, 10, verbose = FALSE))
+plot(benchmarks)
+benchmarks_r <- addRecommendedEfficiency(benchmarks, recommendedEfficiency = 0.6)
+plot(benchmarks_r)
 ```
 
 In order to set the thread count based on observed results for a user-specified function and speedup efficiency value, the `setThreadCount(benchmarkData, functionName, efficiencyFactor)` function can then be used:
 ```{r}
-setOptimalThreadCount(benchmarks, functionName = "forder")
+setThreadCount(benchmarks, functionName = "forder")
 ```
