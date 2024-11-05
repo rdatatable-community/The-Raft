@@ -1,0 +1,41 @@
+---
+title: "Use of non-API functions in data.table"
+author: "Ivan Krylov"
+date: "2024-12-12"
+categories: [code]
+# image: "image.jpg"
+draft: true
+bibliography: refs.bib
+---
+
+In the late 1970's, people at Bell Laboratories designed the S
+programming language in order to facilitate interactive exploratory data
+analysis [@Chambers2016]. Instead of writing, compiling, scheduling, and
+interpreting the output of individual Fortran programs, the goal of S
+was to conduct all the necessary steps of the analysis on the fly.
+S achieved this not by replacing the extensive collection of Fortran
+subroutines, but by providing a special interface language [@Becker1985]
+through which S could communicate with compiled code.
+
+Fast forward more than four decades and an increase by three orders of
+magnitude in storage and processing capability of computers around us.
+The [dominant implementation of S is now R][is.R]. It is now feasible to
+implement algorithms solely in R, recouping the potential performance
+losses in programmer effort debugging and maintaining the code
+[@Nash2024]. Still, the capability of R to be extended by
+special-purpose compiled code is as important as ever.
+<!-- with(tools::CRAN_package_db(), NeedsCompilation) |> table()
+says more than 22% of packages need compilation -->
+Since the implementation language of R is C, not Fortran, the
+programming interface for R is also defined in the C terms.
+
+What's in an API?
+=================
+
+
+
+[is.R]: https://developer.r-project.org/blosxom.cgi/R-devel/NEWS/2024/03/08#n2024-03-09
+<!-- TODO: make use of these -->
+[WRE]: https://cran.r-project.org/doc/manuals/R-exts.html
+[NativeAPI2016]: https://wiki.r-consortium.org/view/R_Native_API
+[Tierney2024]: https://stat.ethz.ch/pipermail/r-devel/2024-June/083449.html
