@@ -10,6 +10,7 @@ bibliography: refs.bib
 
 ```{r}
 #| echo: false
+library(tools) # format.check_details
 load('precomputed.rda')
 ```
 
@@ -55,17 +56,17 @@ API -->
 from CRAN? download the one compiled by Luke Tierney?) and try to
 extract neither-official-API nor-official-nonAPI counts -->
 
+<!-- MAYBE: see which listed non-API functions are the most "popular" in
+packages still on CRAN -->
+
 Use of non-API entry points in `data.table`
 ===========================================
 
-<!-- TODO: `r subset(checks, grepl('API', Output))[1,]` -->
+`r gsub(
+ '(?m)^', '>     ', perl = TRUE,
+ format(subset(checks, grepl('API', Output))[1,])
+)`
 
->     checking compiled code ... NOTE
->     File ‘data.table/libs/data_table.so’:
->       Found non-API calls to R: ‘LEVELS’, ‘SETLENGTH’, ‘SET_GROWABLE_BIT’,
->         ‘SET_TRUELENGTH’, ‘STRING_PTR’, ‘TRUELENGTH’
->     
->     Compiled code should not call non-API entry points in R.
  -- ` R CMD check --as-cran ` on a released version of `data.table`
 
 Tracked in [#6180][remove_non_API]
@@ -73,12 +74,51 @@ Tracked in [#6180][remove_non_API]
 Testing for a `data.frame`: `isFrame`
 -------------------------------------
 
-[#6325][remove_isframe]
+Back in 2012, Matt Dowle needed to quickly test an object for being a
+`data.frame`, and the internal function `isFrame` seemed like it
+[did the job][datatable_isframe_added]. Since `isFrame` was not part of
+the documented API, in 2024 Luke Tierney gave the function a
+better-fitting name, [`isDataFrame`][R_isdataframe_added], and made it
+an experimental API, while retaining the original function as a wrapper.
 
-Operating on the S4 bit of R objects: `SET_S4_OBJECT`, `UNSET_S4_OBJECT`
-------------------------------------------------------------------------
+Use of `isFrame` [doesn't give a NOTE yet][remove_isframe], but when
+R-4.5.0 is released together with the new name for the function,
+`data.table` will be able to use it, falling back to `isFrame` on older
+versions of R. `isDataFrame` is documented among other [replacement
+entry point names][WRE_replacement_entrypoints] in Writing R Extensions.
 
-[#6183][remove_set_s4_object]
+Operating on the S4 bit: `IS_S4_OBJECT`, `SET_S4_OBJECT`, `UNSET_S4_OBJECT`
+----------------------------------------------------------------------------------------
+
+The `data.table` class is [registered][setOldClass] with the S4 OOP
+system, making it possible to create S4 classes containing `data.table`s
+as members (`setClass(slots = c(mytable = 'data.table'))`) or even
+inheriting from `data.table` (and, in turn, from `data.frame`:
+`setClass(contains = 'data.table')`). This latter case requires care
+from the C code: when creating a copy of an S4 `data.table` from scratch
+(or setting all attributes from one object onto another), the
+destination value must also end up being an S4 object. This is
+controlled by the special "S4" bit in the header of every R object, so
+the code must read and set it correctly.
+
+The internal functions `IS_S4_OBJECT`, `SET_S4_OBJECT`,
+`UNSET_S4_OBJECT` exist as bare interfaces to [the internal
+macros][IS_S4_OBJECT] of the same names and directly access the flag
+inside their argument.
+
+The [`Rf_isS4`][isS4] function is a wrapper for `IS_S4_OBJECT` that
+follows the usual naming convention for remapped functions, has been
+part of the API for a long time and could implement additional checks if
+they are needed by R. The [`Rf_asS4`][asS4] function (experimental API)
+is more involved, making sure to operate on a shallow copy of an object
+instead of overwriting it in place and trying to "deconstruct" S4
+objects into S3 objects if possible and requested.
+
+Solution: [use `Rf_isS4` instead of
+`IS_S4_OBJECT`][remove_set_s4_object], as
+[documented][WRE_replacement_entrypoints] in Writing R Extensions. Use
+`Rf_asS4` to control the S4 object bit, but be careful <!--how?-->
+around shared objects.
 
 Converting between calls and pairlists: `SET_TYPEOF`
 ----------------------------------------------------
@@ -178,7 +218,14 @@ References
 [ALTREPnonAPI]: https://stat.ethz.ch/pipermail/r-devel/2024-April/083349.html
 [clarifyingAPI]: https://stat.ethz.ch/pipermail/r-devel/2024-June/083449.html
 [remove_non_API]: https://github.com/Rdatatable/data.table/issues/6180
-[remove_isframe]: https://github.com/Rdatatable/data.table/pull/6235
+[datatable_isframe_added]: https://github.com/Rdatatable/data.table/commit/87666e70ce1a69b28f0e92ec7504d80e3d53a824#diff-4fc47a9752ba4edfef0cabcc1958eda943545ad3859e48d498b0e3f87a9ae5aeR192
+[R_isdataframe_added]: https://github.com/r-devel/r-svn/commit/4ef83b9dc3c6874e774195d329cbb6c11a71c414
+[WRE_replacement_entrypoints]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Some-API-replacements-for-non_002dAPI-entry-points
+[remove_isframe]: https://github.com/Rdatatable/data.table/issues/6244
+[setOldClass]: https://search.r-project.org/R/refmans/methods/html/setOldClass.html
+[IS_S4_OBJECT]: https://github.com/r-devel/r-svn/blob/c20ebd2d417d9ebb915e32bfb0bfdad768f9a80a/src/main/memory.c#L4033-L4035
+[isS4]: https://github.com/r-devel/r-svn/blob/c20ebd2d417d9ebb915e32bfb0bfdad768f9a80a/src/main/objects.c#L1838-L1841
+[asS4]: https://github.com/r-devel/r-svn/blob/c20ebd2d417d9ebb915e32bfb0bfdad768f9a80a/src/main/objects.c#L1843
 [remove_set_s4_object]: https://github.com/Rdatatable/data.table/pull/6183
 [remove_set_typeof]: https://github.com/Rdatatable/data.table/pull/6313
 [remove_named]: https://github.com/Rdatatable/data.table/pull/6420
