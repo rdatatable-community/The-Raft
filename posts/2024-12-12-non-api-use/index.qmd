@@ -17,25 +17,130 @@ S achieved this not by replacing the extensive collection of Fortran
 subroutines, but by providing a special interface language [@Becker1985]
 through which S could communicate with compiled code.
 
-Fast forward more than four decades and an increase by three orders of
-magnitude in storage and processing capability of computers around us.
-The [dominant implementation of S is now R][is.R]. It is now feasible to
-implement algorithms solely in R, recouping the potential performance
-losses in programmer effort debugging and maintaining the code
-[@Nash2024]. Still, the capability of R to be extended by
+Fast forward more than four decades and an increase by more than three
+orders of magnitude in storage and processing capability of computers
+around us.  The [dominant implementation of S is now R][is.R]. It is now
+feasible to implement algorithms solely in R, recouping the potential
+performance losses in programmer effort debugging and maintaining the
+code [@Nash2024]. Still, the capability of R to be extended by
 special-purpose compiled code is as important as ever.
-<!-- with(tools::CRAN_package_db(), NeedsCompilation) |> table()
-says more than 22% of packages need compilation -->
+<!-- with(tools::CRAN_package_db(), table(NeedsCompilation))
+says more than 22% of packages use compiled code -->
 Since the implementation language of R is C, not Fortran, the
 programming interface for R is also defined in the C terms.
 
 What's in an API?
 =================
 
+<!-- Historically: [WRE] giveth certain entry points for use,
+`tools:::nonAPI` taketh away certain others, and the rest exist in an
+ontologial limbo as forbidden and yet not utterly forbidden
 
+Example: serialization API -->
+
+<!-- Calls for improvement have been seen before, e.g. [NativeAPI2016]
+MAYBE: search R(-pkg)?-devel for earlier mentions of this
+MAYBE: how did Rinternals change since 3.3.0? USE_RINTERNALS is gone
+After the latest conflict, [Tierney2024] started work on declaring
+functions and symbols (variables or preprocessor constants or enums?) as
+API / experimental API / embedding API -->
+
+<!-- MAYBE: somehow obtain the list of imports (mirror Windows builds
+from CRAN? download the one compiled by Luke Tierney?) and try to
+extract neither-official-API nor-official-nonAPI counts -->
+
+Use of non-API entry points in `data.table`
+===========================================
+
+>     checking compiled code ... NOTE
+>     File ‘data.table/libs/data_table.so’:
+>       Found non-API calls to R: ‘LEVELS’, ‘SETLENGTH’, ‘SET_GROWABLE_BIT’,
+>         ‘SET_TRUELENGTH’, ‘STRING_PTR’, ‘TRUELENGTH’
+>     
+>     Compiled code should not call non-API entry points in R.
+ -- ` R CMD check --as-cran ` on a released version of `data.table`
+
+Strings as C arrays of `CHARSXP` values: `STRING_PTR`
+-----------------------------------------------------
+
+Fixed in git by switching to `STRING_PTR_RO`, present on CRAN for now
+<!-- TODO: link to PR that fixed the problem -->
+<!-- TODO: Why used -->
+
+Why non-API: writes to arrays of `SEXP` values *must* go through the
+write barrier for GC to work, hence the need for `SET_STRING_ELT` and
+`SET_VECTOR_ELT`
+
+See also: [PR18775]
+
+Encoding bits: `LEVELS`
+-----------------------
+
+Waiting for R-4.5.0 to release with the new API
+<!-- TODO: link to PR -->
+
+Why used: need to know the encoding. Distinguish between `CE_UTF8` and
+string actually in UTF-8 (can also happen with `CE_NATIVE` in a UTF-8
+locale)
+
+<!-- TODO: how exactly is the check implemented in data.table and which
+APIs R offers for this purpose -->
+<!-- TODO: examples of why exactly LEVELS is deep internal sorcery -->
+<!-- TODO: LEVELS live inside serialized data, which R will have to keep
+being able to read -->
+
+Growable vectors: `SETLENGTH`, `SET_GROWABLE_BIT`, `SET_TRUELENGTH`
+-------------------------------------------------------------------
+
+<!-- TODO: history of overallocated lists+names in data.table -->
+
+Why used: need to create new columns by reference, which requires free
+column and name slots
+
+Why non-API: make a length too long and the list is broken.
+<!-- TODO: Setting a length too short while having something other than
+`R_NilValue` inside: does it break something? Are these values
+reachable from the GC point of view? -->
+<!-- TODO: the exact nature of GROWABLE_BIT -->
+<!-- TODO: verify that these are the only uses of SETLENGTH,
+SET_GROWABLE_BIT -->
+
+What to do about it: reimplement in ALTREP on R => 4.1
+
+Fast string matching: `SET_TRUELENGTH`, `TRUELENGTH`
+----------------------------------------------------
+
+Why used: to exploit the `CHARSXP` cache. R interns strings, so a string
+with the given contents and encoding bits exists as a single object,
+even if manually recreated using `mkCharLenCE()` and friends.
+Convert everything into UTF-8 and you can use pointer comparison.
+Given `x` and `table` of strings to find elements of `x` in, `chmatch()`
+puts indices into `table` into the `TRUELENGTH` field of the `CHARSXP`
+contents of `table`, then walks `x` and reads the indices back from the
+matching `CHARSXP`s, then carefully restores everything.
+
+<!-- TODO: expand, possibly illustrate this explanation and others -->
+
+Why non-API: this field is not always used (cf. `data.table` having to
+work with it being completely uninitialised in old versions of R), but R
+does use it for internal purposes sometimes (cf. `data.table` having to
+restore nonzero `TRUELENGTH` for `CHARSXP` values used inside `SYMSXP`
+values).
+
+Why this is hard to fix: the current happy path is very fast.
+``O(length(table)) + O(length(x))` to convert encodings,
+O(length(table))` to mark indices, `O(length(x))` to look them up,
+`O(length(table))` to restore everything. Done. Pointer comparisons will
+take `O(length(table)*length(x))`, which is Bad. How expensive is it to
+build a hash for `O(length(table))` entries? Best case lookup will be
+once again `O(length(x))`, but only without collisions, the constants
+are unknown, and the C standard says that hashing pointers is fraught
+with peril.
+
+<!-- TODO: more uses of SET_TRUELENGTH for similar purposes -->
 
 [is.R]: https://developer.r-project.org/blosxom.cgi/R-devel/NEWS/2024/03/08#n2024-03-09
-<!-- TODO: make use of these -->
 [WRE]: https://cran.r-project.org/doc/manuals/R-exts.html
 [NativeAPI2016]: https://wiki.r-consortium.org/view/R_Native_API
 [Tierney2024]: https://stat.ethz.ch/pipermail/r-devel/2024-June/083449.html
+[PR18775]: https://bugs.r-project.org/show_bug.cgi?id=18775
