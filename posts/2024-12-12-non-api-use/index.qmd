@@ -8,26 +8,31 @@ draft: true
 bibliography: refs.bib
 ---
 
+```{r}
+#| echo: false
+load('precomputed.rda')
+```
+
 In the late 1970's, people at Bell Laboratories designed the S
 programming language in order to facilitate interactive exploratory data
 analysis [@Chambers2016]. Instead of writing, compiling, scheduling, and
 interpreting the output of individual Fortran programs, the goal of S
-was to conduct all the necessary steps of the analysis on the fly.
-S achieved this not by replacing the extensive collection of Fortran
+was to conduct all the necessary steps of the analysis on the fly. S
+achieved this not by replacing the extensive collection of Fortran
 subroutines, but by providing a special interface language [@Becker1985]
 through which S could communicate with compiled code.
 
 Fast forward more than four decades and an increase by more than three
 orders of magnitude in storage and processing capability of computers
-around us.  The [dominant implementation of S is now R][is.R]. It is now
+around us. The [dominant implementation of S is now R][is.R]. It is now
 feasible to implement algorithms solely in R, recouping the potential
 performance losses in programmer effort debugging and maintaining the
 code [@Nash2024]. Still, the capability of R to be extended by
-special-purpose compiled code is as important as ever.
-<!-- with(tools::CRAN_package_db(), table(NeedsCompilation))
-says more than 22% of packages use compiled code -->
-Since the implementation language of R is C, not Fortran, the
-programming interface for R is also defined in the C terms.
+special-purpose compiled code is as important as ever. As of `r when`,
+`r with(cpdb, round(sum(NeedsCompilation=='yes')/length(NeedsCompilation)*100))`%
+of CRAN packages use compiled code. Since the implementation language of
+R is C, not Fortran, the programming interface for R is also defined in
+the C terms.
 
 What's in an API?
 =================
@@ -41,9 +46,10 @@ Example: serialization API -->
 <!-- Calls for improvement have been seen before, e.g. [NativeAPI2016]
 MAYBE: search R(-pkg)?-devel for earlier mentions of this
 MAYBE: how did Rinternals change since 3.3.0? USE_RINTERNALS is gone
-After the latest conflict, [Tierney2024] started work on declaring
-functions and symbols (variables or preprocessor constants or enums?) as
-API / experimental API / embedding API -->
+After the [latest conflict][ALTREPnonAPI], Luke Tierney [started
+work][clarifyingAPI] on declaring functions and symbols (variables or
+preprocessor constants or enums?) as API / experimental API / embedding
+API -->
 
 <!-- MAYBE: somehow obtain the list of imports (mirror Windows builds
 from CRAN? download the one compiled by Luke Tierney?) and try to
@@ -51,6 +57,8 @@ extract neither-official-API nor-official-nonAPI counts -->
 
 Use of non-API entry points in `data.table`
 ===========================================
+
+<!-- TODO: `r subset(checks, grepl('API', Output))[1,]` -->
 
 >     checking compiled code ... NOTE
 >     File ‘data.table/libs/data_table.so’:
@@ -60,11 +68,33 @@ Use of non-API entry points in `data.table`
 >     Compiled code should not call non-API entry points in R.
  -- ` R CMD check --as-cran ` on a released version of `data.table`
 
+Tracked in [#6180][remove_non_API]
+
+Testing for a `data.frame`: `isFrame`
+-------------------------------------
+
+[#6325][remove_isframe]
+
+Operating on the S4 bit of R objects: `SET_S4_OBJECT`, `UNSET_S4_OBJECT`
+------------------------------------------------------------------------
+
+[#6183][remove_set_s4_object]
+
+Converting between calls and pairlists: `SET_TYPEOF`
+----------------------------------------------------
+
+[#6313][remove_set_typeof]
+
+Reading the reference counts: `NAMED`
+-------------------------------------
+
+[#6420][remove_named]
+
 Strings as C arrays of `CHARSXP` values: `STRING_PTR`
 -----------------------------------------------------
 
-Fixed in git by switching to `STRING_PTR_RO`, present on CRAN for now
-<!-- TODO: link to PR that fixed the problem -->
+[Fixed in git][remove_string_ptr] by switching to `STRING_PTR_RO`,
+present on CRAN for now.
 <!-- TODO: Why used -->
 
 Why non-API: writes to arrays of `SEXP` values *must* go through the
@@ -76,7 +106,7 @@ See also: [PR18775]
 Encoding bits: `LEVELS`
 -----------------------
 
-Waiting for R-4.5.0 to release with the new API
+[Waiting for R-4.5.0 to release with the new API][remove_levels]
 <!-- TODO: link to PR -->
 
 Why used: need to know the encoding. Distinguish between `CE_UTF8` and
@@ -105,7 +135,7 @@ reachable from the GC point of view? -->
 <!-- TODO: verify that these are the only uses of SETLENGTH,
 SET_GROWABLE_BIT -->
 
-What to do about it: reimplement in ALTREP on R => 4.1
+What to do about it: reimplement in ALTREP on R &ge; 4.1
 
 Fast string matching: `SET_TRUELENGTH`, `TRUELENGTH`
 ----------------------------------------------------
@@ -128,8 +158,8 @@ restore nonzero `TRUELENGTH` for `CHARSXP` values used inside `SYMSXP`
 values).
 
 Why this is hard to fix: the current happy path is very fast.
-``O(length(table)) + O(length(x))` to convert encodings,
-O(length(table))` to mark indices, `O(length(x))` to look them up,
+`O(length(table)) + O(length(x))` to convert encodings,
+`O(length(table))` to mark indices, `O(length(x))` to look them up,
 `O(length(table))` to restore everything. Done. Pointer comparisons will
 take `O(length(table)*length(x))`, which is Bad. How expensive is it to
 build a hash for `O(length(table))` entries? Best case lookup will be
@@ -139,8 +169,19 @@ with peril.
 
 <!-- TODO: more uses of SET_TRUELENGTH for similar purposes -->
 
+References
+==========
+
 [is.R]: https://developer.r-project.org/blosxom.cgi/R-devel/NEWS/2024/03/08#n2024-03-09
 [WRE]: https://cran.r-project.org/doc/manuals/R-exts.html
 [NativeAPI2016]: https://wiki.r-consortium.org/view/R_Native_API
-[Tierney2024]: https://stat.ethz.ch/pipermail/r-devel/2024-June/083449.html
+[ALTREPnonAPI]: https://stat.ethz.ch/pipermail/r-devel/2024-April/083349.html
+[clarifyingAPI]: https://stat.ethz.ch/pipermail/r-devel/2024-June/083449.html
+[remove_non_API]: https://github.com/Rdatatable/data.table/issues/6180
+[remove_isframe]: https://github.com/Rdatatable/data.table/pull/6235
+[remove_set_s4_object]: https://github.com/Rdatatable/data.table/pull/6183
+[remove_set_typeof]: https://github.com/Rdatatable/data.table/pull/6313
+[remove_named]: https://github.com/Rdatatable/data.table/pull/6420
+[remove_levels]: https://github.com/Rdatatable/data.table/pull/6422
+[remove_string_ptr]: https://github.com/Rdatatable/data.table/pull/6312
 [PR18775]: https://bugs.r-project.org/show_bug.cgi?id=18775
