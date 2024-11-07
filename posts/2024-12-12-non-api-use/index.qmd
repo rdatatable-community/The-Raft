@@ -46,9 +46,10 @@ forms the "rules as written" that the maintainers of CRAN packages must
 follow. A recent version of R exports `r nrow(symbols)` symbols,
 including `r symbols[,sum(type=='function')]` functions ("entry points",
 not counting C preprocessor macros) and
-`r symbols[,sum(type!='function')]` variables.  Even back in R-3.3.0,
-the oldest version currently supported by `data.table`, [chapter 6, "The
-R API"][WRE33API] classified R's entry points into four categories:
+`r symbols[,sum(type!='function')]` variables. Not all of them are
+intended to be used by packages. Even back in R-3.3.0, the oldest
+version currently supported by `data.table`, [WRE chapter 6, "The R
+API"][WRE33API] classified R's entry points into four categories:
 
 > * __API__
 >   Entry points which are documented in this manual and declared in an
@@ -72,12 +73,12 @@ was little point in trying to use the _hidden_ entry points in a package
 that would fail to link almost everywhere, the _public_ and the
 _private_ entry points ended up being a point of contention. Those
 deemed too internal to use but not feasible to make _hidden_ were (and
-still are) listed in the character vector `tools:::nonAPI`: `R CMD
-check` looks at the functions imported by the package and signals a
+still are) listed in the character vector `tools:::nonAPI`: ` R CMD
+check ` looks at the functions imported by the package and signals a
 `NOTE` if it finds any listed there.
 
 The remaining _public_ functions, neither documented as API nor
-explicitly forbidden by `R CMD check`, sat there, alluring the package
+explicitly forbidden by ` R CMD check `, sat there, alluring the package
 developers with their offers. For example, the [serialization
 interface][ltierney_serialize] is only [documented in WRE since
 R-4.5][WRE45serialize], but it has been powering the [fastdigest] CRAN
@@ -93,12 +94,45 @@ R-4.4.2, `tools:::nonAPI` grew from `r length(nonAPI.3_3)` to
 `r length(nonAPI.4_4)` entries, and the package maintainers had to adapt
 or face archival of their packages.
 
-<!-- After the [latest conflict][ALTREPnonAPI], Luke Tierney [started
-work][clarifyingAPI] on declaring functions and symbols (variables or
-preprocessor constants or enums?) as API / experimental API / embedding
-API -->
+A [recent question on R-devel][ALTREPnonAPI] (whether the [ALTREP]
+interface should be considered "API" for the purpose of CRAN package
+developent) sparked a series of events and an extensive discussion
+containing the highest count of occurrences of the word "API" per month
+ever seen on R-devel (234), topping [October 2002][Rd200210] (package
+versioning and API breakage, 150), [October 2005][Rd200510] (API for
+graphical interfaces and console output, 124), and [May 2019][Rd201905]
+(discussions of the ALTREP interface and multi-threading, 121). As a
+result, Luke Tierney [started work][clarifyingAPI] on programmatically
+describing the functions and other symbols exported by R (including
+variables and preprocessor and enumeriation constants), giving a
+stronger definition to the interface. His changes add the currently
+unexported function `tools:::funAPI()` that lists entry points and two
+more of their categories:
 
-<!-- must mention Rf_ remapping at some point -->
+> * __experimental__
+>   Entry points declared in an installed header file that are part of
+>   an experimental API, such as `R_ext/Altrep.h`. These are subject to
+>   change, so package authors wishing to use these should be prepared
+>   to adapt.
+> * __embedding__
+>   Entry points intended primarily for embedding and creating new
+>   front-ends. It is not clear that this needs to be a separate
+>   category but it may be useful to keep it separate for now.
+
+Additionally, WRE now spells out that entry points not explicitly
+documented or at least listed in the output of `tools:::funAPI` (or
+something that will replace it) are now off-limits, even if not
+currently present in `tools:::nonAPI` (emphasis added):
+
+> * __public__
+>   Entry points declared in an installed header file that are exported
+>   on all R platforms but are not documented and subject to change
+>   without notice. _Do not use these in distributed code. Their
+>   declarations will eventually be moved out of installed header
+>   files._
+
+<!-- MAYBE: mention Rf_ remapping and typical APIs look like at some
+point -->
 
 <!-- MAYBE: how did Rinternals change since 3.3.0? USE_RINTERNALS is
 gone -->
@@ -113,14 +147,18 @@ packages still on CRAN -->
 Use of non-API entry points in `data.table`
 ===========================================
 
+The first version of the `data.table` package in the CRAN archive dates
+back to April 2006 (which corresponds to R version 2.3.0). It has been
+evolving together with R and its API and thus has accumulated a number
+of uses of R internals that are [no longer considered part of the
+API][remove_non_API]:
+
 `r gsub(
  '(?m)^', '>     ', perl = TRUE,
  format(subset(checks, grepl('API', Output))[1,])
 )`
 
  -- ` R CMD check --as-cran ` on a released version of `data.table`
-
-Tracked in [#6180][remove_non_API]
 
 Testing for a `data.frame`: `isFrame`
 -------------------------------------
@@ -212,6 +250,8 @@ being able to read -->
 Growable vectors: `SETLENGTH`, `SET_GROWABLE_BIT`, `SET_TRUELENGTH`
 -------------------------------------------------------------------
 
+Introduced in [v1.7.3, November 2011][news173].
+
 <!-- TODO: history of overallocated lists+names in data.table -->
 
 Why used: need to create new columns by reference, which requires free
@@ -275,7 +315,11 @@ References
 [WRE33wilcox]: https://web.archive.org/web/20160609093632/https://cran.r-project.org/doc/manuals/R-exts.html#Distribution-functions
 [wilcox_declared]: https://github.com/r-devel/r-svn/commit/1638b0106279aa1944b17742054bc6882656596e
 [wilcox_api]: https://github.com/r-devel/r-svn/commit/32ea1f67f842e3247f782a91684023b0b5eec6c5
-[ALTREPnonAPI]: https://stat.ethz.ch/pipermail/r-devel/2024-April/083349.html
+[ALTREPnonAPI]: https://stat.ethz.ch/pipermail/r-devel/2024-April/083339.html
+[ALTREP]: https://svn.r-project.org/R/branches/ALTREP/ALTREP.html
+[Rd200210]: https://stat.ethz.ch/pipermail/r-devel/2002-October/thread.html
+[Rd200510]: https://stat.ethz.ch/pipermail/r-devel/2005-October/thread.html
+[Rd201905]: https://stat.ethz.ch/pipermail/r-devel/2019-May/thread.html
 [clarifyingAPI]: https://stat.ethz.ch/pipermail/r-devel/2024-June/083449.html
 [remove_non_API]: https://github.com/Rdatatable/data.table/issues/6180
 [datatable_isframe_added]: https://github.com/Rdatatable/data.table/commit/87666e70ce1a69b28f0e92ec7504d80e3d53a824#diff-4fc47a9752ba4edfef0cabcc1958eda943545ad3859e48d498b0e3f87a9ae5aeR192
@@ -292,3 +336,4 @@ References
 [remove_levels]: https://github.com/Rdatatable/data.table/pull/6422
 [remove_string_ptr]: https://github.com/Rdatatable/data.table/pull/6312
 [PR18775]: https://bugs.r-project.org/show_bug.cgi?id=18775
+[news173]: https://github.com/Rdatatable/data.table/blob/6a15f8617de121a406cee97b22e83e0c2c4bb034/NEWS.0.md#new-features-13
