@@ -188,7 +188,8 @@ from the C code: when creating a copy of an S4 `data.table` from scratch
 (or setting all attributes from one object onto another), the
 destination value must also end up being an S4 object. This is
 controlled by the special "S4" bit in the header of every R object, so
-the code must read and set it correctly.
+the code must read and set it correctly. <!-- MAYBE: say and link where
+exacly data.table does this -->
 
 The undocumented functions `IS_S4_OBJECT`, `SET_S4_OBJECT`,
 `UNSET_S4_OBJECT` exist as bare interfaces to [the internal
@@ -212,12 +213,37 @@ around shared objects.
 Converting between calls and pairlists: `SET_TYPEOF`
 ----------------------------------------------------
 
-[#6313][remove_set_typeof]
+In R, [function calls][call] are internally represented as Lisp-style
+pairlists where the first pair is of special type `LANGSXP` instead of
+`LISTSXP`. For example, the following diagram illustrates the data
+structure of the call `print(x = 42L)`:
 
-Reading the reference counts: `NAMED`
--------------------------------------
+![](langsxp.svg){width=40em}
 
-[#6420][remove_named]
+Here, every list item is a separate R object, a "cons cell"; each cell
+contains the value in its `CAR` field and a reference to the rest of the
+list in its `CDR` field. Argument names, if provided, are stored in the
+third field, `TAG`.  The list is terminated by `R_NilValue`, which is of
+type `NILSXP`. These structures must be constructed every time C code
+wants to evaluate a function call. <!-- MAYBE: say and link where
+exacly data.table does this -->
+
+Previously, R API contained a function to allocate `LISTSXP` pairlists
+of arbitrary length, `allocList()`, but not function calls, so it became
+a somewhat common idiom to first allocate the list and then use
+`SET_TYPEOF` to change the type of the head pair to `LANGSXP`. This
+did not immediately break, since the two types have the same internal
+memory layout.
+
+The danger of `SET_TYPEOF` lies in the possibility to set the type of an
+R value to one with an incompatible memory layout. (For example, vector
+types `REALSXP` and `INTSXP` are built very differently from cons cells
+`LISTSXP` and `LANGSXP`.) Starting with R-4.4.1, [R contains the
+`allocLang` function in addition to the `allocList` function][WRE511]
+that directly allocates a function call object with a head pair of type
+`LANGSXP`. In order to stay compatible with previous R versions,
+packages may [allocate the `LISTSXP` tail first and then use `lcons()`
+to construct the `LANGSXP` head pair of the call][remove_set_typeof].
 
 Strings as C arrays of `CHARSXP` values: `STRING_PTR`
 -----------------------------------------------------
@@ -231,6 +257,11 @@ write barrier for GC to work, hence the need for `SET_STRING_ELT` and
 `SET_VECTOR_ELT`
 
 See also: [PR18775]
+
+Reading the reference counts: `NAMED`
+-------------------------------------
+
+[#6420][remove_named]
 
 Encoding bits: `LEVELS`
 -----------------------
@@ -324,16 +355,18 @@ References
 [remove_non_API]: https://github.com/Rdatatable/data.table/issues/6180
 [datatable_isframe_added]: https://github.com/Rdatatable/data.table/commit/87666e70ce1a69b28f0e92ec7504d80e3d53a824#diff-4fc47a9752ba4edfef0cabcc1958eda943545ad3859e48d498b0e3f87a9ae5aeR192
 [R_isdataframe_added]: https://github.com/r-devel/r-svn/commit/4ef83b9dc3c6874e774195d329cbb6c11a71c414
-[WRE_replacement_entrypoints]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Some-API-replacements-for-non_002dAPI-entry-points
 [remove_isframe]: https://github.com/Rdatatable/data.table/issues/6244
+[WRE_replacement_entrypoints]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Some-API-replacements-for-non_002dAPI-entry-points
 [setOldClass]: https://search.r-project.org/R/refmans/methods/html/setOldClass.html
 [IS_S4_OBJECT]: https://github.com/r-devel/r-svn/blob/c20ebd2d417d9ebb915e32bfb0bfdad768f9a80a/src/main/memory.c#L4033-L4035
 [isS4]: https://github.com/r-devel/r-svn/blob/c20ebd2d417d9ebb915e32bfb0bfdad768f9a80a/src/main/objects.c#L1838-L1841
 [asS4]: https://github.com/r-devel/r-svn/blob/c20ebd2d417d9ebb915e32bfb0bfdad768f9a80a/src/main/objects.c#L1843
 [remove_set_s4_object]: https://github.com/Rdatatable/data.table/pull/6183
+[call]: https://search.r-project.org/R/refmans/base/html/call.html
+[WRE511]: https://cran.r-project.org/doc/manuals/R-exts.html#Evaluating-R-expressions-from-C
 [remove_set_typeof]: https://github.com/Rdatatable/data.table/pull/6313
-[remove_named]: https://github.com/Rdatatable/data.table/pull/6420
-[remove_levels]: https://github.com/Rdatatable/data.table/pull/6422
 [remove_string_ptr]: https://github.com/Rdatatable/data.table/pull/6312
 [PR18775]: https://bugs.r-project.org/show_bug.cgi?id=18775
+[remove_named]: https://github.com/Rdatatable/data.table/pull/6420
+[remove_levels]: https://github.com/Rdatatable/data.table/pull/6422
 [news173]: https://github.com/Rdatatable/data.table/blob/6a15f8617de121a406cee97b22e83e0c2c4bb034/NEWS.0.md#new-features-13
