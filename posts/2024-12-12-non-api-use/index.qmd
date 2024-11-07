@@ -1,5 +1,5 @@
 ---
-title: "Use of non-API functions in data.table"
+title: "Use of non-API functions in `data.table`"
 author: "Ivan Krylov"
 date: "2024-12-12"
 categories: [code]
@@ -27,30 +27,73 @@ Fast forward more than four decades and an increase by more than three
 orders of magnitude in storage and processing capability of computers
 around us. The [dominant implementation of S is now R][is.R]. It is now
 feasible to implement algorithms solely in R, recouping the potential
-performance losses in programmer effort debugging and maintaining the
-code [@Nash2024]. Still, the capability of R to be extended by
-special-purpose compiled code is as important as ever. As of `r when`,
+performance losses in reducing the programmer effort spent debugging and
+maintaining the code [@Nash2024]. Still, the capability of R to be
+extended by special-purpose compiled code is as important as ever. As of
+`r when`,
 `r with(cpdb, round(sum(NeedsCompilation=='yes')/length(NeedsCompilation)*100))`%
 of CRAN packages use compiled code. Since the implementation language of
 R is C, not Fortran, the programming interface for R is also defined in
-the C terms.
+terms of C.
 
 What's in an API?
 =================
 
-<!-- Historically: [WRE] giveth certain entry points for use,
-`tools:::nonAPI` taketh away certain others, and the rest exist in an
-ontologial limbo as forbidden and yet not utterly forbidden
+[Writing R Extensions][WRE] is the definitive guide for R package
+development. Together with the [CRAN policy][CRANpolicy] it forms the
+"rules as written" that the maintainers of CRAN packages must follow.
+Even back in R-3.3.0, the oldest version currently supported by
+`data.table`, the [chapter 6, "The R API"][WRE33API] classified R's
+entry points into four categories:
 
-Example: serialization API -->
+> * __API__
+>   Entry points which are documented in this manual and declared in an
+>   installed header file. These can be used in distributed packages and
+>   will only be changed after deprecation.
+> * __public__
+>   Entry points declared in an installed header file that are exported
+>   on all R platforms but are not documented and subject to change
+>   without notice.
+> * __private__
+>   Entry points that are used when building R and exported on all R
+>   platforms but are not declared in the installed header files. Do not
+>   use these in distributed code.
+> * __hidden__
+>   Entry points that are where possible (Windows and some modern
+>   Unix-alike compilers/loaders when using R as a shared library) not
+>   exported.
 
-<!-- Calls for improvement have been seen before, e.g. [NativeAPI2016]
-MAYBE: search R(-pkg)?-devel for earlier mentions of this
-MAYBE: how did Rinternals change since 3.3.0? USE_RINTERNALS is gone
-After the [latest conflict][ALTREPnonAPI], Luke Tierney [started
+Although nobody objected to the use of the _API_ entry points, and there
+was little point in trying to use the _hidden_ entry points in a package
+that would fail to link almost everywhere, the _public_ and the
+_private_ entry points ended up being a point of contention. Those
+deemed too internal to use but not feasible to make _hidden_ were (and
+still are) listed in the character vector `tools:::nonAPI`: `R CMD
+check` looks at the functions imported by the package and signals a
+`NOTE` if it finds any listed there.
+
+The remaining functions, neither documented as API nor forbidden by `R
+CMD check`, sat there, alluring the package developers with their
+offers. For example, the [serialization interface][ltierney_serialize]
+is only [documented in WRE since R-4.5][WRE45serialize], but it has been
+powering the [fastdigest] CRAN package since 2015 at the latest, the
+maintainer having successfully gambled on it not to change too
+drastically. Some of the inclusions in `tools:::nonAPI` could have been
+historical mistakes: while WRE has been saying [back in version
+3.3.0][WRE33wilcox] that `wilcox_free` should be called after a call to
+the (API) functions `dwilcox`, `pwilcox` or `qwilcox`, the function was
+only [declared in the public headers][wilcox_declared] and [removed from
+`tools:::nonAPI`][wilcox_api] in R-4.2.0.
+
+<!-- After the [latest conflict][ALTREPnonAPI], Luke Tierney [started
 work][clarifyingAPI] on declaring functions and symbols (variables or
 preprocessor constants or enums?) as API / experimental API / embedding
 API -->
+
+<!-- must mention Rf_ remapping at some point -->
+
+<!-- MAYBE: how did Rinternals change since 3.3.0? USE_RINTERNALS is
+gone -->
 
 <!-- MAYBE: somehow obtain the list of imports (mirror Windows builds
 from CRAN? download the one compiled by Luke Tierney?) and try to
@@ -75,20 +118,20 @@ Testing for a `data.frame`: `isFrame`
 -------------------------------------
 
 Back in 2012, Matt Dowle needed to quickly test an object for being a
-`data.frame`, and the internal function `isFrame` seemed like it
+`data.frame`, and the undocumented function `isFrame` seemed like it
 [did the job][datatable_isframe_added]. Since `isFrame` was not part of
 the documented API, in 2024 Luke Tierney gave the function a
 better-fitting name, [`isDataFrame`][R_isdataframe_added], and made it
 an experimental API, while retaining the original function as a wrapper.
 
-Use of `isFrame` [doesn't give a NOTE yet][remove_isframe], but when
+Use of `isFrame` [doesn't give a `NOTE` yet][remove_isframe], but when
 R-4.5.0 is released together with the new name for the function,
 `data.table` will be able to use it, falling back to `isFrame` on older
 versions of R. `isDataFrame` is documented among other [replacement
 entry point names][WRE_replacement_entrypoints] in Writing R Extensions.
 
 Operating on the S4 bit: `IS_S4_OBJECT`, `SET_S4_OBJECT`, `UNSET_S4_OBJECT`
-----------------------------------------------------------------------------------------
+---------------------------------------------------------------------------
 
 The `data.table` class is [registered][setOldClass] with the S4 OOP
 system, making it possible to create S4 classes containing `data.table`s
@@ -101,17 +144,17 @@ destination value must also end up being an S4 object. This is
 controlled by the special "S4" bit in the header of every R object, so
 the code must read and set it correctly.
 
-The internal functions `IS_S4_OBJECT`, `SET_S4_OBJECT`,
+The undocumented functions `IS_S4_OBJECT`, `SET_S4_OBJECT`,
 `UNSET_S4_OBJECT` exist as bare interfaces to [the internal
 macros][IS_S4_OBJECT] of the same names and directly access the flag
 inside their argument.
 
 The [`Rf_isS4`][isS4] function is a wrapper for `IS_S4_OBJECT` that
 follows the usual naming convention for remapped functions, has been
-part of the API for a long time and could implement additional checks if
-they are needed by R. The [`Rf_asS4`][asS4] function (experimental API)
-is more involved, making sure to operate on a shallow copy of an object
-instead of overwriting it in place and trying to "deconstruct" S4
+part of the API for a long time, and could implement additional checks
+if they are needed by R. The [`Rf_asS4`][asS4] function (experimental
+API) is more involved, making sure to operate on a shallow copy of an
+object instead of overwriting it in place and trying to "deconstruct" S4
 objects into S3 objects if possible and requested.
 
 Solution: [use `Rf_isS4` instead of
@@ -147,7 +190,6 @@ Encoding bits: `LEVELS`
 -----------------------
 
 [Waiting for R-4.5.0 to release with the new API][remove_levels]
-<!-- TODO: link to PR -->
 
 Why used: need to know the encoding. Distinguish between `CE_UTF8` and
 string actually in UTF-8 (can also happen with `CE_NATIVE` in a UTF-8
@@ -209,12 +251,22 @@ with peril.
 
 <!-- TODO: more uses of SET_TRUELENGTH for similar purposes -->
 
+Conclusion
+==========
+
 References
 ==========
 
 [is.R]: https://developer.r-project.org/blosxom.cgi/R-devel/NEWS/2024/03/08#n2024-03-09
 [WRE]: https://cran.r-project.org/doc/manuals/R-exts.html
-[NativeAPI2016]: https://wiki.r-consortium.org/view/R_Native_API
+[CRANpolicy]: https://cran.r-project.org/web/packages/policies.html
+[WRE33API]: https://web.archive.org/web/20160609093632/https://cran.r-project.org/doc/manuals/R-exts.html#The-R-API
+[ltierney_serialize]: https://homepage.divms.uiowa.edu/~luke/R/serialize/serialize.html
+[WRE45serialize]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Custom-serialization-input-and-output
+[fastdigest]: https://cran.r-project.org/package=fastdigest
+[WRE33wilcox]: https://web.archive.org/web/20160609093632/https://cran.r-project.org/doc/manuals/R-exts.html#Distribution-functions
+[wilcox_declared]: https://github.com/r-devel/r-svn/commit/1638b0106279aa1944b17742054bc6882656596e
+[wilcox_api]: https://github.com/r-devel/r-svn/commit/32ea1f67f842e3247f782a91684023b0b5eec6c5
 [ALTREPnonAPI]: https://stat.ethz.ch/pipermail/r-devel/2024-April/083349.html
 [clarifyingAPI]: https://stat.ethz.ch/pipermail/r-devel/2024-June/083449.html
 [remove_non_API]: https://github.com/Rdatatable/data.table/issues/6180
