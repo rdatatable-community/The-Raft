@@ -28,10 +28,10 @@ Fast forward more than four decades and an increase by more than three
 orders of magnitude in storage and processing capability of computers
 around us. The [dominant implementation of S is now R][is.R]. It is now
 feasible to implement algorithms solely in R, recouping the potential
-performance losses in reducing the programmer effort spent debugging and
-maintaining the code [@Nash2024]. Still, the capability of R to be
-extended by special-purpose compiled code is as important as ever. As of
-`r when`,
+performance losses in performance by reducing the programmer effort
+spent debugging and maintaining the code [@Nash2024]. Still, the
+capability of R to be extended by special-purpose compiled code is as
+important as ever. As of `r when`,
 `r with(cpdb, round(sum(NeedsCompilation=='yes')/length(NeedsCompilation)*100))`%
 of CRAN packages use compiled code. Since the implementation language of
 R is C, not Fortran, the programming interface for R is also defined in
@@ -40,13 +40,14 @@ terms of C.
 What's in an API?
 =================
 
-[Writing R Extensions][WRE] is the definitive guide for R package
-development. Together with the [CRAN policy][CRANpolicy] it forms the
-"rules as written" that the maintainers of CRAN packages must follow. A
-recent version of R exports `r nrow(symbols)` symbols, including
-`r symbols[,sum(type=='function')]` functions and
-`r symbols[,sum(type!='function')]` variables. Even back in R-3.3.0, the
-oldest version currently supported by `data.table`, the [chapter 6, "The
+[Writing R Extensions][WRE] ("WRE") is the definitive guide for R
+package development. Together with the [CRAN policy][CRANpolicy] it
+forms the "rules as written" that the maintainers of CRAN packages must
+follow. A recent version of R exports `r nrow(symbols)` symbols,
+including `r symbols[,sum(type=='function')]` functions ("entry points",
+not counting C preprocessor macros) and
+`r symbols[,sum(type!='function')]` variables.  Even back in R-3.3.0,
+the oldest version currently supported by `data.table`, [chapter 6, "The
 R API"][WRE33API] classified R's entry points into four categories:
 
 > * __API__
@@ -75,18 +76,22 @@ still are) listed in the character vector `tools:::nonAPI`: `R CMD
 check` looks at the functions imported by the package and signals a
 `NOTE` if it finds any listed there.
 
-The remaining functions, neither documented as API nor forbidden by `R
-CMD check`, sat there, alluring the package developers with their
-offers. For example, the [serialization interface][ltierney_serialize]
-is only [documented in WRE since R-4.5][WRE45serialize], but it has been
-powering the [fastdigest] CRAN package since 2015 at the latest, the
-maintainer having successfully gambled on it not to change too
-drastically. Some of the inclusions in `tools:::nonAPI` could have been
-historical mistakes: while WRE has been saying [back in version
-3.3.0][WRE33wilcox] that `wilcox_free` should be called after a call to
-the (API) functions `dwilcox`, `pwilcox` or `qwilcox`, the function was
-only [declared in the public headers][wilcox_declared] and [removed from
-`tools:::nonAPI`][wilcox_api] in R-4.2.0.
+The remaining _public_ functions, neither documented as API nor
+explicitly forbidden by `R CMD check`, sat there, alluring the package
+developers with their offers. For example, the [serialization
+interface][ltierney_serialize] is only [documented in WRE since
+R-4.5][WRE45serialize], but it has been powering the [fastdigest] CRAN
+package since 2015 at the latest, the maintainer having successfully
+gambled on it not to change too drastically. Some of the inclusions in
+`tools:::nonAPI` could have been historical mistakes: while WRE has been
+saying [back in version 3.3.0][WRE33wilcox] that `wilcox_free` should be
+called after a call to the (API) functions `dwilcox`, `pwilcox` or
+`qwilcox`, the function was only [declared in the public
+headers][wilcox_declared] and [removed from
+`tools:::nonAPI`][wilcox_api] in R-4.2.0. Still, between R-3.3.3 and
+R-4.4.2, `tools:::nonAPI` grew from `r length(nonAPI.3_3)` to
+`r length(nonAPI.4_4)` entries, and the package maintainers had to adapt
+or face archival of their packages.
 
 <!-- After the [latest conflict][ALTREPnonAPI], Luke Tierney [started
 work][clarifyingAPI] on declaring functions and symbols (variables or

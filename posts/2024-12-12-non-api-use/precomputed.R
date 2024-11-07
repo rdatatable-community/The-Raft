@@ -16,8 +16,35 @@ symbols %<-% fread(
 	)
 ][]
 
+getNonAPI <- function(ver,
+	url = sprintf(
+		"https://svn.r-project.org/R/branches/R-%s-branch/src/library/tools/R/sotools.R",
+		ver
+	)
+) {
+	ee <- parse(text = cache(
+		readLines(url)
+	))
+	for (e in ee) {
+		if (
+			is.call(e) && length(e) == 3 &&
+			identical(e[[1]], quote(`<-`)) &&
+			identical(e[[2]], quote(`nonAPI`))
+		)
+		# FIXME: extract the plain strings instead of evaluating c(...) from the Internet
+		return(eval(e[[3]]))
+	}
+}
+
+nonAPI.3_3 <- getNonAPI('3-3')
+nonAPI.4_4 <- getNonAPI('4-4')
+nonAPI.trunk <- getNonAPI(url = 'https://svn.r-project.org/R/trunk/src/library/tools/R/sotools.R')
+
 cpdb %<-% tools::CRAN_package_db()
 checks %<-% subset(tools::CRAN_check_details(), Package == 'data.table')
 
 when <- Sys.Date()
-save(cpdb, checks, symbols, when, file = 'precomputed.rda', compress = 'xz')
+save(
+	cpdb, checks, symbols, nonAPI.3_3, nonAPI.4_4, nonAPI.trunk,
+	when, file = 'precomputed.rda', compress = 'xz'
+)
