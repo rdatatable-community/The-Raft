@@ -248,13 +248,16 @@ to construct the `LANGSXP` head pair of the call][remove_set_typeof].
 Strings as C arrays of `CHARSXP` values: `STRING_PTR`
 -----------------------------------------------------
 
+<!-- TODO: Why used -->
+
 [Fixed in git][remove_string_ptr] by switching to `STRING_PTR_RO`,
 present on CRAN for now.
-<!-- TODO: Why used -->
 
 Why non-API: writes to arrays of `SEXP` values *must* go through the
 write barrier for GC to work, hence the need for `SET_STRING_ELT` and
-`SET_VECTOR_ELT`
+`SET_VECTOR_ELT`. Also, R assumes that `STRSXP` vectors only contain
+`CHARSXP` values, and a writeable pointer is an invitation to violate
+that assumption.
 
 See also: [PR18775]
 
