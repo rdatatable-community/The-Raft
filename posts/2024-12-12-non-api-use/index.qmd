@@ -10,6 +10,7 @@ bibliography: refs.bib
 
 ```{r}
 #| echo: false
+library(data.table)
 library(tools) # format.check_details
 load('precomputed.rda')
 ```
@@ -41,10 +42,12 @@ What's in an API?
 
 [Writing R Extensions][WRE] is the definitive guide for R package
 development. Together with the [CRAN policy][CRANpolicy] it forms the
-"rules as written" that the maintainers of CRAN packages must follow.
-Even back in R-3.3.0, the oldest version currently supported by
-`data.table`, the [chapter 6, "The R API"][WRE33API] classified R's
-entry points into four categories:
+"rules as written" that the maintainers of CRAN packages must follow. A
+recent version of R exports `r nrow(symbols)` symbols, including
+`r symbols[,sum(type=='function')]` functions and
+`r symbols[,sum(type!='function')]` variables. Even back in R-3.3.0, the
+oldest version currently supported by `data.table`, the [chapter 6, "The
+R API"][WRE33API] classified R's entry points into four categories:
 
 > * __API__
 >   Entry points which are documented in this manual and declared in an
