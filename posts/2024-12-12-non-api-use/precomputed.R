@@ -31,8 +31,7 @@ getNonAPI <- function(ver,
 			identical(e[[1]], quote(`<-`)) &&
 			identical(e[[2]], quote(`nonAPI`))
 		)
-		# FIXME: extract the plain strings instead of evaluating c(...) from the Internet
-		return(eval(e[[3]]))
+		return(do.call(c, as.list(e[[3]])[-1]))
 	}
 }
 
@@ -41,10 +40,12 @@ nonAPI.4_4 <- getNonAPI('4-4')
 nonAPI.trunk <- getNonAPI(url = 'https://svn.r-project.org/R/trunk/src/library/tools/R/sotools.R')
 
 cpdb %<-% tools::CRAN_package_db()
-checks %<-% subset(tools::CRAN_check_details(), Package == 'data.table')
+needscomp <- cpdb[,'NeedsCompilation'] == 'yes'
+checks %<-% tools::CRAN_check_details()
+dtchecks <- subset(checks, Package == 'data.table')
 
 when <- Sys.Date()
 save(
-	cpdb, checks, symbols, nonAPI.3_3, nonAPI.4_4, nonAPI.trunk,
+	needscomp, dtchecks, symbols, nonAPI.3_3, nonAPI.4_4, nonAPI.trunk,
 	when, file = 'precomputed.rda', compress = 'xz'
 )

@@ -32,10 +32,9 @@ performance losses in performance by reducing the programmer effort
 spent debugging and maintaining the code [@Nash2024]. Still, the
 capability of R to be extended by special-purpose compiled code is as
 important as ever. As of `r when`,
-`r with(cpdb, round(sum(NeedsCompilation=='yes')/length(NeedsCompilation)*100))`%
-of CRAN packages use compiled code. Since the implementation language of
-R is C, not Fortran, the programming interface for R is also defined in
-terms of C.
+`r round(sum(needscomp)/length(needscomp)*100)`% of CRAN packages use
+compiled code. Since the implementation language of R is C, not Fortran,
+the programming interface for R is also defined in terms of C.
 
 What's in an API?
 =================
@@ -159,7 +158,7 @@ API][remove_non_API]:
 
 `r gsub(
  '(?m)^', '>     ', perl = TRUE,
- format(subset(checks, grepl('API', Output))[1,])
+ format(subset(dtchecks, grepl('API', Output))[1,])
 )`
 
  -- ` R CMD check --as-cran ` on a released version of `data.table`
