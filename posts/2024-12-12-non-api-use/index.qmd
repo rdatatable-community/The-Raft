@@ -131,6 +131,10 @@ currently present in `tools:::nonAPI` (emphasis added):
 >   declarations will eventually be moved out of installed header
 >   files._
 
+Correspondingly, the number of `tools:::nonAPI` entry points in the
+current development version of R rose to `r length(nonAPI.trunk)`, hence
+the present blog post.
+
 <!-- MAYBE: mention Rf_ remapping and typical APIs look like at some
 point -->
 
@@ -232,8 +236,8 @@ Previously, R API contained a function to allocate `LISTSXP` pairlists
 of arbitrary length, `allocList()`, but not function calls, so it became
 a somewhat common idiom to first allocate the list and then use
 `SET_TYPEOF` to change the type of the head pair to `LANGSXP`. This
-did not immediately break, since the two types have the same internal
-memory layout.
+did not previously lead to problems, since the two types have the same
+internal memory layout.
 
 The danger of `SET_TYPEOF` lies in the possibility to set the type of an
 R value to one with an incompatible memory layout. (For example, vector
