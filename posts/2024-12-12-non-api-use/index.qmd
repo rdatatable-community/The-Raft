@@ -242,7 +242,7 @@ The danger of `SET_TYPEOF` lies in the possibility to set the type of an
 R value to one with an incompatible memory layout. (For example, vector
 types `REALSXP` and `INTSXP` are built very differently from cons cells
 `LISTSXP` and `LANGSXP`.) Starting with R-4.4.1, [R contains the
-`allocLang` function in addition to the `allocList` function][WRE511]
+`allocLang` function in addition to the `allocList` function][WRE_call]
 that directly allocates a function call object with a head pair of type
 `LANGSXP`. In order to stay compatible with previous R versions,
 packages may [allocate the `LISTSXP` tail first and then use `lcons()`
@@ -369,7 +369,7 @@ References
 [asS4]: https://github.com/r-devel/r-svn/blob/c20ebd2d417d9ebb915e32bfb0bfdad768f9a80a/src/main/objects.c#L1843
 [remove_set_s4_object]: https://github.com/Rdatatable/data.table/pull/6183
 [call]: https://search.r-project.org/R/refmans/base/html/call.html
-[WRE511]: https://cran.r-project.org/doc/manuals/R-exts.html#Evaluating-R-expressions-from-C
+[WRE_call]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Creating-call-expressions
 [remove_set_typeof]: https://github.com/Rdatatable/data.table/pull/6313
 [remove_string_ptr]: https://github.com/Rdatatable/data.table/pull/6312
 [PR18775]: https://bugs.r-project.org/show_bug.cgi?id=18775
