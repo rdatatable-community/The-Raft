@@ -21,7 +21,7 @@ This is where `data.table.threads` comes in - A package designed to assist in fi
 
 Printing this object would enlist the fastest median runtime (in milliseconds) along with the thread count that achieved it for each function.
 
-Plotting the object would generate a plot that shows the ideal, recommended, and measured speedup trends for each benchmarked `data.table` function.
+Plotting the object would generate a plot that shows the ideal and measured speedup trends for each benchmarked `data.table` function.
 
 If the user wants to factor in a specified speedup efficiency, they can use the function `addRecommendedEfficiency` to add a speedup line (with a slope configured by input argument `efficiencyFactor`; default value is 0.5, or 50% efficiency) along with a point representing the recommended thread count which stems from the highest intersection between this line (of specified thread-use efficiency) and measured speedup data for each function.
 
@@ -37,5 +37,5 @@ plot(benchmarks_r)
 
 In order to set the thread count based on observed results for a user-specified function and speedup efficiency value, the `setThreadCount(benchmarkData, functionName, efficiencyFactor)` function can then be used:
 ```{r}
-setThreadCount(benchmarks, functionName = "forder")
+setThreadCount(benchmarks, functionName = "forder", efficiencyFactor = 1)
 ```
