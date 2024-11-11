@@ -340,7 +340,7 @@ This makes the `SEXP *` pointers returned by `STRING_PTR` unsafe and
 requires the use of `STRING_PTR_RO` function, which returns a read-only
 `const SEXP *`.
 
-Thankfully, `data.table` has already been using read-only `const`
+Thankfully, `data.table` has already been using read-only `const SEXP *`
 pointers when working with `STRSXP` vectors, so the required changes to
 the code were [not too substantial][remove_string_ptr], only changing
 the name of the accessor function used:
@@ -377,7 +377,73 @@ See also: [PR18775].
 Reading the reference counts: `NAMED`
 -------------------------------------
 
-[#6420][remove_named]
+In plain R, all value types -- numbers, strings, lists -- have
+pass-by-value semantics. Wihout dark and disturbing things in play, such
+as non-standard evaluation or active bindings, R code can give a plain
+value (`x <- 1:10`) to a function (`f(x)`) or store it in a variable (`y
+<- x`), have the function modify its argument (`f <- \(x) { x[1] <- 0
+}`) or change the duplicate variable (`y[2] <- 3`), and still have the
+original value intact (`stopifnot(identical(x, 1:10))`). Only the
+inherently mutable types, such as environments, external pointers and
+weak references, will stay shared between all assignments and function
+arguments; the value types behave as if R copies them every time.
+
+And yet actually making these copies is wasteful when the code only
+reads the variable and does not alter it. (In fact, one of the original
+motivations of `data.table` was to further reduce wasteful copying that
+R used to perform during certain sub-assignment operations.) Until
+version 4.0.0, `NAMED` was R's mechanism to save memory and CPU time
+instead of creating and storing these copies. A temporary object such as
+the value of `1:10` was not bound to a symbol and thus could be modified
+right away. Assigning it to a variable, as in `x <- 1:10`, gave it a
+`NAMED(x)` count of 1, for which R had an internal optimisation in
+replacement function calls like `foo(x) <- 3`.  Assigning the same value
+to yet another symbol (by copying `y <- x` or calling a function
+`foo(x)`) increased the `NAMED()` count to 2 or more, for which there
+was no optimisation: in order to modify one of the symbols, R was
+required to duplicate `x` first. `NAMED()` was not necessarily decreased
+after the bindings disappeared, and decreasing it after having reached
+`NAMEDMAX` was impossible. During the lifetime of R-3.x, `NAMEDMAX` was
+increased from 2 to 3 and later to 7.
+
+Between R-3.1.0 and R-4.0.0, R [migrated from `NAMED` to reference
+counting][Tierney_refcnt]. Reference counts are easier to properly
+decrement than `NAMED`, thus preventing unneeded copies of objects that
+became unreferenced. R-3.5.0 [documented the symbols][Rnews_setnamed]
+`MAYBE_REFERENCED(.)` / `NO_REFERENCES(.)` for use instead of checking
+`NAMED(.) == 0`, `MAYBE_SHARED(.)` / `NOT_SHARED(.)` instead of checking
+`NAMED(.) > 1`, and `MARK_NOT_MUTABLE(.)` instead of setting `NAMED(.)`
+to `NAMEDMAX`, which later became part of the API instead of the
+`NAMED(.)` and `REFCNT(.)` functions. The hard rules are that a value is
+safe to modify in place if it has `NO_REFERENCES()` (reference count of
+0), definitely unsafe to modify in place (requiring a call to
+`duplicate` or `shallow_duplicate`) if it is `MAYBE_SHARED()` (reference
+count above 1), and almost certainly unsafe to modify in place if it is
+`MAYBE_REFERENCED()` (reference count of 1).
+
+`data.table`'s only uses of `NAMED()` were in the [verbose output during
+assignment][remove_named]:
+
+```c
+if (verbose) {
+  Rprintf(_("RHS for item %d has been duplicated because NAMED==%d MAYBE_SHARED==%d, but then is being plonked. length(values)==%d; length(cols)==%d)\n"),
+          i+1, NAMED(thisvalue), MAYBE_SHARED(thisvalue), length(values), length(cols));
+               ^^^^^ non-API function
+}
+```
+
+Since the correctness of the modification operation hinges on the
+reference count being 0 (and it may be important whether it's exactly 1
+or above 1), the same amount of _useful_ information can be conveyed by
+printing `MAYBE_REFERENCED()` and `MAYBE_SHARED()` instead of `NAMED()`:
+
+```c
+if (verbose) {
+  Rprintf(_("RHS for item %d has been duplicated because MAYBE_REFERENCED==%d MAYBE_SHARED==%d, but then is being plonked. length(values)==%d; length(cols)==%d)\n"),
+          i+1, MAYBE_REFERENCED(thisvalue), MAYBE_SHARED(thisvalue), length(values), length(cols));
+               ^^^^^^^^^^^^^^^^ API function
+}
+```
 
 Encoding bits: `LEVELS`
 -----------------------
@@ -485,6 +551,8 @@ References
 [Tierney_writebr]: https://homepage.stat.uiowa.edu/~luke/R/barrier.html
 [remove_string_ptr]: https://github.com/Rdatatable/data.table/pull/6312
 [PR18775]: https://bugs.r-project.org/show_bug.cgi?id=18775
-[remove_named]: https://github.com/Rdatatable/data.table/pull/6420
+[Tierney_refcnt]: https://developer.r-project.org/Refcnt.html
+[Rnews_setnamed]: https://developer.r-project.org/blosxom.cgi/R-devel/NEWS/2017/09/02#n2017-09-03
+[remove_named]: https://github.com/Rdatatable/data.table/pull/6420/files#diff-22b103646a1efab9bbfc374791ccfc3fd1422eefc48918a3e126fc2f30d1f572L552
 [remove_levels]: https://github.com/Rdatatable/data.table/pull/6422
 [news173]: https://github.com/Rdatatable/data.table/blob/6a15f8617de121a406cee97b22e83e0c2c4bb034/NEWS.0.md#new-features-13
