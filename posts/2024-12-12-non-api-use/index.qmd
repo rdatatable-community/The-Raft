@@ -179,6 +179,32 @@ R-4.5.0 is released together with the new name for the function,
 versions of R. `isDataFrame` is documented among other [replacement
 entry point names][WRE_replacement_entrypoints] in Writing R Extensions.
 
+Problem (the only instance in `data.table`):
+
+```c
+if (!isVector(thiscol) || isFrame(thiscol))
+                       /* ^^^^^^^ may disappear in a future R version */
+```
+
+Solution:
+
+```c
+// include non-R headers first
+
+// include R headers last
+#include <R.h>
+#include <Rinternals.h>
+
+// provide overrides after the R headers
+#if R_VERSION < R_Version(4, 5, 0)
+// R versions older than 4.5.0 released use the old name of the function
+#define isDataFrame(x) isFrame(x)
+#endif
+
+// later:
+if (!isVector(thiscol) || isDataFrame(thiscol))
+```
+
 Operating on the S4 bit: `IS_S4_OBJECT`, `SET_S4_OBJECT`, `UNSET_S4_OBJECT`
 ---------------------------------------------------------------------------
 
@@ -212,6 +238,8 @@ Solution: [use `Rf_isS4` instead of
 [documented][WRE_replacement_entrypoints] in Writing R Extensions. Use
 `Rf_asS4` to control the S4 object bit, but be careful <!--how?-->
 around shared objects.
+
+<!-- TODO: expand on this, make sure the asS4 advice is correct -->
 
 Converting between calls and pairlists: `SET_TYPEOF`
 ----------------------------------------------------
@@ -248,21 +276,103 @@ that directly allocates a function call object with a head pair of type
 packages may [allocate the `LISTSXP` tail first and then use `lcons()`
 to construct the `LANGSXP` head pair of the call][remove_set_typeof].
 
+
+Problem (the only instance in `data.table`):
+
+```c
+   SEXP s = PROTECT(allocList(2));
+   SET_TYPEOF(s, LANGSXP);
+// ^^^^^^^^^^ unsafe operation, could be used to corrupt objects
+   SETCAR(s, install("format.POSIXct"));
+   SETCAR(CDR(s), column);
+```
+
+Solutions:
+
+```c
+// for fixed-size calls with contents known ahead of time
+SEXP s = lang2(install("format.POSIXct"), column);
+```
+or:
+```c
+// partially pre-populate
+SEXP s = lang2(install("format.POSIXct"), R_NilValue);
+// later, when 'column' is known:
+SETCAR(CDR(s), column);
+```
+or:
+```c
+// allocate a call with 'n' elements
+SEXP call = lcons(R_NilValue, allocList(n - 1));
+
+// in R >= 4.4.1 only:
+SEXP call = allocLang(n);
+```
+
+Unfortunately, the `LCONS` macro didn't work with `#define R_NO_REMAP`
+prior to R-4.4, because it expanded to `lcons()` instead of
+`Rf_lcons()`.
+
 Strings as C arrays of `CHARSXP` values: `STRING_PTR`
 -----------------------------------------------------
 
-<!-- TODO: Why used -->
+From the point of view of R code, strings are very simple things, much
+like numbers: they live in atomic vectors and can be directly compared
+with other objects. It is only natural to desire to work with them as
+easily from C code as it's possible with other atomic types, where
+functions `REAL()`, `INTEGER()`, or `COMPLEX()` can be used to access
+the buffer containing the numbers.
 
-[Fixed in git][remove_string_ptr] by switching to `STRING_PTR_RO`,
-present on CRAN for now.
+The underlying reality of strings is more complicated: since they
+internally manage memory buffers containing text in a given encoding,
+they must be subject to garbage collection. Like other managed objects
+in R, they are represented as `SEXP` values of special type `CHARSXP`.
+R's garbage collector is [generational][Tierney_gengc] and requires the
+use of [write barrier][Tierney_writebr] any time a `SEXP` value (such as
+a `STRSXP` vector) references another `SEXP` value (such as a `CHARSXP`
+string). In a generational garbage collector, "younger" generations are
+marked and sweeped more frequently than "older" ones. If package C code
+manually writes a reference to a "young" `CHARSXP` object into an "old"
+`STRSXP` vector without taking generations into account, a following
+collection of the "young" pool of objects will miss the `CHARSXP` being
+referenced by the "old" `STRSXP` and remove the `CHARSXP` as "garbage".
+This makes the `SEXP *` pointers returned by `STRING_PTR` unsafe and
+requires the use of `STRING_PTR_RO` function, which returns a read-only
+`const SEXP *`.
 
-Why non-API: writes to arrays of `SEXP` values *must* go through the
-write barrier for GC to work, hence the need for `SET_STRING_ELT` and
-`SET_VECTOR_ELT`. Also, R assumes that `STRSXP` vectors only contain
-`CHARSXP` values, and a writeable pointer is an invitation to violate
-that assumption.
+Thankfully, `data.table` has already been using read-only `const`
+pointers when working with `STRSXP` vectors, so the required changes to
+the code were [not too substantial][remove_string_ptr], only changing
+the name of the accessor function used:
 
-See also: [PR18775]
+Example of the problem:
+
+```c
+const SEXP *sourceD = STRING_PTR(source);
+//                    ^^^^^^^^^^
+// returns a writeable SEXP * pointer, therefore unsafe
+```
+
+Solution:
+
+```c
+// first include non-R headers
+
+// next include R headers
+
+// then provide version-specific overrides
+#if R_VERSION < R_Version(3, 5, 0)
+// STRING_PTR_RO only appeared in R-3.5
+#define STRING_PTR_RO(x) STRING_PTR(x)
+#endif
+
+// later:
+const SEXP *sourceD = STRING_PTR_RO(source);
+//                    ^^^^^^^^^^^^^
+// returns a const SEXP * pointer, which prevents accidental writes
+```
+
+See also: [PR18775].
 
 Reading the reference counts: `NAMED`
 -------------------------------------
@@ -371,6 +481,8 @@ References
 [call]: https://search.r-project.org/R/refmans/base/html/call.html
 [WRE_call]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Creating-call-expressions
 [remove_set_typeof]: https://github.com/Rdatatable/data.table/pull/6313
+[Tierney_gengc]: https://homepage.stat.uiowa.edu/~luke/R/gengcnotes.html
+[Tierney_writebr]: https://homepage.stat.uiowa.edu/~luke/R/barrier.html
 [remove_string_ptr]: https://github.com/Rdatatable/data.table/pull/6312
 [PR18775]: https://bugs.r-project.org/show_bug.cgi?id=18775
 [remove_named]: https://github.com/Rdatatable/data.table/pull/6420
