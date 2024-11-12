@@ -448,6 +448,46 @@ if (verbose) {
 Encoding bits: `LEVELS`
 -----------------------
 
+`LEVELS` is the name of the internal R [macro][LEVELS_macro] and a
+"public" [function][LEVELS_function] accessing a [16-bit field called
+`gp`][LEVELS_field] that is present in the header of every `SEXP` value.
+Not every access to this field is done using the `LEVELS()` macro; there
+are bits of R code that access `(sexp)->sxpinfo.gp` directly. R uses
+this field for many purposes:
+
+ * matching given arguments against the formals of a function
+   ([1][gp_for_match1], [2][gp_for_match2], [3][gp_for_match3])
+ * remembering the previous [type][gp_for_gc] of a garbage-collected value
+ * [finalizing][gp_for_finalize] the reference-semantics objects before
+   garbage-collecting them
+ * [marking][gp_for_calling] condition handlers as "calling" (executing
+   on top of where the condition was signalled in the call stack), as
+   opposed to "non-calling" (executing at the site of the `tryCatch`
+   call)
+ * [marking][gp_for_assignment] objects in complex assignment calls
+ * storing the [S4 object bit][gp_for_s4]
+ * [marking][gp_for_jit] functions as (un)suitable for bytecode
+   compilation
+ * [marking][gp_for_growable] vectors as growable
+ * [marking][gp_for_missing] provided ("actial") function arguments as
+   [missing][gp_for_missing2]
+ * [marking][gp_for_ddval] the `..1`, `..2`, etc symbols as
+   corresponding to the [given element of the `...`
+   argument][Rhelp_dots]
+ * [marking][gp_for_env] environments as [locked][envflags_locked] or
+   for [caching][envflags_global] the global variable lookup
+   ([1][gp_for_basesym], [2][basesym2])
+<!-- TODO: SPECIAL_SYMBOL_MASK -->
+ * [marking][gp_for_hashash] symbols naming environment contents for
+   [hash lookup][hashash2]
+ * [marking][gp_for_active] bindings inside environments as
+   [active][active_binding]
+ * [marking][gp_for_promsxp] promise objects (which are themselves not
+   part of the API) as already evaluated
+ * [marking][gp_for_charsxp] `CHARSXP` values as present in the global
+   cache or being in a certain encoding (bytes, Latin-1, ASCII, UTF-8,
+   or "unknown" (native))
+
 [Waiting for R-4.5.0 to release with the new API][remove_levels]
 
 Why used: need to know the encoding. Distinguish between `CE_UTF8` and
@@ -554,5 +594,33 @@ References
 [Tierney_refcnt]: https://developer.r-project.org/Refcnt.html
 [Rnews_setnamed]: https://developer.r-project.org/blosxom.cgi/R-devel/NEWS/2017/09/02#n2017-09-03
 [remove_named]: https://github.com/Rdatatable/data.table/pull/6420/files#diff-22b103646a1efab9bbfc374791ccfc3fd1422eefc48918a3e126fc2f30d1f572L552
+[LEVELS_macro]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L228
+[LEVELS_function]:https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/memory.c#L3902
+[LEVELS_field]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L132
+[gp_for_match1]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/match.c#L175
+[gp_for_match2]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/match.c#L233-L236
+[gp_for_match3]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/unique.c#L53
+[gp_for_gc]:https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/memory.c#L151-L155
+[gp_for_finalize]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/memory.c#L1364-L1374
+[gp_for_calling]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/errors.c#L1660-L1665
+[gp_for_assignment]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L280-L324
+[gp_for_s4]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L359-L362
+[gp_for_jit]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L364-L371
+[gp_for_growable]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L373-L377
+[gp_for_missing]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L449-L456
+[gp_for_missing2]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/eval.c#L2260-L2281
+[gp_for_ddval]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L519-L523
+[Rhelp_dots]: https://search.r-project.org/R/refmans/base/html/dots.html
+[gp_for_env]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L529-L530
+[envflags_locked]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/envir.c#L106-L108
+[envflags_global]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/envir.c#L613-L655
+[gp_for_hashash]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L1182-L1186
+[hashash2]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/envir.c#L517-L520
+[gp_for_active]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L1205-L1210
+[active_binding]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/envir.c#L3466-L3483
+[gp_for_basesym]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L1225-L1228
+[basesym2]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/envir.c#L754-L768
+[gp_for_promsxp]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L1165-L1166
+[gp_for_charsxp]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L843-L853
 [remove_levels]: https://github.com/Rdatatable/data.table/pull/6422
 [news173]: https://github.com/Rdatatable/data.table/blob/6a15f8617de121a406cee97b22e83e0c2c4bb034/NEWS.0.md#new-features-13
