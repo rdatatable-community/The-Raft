@@ -80,14 +80,13 @@ The remaining _public_ functions, neither documented as API nor
 explicitly forbidden by ` R CMD check `, sat there, alluring the package
 developers with their offers. For example, the [serialization
 interface][ltierney_serialize] is only [documented in WRE since
-R-4.5][WRE45serialize], but it has been powering the [fastdigest] CRAN
-package since 2015 at the latest, the maintainer having successfully
-gambled on it not to change too drastically. Some of the inclusions in
-`tools:::nonAPI` could have been historical mistakes: while WRE has been
-saying [back in version 3.3.0][WRE33wilcox] that `wilcox_free` should be
-called after a call to the (API) functions `dwilcox`, `pwilcox` or
-`qwilcox`, the function was only [declared in the public
-headers][wilcox_declared] and [removed from
+R-4.5][WRE45serialize], but it has been powering part of the [digest]
+CRAN package since 2019 (and other packages before it) without any
+drastic changes. Some of the inclusions in `tools:::nonAPI` could have
+been historical mistakes: while WRE has been saying [back in version
+3.3.0][WRE33wilcox] that `wilcox_free` should be called after a call to
+the (API) functions `dwilcox`, `pwilcox` or `qwilcox`, the function was
+only [declared in the public headers][wilcox_declared] and [removed from
 `tools:::nonAPI`][wilcox_api] in R-4.2.0. Still, between R-3.3.3 and
 R-4.4.2, `tools:::nonAPI` grew from `r length(nonAPI.3_3)` to
 `r length(nonAPI.4_4)` entries, and the package maintainers had to adapt
@@ -595,7 +594,7 @@ References
 [WRE33API]: https://web.archive.org/web/20160609093632/https://cran.r-project.org/doc/manuals/R-exts.html#The-R-API
 [ltierney_serialize]: https://homepage.divms.uiowa.edu/~luke/R/serialize/serialize.html
 [WRE45serialize]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Custom-serialization-input-and-output
-[fastdigest]: https://cran.r-project.org/package=fastdigest
+[digest]: https://cran.r-project.org/package=digest
 [WRE33wilcox]: https://web.archive.org/web/20160609093632/https://cran.r-project.org/doc/manuals/R-exts.html#Distribution-functions
 [wilcox_declared]: https://github.com/r-devel/r-svn/commit/1638b0106279aa1944b17742054bc6882656596e
 [wilcox_api]: https://github.com/r-devel/r-svn/commit/32ea1f67f842e3247f782a91684023b0b5eec6c5
