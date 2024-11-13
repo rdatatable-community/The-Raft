@@ -488,9 +488,9 @@ directly. R uses this field for many purposes:
 
 Although the value of `gp` is directly stored in R's serialized data
 stream, neither of these are part of the API. Out of all possible uses
-for this flag, `data.table` is only used in string encodings. From the
-viewpoints of [plain R][R_Encoding] and the [C API][WRE_encoding], an
-individual string (`CHARSXP` value) can be represented in the following
+for this flag, `data.table` is only interested in string encodings. From
+the viewpoints of [plain R][R_Encoding] and the [C API][WRE_encoding],
+an individual string (`CHARSXP` value) can be marked with the following
 encodings:
 
 R-level encoding name | C-level encoding constant | Meaning
@@ -498,7 +498,7 @@ R-level encoding name | C-level encoding constant | Meaning
 `"latin1"`        | `CE_LATIN1`      | ISO/IEC 8859-1 or CP1252
 `"UTF-8"`         | `CE_UTF8`        | ISO/IEC 10646
 `"unknown"`       | `CE_NATIVE`      | Encoding of the current locale
-`"bytes"`         | `CE_BYTES`       | Not text, `translateChar` will fail
+`"bytes"`         | `CE_BYTES`       | Not necessarily text; `translateChar` will fail
 
 Internally, R also [marks strings as encoded in ASCII][R_SET_ASCII]:
 since all three encodings are ASCII-compatible, an ASCII string will
@@ -526,9 +526,9 @@ value, which [will replace the use of `LEVELS` in the `IS_ASCII`
 macro][remove_levels]. Curiously, while it looks like the code could
 benefit from switching from the `getCharCE()` tests (which only look at
 the value of the flags and so may needlessly translate strings from
-`CE_NATIVE`) to the new experimental `charIs(ASCII|UTF8|Latin1)`
-functions that will also return `TRUE` for a matching native encoding,
-actually making the change breaks a number of unit tests.
+`CE_NATIVE`) to the new experimental `charIs(UTF8|Latin1)` functions
+that will also return `TRUE` for a matching native encoding, actually
+making the change breaks a number of unit tests.
 
 Growable vectors: `SETLENGTH`, `SET_GROWABLE_BIT`, `SET_TRUELENGTH`
 -------------------------------------------------------------------
