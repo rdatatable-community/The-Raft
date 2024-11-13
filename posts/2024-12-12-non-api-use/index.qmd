@@ -448,12 +448,12 @@ if (verbose) {
 Encoding bits: `LEVELS`
 -----------------------
 
-`LEVELS` is the name of the internal R [macro][LEVELS_macro] and a
-"public" [function][LEVELS_function] accessing a [16-bit field called
-`gp`][LEVELS_field] that is present in the header of every `SEXP` value.
-Not every access to this field is done using the `LEVELS()` macro; there
-are bits of R code that access `(sexp)->sxpinfo.gp` directly. R uses
-this field for many purposes:
+`LEVELS` is the name of the internal R [macro][LEVELS_macro] and an
+exported non-API [function][LEVELS_function] accessing a [16-bit field
+called `gp`][LEVELS_field] that is present in the header of every `SEXP`
+value.  Not every access to this field is done using the `LEVELS()`
+macro; there are bits of R code that access `(sexp)->sxpinfo.gp`
+directly. R uses this field for many purposes:
 
  * matching given arguments against the formals of a function
    ([1][gp_for_match1], [2][gp_for_match2], [3][gp_for_match3])
@@ -477,29 +477,59 @@ this field for many purposes:
  * [marking][gp_for_env] environments as [locked][envflags_locked], or
    for [caching][envflags_global] the global variable lookup, or for
    looking up values in the base environment or the special functions
-   ([1][gp_for_basesym], [2][basesym2]<!--, [3][gp_for_special],
-   [4][specialsym2] SPECIAL_SYMBOL -->)
+   ([1][gp_for_basesym], [2][basesym2], [3][gp_for_special],
+   [4][specialsym2])
  * [marking][gp_for_hashash] symbols naming environment contents for
    [hash lookup][hashash2]
  * [marking][gp_for_active] bindings inside environments as
    [active][active_binding]
- * [marking][gp_for_promsxp] promise objects (which are themselves not
-   part of the API) as already evaluated
+ * [marking][gp_for_promsxp] promise objects as already evaluated
  * [marking][gp_for_charsxp] `CHARSXP` values as present in the global
-   cache or being in a certain encoding (bytes, Latin-1, ASCII, UTF-8,
-   or "unknown" (native))
+   cache or being in a certain encoding
 
-[Waiting for R-4.5.0 to release with the new API][remove_levels]
+Although the value of `gp` is directly stored in R's serialized data
+stream, neither of these are part of the API. Out of all possible uses
+for this flag, `data.table` is only used in string encodings. From the
+viewpoints of [plain R][R_Encoding] and the [C API][WRE_encoding], an
+individual string (`CHARSXP` value) can be represented in the following
+encodings:
 
-Why used: need to know the encoding. Distinguish between `CE_UTF8` and
-string actually in UTF-8 (can also happen with `CE_NATIVE` in a UTF-8
-locale)
+R-level encoding name | C-level encoding constant | Meaning
+:----------------:|:----------------:|------------------------------
+`"latin1"`        | `CE_LATIN1`      | ISO/IEC 8859-1 or CP1252
+`"UTF-8"`         | `CE_UTF8`        | ISO/IEC 10646
+`"unknown"`       | `CE_NATIVE`      | Encoding of the current locale
+`"bytes"`         | `CE_BYTES`       | Not text, `translateChar` will fail
 
-<!-- TODO: how exactly is the check implemented in data.table and which
-APIs R offers for this purpose -->
-<!-- TODO: examples of why exactly LEVELS is deep internal sorcery -->
-<!-- TODO: LEVELS live inside serialized data, which R will have to keep
-being able to read -->
+Internally, R also [marks strings as encoded in ASCII][R_SET_ASCII]:
+since all three encodings are ASCII-compatible, an ASCII string will
+never need to be translated into a different encoding. Note that there
+is a subtle difference between a string _marked_ in a certain encoding
+and actually _being_ in a certain encoding: in an R session running with
+a UTF-8 locale (which includes most modern Unix-alikes and Windows &ge;
+10, November 2019 update) a string marked as `CE_NATIVE` will also be in
+UTF-8. (Similarly, with an increasingly rare Latin-1 locale, a
+`CE_NATIVE` string will be in Latin-1.)
+
+The `data.table` code is interested in knowing whether a string is
+[marked as UTF-8, Latin-1, or ASCII][datatable_isencoded]. This is used
+to [convert strings to UTF-8 when needed][datatable_needUTF8] (also:
+[output to native encoding or UTF-8 in
+`fwrite`][datatable_ENCODED_CHAR], [automatic conversion in
+`forder`][datatable_anynotascii]). The `getCharCE` API function appeared
+in R-2.7.0 together with the encoding support, so switching the
+`IS_UTF8` and `IS_LATIN` macros from `LEVELS` to API calls [was
+relatively straightforward][datatable_levels1].
+
+R-4.5.0 is expected to introduce the `charIsASCII` "experimental" API
+function that returns the value of the ASCII marker for a `CHARSXP`
+value, which [will replace the use of `LEVELS` in the `IS_ASCII`
+macro][remove_levels]. Curiously, while it looks like the code could
+benefit from switching from the `getCharCE()` tests (which only look at
+the value of the flags and so may needlessly translate strings from
+`CE_NATIVE`) to the new experimental `charIs(ASCII|UTF8|Latin1)`
+functions that will also return `TRUE` for a matching native encoding,
+actually making the change breaks a number of unit tests.
 
 Growable vectors: `SETLENGTH`, `SET_GROWABLE_BIT`, `SET_TRUELENGTH`
 -------------------------------------------------------------------
@@ -621,8 +651,17 @@ References
 [active_binding]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/envir.c#L3466-L3483
 [gp_for_basesym]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L1225-L1228
 [basesym2]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/envir.c#L754-L768
-<!-- TODO: gp_for_special specialsym2 -->
+[gp_for_special]: https://github.com/r-devel/r-svn/blob/2753df314f7d8e154bc42b5abd99daaf6472dbe1/src/include/Defn.h#L1230-L1236
+[specialsym2]: https://github.com/r-devel/r-svn/blob/2753df314f7d8e154bc42b5abd99daaf6472dbe1/src/main/names.c#L1019-L1046
 [gp_for_promsxp]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L1165-L1166
 [gp_for_charsxp]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L843-L853
-[remove_levels]: https://github.com/Rdatatable/data.table/pull/6422
+[R_Encoding]: https://search.r-project.org/R/refmans/base/html/Encoding.html
+[WRE_Encoding]: https://cran.r-project.org/doc/manuals/R-exts.html#Character-encoding-issues
+[R_SET_ASCII]: https://github.com/r-devel/r-svn/blob/2753df314f7d8e154bc42b5abd99daaf6472dbe1/src/main/envir.c#L4312-L4375
+[datatable_isencoded]: https://github.com/Rdatatable/data.table/blob/40ad2e6978202ecc626db9eaae3a18ed5e4df769/src/data.table.h#L36-L38
+[datatable_needUTF8]: https://github.com/Rdatatable/data.table/blob/40ad2e6978202ecc626db9eaae3a18ed5e4df769/src/data.table.h#L63-L73
+[datatable_ENCODED_CHAR]: https://github.com/Rdatatable/data.table/blob/40ad2e6978202ecc626db9eaae3a18ed5e4df769/src/fwriteR.c#L8-L12
+[datatable_anynotascii]: https://github.com/Rdatatable/data.table/blob/40ad2e6978202ecc626db9eaae3a18ed5e4df769/src/forder.c#L312-L331
+[datatable_levels1]: https://github.com/Rdatatable/data.table/pull/6420/commits/46dbfa93e72776c59dacb286de9831fa28c481b5#diff-3b83136e49e2df4f5df80b312d7d4199fed9e0d283401dbf7bd9159a5096bcaaL36
+[remove_levels]: https://github.com/Rdatatable/data.table/pull/6422/commits/72cbd170fd16844dd8094b8d049d2e56d0926d22
 [news173]: https://github.com/Rdatatable/data.table/blob/6a15f8617de121a406cee97b22e83e0c2c4bb034/NEWS.0.md#new-features-13
