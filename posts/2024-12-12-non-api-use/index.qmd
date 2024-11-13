@@ -533,7 +533,11 @@ making the change breaks a number of unit tests.
 Growable vectors: `SETLENGTH`, `SET_GROWABLE_BIT`, `SET_TRUELENGTH`
 -------------------------------------------------------------------
 
-Introduced in [v1.7.3, November 2011][news173].
+Over-allocated `data.table`s have been introduced in [v1.7.3, November
+2011][news173]. It was a simpler time, when package code could [just set
+`LENGTH(newdt) = l` and `TRUELENGTH(newdt) =
+n`][datatable_overallocation] for the newly allocated `VECSXP` list.
+<!-- and \if{html}{\out{tracking JavaScript}} was not a big deal -->
 
 <!-- TODO: history of overallocated lists+names in data.table -->
 
@@ -664,3 +668,4 @@ References
 [datatable_levels1]: https://github.com/Rdatatable/data.table/pull/6420/commits/46dbfa93e72776c59dacb286de9831fa28c481b5#diff-3b83136e49e2df4f5df80b312d7d4199fed9e0d283401dbf7bd9159a5096bcaaL36
 [remove_levels]: https://github.com/Rdatatable/data.table/pull/6422/commits/72cbd170fd16844dd8094b8d049d2e56d0926d22
 [news173]: https://github.com/Rdatatable/data.table/blob/6a15f8617de121a406cee97b22e83e0c2c4bb034/NEWS.0.md#new-features-13
+[datatable_overallocation]: https://github.com/Rdatatable/data.table/commit/e09d91beccc862eebcd9497c27b422058320396b#diff-22b103646a1efab9bbfc374791ccfc3fd1422eefc48918a3e126fc2f30d1f572R262-R276
