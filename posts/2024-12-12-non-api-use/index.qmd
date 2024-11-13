@@ -474,10 +474,11 @@ this field for many purposes:
  * [marking][gp_for_ddval] the `..1`, `..2`, etc symbols as
    corresponding to the [given element of the `...`
    argument][Rhelp_dots]
- * [marking][gp_for_env] environments as [locked][envflags_locked] or
-   for [caching][envflags_global] the global variable lookup
-   ([1][gp_for_basesym], [2][basesym2])
-<!-- TODO: SPECIAL_SYMBOL_MASK -->
+ * [marking][gp_for_env] environments as [locked][envflags_locked], or
+   for [caching][envflags_global] the global variable lookup, or for
+   looking up values in the base environment or the special functions
+   ([1][gp_for_basesym], [2][basesym2]<!--, [3][gp_for_special],
+   [4][specialsym2] SPECIAL_SYMBOL -->)
  * [marking][gp_for_hashash] symbols naming environment contents for
    [hash lookup][hashash2]
  * [marking][gp_for_active] bindings inside environments as
@@ -620,6 +621,7 @@ References
 [active_binding]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/envir.c#L3466-L3483
 [gp_for_basesym]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L1225-L1228
 [basesym2]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/envir.c#L754-L768
+<!-- TODO: gp_for_special specialsym2 -->
 [gp_for_promsxp]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L1165-L1166
 [gp_for_charsxp]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L843-L853
 [remove_levels]: https://github.com/Rdatatable/data.table/pull/6422
