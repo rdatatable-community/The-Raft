@@ -534,12 +534,20 @@ Growable vectors: `SETLENGTH`, `SET_GROWABLE_BIT`, `SET_TRUELENGTH`
 -------------------------------------------------------------------
 
 Over-allocated `data.table`s have been introduced in [v1.7.3, November
-2011][news173]. It was a simpler time, when package code could [just set
-`LENGTH(newdt) = l` and `TRUELENGTH(newdt) =
-n`][datatable_overallocation] for the newly allocated `VECSXP` list.
-<!-- and \if{html}{\out{tracking JavaScript}} was not a big deal -->
+2011][news173], together with the `:=` operator for changing the columns
+by reference. Since `data.frame`s and `data.table`s are lists, and lists
+in R are value types with pass-by-value semantics (see above), adding or
+removing a column to one the normally involves allocating a new vector
+of pointers to columns (performing a "shallow duplicate").
 
-<!-- TODO: history of overallocated lists+names in data.table -->
+The [over-allocated vector of column pointers][datatable_overallocation]
+(together with the `names` vector) remember their original length in the
+`TRUELENGTH` field and can be resized in place by gradually increasing
+their `LENGTH`. The walrus operator, `:=`, has since become [the
+defining feature of data.table][datatable_logo]. `data.table` version
+1.8.8 (March 2013) [saw][news188] the addition of the `fread` function
+that [over-allocated and later truncated the individual
+columns][datatable_stretch_column] using the same approach.
 
 Why used: need to create new columns by reference, which requires free
 column and name slots
@@ -669,3 +677,7 @@ References
 [remove_levels]: https://github.com/Rdatatable/data.table/pull/6422/commits/72cbd170fd16844dd8094b8d049d2e56d0926d22
 [news173]: https://github.com/Rdatatable/data.table/blob/6a15f8617de121a406cee97b22e83e0c2c4bb034/NEWS.0.md#new-features-13
 [datatable_overallocation]: https://github.com/Rdatatable/data.table/commit/e09d91beccc862eebcd9497c27b422058320396b#diff-22b103646a1efab9bbfc374791ccfc3fd1422eefc48918a3e126fc2f30d1f572R262-R276
+[datatable_logo]: https://raw.githubusercontent.com/Rdatatable/data.table/master/.graphics/logo.png
+[news188]: https://github.com/Rdatatable/data.table/blob/6a15f8617de121a406cee97b22e83e0c2c4bb034/NEWS.0.md#new-features-5
+[datatable_stretch_column]: https://github.com/Rdatatable/data.table/commit/b4e023df736fed8c4dc536ac0061e895a565b375#diff-697a3094ef3d287d25b94aa344f7ed0262aa3fdb97af9b7e04e3b0ef585b05bcR30-R56
+[RI113]: https://cran.r-project.org/doc/manuals/R-ints.html#The-_0027data_0027
