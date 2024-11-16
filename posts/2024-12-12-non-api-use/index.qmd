@@ -326,18 +326,18 @@ The underlying reality of strings is more complicated: since they
 internally manage memory buffers containing text in a given encoding,
 they must be subject to garbage collection. Like other managed objects
 in R, they are represented as `SEXP` values of special type `CHARSXP`.
-R's garbage collector is [generational][Tierney_gengc] and requires the
-use of [write barrier][Tierney_writebr] any time a `SEXP` value (such as
-a `STRSXP` vector) references another `SEXP` value (such as a `CHARSXP`
-string). In a generational garbage collector, "younger" generations are
-marked and sweeped more frequently than "older" ones. If package C code
-manually writes a reference to a "young" `CHARSXP` object into an "old"
-`STRSXP` vector without taking generations into account, a following
-collection of the "young" pool of objects will miss the `CHARSXP` being
-referenced by the "old" `STRSXP` and remove the `CHARSXP` as "garbage".
-This makes the `SEXP *` pointers returned by `STRING_PTR` unsafe and
-requires the use of `STRING_PTR_RO` function, which returns a read-only
-`const SEXP *`.
+R's garbage collector is [generational and requires the use of write
+barrier][RI17] ([1][Tierney_gengc], [2][Tierney_writebr]) any time a
+`SEXP` value (such as a `STRSXP` vector) references another `SEXP` value
+(such as a `CHARSXP` string). In a generational garbage collector,
+"younger" generations are marked and sweeped more frequently than
+"older" ones. If package C code manually writes a reference to a "young"
+`CHARSXP` object into an "old" `STRSXP` vector without taking
+generations into account, a following collection of the "young" pool of
+objects will miss the `CHARSXP` being referenced by the "old" `STRSXP`
+and remove the `CHARSXP` as "garbage".  This makes the `SEXP *` pointers
+returned by `STRING_PTR` unsafe and requires the use of `STRING_PTR_RO`
+function, which returns a read-only `const SEXP *`.
 
 Thankfully, `data.table` has already been using read-only `const SEXP *`
 pointers when working with `STRSXP` vectors, so the required changes to
@@ -449,10 +449,10 @@ Encoding bits: `LEVELS`
 
 `LEVELS` is the name of the internal R [macro][LEVELS_macro] and an
 exported non-API [function][LEVELS_function] accessing a [16-bit field
-called `gp`][LEVELS_field] that is present in the header of every `SEXP`
-value.  Not every access to this field is done using the `LEVELS()`
-macro; there are bits of R code that access `(sexp)->sxpinfo.gp`
-directly. R uses this field for many purposes:
+called `gp`][LEVELS_field] ([general-purpose][RI112]) that is present in
+the header of every `SEXP` value.  Not every access to this field is
+done using the `LEVELS()` macro; there are bits of R code that access
+`(sexp)->sxpinfo.gp` directly. R uses this field for many purposes:
 
  * matching given arguments against the formals of a function
    ([1][gp_for_match1], [2][gp_for_match2], [3][gp_for_match3])
@@ -530,40 +530,55 @@ the value of the flags and so may needlessly translate strings from
 that will also return `TRUE` for a matching native encoding, actually
 making the change breaks a number of unit tests.
 
-Growable vectors: `SETLENGTH`, `SET_GROWABLE_BIT`, `SET_TRUELENGTH`
--------------------------------------------------------------------
+`SETLENGTH`, `SET_GROWABLE_BIT`, `(SET_)TRUELENGTH`
+---------------------------------------------------
 
-Over-allocated `data.table`s have been introduced in [v1.7.3, November
+### Growable vectors
+
+Since `data.frame`s and `data.table`s are lists, and lists in R are
+value types with pass-by-value semantics (see above), adding or removing
+a column to one the normally involves allocating a new list referencing
+the same columns (performing a "shallow duplicate"). By contrast, the
+[over-allocated vectors][datatable_overallocation] can be resized in
+place by gradually increasing their `LENGTH` (remembering their original
+length in the `TRUELENGTH` field), obviating the need for shallow
+duplicates at the cost of making `data.table` shared, by-reference
+values. The change has been introduced in [v1.7.3, November
 2011][news173], together with the `:=` operator for changing the columns
-by reference. Since `data.frame`s and `data.table`s are lists, and lists
-in R are value types with pass-by-value semantics (see above), adding or
-removing a column to one the normally involves allocating a new vector
-of pointers to columns (performing a "shallow duplicate").
+by reference (which has since become [the defining feature of
+data.table][datatable_logo]). `data.table` version 1.8.8 (March 2013)
+[saw][news188] the addition of the `fread` function that [over-allocated
+and later truncated the individual columns][datatable_stretch_column]
+using the same approach.
 
-The [over-allocated vector of column pointers][datatable_overallocation]
-(together with the `names` vector) remember their original length in the
-`TRUELENGTH` field and can be resized in place by gradually increasing
-their `LENGTH`. The walrus operator, `:=`, has since become [the
-defining feature of data.table][datatable_logo]. `data.table` version
-1.8.8 (March 2013) [saw][news188] the addition of the `fread` function
-that [over-allocated and later truncated the individual
-columns][datatable_stretch_column] using the same approach.
-
-Why used: need to create new columns by reference, which requires free
-column and name slots
+R's own use of `TRUELENGTH` is [varied][RI113]. The field itself
+appeared in [R-0.63][R_truelength] together with the `VECSXP` lists (to
+replace the Lisp-style linked pairlists). R [uses this
+field][R_hashvalue] in `CHARSXP` strings to store the hash values
+[belonging to symbols][R_install_truelen]. R's many `VECSXP`-based hash
+tables use it to count the primary slots in use: hashes are used for
+reference tracking during (un)serialization ([1][R_serialize_hash],
+[2][R_saveload_hash]) and looking up environment contents
+([1][R_envir_hashpri], [2][R_envir_hashval]). R-3.3 (May 2016) saw the
+inclusion of [radix sort][R_radixsort] from `data.table` itself, which
+uses `TRUELENGTH` to sort strings (more on that below). R-3.4 (April
+2017) [introduced][R_growable] over-allocation when growing vectors due
+to assignment outside their bounds. The [growable bit][gp_for_growable]
+was added to prevent the mismanagement of the allocated memory counter:
+without the bit set on the over-allocated vectors, the garbage collector
+only counted `LENGTH(x)` instead of `TRUELENGTH(x)` units as released
+when garbage-collecting the vector, inflating the counter over time.
 
 Why non-API: make a length too long and the list is broken.
 <!-- TODO: Setting a length too short while having something other than
 `R_NilValue` inside: does it break something? Are these values
 reachable from the GC point of view? -->
-<!-- TODO: the exact nature of GROWABLE_BIT -->
 <!-- TODO: verify that these are the only uses of SETLENGTH,
 SET_GROWABLE_BIT -->
 
 What to do about it: reimplement in ALTREP on R &ge; 4.1
 
-Fast string matching: `SET_TRUELENGTH`, `TRUELENGTH`
-----------------------------------------------------
+### Fast string matching
 
 Why used: to exploit the `CHARSXP` cache. R interns strings, so a string
 with the given contents and encoding bits exists as a single object,
@@ -629,6 +644,7 @@ References
 [call]: https://search.r-project.org/R/refmans/base/html/call.html
 [WRE_call]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Creating-call-expressions
 [remove_set_typeof]: https://github.com/Rdatatable/data.table/pull/6313
+[RI17]: https://cran.r-project.org/doc/manuals/R-ints.html#The-write-barrier
 [Tierney_gengc]: https://homepage.stat.uiowa.edu/~luke/R/gengcnotes.html
 [Tierney_writebr]: https://homepage.stat.uiowa.edu/~luke/R/barrier.html
 [remove_string_ptr]: https://github.com/Rdatatable/data.table/pull/6312
@@ -639,6 +655,7 @@ References
 [LEVELS_macro]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L228
 [LEVELS_function]:https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/memory.c#L3902
 [LEVELS_field]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/include/Defn.h#L132
+[RI112]: https://cran.r-project.org/doc/manuals/R-ints.html#Rest-of-header
 [gp_for_match1]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/match.c#L175
 [gp_for_match2]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/match.c#L233-L236
 [gp_for_match3]: https://github.com/r-devel/r-svn/blob/c9437a83b9677074fe01310caac6a2a66cc7f680/src/main/unique.c#L53
@@ -681,3 +698,12 @@ References
 [news188]: https://github.com/Rdatatable/data.table/blob/6a15f8617de121a406cee97b22e83e0c2c4bb034/NEWS.0.md#new-features-5
 [datatable_stretch_column]: https://github.com/Rdatatable/data.table/commit/b4e023df736fed8c4dc536ac0061e895a565b375#diff-697a3094ef3d287d25b94aa344f7ed0262aa3fdb97af9b7e04e3b0ef585b05bcR30-R56
 [RI113]: https://cran.r-project.org/doc/manuals/R-ints.html#The-_0027data_0027
+[R_truelength]: https://github.com/r-devel/r-svn/commit/2d4ae2c4bd593bc2aa2273076997b6e63bbcb782
+[R_hashvalue]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/include/Defn.h#L1184-L1187
+[R_install_truelen]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/main/names.c#L1256-L1272
+[R_serialize_hash]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/main/serialize.c#L617-L634
+[R_saveload_hash]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/main/saveload.c#L807-L834
+[R_envir_hashpri]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/main/envir.c#L193-L207
+[R_envir_hashval]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/main/envir.c#L497-L520
+[R_radixsort]: https://github.com/r-devel/r-svn/commit/4907092c953bd0b9c059474f77e40990ecf312b1
+[R_growable]: https://github.com/r-devel/r-svn/commit/287b8316232aea7c619d0cadcb515507b1e3ebfa
