@@ -546,10 +546,7 @@ duplicates at the cost of making `data.table` shared, by-reference
 values. The change has been introduced in [v1.7.3, November
 2011][news173], together with the `:=` operator for changing the columns
 by reference (which has since become [the defining feature of
-data.table][datatable_logo]). `data.table` version 1.8.8 (March 2013)
-[saw][news188] the addition of the `fread` function that [over-allocated
-and later truncated the individual columns][datatable_stretch_column]
-using the same approach.
+data.table][datatable_logo]).
 
 R's own use of `TRUELENGTH` is [varied][RI113]. The field itself
 appeared in [R-0.63][R_truelength] together with the `VECSXP` lists (to
@@ -569,12 +566,32 @@ without the bit set on the over-allocated vectors, the garbage collector
 only counted `LENGTH(x)` instead of `TRUELENGTH(x)` units as released
 when garbage-collecting the vector, inflating the counter over time.
 
+Nowadays, `data.table` uses vectors whose length is different from their
+allocated size in many places. `src/dogroups.c` reuses the same memory
+for the [`data.table` subset object `.SD`][datatable_docols_SD] and for
+the [virtual row number column `.I`][datatable_docols_I] by shortening
+the vectors to the size of the current group and later [restoring their
+natural length][datatable_docols_restore]. Naturally, it [extends the
+`data.table` for new columns][datatable_docols_extend] as needed.
+`src/freadR.c` works with an over-estimated line count and so can
+[truncate the columns][datatable_freadR_truncate] after the value is
+known precisely. It may also [drop columns by
+reference][datatable_freadR_drop]. In `src/subset.c`, the `subsetDT`
+function [prepares an over-allocated
+`data.table`][datatable_subset_alloc] together with its names. The most
+important uses can be found in `src/assign.c`: the `shallow` function
+[prepares][datatable_assign_shallow] an over-allocated `data.table`
+referencing the columns of an existing `data.table`, `assign`
+[creates][datatable_assign_create] or [removes][datatable_assign_remove]
+columns by reference; finally, the `finalizer` causes an `INTSXP` vector
+[with the fake length][datatable_assign_finalizer] to be (eventually)
+garbage-collected to fix up a discrepancy in R's vector size accounting
+caused by the existence of the over-allocated `data.table`.
+
 Why non-API: make a length too long and the list is broken.
 <!-- TODO: Setting a length too short while having something other than
 `R_NilValue` inside: does it break something? Are these values
 reachable from the GC point of view? -->
-<!-- TODO: verify that these are the only uses of SETLENGTH,
-SET_GROWABLE_BIT -->
 
 What to do about it: reimplement in ALTREP on R &ge; 4.1
 
@@ -695,7 +712,6 @@ References
 [news173]: https://github.com/Rdatatable/data.table/blob/6a15f8617de121a406cee97b22e83e0c2c4bb034/NEWS.0.md#new-features-13
 [datatable_overallocation]: https://github.com/Rdatatable/data.table/commit/e09d91beccc862eebcd9497c27b422058320396b#diff-22b103646a1efab9bbfc374791ccfc3fd1422eefc48918a3e126fc2f30d1f572R262-R276
 [datatable_logo]: https://raw.githubusercontent.com/Rdatatable/data.table/master/.graphics/logo.png
-[news188]: https://github.com/Rdatatable/data.table/blob/6a15f8617de121a406cee97b22e83e0c2c4bb034/NEWS.0.md#new-features-5
 [datatable_stretch_column]: https://github.com/Rdatatable/data.table/commit/b4e023df736fed8c4dc536ac0061e895a565b375#diff-697a3094ef3d287d25b94aa344f7ed0262aa3fdb97af9b7e04e3b0ef585b05bcR30-R56
 [RI113]: https://cran.r-project.org/doc/manuals/R-ints.html#The-_0027data_0027
 [R_truelength]: https://github.com/r-devel/r-svn/commit/2d4ae2c4bd593bc2aa2273076997b6e63bbcb782
@@ -707,3 +723,15 @@ References
 [R_envir_hashval]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/main/envir.c#L497-L520
 [R_radixsort]: https://github.com/r-devel/r-svn/commit/4907092c953bd0b9c059474f77e40990ecf312b1
 [R_growable]: https://github.com/r-devel/r-svn/commit/287b8316232aea7c619d0cadcb515507b1e3ebfa
+[datatable_docols_SD]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L197
+[datatable_docols_I]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L230-L237
+[datatable_docols_restore]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L482-L485
+[datatable_docols_extend]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L318-L324
+[datatable_freadR_truncate]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/freadR.c#L536-L538
+[datatable_freadR_drop]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/freadR.c#L551-L552
+[datatable_subset_alloc]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/subset.c#L300-L334
+[datatable_assign_shallow]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L192-L196
+[datatable_assign_create]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L535-L536
+[datatable_assign_remove]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L733-L734
+[datatable_assign_finalizer]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L21
+
