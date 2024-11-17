@@ -600,35 +600,59 @@ allocated size in many places:
 `SETLENGTH` presents many opportunities to create inconsistencies within
 R:
 
-<!-- TODO: links for all these -->
 * When copying shortened objects without the `GROWABLE_BIT` set, R
-  allocates and copies only `XLENGTH` elements, but preserves the
-  `TRUELENGTH`.
+  allocates and copies only `XLENGTH` elements and [duplicates the value
+  of `TRUELENGTH`][R_duplicate_truelength].
   * For this and other reasons, `data.table`s have a special
-    `.internal.selfrep` attribute attached containing an `EXTPTR` back
-    to itself. A copy of a table can be detected because it will have a
-    different address.
-  * Setting the `GROWABLE_BIT` on the `data.table` would make R set the
-    `TRUELENGTH` equal to the length of the vector when copying it.
+    [`.internal.selfrep` attribute][datatable_assign_selfref] attached
+    containing an `EXTPTR` back to itself. A copy of a table can be
+    detected because it will have a different address.
+  * Setting the `GROWABLE_BIT` on the `data.table` would make R keep the
+    default `TRUELENGTH` (0) instead of copying it.
 * When deallocating shortened objects without the `GROWABLE_BIT` set, R
-  accounts only for the `XLENGTH` elements being released, overcounting
-  the total amount of allocated memory.
-  * `data.table` accounts for this using the `finalizer` on the
-    `.internal.selfrep` attribute.
+  [accounts only for the `XLENGTH` elements][R_memory_getVecSize] being
+  released, overcounting the total amount of allocated memory.
+  * `data.table` compensates for this using the
+    [`finalizer`][datatable_assign_finalizer] on the `.internal.selfrep`
+    attribute.
   * Setting the `GROWABLE_BIT` on the `data.table` would make R account
-    for `TRUELENGTH` elements instead of `LENGTH` elements.
+    for `TRUELENGTH` elements instead of `XLENGTH` elements.
 
-Unfortunately, `GROWABLE_BIT` is not part of the API, so using it is not
-a real solution.
+Unfortunately, `GROWABLE_BIT` is not part of the API, so using it will
+not help in the long run.
 
 * Setting `LENGTH` larger than the allocated length may cause the
   process to access undefined or even unmapped memory.
-* For `VECSXP` lists: when reducing the `LENGTH`, having anything other
-  than `R_NilValue` in the newly unaccessible cells will also make them
+* For vectors containing other `SEXP` values (`VECSXP`, `EXPRSXP`,
+  `STRSXP`) vectors: when reducing the `LENGTH`, having a non-persistent
+  value (something other than `R_NilValue` or `R_BlankString` or
+  `R_NaString`) in the newly inaccessible cells will also make them
   unreachable from the viewpoint of the garbage collector, potentially
   prompting it to reuse or unmap the pointed-to memory. Increasing the
   `LENGTH` again with invalid pointers in the newly accessible slots
-  will make an invalid list that cannot be safely altered or discarded.
+  will make an invalid vector that cannot be safely altered or
+  discarded:
+
+  ```c
+  #include <R.h>
+  #include <Rinternals.h>
+  void foo(void) {
+    {
+      SEXP list = PROTECT(allocVector(VECSXP, 100)), elt;
+      SET_VECTOR_ELT(list, 99, elt = allocVector(REALSXP, 1000));
+
+      double * p = REAL(elt); // initialise the vector
+      for (R_xlen_t i = 0; i < xlength(elt); ++i) p[i] = i;
+
+      SETLENGTH(list, 1); // elt is unreachable
+      R_gc(); // elt is collected
+      SETLENGTH(list, 100); // invalid elt is reachable again
+      R_gc(); // invalid elt is accessed
+      UNPROTECT(1);
+    }
+    R_gc(); // crash here if not above
+  }
+  ```
 
 What to do about it: reimplement in ALTREP on R &ge; 4.1
 
@@ -771,4 +795,7 @@ References
 [datatable_assign_create]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L535-L536
 [datatable_assign_remove]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L733-L734
 [datatable_assign_finalizer]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L21
+[R_duplicate_truelength]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/main/duplicate.c#L43-L81
+[datatable_assign_selfref]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L27-L63
+[R_memory_getVecSize]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/main/memory.c#L1108-L1109
 
