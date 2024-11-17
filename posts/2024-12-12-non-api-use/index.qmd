@@ -565,6 +565,9 @@ was added to prevent the mismanagement of the allocated memory counter:
 without the bit set on the over-allocated vectors, the garbage collector
 only counted `LENGTH(x)` instead of `TRUELENGTH(x)` units as released
 when garbage-collecting the vector, inflating the counter over time.
+[ALTREP] objects introduced in R-3.5 (April 2018) don't have a
+`TRUELENGTH`: it [cannot be set][R_altrep_set_truelen] and is [returned
+as 0][R_altrep_truelen].
 
 Nowadays, `data.table` uses vectors whose length is different from their
 allocated size in many places:
@@ -654,7 +657,73 @@ not help in the long run.
   }
   ```
 
-What to do about it: reimplement in ALTREP on R &ge; 4.1
+[Starting with R-4.3][R_PR17620], R packages can implement their own
+`VECSXP`-like objects using the [ALTREP] framework; `STRSXP` objects
+have been supported since R-3.5. An `ALTREP` object is defined by its
+_class_ (a collection of methods) and two arbitrary R values, `data1`
+and `data2`. A simple implementation of a shortened, expandable vector
+could hold a full-length vector in the `data1` slot and its
+pretend-length as a one-element `REALSXP` value in the `data2` slot.
+(Currently, `R_xlen_t` values are limited by the largest integer
+precisely representable in an IEEE `double` value, which is $2^{52}$.)
+The overallocated class will need to implement the following methods:
+
+* [Common ALTREP methods][Rapi_altrep_methods]:
+  * `Length()`, returning the pretend-length of the vector. Required.
+  * `Duplicate(deep)`. If not implemented, R will create a copy as an
+    ordinary object using the length and the data pointer provided by
+    the class.
+    * There is also `DuplicateEX(deep)`, which is responsible for
+      copying the value _and_ the attributes, but it may be hard to
+      implement within the API bounds (`ATTRIB` is not API), and R
+      provides a default implementation that calls `Duplicate` above.
+    * Shared mutable vectors [can cause problems][Tierney_mutable], so a
+      decision to let the `Duplicate()` return value share the original
+      vector will require a lot of thought and testing.
+  * `Serialized_state()`, `Unserialize(state)`. If not implemented, R
+    will serialize the value as an ordinary object, which is what
+    currently happens for `data.table`s. Once an R package implements an
+    ALTREP class with a `Serialized_state` method, the format is set in
+    stone; any changes will have to introduce a new class.
+    * Similarly, there is `UnserializeEX(state, attr,
+    objf, levs)` responsible for setting `LEVELS`, the object bit, and
+    the attributes; the default implementation should suffice.
+  * `Inspect(pre, deep, pvec, inspect_subtree)`. May `Rprintf` some
+    information from the ALTREP fields before returning `FALSE` to let R
+    continue `inspect`ing the object.
+* [Common `altvec` methods][Rapi_altvec_methods] required for most code
+  to work with the class:
+  * `Dataptr(writable)`, returning the pointer to the start of the array
+    backing the underlying vector. For `VECSXP` or `STRSXP` vectors,
+    `writable` should always be `FALSE`, so `DATAPTR_RO` can be used.
+  * `Dataptr_or_null()`. May delegate to `Dataptr(FALSE)` above.
+  * `Extract_subset(indx, call)`. Must allocate and return `x[indx]` for
+    1-based numeric `indx` that may be outside the bounds of `x`.
+* Class-specific methods:
+  * [`altstring` methods][Rapi_altstring_methods]:
+    * `Elt(i)`. Must return `x[[i]]` for 0-based `i` or signal an error.
+      Required.
+    * `Set_elt(i, v)`. Must perform `x[[i]] <- v` for 0-based `i` or
+      signal an error. Required.
+    * `Is_sorted()`. If not implemented, will always return
+      `UNKNOWN_SORTEDNESS`.
+    * `No_NA()`. If not implemented, will always return 0 (unknown whether
+      contains missing values).
+  * [`altlist` methods][Rapi_altlist_methods]:
+    * `Elt(i)` and `Set_elt(i, v)` like above.
+
+Additionally, `data.table` will need a function to [create new ALTREP
+tables][Rapi_new_altrep] and to resize the vector in place. The resize
+function will need to check whether the given value
+[`R_altrep_inherits`][Rapi_altrep_inherits] from the overallocated class
+and then modify the ALTREP data slots as needed. The function may even
+reallocate the payload to enlarge the vector in place past the original
+allocation limit without requiring a `setDT` call from the user. Since a
+reallocation will invalidate any cached data pointers, it must be only
+used from inside `data.table`, not from the ALTREP methods.
+
+The original implementation that uses `SETLENGTH` can be kept behind
+`#if R_VERSION < R_Version(4,3,0)` for backwards compatibility.
 
 ### Fast string matching
 
@@ -784,6 +853,8 @@ References
 [R_envir_hashval]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/main/envir.c#L497-L520
 [R_radixsort]: https://github.com/r-devel/r-svn/commit/4907092c953bd0b9c059474f77e40990ecf312b1
 [R_growable]: https://github.com/r-devel/r-svn/commit/287b8316232aea7c619d0cadcb515507b1e3ebfa
+[R_altrep_set_truelen]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/include/Defn.h#L391
+[R_altrep_truelen]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/main/altrep.c#L345
 [datatable_docols_SD]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L197
 [datatable_docols_I]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L230-L237
 [datatable_docols_restore]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L482-L485
@@ -798,4 +869,11 @@ References
 [R_duplicate_truelength]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/main/duplicate.c#L43-L81
 [datatable_assign_selfref]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L27-L63
 [R_memory_getVecSize]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/main/memory.c#L1108-L1109
-
+[R_PR17620]: https://bugs.r-project.org/show_bug.cgi?id=17620
+[Rapi_altrep_methods]: https://aitap.codeberg.page/R-api/#R_005fset_005faltrep_005f_002e_002e_002e_005fmethod
+[Tierney_mutable]: https://github.com/ALTREP-examples/Rpkg-mutable/blob/master/vignettes/mutable.Rmd
+[Rapi_altvec_methods]: https://aitap.codeberg.page/R-api/#R_005fset_005faltvec_005f_002e_002e_002e_005fmethod
+[Rapi_altstring_methods]: https://aitap.codeberg.page/R-api/#R_005fmake_005faltstring_005fclass
+[Rapi_altlist_methods]: https://aitap.codeberg.page/R-api/#R_005fmake_005faltlist_005fclass
+[Rapi_new_altrep]: https://aitap.codeberg.page/R-api/#R_005fnew_005faltrep
+[Rapi_altrep_inherits]: https://aitap.codeberg.page/R-api/#index-R_005faltrep_005finheritsaltrep_005finherits
