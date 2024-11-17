@@ -28,13 +28,13 @@ Fast forward more than four decades and an increase by more than three
 orders of magnitude in storage and processing capability of computers
 around us. The [dominant implementation of S is now R][is.R]. It is now
 feasible to implement algorithms solely in R, recouping the potential
-performance losses in performance by reducing the programmer effort
-spent debugging and maintaining the code [@Nash2024]. Still, the
-capability of R to be extended by special-purpose compiled code is as
-important as ever. As of `r when`,
-`r round(sum(needscomp)/length(needscomp)*100)`% of CRAN packages use
-compiled code. Since the implementation language of R is C, not Fortran,
-the programming interface for R is also defined in terms of C.
+performance losses by reducing the programmer effort spent debugging and
+maintaining the code [@Nash2024]. Still, the capability of R to be
+extended by special-purpose compiled code is as important as ever. As of
+`r when`, `r round(sum(needscomp)/length(needscomp)*100)`% of CRAN
+packages use compiled code. Since the implementation language of R is C,
+not Fortran, the application programming interface (API) for R is also
+defined in terms of C.
 
 What's in an API?
 =================
@@ -130,8 +130,8 @@ currently present in `tools:::nonAPI` (emphasis added):
 >   files._
 
 Correspondingly, the number of `tools:::nonAPI` entry points in the
-current development version of R rose to `r length(nonAPI.trunk)`, hence
-the present blog post.
+current development version of R rose to `r length(nonAPI.trunk)`,
+prompting the blog post you are currently reading.
 
 <!-- MAYBE: mention Rf_ remapping and typical APIs look like at some
 point -->
@@ -146,14 +146,14 @@ extract neither-official-API nor-official-nonAPI counts -->
 <!-- MAYBE: see which listed non-API functions are the most "popular" in
 packages still on CRAN -->
 
-Use of non-API entry points in `data.table`
-===========================================
+Non-API entry points used in `data.table`
+=========================================
 
 The first version of the `data.table` package in the CRAN archive dates
 back to April 2006 (which corresponds to R version 2.3.0). It has been
 evolving together with R and its API and thus has accumulated a number
-of uses of R internals that are [no longer considered part of the
-API][remove_non_API]:
+of uses of R internals that are [now flagged by ` R CMD check ` as
+non-API][remove_non_API]:
 
 `r gsub(
  '(?m)^', '>     ', perl = TRUE,
@@ -168,9 +168,10 @@ Testing for a `data.frame`: `isFrame`
 Back in 2012, Matt Dowle needed to quickly test an object for being a
 `data.frame`, and the undocumented function `isFrame` seemed like it
 [did the job][datatable_isframe_added]. Since `isFrame` was not part of
-the documented API, in 2024 Luke Tierney gave the function a
+the documented interface, in 2024 Luke Tierney gave the function a
 better-fitting name, [`isDataFrame`][R_isdataframe_added], and made it
-an experimental API, while retaining the original function as a wrapper.
+an experimental entry point, while retaining the original function as a
+wrapper.
 
 Use of `isFrame` [doesn't give a `NOTE` yet][remove_isframe], but when
 R-4.5.0 is released together with the new name for the function,
@@ -182,7 +183,7 @@ Problem (the only instance in `data.table`):
 
 ```c
 if (!isVector(thiscol) || isFrame(thiscol))
-                       /* ^^^^^^^ may disappear in a future R version */
+                       // ^^^^^^^ may disappear in a future R version
 ```
 
 Solution:
@@ -328,8 +329,8 @@ they must be subject to garbage collection. Like other managed objects
 in R, they are represented as `SEXP` values of special type `CHARSXP`.
 R's garbage collector is [generational and requires the use of write
 barrier][RI17] ([1][Tierney_gengc], [2][Tierney_writebr]) any time a
-`SEXP` value (such as a `STRSXP` vector) references another `SEXP` value
-(such as a `CHARSXP` string). In a generational garbage collector,
+`SEXP` value (such as an `STRSXP` vector) references another `SEXP`
+value (such as a `CHARSXP` string). In a generational garbage collector,
 "younger" generations are marked and sweeped more frequently than
 "older" ones. If package C code manually writes a reference to a "young"
 `CHARSXP` object into an "old" `STRSXP` vector without taking
@@ -389,12 +390,12 @@ arguments; the value types behave as if R copies them every time.
 
 And yet actually making these copies is wasteful when the code only
 reads the variable and does not alter it. (In fact, one of the original
-motivations of `data.table` was to further reduce wasteful copying that
-R used to perform during certain sub-assignment operations.) Until
-version 4.0.0, `NAMED` was R's mechanism to save memory and CPU time
-instead of creating and storing these copies. A temporary object such as
-the value of `1:10` was not bound to a symbol and thus could be modified
-right away. Assigning it to a variable, as in `x <- 1:10`, gave it a
+motivations of `data.table` was to reduce certain wasteful copying of
+data that happens during normal R computations.) Until version 4.0.0,
+`NAMED` was R's mechanism to save memory and CPU time instead of
+creating and storing these copies. A temporary object such as the value
+of `1:10` was not bound to a symbol and thus could be modified right
+away. Assigning it to a variable, as in `x <- 1:10`, gave it a
 `NAMED(x)` count of 1, for which R had an internal optimisation in
 replacement function calls like `foo(x) <- 3`.  Assigning the same value
 to yet another symbol (by copying `y <- x` or calling a function
@@ -624,8 +625,8 @@ R:
 Unfortunately, `GROWABLE_BIT` is not part of the API, so using it will
 not help in the long run.
 
-* Setting `LENGTH` larger than the allocated length may cause the
-  process to access undefined or even unmapped memory.
+* Setting `LENGTH` larger than the allocated length may cause R to
+  access undefined or even unmapped memory.
 * For vectors containing other `SEXP` values (`VECSXP`, `EXPRSXP`,
   `STRSXP`) vectors: when reducing the `LENGTH`, having a non-persistent
   value (something other than `R_NilValue` or `R_BlankString` or
@@ -661,12 +662,14 @@ not help in the long run.
 `VECSXP`-like objects using the [ALTREP] framework; `STRSXP` objects
 have been supported since R-3.5. An `ALTREP` object is defined by its
 _class_ (a collection of methods) and two arbitrary R values, `data1`
-and `data2`. A simple implementation of a shortened, expandable vector
-could hold a full-length vector in the `data1` slot and its
-pretend-length as a one-element `REALSXP` value in the `data2` slot.
-(Currently, `R_xlen_t` values are limited by the largest integer
-precisely representable in an IEEE `double` value, which is $2^{52}$.)
-The overallocated class will need to implement the following methods:
+and `data2`. (Attributes are not a part of the ALTREP representation and
+exist the same way as on normal R objects.) A simple implementation of a
+shortened, expandable vector could hold a full-length vector in the
+`data1` slot and its pretend-length as a one-element `REALSXP` value in
+the `data2` slot. (Currently, `R_xlen_t` values are limited by the
+largest integer precisely representable in an IEEE `double` value, which
+is $2^{52}$.) The overallocated class will need to implement the
+following methods:
 
 * [Common ALTREP methods][Rapi_altrep_methods]:
   * `Length()`, returning the pretend-length of the vector. Required.
@@ -711,6 +714,19 @@ The overallocated class will need to implement the following methods:
       contains missing values).
   * [`altlist` methods][Rapi_altlist_methods]:
     * `Elt(i)` and `Set_elt(i, v)` like above.
+  * The rest of the atomic vector types ([integer][Rapi_altinteger],
+    [logical][Rapi_altlogical], [numeric][Rapi_altreal],
+    [complex][Rapi_altcomplex], [raw][Rapi_altraw]) will each need a
+    subset of the following methods:
+    * `Elt(i)`, `Is_sorted()`, `No_NA()`, as above.
+    * `Get_region(i, n, buf)` to populate the buffer `buf[n]` of the
+      corresponding C type with elements at the given 0-based indices
+      `i`. The indices are not guaranteed to be within bounds; the
+      number of actually copied elements must be returned. If not
+      implemented, R will use the `Elt(i)` method, which is slower.
+    * `Sum(narm)`, `Min(narm)`, `Max(narm)` to compute a summary of the
+      vector, optionally ignoring the missing values. If not
+      implemented, R will use `Get_region` to compute the summaries.
 
 Additionally, `data.table` will need a function to [create new ALTREP
 tables][Rapi_new_altrep] and to resize the vector in place. The resize
@@ -719,8 +735,8 @@ function will need to check whether the given value
 and then modify the ALTREP data slots as needed. The function may even
 reallocate the payload to enlarge the vector in place past the original
 allocation limit without requiring a `setDT` call from the user. Since a
-reallocation will invalidate any cached data pointers, it must be only
-used from inside `data.table`, not from the ALTREP methods.
+reallocation will invalidate the data pointer, it must be only used from
+inside `data.table`, not from the ALTREP methods.
 
 The original implementation that uses `SETLENGTH` can be kept behind
 `#if R_VERSION < R_Version(4,3,0)` for backwards compatibility.
@@ -875,5 +891,10 @@ References
 [Rapi_altvec_methods]: https://aitap.codeberg.page/R-api/#R_005fset_005faltvec_005f_002e_002e_002e_005fmethod
 [Rapi_altstring_methods]: https://aitap.codeberg.page/R-api/#R_005fmake_005faltstring_005fclass
 [Rapi_altlist_methods]: https://aitap.codeberg.page/R-api/#R_005fmake_005faltlist_005fclass
+[Rapi_altinteger]: https://aitap.codeberg.page/R-api/#R_005fmake_005faltinteger_005fclass
+[Rapi_altlogical]: https://aitap.codeberg.page/R-api/#R_005fmake_005faltlogical_005fclass
+[Rapi_altreal]: https://aitap.codeberg.page/R-api/#R_005fmake_005faltreal_005fclass
+[Rapi_altcomplex]: https://aitap.codeberg.page/R-api/#R_005fmake_005faltcomplex_005fclass
+[Rapi_altraw]: https://aitap.codeberg.page/R-api/#R_005fmake_005faltraw_005fclass
 [Rapi_new_altrep]: https://aitap.codeberg.page/R-api/#R_005fnew_005faltrep
 [Rapi_altrep_inherits]: https://aitap.codeberg.page/R-api/#index-R_005faltrep_005finheritsaltrep_005finherits
