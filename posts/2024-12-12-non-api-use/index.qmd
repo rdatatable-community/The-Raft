@@ -174,8 +174,8 @@ from the C code: when creating a copy of an S4 `data.table` from scratch
 (or setting all attributes from one object onto another), the
 destination value must also end up being an S4 object. This is
 controlled by the special "S4" bit in the header of every R object, so
-the code must read and set it correctly. <!-- MAYBE: say and link where
-exacly data.table does this -->
+the code must read and set it correctly. <!-- TODO: link to where
+exactly data.table does this -->
 
 The undocumented functions `IS_S4_OBJECT`, `SET_S4_OBJECT`,
 `UNSET_S4_OBJECT` exist as bare interfaces to [the internal
@@ -213,8 +213,8 @@ contains the value in its `CAR` field and a reference to the rest of the
 list in its `CDR` field. Argument names, if provided, are stored in the
 third field, `TAG`.  The list is terminated by `R_NilValue`, which is of
 type `NILSXP`. These structures must be constructed every time C code
-wants to evaluate a function call. <!-- MAYBE: say and link where
-exacly data.table does this -->
+wants to evaluate a function call. <!-- TODO: provide other examples of
+eval() -->
 
 Previously, R API contained a function to allocate `LISTSXP` pairlists
 of arbitrary length, `allocList()`, but not function calls, so it became
@@ -799,9 +799,8 @@ points which ` R CMD check ` doesn't complain about yet:
 `(SET_)ATTRIB`, `SET_OBJECT`
 ----------------------------
 
-<!-- TODO: where, what for -->
-
-> Use `getAttrib` for individual attributes. <...> Use `setAttrib` for
+> Use `getAttrib` for individual attributes. To test whether there are
+> any attributes use `ANY_ATTRIB`, added in R 4.5.0. Use `setAttrib` for
 > individual attributes, `DUPLICATE_ATTRIB` or
 > `SHALLOW_DUPLICATE_ATTRIB` for copying attributes from one object to
 > another. Use `CLEAR_ATTRIB` for removing all attributes, added in R
@@ -809,7 +808,61 @@ points which ` R CMD check ` doesn't complain about yet:
 
 -- [WRE 6.21.1][WRE_replacement_entrypoints]
 
-<!-- TODO: example solutions for all classes of usage -->
+### Testing for presence of attributes
+
+`src/nafill.c` [checks][datatable_nafill_ATTRIB] whether the source
+object has any attributes before trying to copy them using
+`copyMostAttrib`.
+
+Problem:
+
+```c
+if (!isNull(ATTRIB(VECTOR_ELT(x, i))))
+         // ^^^^^^ non-API entry point
+```
+
+Solution:
+
+```c
+#if R_VERSION < R_Version(4, 5, 0)
+#define ANY_ATTRIB(x) (!isNull(ATTRIB(x)))
+#endif
+
+if (ANY_ATTRIB(VECTOR_ELT(x, i)))
+ // ^^^^^^^^^^ introduced in R-4.5
+```
+
+### Iterating over all attributes
+
+* The code in `src/assign.c` needs to [iterate over all the attributes of
+`attr(dt, 'index')`][datatable_assign_ATTRIB] in order to find indices
+that use the given column.
+* The code in `src/dogroups.c` needs to [iterate over all attributes of
+  a column][datatable_dogroups_ATTRIB] in case a reference to the value
+  of a special symbol has been stashed there and must be duplicated.
+
+Without `ATTRIB`, this will only be possible using an R-level call to
+`attributes()`.
+
+<!-- TODO: any other solutions? different data structure? -->
+
+### Raw `c(NA, n)` row names
+
+The code in `src/dogroups.c` needs to [access the raw `rownames`
+attribute][datatable_dogroups_rownames] of a `data.table`, even if it's
+in the compact form as a 2-element integer vector starting with `NA`.
+The `getAttrib` function has a special case for the `R_RowNamesSymbol`,
+which returns an ALTREP representation of this attribute.
+
+<!-- TODO: can it use non-compact rownames instead? -->
+
+### Direct transplantation of attributes
+
+The code in `src/dogroups.c` needs to
+[transplant][datatable_dogroups_SETATTR] the attributes from one object
+to another without duplicating them, even shallowly.
+
+<!-- TODO: what now? -->
 
 `findVar`
 ---------
@@ -1092,6 +1145,11 @@ References
 [datatable_copyShared2]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L266-L267
 [datatable_copyShared3]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L273
 [datatable_copyShared4]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L273
+[datatable_nafill_ATTRIB]: https://github.com/Rdatatable/data.table/blob/master/src/nafill.c#L216
+[datatable_assign_ATTRIB]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L618-L629
+[datatable_dogroups_ATTRIB]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L57-L58
+[datatable_dogroups_rownames]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L131-L134
+[datatable_dogroups_SETATTR]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L509-L515
 [datatable_dogroups_findVar]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L90-L118
 [WRE 6.21.7]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Working-with-variable-bindings
 [datatable_rbindlist_getoption]: https://github.com/Rdatatable/data.table/blob/master/src/rbindlist.c#L231
