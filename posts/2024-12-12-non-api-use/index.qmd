@@ -797,7 +797,9 @@ points which ` R CMD check ` doesn't complain about yet:
 `r paste(paste0('<code>', sort(DTnonAPI_yet), '</code>'), collapse = ', ')`.
 
 `(SET_)ATTRIB`, `SET_OBJECT`
---------------
+----------------------------
+
+<!-- TODO: where, what for -->
 
 > Use `getAttrib` for individual attributes. <...> Use `setAttrib` for
 > individual attributes, `DUPLICATE_ATTRIB` or
@@ -806,6 +808,8 @@ points which ` R CMD check ` doesn't complain about yet:
 > 4.5.0.
 
 -- [WRE 6.21.1][WRE_replacement_entrypoints]
+
+<!-- TODO: example solutions for all classes of usage -->
 
 `findVar`
 ---------
@@ -921,9 +925,30 @@ if (!isVector(thiscol) || isDataFrame(thiscol))
 `OBJECT`
 --------
 
+Used in `src/assign.c` to [test whether S3 dispatch is possible on an
+object][datatable_assign_OBJECT] before spending CPU time on
+constructing and evaluating an R-level call to `as.character` instead of
+`coerceVector`.
+
 > Use `isObject`.
 
 -- [WRE 6.21.1][WRE_replacement_entrypoints]
+
+Problem:
+```c
+if (OBJECT(source) && getAttrib(source, R_ClassSymbol)!=R_NilValue) {
+ // ^^^^^^ non-API entry point
+```
+
+Solution:
+```c
+if (isObject(source)) {
+ // ^^^^^^^^ API entry point
+```
+
+Most likely, the check for `getAttrib(source, R_ClassSymbol)` is
+superfluous, because when used correctly, R API maintains the object bit
+set only when the `class` attribute is non-empty.
 
 References
 ==========
@@ -1082,3 +1107,4 @@ References
 [R_isdataframe_added]: https://github.com/r-devel/r-svn/commit/4ef83b9dc3c6874e774195d329cbb6c11a71c414
 [remove_isframe]: https://github.com/Rdatatable/data.table/issues/6244
 [WRE_replacement_entrypoints]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Some-API-replacements-for-non_002dAPI-entry-points
+[datatable_assign_OBJECT]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L1158
