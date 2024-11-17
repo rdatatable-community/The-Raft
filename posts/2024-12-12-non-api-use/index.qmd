@@ -162,49 +162,6 @@ non-API][remove_non_API]:
 
  -- ` R CMD check --as-cran ` on a released version of `data.table`
 
-Testing for a `data.frame`: `isFrame`
--------------------------------------
-
-Back in 2012, Matt Dowle needed to quickly test an object for being a
-`data.frame`, and the undocumented function `isFrame` seemed like it
-[did the job][datatable_isframe_added]. Since `isFrame` was not part of
-the documented interface, in 2024 Luke Tierney gave the function a
-better-fitting name, [`isDataFrame`][R_isdataframe_added], and made it
-an experimental entry point, while retaining the original function as a
-wrapper.
-
-Use of `isFrame` [doesn't give a `NOTE` yet][remove_isframe], but when
-R-4.5.0 is released together with the new name for the function,
-`data.table` will be able to use it, falling back to `isFrame` on older
-versions of R. `isDataFrame` is documented among other [replacement
-entry point names][WRE_replacement_entrypoints] in Writing R Extensions.
-
-Problem (the only instance in `data.table`):
-
-```c
-if (!isVector(thiscol) || isFrame(thiscol))
-                       // ^^^^^^^ may disappear in a future R version
-```
-
-Solution:
-
-```c
-// include non-R headers first
-
-// include R headers last
-#include <R.h>
-#include <Rinternals.h>
-
-// provide overrides after the R headers
-#if R_VERSION < R_Version(4, 5, 0)
-// R versions older than 4.5.0 released use the old name of the function
-#define isDataFrame(x) isFrame(x)
-#endif
-
-// later:
-if (!isVector(thiscol) || isDataFrame(thiscol))
-```
-
 Operating on the S4 bit: `IS_S4_OBJECT`, `SET_S4_OBJECT`, `UNSET_S4_OBJECT`
 ---------------------------------------------------------------------------
 
@@ -822,18 +779,80 @@ The fast string lookup is used in the following places:
   `data.table`s; [setting the marker][datatable_dogroups_setlen-1],
   [checking the marker][datatable_dogroups_anyspecialstatic]
 * `src/utils.c`: need to copy columns that share memory or are ALTREP
-  [preparing zero `TRUELENGTH`s][datatable_copyShared1] (wouldn't the
-  `SET_TRUELENGTH` call always fail for `ALTREP` columns?), [marking
+  [preparing zero `TRUELENGTH`s][datatable_copyShared1], [marking
   ALTREP, special, and already marked columns for
   copy][datatable_copyShared2], [marking not previously marked columns
   with their column number][datatable_copyShared3], [restoring the
   `TRUELENGTH`s for columns that won't be
   overwritten][datatable_copyShared4]
+  * The `SET_TRUELENGTH` call in `copySharedColumns` would fail if it
+    ever got an ALTREP column, but the only use of `copySharedColumns`
+    in `reorder` guards against those.
 
 <!-- TODO: explanation, vague gestures at solution -->
 
-Conclusion
-==========
+But there's more
+================
+
+Using `tools:::funAPI` together with the lists of symbols exported from
+R and imported by `data.table` gives a number of non-API entry points
+which ` R CMD check ` doesn't complain about yet:
+`r paste(paste0('<code>', sort(DTnonAPI_yet), '</code>'), collapse = ', ')`
+
+`(SET_)ATTRIB`
+--------------
+
+`findVar`
+---------
+
+`GetOption`
+-----------
+
+Testing for a `data.frame`: `isFrame`
+-------------------------------------
+
+Back in 2012, Matt Dowle needed to quickly test an object for being a
+`data.frame`, and the undocumented function `isFrame` seemed like it
+[did the job][datatable_isframe_added]. Since `isFrame` was not part of
+the documented interface, in 2024 Luke Tierney gave the function a
+better-fitting name, [`isDataFrame`][R_isdataframe_added], and made it
+an experimental entry point, while retaining the original function as a
+wrapper.
+
+Use of `isFrame` [doesn't give a `NOTE` yet][remove_isframe], but when
+R-4.5.0 is released together with the new name for the function,
+`data.table` will be able to use it, falling back to `isFrame` on older
+versions of R. `isDataFrame` is documented among other [replacement
+entry point names][WRE_replacement_entrypoints] in Writing R Extensions.
+
+Problem (the only instance in `data.table`):
+
+```c
+if (!isVector(thiscol) || isFrame(thiscol))
+                       // ^^^^^^^ may disappear in a future R version
+```
+
+Solution:
+
+```c
+// include non-R headers first
+
+// include R headers last
+#include <R.h>
+#include <Rinternals.h>
+
+// provide overrides after the R headers
+#if R_VERSION < R_Version(4, 5, 0)
+// R versions older than 4.5.0 released use the old name of the function
+#define isDataFrame(x) isFrame(x)
+#endif
+
+// later:
+if (!isVector(thiscol) || isDataFrame(thiscol))
+```
+
+`(SET_)OBJECT`
+--------------
 
 References
 ==========
