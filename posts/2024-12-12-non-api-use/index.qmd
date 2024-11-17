@@ -136,8 +136,8 @@ prompting the blog post you are currently reading.
 <!-- MAYBE: mention Rf_ remapping and typical APIs look like at some
 point -->
 
-<!-- MAYBE: how did Rinternals change since 3.3.0? USE_RINTERNALS is
-gone -->
+<!-- MAYBE: how did Rinternals change since 3.3.0? e.g. USE_RINTERNALS
+is gone -->
 
 <!-- MAYBE: somehow obtain the list of imports (mirror Windows builds
 from CRAN? download the one compiled by Luke Tierney?) and try to
@@ -146,8 +146,8 @@ extract neither-official-API nor-official-nonAPI counts -->
 <!-- MAYBE: see which listed non-API functions are the most "popular" in
 packages still on CRAN -->
 
-Non-API entry points used in `data.table`
-=========================================
+Non-API entry points marked by ` R CMD check `
+==============================================
 
 The first version of the `data.table` package in the CRAN archive dates
 back to April 2006 (which corresponds to R version 2.3.0). It has been
@@ -196,7 +196,7 @@ Solution: [use `Rf_isS4` instead of
 `Rf_asS4` to control the S4 object bit, but be careful <!--how?-->
 around shared objects.
 
-<!-- TODO: expand on this, make sure the asS4 advice is correct -->
+<!-- TODO: expand on this, double check re: duplication done by asS4 -->
 
 Converting between calls and pairlists: `SET_TYPEOF`
 ----------------------------------------------------
@@ -261,7 +261,9 @@ or:
 ```c
 // allocate a call with 'n' elements
 SEXP call = lcons(R_NilValue, allocList(n - 1));
-
+```
+or:
+```c
 // in R >= 4.4.1 only:
 SEXP call = allocLang(n);
 ```
@@ -313,14 +315,9 @@ const SEXP *sourceD = STRING_PTR(source);
 Solution:
 
 ```c
-// first include non-R headers
-
-// next include R headers
-
-// then provide version-specific overrides
 #if R_VERSION < R_Version(3, 5, 0)
 // STRING_PTR_RO only appeared in R-3.5
-#define STRING_PTR_RO(x) STRING_PTR(x)
+#define STRING_PTR_RO(x) (STRING_PTR(x))
 #endif
 
 // later:
@@ -770,7 +767,7 @@ The fast string lookup is used in the following places:
 * `src/fmelt.c`: [combining factor levels by merging their `CHARSXP`s in
   a common array with indices in `TRUELENGTH`][datatable_fmelt_truelen]
 
-<!-- TODO: how to get rid of this? -->
+<!-- TODO: so what to do instead? -->
 
 ### Marking columns for copying
 
@@ -795,18 +792,94 @@ But there's more
 ================
 
 Using `tools:::funAPI` together with the lists of symbols exported from
-R and imported by `data.table` gives a number of non-API entry points
-which ` R CMD check ` doesn't complain about yet:
-`r paste(paste0('<code>', sort(DTnonAPI_yet), '</code>'), collapse = ', ')`
+R and imported by `data.table`, we can find a number of non-API entry
+points which ` R CMD check ` doesn't complain about yet:
+`r paste(paste0('<code>', sort(DTnonAPI_yet), '</code>'), collapse = ', ')`.
 
-`(SET_)ATTRIB`
+`(SET_)ATTRIB`, `SET_OBJECT`
 --------------
+
+> Use `getAttrib` for individual attributes. <...> Use `setAttrib` for
+> individual attributes, `DUPLICATE_ATTRIB` or
+> `SHALLOW_DUPLICATE_ATTRIB` for copying attributes from one object to
+> another. Use `CLEAR_ATTRIB` for removing all attributes, added in R
+> 4.5.0.
+
+-- [WRE 6.21.1][WRE_replacement_entrypoints]
 
 `findVar`
 ---------
 
+[Used in `dogroups`][datatable_dogroups_findVar] to look up the
+pre-created variables corresponding to the special symbols `.SDall`,
+`.SD`, `.N`, `.GRP`, `.iSD`, `.xSD` in their environment.
+
+> The functions `findVar` and `findVarInFrame` have been used in a
+> number of packages but are too low level to be part of the API. For
+> most uses the functions `R_getVar` and `R_getVarEx` added in R 4.5.0
+> will be sufficient. These are analogous to the R functions `get` and
+> `get0`.
+
+-- [WRE 6.21.7]
+
+The new function `R_getVar` is different in that it will never return a
+`PROMSXP` (which are an internal implementation detail) or an
+`R_UnboundValue`, but the current code doesn't try to care about either.
+
+Example of the problem:
+
+```c
+SEXP SD = PROTECT(findVar(install(".SD"), env));
+               // ^^^^^^^ non-API function
+```
+
+Solution:
+
+
+```c
+#if R_VERSION < R_Version(4, 5, 0)
+#define R_getVar(sym, rho, inherits) \
+ ((inherits) ? findVar((sym), (rho)) : findVarInFrame((rho), (sym)))
+#endif
+
+SEXP SD = PROTECT(R_getVar(install(".SD"), env, TRUE));
+               // ^^^^^^^^ introduced in R-4.5
+```
+
 `GetOption`
 -----------
+
+Used in `src/rbindlist.c` to read the
+[`datatable.rbindlist.check`][datatable_rbindlist_getoption] option,
+`src/freadR.c` to read the
+[`datatable.old.fread.datetime.character`][datatable_freadR_getoption]
+option, `src/init.c` to read the
+[`datatable.verbose`][datatable_init_getoption] option, `src/forder.c`
+to get the [`datatable.use.index` and
+`datatable.forder.auto.index`][datatable_forder_getoption] options, and
+`src/subset.c` to read the
+[`datatable.alloccol`][datatable_subset_getoption] option.
+
+> Use `GetOption1`.
+
+-- [WRE 6.21.1][WRE_replacement_entrypoints]
+
+The difference is that `GetOption1` doesn't take a second argument
+`rho`, which `GetOption` has been ignoring anyway.
+
+Example of the problem:
+
+```c
+SEXP opt = GetOption(install("datatable.use.index"), R_NilValue);
+        // ^^^^^^^^^ non-API function
+```
+
+Solution:
+
+```c
+SEXP opt = GetOption1(install("datatable.use.index"));
+        // ^^^^^^^^^^ API function introduced in R-2.13
+```
 
 Testing for a `data.frame`: `isFrame`
 -------------------------------------
@@ -835,24 +908,22 @@ if (!isVector(thiscol) || isFrame(thiscol))
 Solution:
 
 ```c
-// include non-R headers first
-
-// include R headers last
-#include <R.h>
-#include <Rinternals.h>
-
-// provide overrides after the R headers
 #if R_VERSION < R_Version(4, 5, 0)
 // R versions older than 4.5.0 released use the old name of the function
-#define isDataFrame(x) isFrame(x)
+#define isDataFrame(x) (isFrame(x))
 #endif
 
 // later:
 if (!isVector(thiscol) || isDataFrame(thiscol))
+                       // ^^^^^^^^^^^ introduced in R-4.5
 ```
 
-`(SET_)OBJECT`
---------------
+`OBJECT`
+--------
+
+> Use `isObject`.
+
+-- [WRE 6.21.1][WRE_replacement_entrypoints]
 
 References
 ==========
@@ -874,10 +945,6 @@ References
 [Rd201905]: https://stat.ethz.ch/pipermail/r-devel/2019-May/thread.html
 [clarifyingAPI]: https://stat.ethz.ch/pipermail/r-devel/2024-June/083449.html
 [remove_non_API]: https://github.com/Rdatatable/data.table/issues/6180
-[datatable_isframe_added]: https://github.com/Rdatatable/data.table/commit/87666e70ce1a69b28f0e92ec7504d80e3d53a824#diff-4fc47a9752ba4edfef0cabcc1958eda943545ad3859e48d498b0e3f87a9ae5aeR192
-[R_isdataframe_added]: https://github.com/r-devel/r-svn/commit/4ef83b9dc3c6874e774195d329cbb6c11a71c414
-[remove_isframe]: https://github.com/Rdatatable/data.table/issues/6244
-[WRE_replacement_entrypoints]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Some-API-replacements-for-non_002dAPI-entry-points
 [setOldClass]: https://search.r-project.org/R/refmans/methods/html/setOldClass.html
 [IS_S4_OBJECT]: https://github.com/r-devel/r-svn/blob/c20ebd2d417d9ebb915e32bfb0bfdad768f9a80a/src/main/memory.c#L4033-L4035
 [isS4]: https://github.com/r-devel/r-svn/blob/c20ebd2d417d9ebb915e32bfb0bfdad768f9a80a/src/main/objects.c#L1838-L1841
@@ -1000,3 +1067,18 @@ References
 [datatable_copyShared2]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L266-L267
 [datatable_copyShared3]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L273
 [datatable_copyShared4]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L273
+[datatable_dogroups_findVar]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L90-L118
+[WRE 6.21.7]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Working-with-variable-bindings
+[datatable_rbindlist_getoption]: https://github.com/Rdatatable/data.table/blob/master/src/rbindlist.c#L231
+[datatable_freadR_getoption]: https://github.com/Rdatatable/data.table/blob/master/src/freadR.c#L132
+[datatable_init_getoption]: https://github.com/Rdatatable/data.table/blob/master/src/init.c#L331
+[datatable_forder_getoption]: https://github.com/Rdatatable/data.table/blob/master/src/forder.c#L1619-L1637
+[datatable_subset_getoption]: https://github.com/Rdatatable/data.table/blob/master/src/subset.c#L299
+[datatable_isframe_added]: https://github.com/Rdatatable/data.table/commit/87666e70ce1a69b28f0e92ec7504d80e3d53a824#diff-4fc47a9752ba4edfef0cabcc1958eda943545ad3859e48d498b0e3f87a9ae5aeR192
+[R_isdataframe_added]: https://github.com/r-devel/r-svn/commit/4ef83b9dc3c6874e774195d329cbb6c11a71c414
+[remove_isframe]: https://github.com/Rdatatable/data.table/issues/6244
+[WRE_replacement_entrypoints]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Some-API-replacements-for-non_002dAPI-entry-points
+[datatable_isframe_added]: https://github.com/Rdatatable/data.table/commit/87666e70ce1a69b28f0e92ec7504d80e3d53a824#diff-4fc47a9752ba4edfef0cabcc1958eda943545ad3859e48d498b0e3f87a9ae5aeR192
+[R_isdataframe_added]: https://github.com/r-devel/r-svn/commit/4ef83b9dc3c6874e774195d329cbb6c11a71c414
+[remove_isframe]: https://github.com/Rdatatable/data.table/issues/6244
+[WRE_replacement_entrypoints]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Some-API-replacements-for-non_002dAPI-entry-points
