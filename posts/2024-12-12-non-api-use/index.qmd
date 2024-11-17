@@ -568,7 +568,9 @@ only counted `LENGTH(x)` instead of `TRUELENGTH(x)` units as released
 when garbage-collecting the vector, inflating the counter over time.
 [ALTREP] objects introduced in R-3.5 (April 2018) don't have a
 `TRUELENGTH`: it [cannot be set][R_altrep_set_truelen] and is [returned
-as 0][R_altrep_truelen].
+as 0][R_altrep_truelen]. In very old versions of R, `TRUELENGTH` wasn't
+initialised, but it is nowadays set to 0, which `data.table` [depends
+upon][datatable_init_testtl].
 
 Nowadays, `data.table` uses vectors whose length is different from their
 allocated size in many places:
@@ -585,6 +587,7 @@ allocated size in many places:
   * works with an over-estimated line count and so can [truncate the
     columns][datatable_freadR_truncate] after the value is known
     precisely
+    * the columns are [prepared to be truncated][datatable_freadR_settl]
   * may also [drop columns by reference][datatable_freadR_drop]
 * `src/subset.c`
   * the `subsetDT` function [prepares an over-allocated
@@ -608,9 +611,11 @@ R:
   allocates and copies only `XLENGTH` elements and [duplicates the value
   of `TRUELENGTH`][R_duplicate_truelength].
   * For this and other reasons, `data.table`s have a special
-    [`.internal.selfrep` attribute][datatable_assign_selfref] attached
+    [`.internal.selfref` attribute][datatable_assign_selfref] attached
     containing an `EXTPTR` back to itself. A copy of a table can be
     detected because it will have a different address.
+    * The `_selfrefok` function tries to [restore the correct
+      `TRUELENGTH`][datatable_assign_selfrefok] if it detects a copy.
   * Setting the `GROWABLE_BIT` on the `data.table` would make R keep the
     default `TRUELENGTH` (0) instead of copying it.
 * When deallocating shortened objects without the `GROWABLE_BIT` set, R
@@ -739,38 +744,93 @@ reallocation will invalidate the data pointer, it must be only used from
 inside `data.table`, not from the ALTREP methods.
 
 The original implementation that uses `SETLENGTH` can be kept behind
-`#if R_VERSION < R_Version(4,3,0)` for backwards compatibility.
+`#if R_VERSION < R_Version(4, 3, 0)` for backwards compatibility.
 
 ### Fast string matching
 
-Why used: to exploit the `CHARSXP` cache. R interns strings, so a string
-with the given contents and encoding bits exists as a single object,
-even if manually recreated using `mkCharLenCE()` and friends.
-Convert everything into UTF-8 and you can use pointer comparison.
-Given `x` and `table` of strings to find elements of `x` in, `chmatch()`
-puts indices into `table` into the `TRUELENGTH` field of the `CHARSXP`
-contents of `table`, then walks `x` and reads the indices back from the
-matching `CHARSXP`s, then carefully restores everything.
+`data.table`'s use of `TRUELENGTH` is not limited to growable buffers. A
+common idiom is to set the `TRUELENGTH`s of `CHARSXP` values from a
+vector to their negative 1-based indices in that vector, then look up
+other `CHARSXP`s in the original vector using `-TRUELENGTH(s)`. This
+technique relies on [R's `CHARSXP` cache][RI110]: for the given string
+contents and encoding, only one copy of a string created by
+`mkCharLenCE` (and related functions) will exist in the memory. As a
+result, if a string does exist in the original vector, it will be the
+_same_ `CHARSXP` object whose `TRUELENGTH` had been set to its negative
+index. R does not currently set negative `TRUELENGTH`s by itself, so any
+positive `TRUELENGTH`s can be safely discarded as non-matches.
 
-<!-- TODO: expand, possibly illustrate this explanation and others -->
+In the best case scenario, this lookup is very fast: for a table of size
+`n` and `k` strings to look up in it, it takes $\mathrm{O}(1)$ memory
+(the `TRUELENGTH` is already there, unused) and $\mathrm{O}(n)$ time for
+overhead plus $\mathrm{O}(k)$ time for the actual lookups.
 
-Why non-API: this field is not always used (cf. `data.table` having to
-work with it being completely uninitialised in old versions of R), but R
-does use it for internal purposes sometimes (cf. `data.table` having to
-restore nonzero `TRUELENGTH` for `CHARSXP` values used inside `SYMSXP`
-values).
+Care must be taken for the technique to work properly:
 
-Why this is hard to fix: the current happy path is very fast.
-`O(length(table)) + O(length(x))` to convert encodings,
-`O(length(table))` to mark indices, `O(length(x))` to look them up,
-`O(length(table))` to restore everything. Done. Pointer comparisons will
-take `O(length(table)*length(x))`, which is Bad. How expensive is it to
-build a hash for `O(length(table))` entries? Best case lookup will be
-once again `O(length(x))`, but only without collisions, the constants
-are unknown, and the C standard says that hashing pointers is fraught
-with peril.
+* The strings must be converted to UTF-8. Two copies of the same text in
+  different encodings will be stored in different objects at different
+  addresses, preventing the technique from working:
+  ```r
+  packageVersion('data.table')
+  # [1] ‘1.16.99’
+  x <- data.table(factor(rep(enc2utf8('ø'), 3)))
+  # memrecycle() forgot to account for encodings
+  x[1,V1 := iconv('ø', to='latin1')]
+  as.numeric(x$V1)
+  # [1] 2 1 1
+  levels(x$V1) # duplicated levels!
+  # [1] "ø" "ø"
+  identical(levels(x$V1)[[1]], levels(x$V1)[[2]])
+  # [1] TRUE
+  levels(x$V1) <- levels(x$V1)
+  levels(x$V1) # R restores unique levels
+  # [1] "ø"
+  ```
+* Any non-zero `TRUELENGTH` values resulting from R-internal usage must
+  be [saved][datatable_assign_savetl] beforehand and restored
+  afterwards.
+* The `TRUELENGTH`s are used to look up variables in hashed
+  environments, so R code should not run while the values are disturbed.
 
-<!-- TODO: more uses of SET_TRUELENGTH for similar purposes -->
+The fast string lookup is used in the following places:
+
+* `src/assign.c`: [factor level merging in
+  `memrecycle`][datatable_assign_memrecycle], [`savetl`
+  helper][datatable_assign_savetl]
+* `src/rbindlist.c`: [matching column
+  names][datatable_rbindlist_matchcolumns], [matching factor
+  levels][datatable_rbindlist_matchfactors]
+* `src/forder.c`: (different purpose, same technique) [storing the
+  group numbers][datatable_forder_truelen], [looking them
+  up][datatable_forder_truelen], [restoring the original
+  values][datatable_forder_free_ustr]
+* `src/chmatch.c`: [saving the original
+  `TRUELENGTH`s][datatable_chmatch_savetl], [remembering the positions
+  of `CHARSXP`s in the table][datatable_chmatch_settl], [cleaning up on
+  error][datatable_chmatch_cleanup1], [looking up strings in the
+  table][datatable_chmatch_lookup], [cleaning up before
+  exit][datatable_chmatch_cleanup2]
+* `src/fmelt.c`: [combining factor levels by merging their `CHARSXP`s in
+  a common array with indices in `TRUELENGTH`][datatable_fmelt_truelen]
+
+<!-- TODO: how to get rid of this? -->
+
+### Marking columns for copying
+
+* `src/dogroups.c`: special symbols `.BY`, `.I`, `.N`, `.GRP` live in
+  their own special vectors that must not appear inside regular
+  `data.table`s; [setting the marker][datatable_dogroups_setlen-1],
+  [checking the marker][datatable_dogroups_anyspecialstatic]
+* `src/utils.c`: need to copy columns that share memory or are ALTREP
+  [preparing zero `TRUELENGTH`s][datatable_copyShared1] (wouldn't the
+  `SET_TRUELENGTH` call always fail for `ALTREP` columns?), [marking
+  ALTREP, special, and already marked columns for
+  copy][datatable_copyShared2], [marking not previously marked columns
+  with their column number][datatable_copyShared3], [restoring the
+  `TRUELENGTH`s for columns that won't be
+  overwritten][datatable_copyShared4]
+
+<!-- TODO: explanation, vague gestures at solution -->
 
 Conclusion
 ==========
@@ -871,11 +931,13 @@ References
 [R_growable]: https://github.com/r-devel/r-svn/commit/287b8316232aea7c619d0cadcb515507b1e3ebfa
 [R_altrep_set_truelen]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/include/Defn.h#L391
 [R_altrep_truelen]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/main/altrep.c#L345
+[datatable_init_testtl]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/init.c#L206
 [datatable_docols_SD]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L197
 [datatable_docols_I]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L230-L237
 [datatable_docols_restore]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L482-L485
 [datatable_docols_extend]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L318-L324
 [datatable_freadR_truncate]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/freadR.c#L536-L538
+[datatable_freadR_settl]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/freadR.c#L519
 [datatable_freadR_drop]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/freadR.c#L551-L552
 [datatable_subset_alloc]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/subset.c#L300-L334
 [datatable_assign_shallow]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L192-L196
@@ -884,6 +946,7 @@ References
 [datatable_assign_finalizer]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L21
 [R_duplicate_truelength]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/main/duplicate.c#L43-L81
 [datatable_assign_selfref]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L27-L63
+[datatable_assign_selfrefok]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L99-L138
 [R_memory_getVecSize]: https://github.com/r-devel/r-svn/blob/04a3b015e7d20598f66954b88ae2d39068451494/src/main/memory.c#L1108-L1109
 [R_PR17620]: https://bugs.r-project.org/show_bug.cgi?id=17620
 [Rapi_altrep_methods]: https://aitap.codeberg.page/R-api/#R_005fset_005faltrep_005f_002e_002e_002e_005fmethod
@@ -898,3 +961,23 @@ References
 [Rapi_altraw]: https://aitap.codeberg.page/R-api/#R_005fmake_005faltraw_005fclass
 [Rapi_new_altrep]: https://aitap.codeberg.page/R-api/#R_005fnew_005faltrep
 [Rapi_altrep_inherits]: https://aitap.codeberg.page/R-api/#index-R_005faltrep_005finheritsaltrep_005finherits
+[datatable_assign_savetl]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L1274-L1328
+[RI110]: https://cran.r-project.org/doc/manuals/R-ints.html#The-CHARSXP-cache
+[datatable_assign_memrecycle]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L833-L867
+[datatable_rbindlist_matchcolumns]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/rbindlist.c#L70-L179
+[datatable_rbindlist_matchfactors]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/rbindlist.c#L367-L516
+[datatable_forder_range_str]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/forder.c#L295-L383
+[datatable_forder_truelen]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/forder.c#L769
+[datatable_forder_free_ustr]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/forder.c#L75
+[datatable_chmatch_savetl]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/chmatch.c#L58-L64
+[datatable_chmatch_settl]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/chmatch.c#L78-L80
+[datatable_chmatch_cleanup1]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/chmatch.c#L103
+[datatable_chmatch_lookup]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/chmatch.c#L108-L130
+[datatable_chmatch_cleanup2]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/chmatch.c#L135-L136
+[datatable_fmelt_truelen]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L273
+[datatable_dogroups_setlen-1]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L105-L152
+[datatable_dogroups_anyspecialstatic]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L6-L64
+[datatable_copyShared1]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L260-L261
+[datatable_copyShared2]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L266-L267
+[datatable_copyShared3]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L273
+[datatable_copyShared4]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L273
