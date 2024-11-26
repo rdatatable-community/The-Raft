@@ -34,7 +34,7 @@ DTsymbols %<-% fread(
 	name := sub('@.*', '', name)
 ][]
 
-# this is entirely different on late-2024 tools:::{funAPI,nonAPI}
+# this is entirely dependent on late-2024 tools:::{funAPI,nonAPI}
 setdiff(
 	# symbols exported by R and imported by data.table...
 	intersect(symbols$name, DTsymbols$name) |>

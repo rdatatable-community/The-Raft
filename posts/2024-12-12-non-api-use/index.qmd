@@ -1,5 +1,5 @@
 ---
-title: "Use of non-API functions in `data.table`"
+title: "Use of non-API entry points in `data.table`"
 author: "Ivan Krylov"
 date: "2024-12-12"
 categories: [code]
@@ -33,7 +33,7 @@ maintaining the code [@Nash2024]. Still, the capability of R to be
 extended by special-purpose compiled code is as important as ever. As of
 `r when`, `r round(sum(needscomp)/length(needscomp)*100)`% of CRAN
 packages use compiled code. Since the implementation language of R is C,
-not Fortran, the application programming interface (API) for R is also
+not Fortran, the application programming interface (API) for R is mainly
 defined in terms of C.
 
 What's in an API?
@@ -88,9 +88,10 @@ been historical mistakes: while WRE has been saying [back in version
 the (API) functions `dwilcox`, `pwilcox` or `qwilcox`, the function was
 only [declared in the public headers][wilcox_declared] and [removed from
 `tools:::nonAPI`][wilcox_api] in R-4.2.0. Still, between R-3.3.3 and
-R-4.4.2, `tools:::nonAPI` grew from `r length(nonAPI.3_3)` to
-`r length(nonAPI.4_4)` entries, and the package maintainers had to adapt
-or face archival of their packages.
+R-4.4.2, the `#define USE_RINTERNALS` escape hatch finally closed,
+`tools:::nonAPI` grew from `r length(nonAPI.3_3)` to `r
+length(nonAPI.4_4)` entries, and the package maintainers had to adapt or
+face archival of their packages.
 
 A [recent question on R-devel][ALTREPnonAPI] (whether the [ALTREP]
 interface should be considered "API" for the purpose of CRAN package
@@ -136,9 +137,6 @@ prompting the blog post you are currently reading.
 <!-- MAYBE: mention Rf_ remapping and typical APIs look like at some
 point -->
 
-<!-- MAYBE: how did Rinternals change since 3.3.0? e.g. USE_RINTERNALS
-is gone -->
-
 <!-- MAYBE: somehow obtain the list of imports (mirror Windows builds
 from CRAN? download the one compiled by Luke Tierney?) and try to
 extract neither-official-API nor-official-nonAPI counts -->
@@ -165,38 +163,57 @@ non-API][remove_non_API]:
 Operating on the S4 bit: `IS_S4_OBJECT`, `SET_S4_OBJECT`, `UNSET_S4_OBJECT`
 ---------------------------------------------------------------------------
 
+In R's "S4" OOP system, objects can have a primitive base type (e.g.
+`setClass("PrimitiveBaseType", contains = "numeric")` or no base type at
+all (e.g. `setClass("NoBaseType")`). In the former case, their
+`SEXPTYPE` code is that of their base class (e.g. `REALSXP`). In the
+latter case, their type code is `OBJSXP` (previously `S4SXP`, which is
+now an alias for `OBJSXP`). To make both cases work consistently, R uses
+a [special "S4" bit][RI_S4rep] in the header of the object.
+
 The `data.table` class is [registered][setOldClass] with the S4 OOP
 system, making it possible to create S4 classes containing `data.table`s
 as members (`setClass(slots = c(mytable = 'data.table'))`) or even
 inheriting from `data.table` (and, in turn, from `data.frame`:
-`setClass(contains = 'data.table')`). This latter case requires care
-from the C code: when creating a copy of an S4 `data.table` from scratch
-(or setting all attributes from one object onto another), the
-destination value must also end up being an S4 object. This is
-controlled by the special "S4" bit in the header of every R object, so
-the code must read and set it correctly. <!-- TODO: link to where
-exactly data.table does this -->
+`setClass(contains = 'data.table')`). Additionally, `data.table`s may
+contain columns that are themselves S4 objects, and both of these cases
+require care from the C code.
 
 The undocumented functions `IS_S4_OBJECT`, `SET_S4_OBJECT`,
 `UNSET_S4_OBJECT` exist as bare interfaces to [the internal
 macros][IS_S4_OBJECT] of the same names and directly access the flag
-inside their argument.
+inside their argument. Writing R Extensions
+[documents][WRE_replacement_entrypoints] `Rf_isS4` and `Rf_asS4` as
+their replacements.
 
 The [`Rf_isS4`][isS4] function is a wrapper for `IS_S4_OBJECT` that
 follows the usual naming convention for remapped functions, has been
 part of the API for a long time, and could implement additional checks
 if they are needed by R. The [`Rf_asS4`][asS4] function (experimental
-API) is more involved, making sure to operate on a shallow copy of an
-object instead of overwriting it in place and trying to "deconstruct" S4
-objects into S3 objects if possible and requested.
+API) is more involved, trying to "deconstruct" S4 objects into S3
+objects if possible and requested to. If the <a href="#NAMED">reference
+count</a> of its argument is _above_ 1, it will operate upon and return
+its shallow duplicate.
 
-Solution: [use `Rf_isS4` instead of
-`IS_S4_OBJECT`][remove_set_s4_object], as
-[documented][WRE_replacement_entrypoints] in Writing R Extensions. Use
-`Rf_asS4` to control the S4 object bit, but be careful <!--how?-->
-around shared objects.
+`data.table` used to directly operate on the S4 bit in two places, the
+[`shallow` function in `src/assign.c`][datatable_assign_shallow_S4] and
+the [`keepattr` function in
+`src/dogroups.c`][datatable_dogroups_keepattr_S4]. In both cases, this
+was required after directly modifying attribute list using the
+undocumented function <a href="#ATTRIB-all">`SET_ATTRIB`</a>. For
+`shallow`, the solution was to replace the manual operation of
+attributes with
+[`SHALLOW_DUPLICATE_ATTRIB`][datatable_assign_SHALLOW_ATTRIB] (API,
+available since 3.3.0), which itself takes care of invariants like the
+object bit and the S4 bit.
 
-<!-- TODO: expand on this, double check re: duplication done by asS4 -->
+The `keepattr` function is only used in
+[`growVector`][datatable_dogroups_grow_keepattr] to transplant all
+attributes from a vector to its enlarged copy without duplicating them,
+for which <a href="#ATTRIB-all">no API exists</a>. The solution is to
+[use `Rf_asS4` to control the S4 object bit][remove_set_s4_object],
+knowing that the new vector is freshly allocated and thus cannot be
+shared yet.
 
 Converting between calls and pairlists: `SET_TYPEOF`
 ----------------------------------------------------
@@ -328,7 +345,7 @@ const SEXP *sourceD = STRING_PTR_RO(source);
 
 See also: [PR18775].
 
-Reading the reference counts: `NAMED`
+Reading the reference counts: `NAMED` {#NAMED}
 -------------------------------------
 
 In plain R, all value types -- numbers, strings, lists -- have
@@ -491,14 +508,14 @@ making the change breaks a number of unit tests.
 ### Growable vectors
 
 Since `data.frame`s and `data.table`s are lists, and lists in R are
-value types with pass-by-value semantics (see above), adding or removing
-a column to one the normally involves allocating a new list referencing
-the same columns (performing a "shallow duplicate"). By contrast, the
-[over-allocated vectors][datatable_overallocation] can be resized in
-place by gradually increasing their `LENGTH` (remembering their original
-length in the `TRUELENGTH` field), obviating the need for shallow
-duplicates at the cost of making `data.table` shared, by-reference
-values. The change has been introduced in [v1.7.3, November
+value types with <a href="#NAMED">pass-by-value semantics</a>, adding or
+removing a column to one the normally involves allocating a new list
+referencing the same columns (performing a "shallow duplicate"). By
+contrast, the [over-allocated vectors][datatable_overallocation] can be
+resized in place by gradually increasing their `LENGTH` (remembering
+their original length in the `TRUELENGTH` field), obviating the need for
+shallow duplicates at the cost of making `data.table` shared,
+by-reference values. The change has been introduced in [v1.7.3, November
 2011][news173], together with the `:=` operator for changing the columns
 by reference (which has since become [the defining feature of
 data.table][datatable_logo]).
@@ -513,17 +530,18 @@ reference tracking during (un)serialization ([1][R_serialize_hash],
 [2][R_saveload_hash]) and looking up environment contents
 ([1][R_envir_hashpri], [2][R_envir_hashval]). R-3.3 (May 2016) saw the
 inclusion of [radix sort][R_radixsort] from `data.table` itself, which
-uses `TRUELENGTH` to sort strings (more on that below). R-3.4 (April
-2017) [introduced][R_growable] over-allocation when growing vectors due
-to assignment outside their bounds. The [growable bit][gp_for_growable]
-was added to prevent the mismanagement of the allocated memory counter:
-without the bit set on the over-allocated vectors, the garbage collector
-only counted `LENGTH(x)` instead of `TRUELENGTH(x)` units as released
-when garbage-collecting the vector, inflating the counter over time.
-[ALTREP] objects introduced in R-3.5 (April 2018) don't have a
-`TRUELENGTH`: it [cannot be set][R_altrep_set_truelen] and is [returned
-as 0][R_altrep_truelen]. In very old versions of R, `TRUELENGTH` wasn't
-initialised, but it is nowadays set to 0, which `data.table` [depends
+<a href="#TRUELENGTH-mark">uses `TRUELENGTH` to sort strings</a>. R-3.4
+(April 2017) [introduced][R_growable] over-allocation when growing
+vectors due to assignment outside their bounds. The [growable
+bit][gp_for_growable] was added to prevent the mismanagement of the
+allocated memory counter: without the bit set on the over-allocated
+vectors, the garbage collector only counted `LENGTH(x)` instead of
+`TRUELENGTH(x)` units as released when garbage-collecting the vector,
+inflating the counter over time.  [ALTREP] objects introduced in R-3.5
+(April 2018) don't have a `TRUELENGTH`: it [cannot be
+set][R_altrep_set_truelen] and is [returned as 0][R_altrep_truelen]. In
+very old versions of R, `TRUELENGTH` wasn't initialised, but it is
+nowadays set to 0, which `data.table` [depends
 upon][datatable_init_testtl].
 
 Nowadays, `data.table` uses vectors whose length is different from their
@@ -700,7 +718,7 @@ inside `data.table`, not from the ALTREP methods.
 The original implementation that uses `SETLENGTH` can be kept behind
 `#if R_VERSION < R_Version(4, 3, 0)` for backwards compatibility.
 
-### Fast string matching
+### Fast string matching {#TRUELENGTH-mark}
 
 `data.table`'s use of `TRUELENGTH` is not limited to growable buffers. A
 common idiom is to set the `TRUELENGTH`s of `CHARSXP` values from a
@@ -796,7 +814,7 @@ R and imported by `data.table`, we can find a number of non-API entry
 points which ` R CMD check ` doesn't complain about yet:
 `r paste(paste0('<code>', sort(DTnonAPI_yet), '</code>'), collapse = ', ')`.
 
-`(SET_)ATTRIB`, `SET_OBJECT`
+`(SET_)ATTRIB`, `SET_OBJECT` {#ATTRIB-all}
 ----------------------------
 
 > Use `getAttrib` for individual attributes. To test whether there are
@@ -1024,9 +1042,14 @@ References
 [clarifyingAPI]: https://stat.ethz.ch/pipermail/r-devel/2024-June/083449.html
 [remove_non_API]: https://github.com/Rdatatable/data.table/issues/6180
 [setOldClass]: https://search.r-project.org/R/refmans/methods/html/setOldClass.html
+[RI_S4rep]: https://cran.r-project.org/doc/manuals/R-ints.html#Representation-of-S4-objects
 [IS_S4_OBJECT]: https://github.com/r-devel/r-svn/blob/c20ebd2d417d9ebb915e32bfb0bfdad768f9a80a/src/main/memory.c#L4033-L4035
 [isS4]: https://github.com/r-devel/r-svn/blob/c20ebd2d417d9ebb915e32bfb0bfdad768f9a80a/src/main/objects.c#L1838-L1841
 [asS4]: https://github.com/r-devel/r-svn/blob/c20ebd2d417d9ebb915e32bfb0bfdad768f9a80a/src/main/objects.c#L1843
+[datatable_assign_shallow_S4]: https://github.com/Rdatatable/data.table/blob/a2e20d6cab0bc3cd00f8e47d10603e8c04c89759/src/assign.c#L156
+[datatable_dogroups_keepattr_S4]: https://github.com/Rdatatable/data.table/blob/a2213177283f0f15823e1ff823c1fdf63746da3d/src/dogroups.c#L485
+[datatable_assign_SHALLOW_ATTRIB]: https://github.com/Rdatatable/data.table/commit/f952062030e6657bef83de2748c65120990031c1
+[datatable_dogroups_grow_keepattr]: https://github.com/Rdatatable/data.table/blob/a2213177283f0f15823e1ff823c1fdf63746da3d/src/dogroups.c#L522
 [remove_set_s4_object]: https://github.com/Rdatatable/data.table/pull/6183
 [call]: https://search.r-project.org/R/refmans/base/html/call.html
 [WRE_call]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Creating-call-expressions
