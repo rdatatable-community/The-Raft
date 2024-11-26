@@ -757,7 +757,7 @@ index. R does not currently set negative `TRUELENGTH`s by itself, so any
 positive `TRUELENGTH`s can be safely discarded as non-matches.
 
 In the best case scenario, this lookup is very fast: for a table of size
-`n` and `k` strings to look up in it, it takes $\mathrm{O}(1)$ memory
+$n$ and $k$ strings to look up in it, it takes $\mathrm{O}(1)$ memory
 (the `TRUELENGTH` is already there, unused) and $\mathrm{O}(n)$ time for
 overhead plus $\mathrm{O}(k)$ time for the actual lookups.
 
@@ -809,9 +809,17 @@ The fast string lookup is used in the following places:
 * `src/fmelt.c`: [combining factor levels by merging their `CHARSXP`s in
   a common array with indices in `TRUELENGTH`][datatable_fmelt_truelen]
 
-<!-- TODO: Since there does't seem to be any intent to allow using R API
-to place arbitrary integer values inside unused `SEXP` fields,
-`data.table` will have to mark the `CHARSXP` values externally. -->
+Since there does't seem to be any intent to allow using R API to place
+arbitrary integer values inside unused `SEXP` fields, `data.table` will
+have to look up the `CHARSXP` values using the externally available
+information. Performing $O(nk)$ direct pointer comparisons would scale
+poorly, so for an $O(1)$ individual lookup `data.table` could build a
+hash table of `SEXP` pointers. While pointer hashing [isn't strictly
+guaranteed by the C standard to work][Wellons_hashptr], it has been used
+[in R itself][R_unique_PTRHASH]. A hash table would need $O(n)$ memory
+and average $O(k)$ time for lookup. <!-- TODO: how much time for
+preparation? compare against a realistic case with UTF-8 conversion and
+savetl() with reallocation -->
 
 ### Marking columns for copying
 
@@ -1188,6 +1196,8 @@ References
 [datatable_chmatch_lookup]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/chmatch.c#L108-L130
 [datatable_chmatch_cleanup2]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/chmatch.c#L135-L136
 [datatable_fmelt_truelen]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L273
+[Wellons_hashptr]: https://nullprogram.com/blog/2016/05/30/
+[R_unique_PTRHASH]: https://github.com/r-devel/r-svn/blob/3713345283787c928e563cdcdf01cc4a9dc1c708/src/main/unique.c#L185-L208
 [datatable_dogroups_setlen-1]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L105-L152
 [datatable_dogroups_anyspecialstatic]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L6-L64
 [datatable_copyShared1]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L260-L261
