@@ -510,11 +510,11 @@ making the change breaks a number of unit tests.
 Since `data.frame`s and `data.table`s are lists, and lists in R are
 value types with <a href="#NAMED">pass-by-value semantics</a>, adding or
 removing a column to one the normally involves allocating a new list
-referencing the same columns (performing a "shallow duplicate"). By
-contrast, the [over-allocated vectors][datatable_overallocation] can be
+referencing the rest of the columns (performing a "shallow duplicate").
+By contrast, the [over-allocated lists][datatable_overallocation] can be
 resized in place by gradually increasing their `LENGTH` (remembering
 their original length in the `TRUELENGTH` field), obviating the need for
-shallow duplicates at the cost of making `data.table` shared,
+shallow duplicates at the cost of making `data.table`s shared,
 by-reference values. The change has been introduced in [v1.7.3, November
 2011][news173], together with the `:=` operator for changing the columns
 by reference (which has since become [the defining feature of
@@ -599,20 +599,21 @@ R:
   * Setting the `GROWABLE_BIT` on the `data.table` would make R account
     for `TRUELENGTH` elements instead of `XLENGTH` elements.
 
-Unfortunately, `GROWABLE_BIT` is not part of the API, so using it will
-not help in the long run.
+Unfortunately, `GROWABLE_BIT` is not part of the API and was only
+introduced in R-3.4, so it does not present a full solution to the
+problems. Moreover,
 
 * Setting `LENGTH` larger than the allocated length may cause R to
   access undefined or even unmapped memory.
-* For vectors containing other `SEXP` values (`VECSXP`, `EXPRSXP`,
-  `STRSXP`) vectors: when reducing the `LENGTH`, having a non-persistent
-  value (something other than `R_NilValue` or `R_BlankString` or
-  `R_NaString`) in the newly inaccessible cells will also make them
-  unreachable from the viewpoint of the garbage collector, potentially
-  prompting it to reuse or unmap the pointed-to memory. Increasing the
-  `LENGTH` again with invalid pointers in the newly accessible slots
-  will make an invalid vector that cannot be safely altered or
-  discarded:
+* For vectors containing other `SEXP` values (of type `VECSXP`,
+  `EXPRSXP`, `STRSXP`): when reducing the `LENGTH`, having a
+  non-persistent value (something unlike the persistent values
+  `R_NilValue` or `R_BlankString` or `R_NaString` provided by R itself)
+  in the newly inaccessible cells will also make them unreachable from
+  the viewpoint of the garbage collector, potentially prompting it to
+  reuse or unmap the pointed-to memory. Increasing the `LENGTH` again
+  with invalid pointers in the newly accessible slots will make an
+  invalid vector that cannot be safely altered or discarded:
 
   ```c
   #include <R.h>
@@ -718,6 +719,29 @@ inside `data.table`, not from the ALTREP methods.
 The original implementation that uses `SETLENGTH` can be kept behind
 `#if R_VERSION < R_Version(4, 3, 0)` for backwards compatibility.
 
+Replacing `TRUELENGTH`-based growable vectors with `ALTREP`-based ones
+will conform to the API, allow growing the vector in place, and avoid
+the various inconsistencies that happen when R duplicates or deallocates
+these vectors, but also has the following downsides:
+
+ * Every place in `data.table` that uses growable vectors will have to
+   be refactored to use the new abstraction layer (`SETLENGTH` in R &lt;
+   4.3, ALTREP in R &ge; 4.3).
+   * Both implementations will have to be maintained as long as
+     `data.table` supports R &lt; 4.3.
+ * The data pointer access is slower for ALTREP vectors than for
+   ordinary vectors: having checked the ALTREP bit in the header, R will
+   have to access the method table and call the method instead of adding
+   a fixed offset to the original `SEXP` pointer. This shouldn't be
+   noticeable unless `data.table` puts data pointer access inside a
+   "hot" loop.
+ * For numeric ALTREP classes, ALTREP-aware operations that use
+   `*_GET_REGION` instead of the data pointer will become slower unless
+   the class implements a `Get_region` method.
+ * The current implementation performs extra work to un-ALTREP lists and
+   vectors given to `data.table`, precisely because it's impossible to
+   `SET_TRUELENGTH` on them. This will also need to be refactored.
+
 ### Fast string matching {#TRUELENGTH-mark}
 
 `data.table`'s use of `TRUELENGTH` is not limited to growable buffers. A
@@ -785,7 +809,9 @@ The fast string lookup is used in the following places:
 * `src/fmelt.c`: [combining factor levels by merging their `CHARSXP`s in
   a common array with indices in `TRUELENGTH`][datatable_fmelt_truelen]
 
-<!-- TODO: so what to do instead? -->
+<!-- TODO: Since there does't seem to be any intent to allow using R API
+to place arbitrary integer values inside unused `SEXP` fields,
+`data.table` will have to mark the `CHARSXP` values externally. -->
 
 ### Marking columns for copying
 
