@@ -230,8 +230,7 @@ contains the value in its `CAR` field and a reference to the rest of the
 list in its `CDR` field. Argument names, if provided, are stored in the
 third field, `TAG`.  The list is terminated by `R_NilValue`, which is of
 type `NILSXP`. These structures must be constructed every time C code
-wants to evaluate a function call. <!-- TODO: provide other examples of
-eval() -->
+wants to evaluate a function call ([e.g.][datatable_rbindlist_eval]).
 
 Previously, R API contained a function to allocate `LISTSXP` pairlists
 of arbitrary length, `allocList()`, but not function calls, so it became
@@ -308,13 +307,14 @@ barrier][RI17] ([1][Tierney_gengc], [2][Tierney_writebr]) any time a
 `SEXP` value (such as an `STRSXP` vector) references another `SEXP`
 value (such as a `CHARSXP` string). In a generational garbage collector,
 "younger" generations are marked and sweeped more frequently than
-"older" ones. If package C code manually writes a reference to a "young"
-`CHARSXP` object into an "old" `STRSXP` vector without taking
-generations into account, a following collection of the "young" pool of
-objects will miss the `CHARSXP` being referenced by the "old" `STRSXP`
-and remove the `CHARSXP` as "garbage".  This makes the `SEXP *` pointers
-returned by `STRING_PTR` unsafe and requires the use of `STRING_PTR_RO`
-function, which returns a read-only `const SEXP *`.
+"older" ones, because in a typical R session, most objects are temporary
+[@Jones2012, chapter 9]. If package C code manually writes a reference
+to a "young" `CHARSXP` object into an "old" `STRSXP` vector without
+taking generations into account, a following collection of the "young"
+pool of objects will miss the `CHARSXP` being referenced by the "old"
+`STRSXP` and remove the `CHARSXP` as "garbage".  This makes the `SEXP *`
+pointers returned by `STRING_PTR` unsafe and requires the use of
+`STRING_PTR_RO` function, which returns a read-only `const SEXP *`.
 
 Thankfully, `data.table` has already been using read-only `const SEXP *`
 pointers when working with `STRSXP` vectors, so the required changes to
@@ -399,7 +399,7 @@ assignment][remove_named]:
 if (verbose) {
   Rprintf(_("RHS for item %d has been duplicated because NAMED==%d MAYBE_SHARED==%d, but then is being plonked. length(values)==%d; length(cols)==%d)\n"),
           i+1, NAMED(thisvalue), MAYBE_SHARED(thisvalue), length(values), length(cols));
-               ^^^^^ non-API function
+            // ^^^^^ non-API function
 }
 ```
 
@@ -412,7 +412,7 @@ printing `MAYBE_REFERENCED()` and `MAYBE_SHARED()` instead of `NAMED()`:
 if (verbose) {
   Rprintf(_("RHS for item %d has been duplicated because MAYBE_REFERENCED==%d MAYBE_SHARED==%d, but then is being plonked. length(values)==%d; length(cols)==%d)\n"),
           i+1, MAYBE_REFERENCED(thisvalue), MAYBE_SHARED(thisvalue), length(values), length(cols));
-               ^^^^^^^^^^^^^^^^ API function
+            // ^^^^^^^^^^^^^^^^ API function
 }
 ```
 
@@ -729,6 +729,10 @@ these vectors, but also has the following downsides:
    4.3, ALTREP in R &ge; 4.3).
    * Both implementations will have to be maintained as long as
      `data.table` supports R &lt; 4.3.
+   * The current implementation in `data.table` re-creates ALTREP
+     objects as ordinary ones precisely because it's impossible to
+     `SET_TRUELENGTH` on ALTREP objects. This will also need to be
+     refactored.
  * The data pointer access is slower for ALTREP vectors than for
    ordinary vectors: having checked the ALTREP bit in the header, R will
    have to access the method table and call the method instead of adding
@@ -738,9 +742,6 @@ these vectors, but also has the following downsides:
  * For numeric ALTREP classes, ALTREP-aware operations that use
    `*_GET_REGION` instead of the data pointer will become slower unless
    the class implements a `Get_region` method.
- * The current implementation performs extra work to un-ALTREP lists and
-   vectors given to `data.table`, precisely because it's impossible to
-   `SET_TRUELENGTH` on them. This will also need to be refactored.
 
 ### Fast string matching {#TRUELENGTH-mark}
 
@@ -788,6 +789,10 @@ Care must be taken for the technique to work properly:
 * The `TRUELENGTH`s are used to look up variables in hashed
   environments, so R code should not run while the values are disturbed.
 
+The encoding conversions take $O(n+k)$ time and space; the `TRUELENGTH`
+bookkeeping takes $O(n)$ space and time (thanks to the exponential
+`realloc` trick).
+
 The fast string lookup is used in the following places:
 
 * `src/assign.c`: [factor level merging in
@@ -816,29 +821,58 @@ information. Performing $O(nk)$ direct pointer comparisons would scale
 poorly, so for an $O(1)$ individual lookup `data.table` could build a
 hash table of `SEXP` pointers. While pointer hashing [isn't strictly
 guaranteed by the C standard to work][Wellons_hashptr], it has been used
-[in R itself][R_unique_PTRHASH]. A hash table would need $O(n)$ memory
-and average $O(k)$ time for lookup. <!-- TODO: how much time for
-preparation? compare against a realistic case with UTF-8 conversion and
-savetl() with reallocation -->
+[in R itself][R_unique_PTRHASH]. A hash table for $n$ `CHARSXP` pointers
+would need $O(n)$ memory, $O(n)$ time to initialise, and average $O(k)$
+time for $k$ lookups [@Cormen2009, chapter 11].
+
+Taking the `savetl` bookkeeping into account, the _average asymptotic_
+performance of `TRUELENGTH` and hashing for string lookup is the same in
+both time and space, but the constants are most likely lower for
+`TRUELENGTH`.  Transitioning to a hash will probably involve a
+performance hit.
+
+A truly lazy implementation could just use [`std::unordered_map<SEXP,
+int>`][cppreference_unordered_map] (at the cost of requiring C++11,
+which was supported but far from required in R-3.3, and having to shield
+R from the C++ exceptions) or the permissively-licensed [uthash]. Since
+the upper bound on the size of the table is known ahead of time, a
+custom-made open-addressing hash table [@Cormen2009, section 11.4] could
+be implemented with a fixed load factor, requiring only one allocation
+and no linked lists to walk.
 
 ### Marking columns for copying
 
-* `src/dogroups.c`: special symbols `.BY`, `.I`, `.N`, `.GRP` live in
-  their own special vectors that must not appear inside regular
-  `data.table`s; [setting the marker][datatable_dogroups_setlen-1],
-  [checking the marker][datatable_dogroups_anyspecialstatic]
-* `src/utils.c`: need to copy columns that share memory or are ALTREP
-  [preparing zero `TRUELENGTH`s][datatable_copyShared1], [marking
-  ALTREP, special, and already marked columns for
-  copy][datatable_copyShared2], [marking not previously marked columns
-  with their column number][datatable_copyShared3], [restoring the
-  `TRUELENGTH`s for columns that won't be
-  overwritten][datatable_copyShared4]
+The use of `TRUELENGTH` in `data.table` to mark objects is not limited
+to `CHARSXP` strings. Individual columns are also marked in a similar
+manner for later copying:
+
+* In `src/dogroups.c`, the vectors allocated for the special symbols
+  `.BY`, `.I`, `.N`, `.GRP` must not be returned by the grouping
+  operations evaluated with `dt[..., ..., by=...]`, so they are [marked
+  with a `TRUELENGTH` of -1][datatable_dogroups_setlen-1], and the
+  [marked columns][datatable_dogroups_anyspecialstatic] are later
+  re-created.
+* In `src/utils.c`, columns share memory or are ALTREP must be copied.
+  Memory sharing between columns may lead to confusing results when they
+  are altered by reference, and ALTREP columns cannot have `TRUELENGTH`
+  set. The code uses the same trick as with `CHARSXP` objects: if
+  `TRUELENGTH` is set on an object, accessing the object through a
+  different pointer and seeting `TRUELENGTH` set will prove that the
+  object has been previously visited. The code first [prepares zero
+  `TRUELENGTH`s][datatable_copyShared1], then [marks ALTREP, special,
+  and already marked columns for copying][datatable_copyShared2], then
+  [marks columns not previously marked with their column
+  number][datatable_copyShared3], then finally [restores the
+  `TRUELENGTH`s for the columns that won't be
+  overwritten][datatable_copyShared4].
   * The `SET_TRUELENGTH` call in `copySharedColumns` would fail if it
     ever got an ALTREP column, but the only use of `copySharedColumns`
     in `reorder` guards against those.
 
-<!-- TODO: explanation, vague gestures at solution -->
+The same solution as <a href="#TRUELENGTH-mark">above</a> can be used
+here, with the same downsides of having to allocate memory for the hash
+table and the potential to have worst-case $O(kn)$ time for $k$ lookups
+fundamental to hash tables.
 
 But there's more
 ================
@@ -850,6 +884,10 @@ points which ` R CMD check ` doesn't complain about yet:
 
 `(SET_)ATTRIB`, `SET_OBJECT` {#ATTRIB-all}
 ----------------------------
+
+`data.table` performs some direct operations on the attribute pairlists.
+Accessing attributes directly requires manually maintaining the object
+bit.
 
 > Use `getAttrib` for individual attributes. To test whether there are
 > any attributes use `ANY_ATTRIB`, added in R 4.5.0. Use `setAttrib` for
@@ -894,9 +932,10 @@ that use the given column.
   of a special symbol has been stashed there and must be duplicated.
 
 Without `ATTRIB`, this will only be possible using an R-level call to
-`attributes()`.
-
-<!-- TODO: any other solutions? different data structure? -->
+`attributes()`. While the indices could be changed to use a different data
+structure (a named `VECSXP` list?), necessitating an update step for
+`data.table`s loaded from storage, the code in `src/dogroups.c` cannot
+avoid having to see all the attributes.
 
 ### Raw `c(NA, n)` row names
 
@@ -906,15 +945,21 @@ in the compact form as a 2-element integer vector starting with `NA`.
 The `getAttrib` function has a special case for the `R_RowNamesSymbol`,
 which returns an ALTREP representation of this attribute.
 
-<!-- TODO: can it use non-compact rownames instead? -->
+`data.table` needs this access in order to [temporarily
+overwrite][datatable_dogroups_rownames2] the `rownames` attribute for
+the specially-prepared subset `data.table` named `.SD` (which has a
+different number of rows and therefore needs different `rownames`).
+Creating a full-sized `rownames` attribute instead of its compact form
+would take more time than desirable.
 
 ### Direct transplantation of attributes
 
 The code in `src/dogroups.c` needs to
 [transplant][datatable_dogroups_SETATTR] the attributes from one object
 to another without duplicating them, even shallowly.
-
-<!-- TODO: what now? -->
+`SHALLOW_DUPLICATE_ATTRIB` could work as a replacement, but with worse
+performance because it would waste time copying attributes from an
+object that is about to be discarded.
 
 `findVar`
 ---------
@@ -1086,6 +1131,7 @@ References
 [datatable_dogroups_grow_keepattr]: https://github.com/Rdatatable/data.table/blob/a2213177283f0f15823e1ff823c1fdf63746da3d/src/dogroups.c#L522
 [remove_set_s4_object]: https://github.com/Rdatatable/data.table/pull/6183
 [call]: https://search.r-project.org/R/refmans/base/html/call.html
+[datatable_rbindlist_eval]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/rbindlist.c#L237
 [WRE_call]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Creating-call-expressions
 [remove_set_typeof]: https://github.com/Rdatatable/data.table/pull/6313
 [RI17]: https://cran.r-project.org/doc/manuals/R-ints.html#The-write-barrier
@@ -1198,6 +1244,8 @@ References
 [datatable_fmelt_truelen]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L273
 [Wellons_hashptr]: https://nullprogram.com/blog/2016/05/30/
 [R_unique_PTRHASH]: https://github.com/r-devel/r-svn/blob/3713345283787c928e563cdcdf01cc4a9dc1c708/src/main/unique.c#L185-L208
+[cppreference_unordered_map]: https://en.cppreference.com/w/cpp/container/unordered_map
+[uthash]: https://troydhanson.github.io/uthash/
 [datatable_dogroups_setlen-1]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L105-L152
 [datatable_dogroups_anyspecialstatic]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L6-L64
 [datatable_copyShared1]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L260-L261
@@ -1208,6 +1256,7 @@ References
 [datatable_assign_ATTRIB]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L618-L629
 [datatable_dogroups_ATTRIB]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L57-L58
 [datatable_dogroups_rownames]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L131-L134
+[datatable_dogroups_rownames2]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L195
 [datatable_dogroups_SETATTR]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L509-L515
 [datatable_dogroups_findVar]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L90-L118
 [WRE 6.21.7]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Working-with-variable-bindings
