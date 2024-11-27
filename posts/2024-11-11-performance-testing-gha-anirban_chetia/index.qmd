@@ -1,0 +1,87 @@
+---
+title: "Continuous  find the best thread count!"
+author: "Anirban Chetia"
+date: "2024-11-11"
+categories: [developer, github action, performance testing]
+image: ""
+draft: false
+---
+
+In an effort to address the need for continuous performance benchmarking in `data.table`, I created a [GitHub Action](https://github.com/Anirban166/Autocomment-atime-results/blob/main/action.yml) to facilitate testing the time/memory-based performance of the incoming changes that are introduced via Pull Requests (PRs) to the official GitHub repository.
+
+My motivation in taking this initiative was to help ensure that `data.table` consistently maintains its code efficiency or upholds its high performance standards as PRs keep coming and getting integrated frequently (meaning they need to be monitored for retaining the quality of code contributions performance-wise, especially to avoid regressions, and an automatic way to do that would be ideal, noh?).
+
+Through this post, I aim to share some insights regarding my action and discuss some implementation details, but before that, I'm happy to convey that the action has been live since over the past seven months now!
+There are numerous examples of it being used to generate diagnostic performance plots for PRs that involve changes to the C and R files in the codebase, which can be found through the 'Pull requests' section of `data.table` on GitHub (aside from the ['Actions' tab](https://github.com/Rdatatable/data.table/actions/workflows/performance-tests.yml), where jobs keep running as new PRs and commits involving code changes emerge from time to time).
+
+## Key features
+
+- Predefined flexible tests
+  The action runs test cases (utilizing the [`atime`](https://github.com/tdhock/atime) package) from the setup defined in `.ci/atime/tests.R` (can be customized) on different versions of `data.table` (or the R package being tested). These tests are either based on documented historical regressions or performance improvements.
+
+- Automated commenting
+  Using [`cml`](https://github.com/iterative/cml), the action posts information/results in a comment on the pull request thread. The comment is automatically edited with each new push to avoid cluttering, ensuring that only one comment exists per PR, which is the updated or latest one. 
+  > Fun facts
+    - The comment is authored by a GitHub bot and operates using the `GITHUB_TOKEN` I provide to authenticate itself and interact with the GitHub API within the scope of the workflow.
+    - If two or more commits are pushed together in rapid succession or before the previous job finishes, only the most recent among them is fully run to save CI time.
+
+- Versioning
+  The action computes the tests on different `data.table` versions that can be visually compared on the resultant plot. These include various labels, as described in the table below:
+
+  | Label Name | R Package Version Description                                                             |
+  |------------|-------------------------------------------------------------------------------------------|
+  | base       | PR target                                                                                 |
+  | HEAD       | PR source                                                                                 |
+  | Merge-base | Common ancestor between base and HEAD                                                     |
+  | CRAN       | Latest version on the platform                                                            |
+  | Before     | Pre-regression commit (predates the onset of the performance regression)                  |
+  | Regression | Commit that is either responsible for the degradation in performance or is affected by it |
+  | Fixed      | Commit where the performance has been restored or improved beyond the point of regression |
+  |            | (same as 'Before' or better than that version in terms of performance)                    |
+
+- Diagnostic visualization
+  A plot is uploaded within the comment which comprises of subplots for each test case, showing the time and memory trends across different `data.table` versions. The plot shown in the PR threads will be one generated for preview, meaning it is condensed to only show the top 4 tests (this number can be configured using the `N.tests.preview` variable in the `tests.R` file) based on having the most significant differences between HEAD and min. The full version (all tests) will be shown when we click/tap on the plot.
+
+- Timing information
+  The time taken for executing various tasks (such as setting up R, installing different `data.table` versions, running and plotting the test cases) is measured (in seconds) and organized in a table within the comment.
+
+- Links
+  A download link that retrieves a zipped file for the artifact containing all the `atime`-generated results is provisioned, aside from the hyperlink to the commit that triggered the workflow and generated that particular comment.
+
+## Usage
+
+The workflow can be directly fetched from the [Marketplace](https://github.com/marketplace/actions/autocomment-atime-results) for use in any GitHub repository of an R package. For example, one can use this template for their `.github/workflows/<workflowName>.yml`:
+
+```yml
+name: Autocomment atime-based performance analysis on PRs
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+    # Modify path filters as per need:
+    paths:
+      - 'R/**'
+      - 'src/**'
+      - '.ci/atime/**'
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    container: ghcr.io/iterative/cml:0-dvc2-base1
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      repo_token: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: Anirban166/Autocomment-atime-results@v1.4.1
+```
+The example I provided above can be customized further as needed, as long as a few things are kept intact:
+- The workflow runs on a `pull_request` event
+- `GITHUB_PAT` is supplied (required to authenticate git operations, have higher rate limits, etc.)
+- The `container` and `repo_token` fields are specified as I did above (required for `cml` functionality)
+
+::: callout-note
+The action is not constrained to be OS-specific and there is only one single job or set of steps that execute on the same runner.
+:::
