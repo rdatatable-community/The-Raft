@@ -1,5 +1,5 @@
 ---
-title: "Continuous  find the best thread count!"
+title: "Continuous performance benchmarking using GitHub Actions"
 author: "Anirban Chetia"
 date: "2024-11-11"
 categories: [developer, github action, performance testing]
