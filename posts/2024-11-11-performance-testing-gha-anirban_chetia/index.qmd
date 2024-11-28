@@ -11,8 +11,7 @@ In an effort to address the need for continuous performance benchmarking in `dat
 
 My motivation in taking this initiative was to help ensure that `data.table` consistently maintains its code efficiency or upholds its high performance standards as PRs keep coming and getting integrated frequently (meaning they need to be monitored for retaining the quality of code contributions performance-wise, especially to avoid regressions, and an automatic way to do that would be ideal, noh?).
 
-Through this post, I aim to share some insights regarding my action and discuss some implementation details, but before that, I'm happy to convey that the action has been live since over the past seven months now!
-There are numerous examples of it being used to generate diagnostic performance plots for PRs that involve changes to the C and R files in the codebase, which can be found through the 'Pull requests' section of `data.table` on GitHub (aside from the ['Actions' tab](https://github.com/Rdatatable/data.table/actions/workflows/performance-tests.yml), where jobs keep running as new PRs and commits involving code changes emerge from time to time).
+Through this post, I aim to share some insights regarding my action and discuss some implementation details, but before that, I'm happy to convey that it has been live since over the past seven months now! There are numerous examples of it being used to generate diagnostic performance plots for PRs that involve changes to the C and R files in the codebase, which can be found through the 'Pull requests' section of `data.table` on GitHub (aside from the ['Actions' tab](https://github.com/Rdatatable/data.table/actions/workflows/performance-tests.yml), where jobs keep popping up as new PRs and commits involving code changes emerge from time to time).
 
 ## Key features
 
