@@ -16,16 +16,16 @@ There are numerous examples of it being used to generate diagnostic performance 
 
 ## Key features
 
-- Predefined flexible tests
+- Predefined flexible tests <br>
   The action runs test cases (utilizing the [`atime`](https://github.com/tdhock/atime) package) from the setup defined in `.ci/atime/tests.R` (can be customized) on different versions of `data.table` (or the R package being tested). These tests are either based on documented historical regressions or performance improvements.
 
-- Automated commenting
+- Automated commenting <br>
   Using [`cml`](https://github.com/iterative/cml), the action posts information/results in a comment on the pull request thread. The comment is automatically edited with each new push to avoid cluttering, ensuring that only one comment exists per PR, which is the updated or latest one. 
   > Fun facts
-    - The comment is authored by a GitHub bot and operates using the `GITHUB_TOKEN` I provide to authenticate itself and interact with the GitHub API within the scope of the workflow.
-    - If two or more commits are pushed together in rapid succession or before the previous job finishes, only the most recent among them is fully run to save CI time.
+  > - The comment is authored by a GitHub bot and operates using the `GITHUB_TOKEN` I provide to authenticate itself and interact with the GitHub API within the scope of the workflow.
+  > - If two or more commits are pushed together in rapid succession or before the previous job finishes, only the most recent among them is fully run to save CI time.
 
-- Versioning
+- Versioning <br>
   The action computes the tests on different `data.table` versions that can be visually compared on the resultant plot. These include various labels, as described in the table below:
 
   | Label Name | R Package Version Description                                                             |
@@ -39,13 +39,13 @@ There are numerous examples of it being used to generate diagnostic performance 
   | Fixed      | Commit where the performance has been restored or improved beyond the point of regression |
   |            | (same as 'Before' or better than that version in terms of performance)                    |
 
-- Diagnostic visualization
+- Diagnostic visualization <br>
   A plot is uploaded within the comment which comprises of subplots for each test case, showing the time and memory trends across different `data.table` versions. The plot shown in the PR threads will be one generated for preview, meaning it is condensed to only show the top 4 tests (this number can be configured using the `N.tests.preview` variable in the `tests.R` file) based on having the most significant differences between HEAD and min. The full version (all tests) will be shown when we click/tap on the plot.
 
-- Timing information
+- Timing information <br>
   The time taken for executing various tasks (such as setting up R, installing different `data.table` versions, running and plotting the test cases) is measured (in seconds) and organized in a table within the comment.
 
-- Links
+- Links <br>
   A download link that retrieves a zipped file for the artifact containing all the `atime`-generated results is provisioned, aside from the hyperlink to the commit that triggered the workflow and generated that particular comment.
 
 ## Usage
