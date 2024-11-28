@@ -17,7 +17,7 @@ There are numerous examples of it being used to generate diagnostic performance 
 ## Key features
 
 - Predefined flexible tests <br>
-  The action runs test cases (utilizing the [`atime`](https://github.com/tdhock/atime) package) from the setup defined in `.ci/atime/tests.R` (can be customized) on different versions of `data.table` (or the R package being tested). These tests are either based on documented historical regressions or performance improvements.
+  The action runs test cases (utilizing the [`atime`](https://github.com/tdhock/atime) package) from the setup defined in `.ci/atime/tests.R` (the path can be customized) on different versions of `data.table` (or the R package being tested). These tests are either based on documented historical regressions or performance improvements.
 
 - Automated commenting <br>
   Using [`cml`](https://github.com/iterative/cml), the action posts information/results in a comment on the pull request thread. The comment is automatically edited with each new push to avoid cluttering, ensuring that only one comment exists per PR, which is the updated or latest one. 
@@ -28,16 +28,15 @@ There are numerous examples of it being used to generate diagnostic performance 
 - Versioning <br>
   The action computes the tests on different `data.table` versions that can be visually compared on the resultant plot. These include various labels, as enlisted in the table below:
 
-  | Label Name | R Package Version Description                                                             |
-  |------------|-------------------------------------------------------------------------------------------|
-  | base       | PR target                                                                                 |
-  | HEAD       | PR source                                                                                 |
-  | Merge-base | Common ancestor between base and HEAD                                                     |
-  | CRAN       | Latest version on the platform                                                            |
-  | Before     | Pre-regression commit (predates the onset of the performance regression)                  |
-  | Regression | Commit that is either responsible for the degradation in performance or is affected by it |
-  | Fixed      | Commit where the performance has been restored or improved beyond the point of regression |
-  |            | (same as 'Before' or better than that version in terms of performance)                    |
+  | Label Name | R Package Version Description                                                                  |
+  |------------|------------------------------------------------------------------------------------------------|
+  | base       | PR target                                                                                      |
+  | HEAD       | PR source                                                                                      |
+  | Merge-base | Common ancestor between base and HEAD                                                          |
+  | CRAN       | Latest version on the platform                                                                 |
+  | Before     | Pre-regression commit (predates the onset of the performance regression)                       |
+  | Regression | Commit that is either responsible for the degradation in performance or is affected by it      |
+  | Fixed      | Commit where the performance has been restored or even improved to exceed the 'Before' version |
 
 - Diagnostic visualization <br>
   Plots are uploaded within the comment which contain subplots for each test case, showing the time and memory trends across different `data.table` versions. The plot shown in the PR threads will be one generated for preview, meaning it is condensed to only show the top 4 tests (this number can be configured using the `N.tests.preview` variable in the `tests.R` file) based on having the most significant differences between HEAD and min. The full version (all tests) will be shown when we click/tap on the plot.
