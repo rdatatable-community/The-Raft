@@ -23,10 +23,10 @@ There are numerous examples of it being used to generate diagnostic performance 
   Using [`cml`](https://github.com/iterative/cml), the action posts information/results in a comment on the pull request thread. The comment is automatically edited with each new push to avoid cluttering, ensuring that only one comment exists per PR, which is the updated or latest one. 
   > Fun facts
   > - The comment is authored by a GitHub bot and operates using the `GITHUB_TOKEN` I provide to authenticate itself and interact with the GitHub API within the scope of the workflow.
-  > - If two or more commits are pushed together in rapid succession or before the previous job finishes, only the most recent among them is fully run to save CI time.
+  > - If multiple commits are pushed together in quick succession or before the previous job finishes, only the most recent one among them is fully run to save CI time.
 
 - Versioning <br>
-  The action computes the tests on different `data.table` versions that can be visually compared on the resultant plot. These include various labels, as described in the table below:
+  The action computes the tests on different `data.table` versions that can be visually compared on the resultant plot. These include various labels, as enlisted in the table below:
 
   | Label Name | R Package Version Description                                                             |
   |------------|-------------------------------------------------------------------------------------------|
