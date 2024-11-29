@@ -2,7 +2,7 @@
 title: "Use of non-API entry points in `data.table`"
 author: "Ivan Krylov"
 date: "2024-12-12"
-categories: [code]
+categories: [developer, guest post, performance]
 # image: "image.jpg"
 draft: true
 bibliography: refs.bib
