@@ -89,9 +89,9 @@ the (API) functions `dwilcox`, `pwilcox` or `qwilcox`, the function was
 only [declared in the public headers][wilcox_declared] and [removed from
 `tools:::nonAPI`][wilcox_api] in R-4.2.0. Still, between R-3.3.3 and
 R-4.4.2, the `#define USE_RINTERNALS` escape hatch finally closed,
-`tools:::nonAPI` grew from `r length(nonAPI.3_3)` to `r
-length(nonAPI.4_4)` entries, and the package maintainers had to adapt or
-face archival of their packages.
+`tools:::nonAPI` grew from `r length(nonAPI.3_3)` to
+`r length(nonAPI.4_4)` entries, and the package maintainers had to adapt
+or face archival of their packages.
 
 A [recent question on R-devel][ALTREPnonAPI] (whether the [ALTREP]
 interface should be considered "API" for the purpose of CRAN package
