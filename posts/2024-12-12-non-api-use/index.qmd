@@ -215,6 +215,9 @@ for which <a href="#ATTRIB-all">no API exists</a>. The solution is to
 knowing that the new vector is freshly allocated and thus cannot be
 shared yet.
 
+**Status** in `data.table`: fixed in [#6183][remove_set_s4_object] and
+[#6264].
+
 Converting between calls and pairlists: `SET_TYPEOF`
 ----------------------------------------------------
 
@@ -288,6 +291,8 @@ Unfortunately, the `LCONS` macro didn't work with `#define R_NO_REMAP`
 prior to R-4.4, because it expanded to `lcons()` instead of
 `Rf_lcons()`.
 
+**Status** in `data.table`: fixed in [#6313][remove_set_typeof].
+
 Strings as C arrays of `CHARSXP` values: `STRING_PTR`
 -----------------------------------------------------
 
@@ -343,6 +348,7 @@ const SEXP *sourceD = STRING_PTR_RO(source);
 // returns a const SEXP * pointer, which prevents accidental writes
 ```
 
+**Status** in `data.table`: fixed in [#6312][remove_string_ptr].
 See also: [PR18775].
 
 Reading the reference counts: `NAMED` {#NAMED}
@@ -415,6 +421,8 @@ if (verbose) {
             // ^^^^^^^^^^^^^^^^ API function
 }
 ```
+
+**Status** in `data.table`: fixed in [#6420][remove_named].
 
 Encoding bits: `LEVELS`
 -----------------------
@@ -501,6 +509,10 @@ the value of the flags and so may needlessly translate strings from
 `CE_NATIVE`) to the new experimental `charIs(UTF8|Latin1)` functions
 that will also return `TRUE` for a matching native encoding, actually
 making the change breaks a number of unit tests.
+
+**Status** in `data.table`: partially fixed in
+[#6420][datatable_levels1], waiting for R-4.5.0 to be released with the
+new API in [#6422][remove_levels].
 
 `SETLENGTH`, `SET_GROWABLE_BIT`, `(SET_)TRUELENGTH`
 ---------------------------------------------------
@@ -743,6 +755,8 @@ these vectors, but also has the following downsides:
    `*_GET_REGION` instead of the data pointer will become slower unless
    the class implements a `Get_region` method.
 
+**Status** in `data.table`: not fixed yet.
+
 ### Fast string matching {#TRUELENGTH-mark}
 
 `data.table`'s use of `TRUELENGTH` is not limited to growable buffers. A
@@ -840,6 +854,8 @@ custom-made open-addressing hash table [@Cormen2009, section 11.4] could
 be implemented with a fixed load factor, requiring only one allocation
 and no linked lists to walk.
 
+**Status** in `data.table`: not fixed yet.
+
 ### Marking columns for copying
 
 The use of `TRUELENGTH` in `data.table` to mark objects is not limited
@@ -873,6 +889,8 @@ The same solution as <a href="#TRUELENGTH-mark">above</a> can be used
 here, with the same downsides of having to allocate memory for the hash
 table and the potential to have worst-case $\mathrm{O}(kn)$ time for $k$ lookups
 fundamental to hash tables.
+
+**Status** in `data.table`: not fixed yet.
 
 But there's more
 ================
@@ -922,6 +940,9 @@ if (ANY_ATTRIB(VECTOR_ELT(x, i)))
  // ^^^^^^^^^^ introduced in R-4.5
 ```
 
+**Status** in `data.table`: not fixed yet. Will need to wait for R-4.5.0
+to be released with the new interface.
+
 ### Iterating over all attributes
 
 * The code in `src/assign.c` needs to [iterate over all the attributes of
@@ -936,6 +957,8 @@ Without `ATTRIB`, this will only be possible using an R-level call to
 structure (a named `VECSXP` list?), necessitating an update step for
 `data.table`s loaded from storage, the code in `src/dogroups.c` cannot
 avoid having to see all the attributes.
+
+**Status** in `data.table`: no idea how to fix yet.
 
 ### Raw `c(NA, n)` row names
 
@@ -952,6 +975,8 @@ different number of rows and therefore needs different `rownames`).
 Creating a full-sized `rownames` attribute instead of its compact form
 would take more time than desirable.
 
+**Status** in `data.table`: no idea how to fix yet.
+
 ### Direct transplantation of attributes
 
 The code in `src/dogroups.c` needs to
@@ -960,6 +985,8 @@ to another without duplicating them, even shallowly.
 `SHALLOW_DUPLICATE_ATTRIB` could work as a replacement, but with worse
 performance because it would waste time copying attributes from an
 object that is about to be discarded.
+
+**Status** in `data.table`: no idea how to fix yet.
 
 `findVar`
 ---------
@@ -1000,6 +1027,9 @@ SEXP SD = PROTECT(R_getVar(install(".SD"), env, TRUE));
                // ^^^^^^^^ introduced in R-4.5
 ```
 
+**Status** in `data.table`: not fixed yet. Will need to wait for R-4.5.0
+to be released with the new interface.
+
 `GetOption`
 -----------
 
@@ -1034,6 +1064,8 @@ Solution:
 SEXP opt = GetOption1(install("datatable.use.index"));
         // ^^^^^^^^^^ API function introduced in R-2.13
 ```
+
+**Status** in `data.table`: not fixed yet.
 
 Testing for a `data.frame`: `isFrame`
 -------------------------------------
@@ -1072,6 +1104,9 @@ if (!isVector(thiscol) || isDataFrame(thiscol))
                        // ^^^^^^^^^^^ introduced in R-4.5
 ```
 
+**Status** in `data.table`: change reverted in [#6244][remove_isframe],
+waiting for R-4.5.0 to release with the new interface.
+
 `OBJECT`
 --------
 
@@ -1099,6 +1134,8 @@ if (isObject(source)) {
 Most likely, the check for `getAttrib(source, R_ClassSymbol)` is
 superfluous, because when used correctly, R API maintains the object bit
 set only when the `class` attribute is non-empty.
+
+**Status** in `data.table`: not fixed yet.
 
 References
 ==========
@@ -1130,6 +1167,7 @@ References
 [datatable_assign_SHALLOW_ATTRIB]: https://github.com/Rdatatable/data.table/commit/f952062030e6657bef83de2748c65120990031c1
 [datatable_dogroups_grow_keepattr]: https://github.com/Rdatatable/data.table/blob/a2213177283f0f15823e1ff823c1fdf63746da3d/src/dogroups.c#L522
 [remove_set_s4_object]: https://github.com/Rdatatable/data.table/pull/6183
+[#6264]: https://github.com/Rdatatable/data.table/pull/6264
 [call]: https://search.r-project.org/R/refmans/base/html/call.html
 [datatable_rbindlist_eval]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/rbindlist.c#L237
 [WRE_call]: https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Creating-call-expressions
@@ -1252,7 +1290,7 @@ References
 [datatable_copyShared2]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L266-L267
 [datatable_copyShared3]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L273
 [datatable_copyShared4]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/utils.c#L273
-[datatable_nafill_ATTRIB]: https://github.com/Rdatatable/data.table/blob/master/src/nafill.c#L216
+[datatable_nafill_ATTRIB]: https://github.com/Rdatatable/data.table/blob/546259ddaba0e8ab1506729113688f85ca2986fd/src/nafill.c#L216
 [datatable_assign_ATTRIB]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/assign.c#L618-L629
 [datatable_dogroups_ATTRIB]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L57-L58
 [datatable_dogroups_rownames]: https://github.com/Rdatatable/data.table/blob/03c647f9a44710aad834c0718e0b34e8c5341bf1/src/dogroups.c#L131-L134
