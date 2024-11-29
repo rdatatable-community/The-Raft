@@ -1137,6 +1137,23 @@ set only when the `class` attribute is non-empty.
 
 **Status** in `data.table`: not fixed yet.
 
+Conclusion
+==========
+
+While `data.table` could get rid of most of its non-API use with
+relative ease, either using a different name for the function
+(`STRING_PTR_RO`, `GetOption1`) or adding a wrapper for R &lt; 4.5
+(`ANY_ATTRIB`, `findVar`), two interfaces will require a significant
+amount of work.
+
+Replacing the use of `TRUELENGTH` and related functions will require
+implementing two features from scratch: a set of ALTREP classes for
+growable vectors (with the previous implementation hidden in `#ifdef`
+for R &lt; 4.3) and pointer-keyed hash tables for string and column
+marking.
+
+It is not currently clear how to replace the use of `ATTRIB`.
+
 References
 ==========
 
