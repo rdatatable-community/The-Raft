@@ -95,7 +95,7 @@ face archival of their packages.
 
 A [recent question on R-devel][ALTREPnonAPI] (whether the [ALTREP]
 interface should be considered "API" for the purpose of CRAN package
-developent) sparked a series of events and an extensive discussion
+development) sparked a series of events and an extensive discussion
 containing the highest count of occurrences of the word "API" per month
 ever seen on R-devel (234), topping [October 2002][Rd200210] (package
 versioning and API breakage, 150), [October 2005][Rd200510] (API for
@@ -103,7 +103,7 @@ graphical interfaces and console output, 124), and [May 2019][Rd201905]
 (discussions of the ALTREP interface and multi-threading, 121). As a
 result, Luke Tierney [started work][clarifyingAPI] on programmatically
 describing the functions and other symbols exported by R (including
-variables and preprocessor and enumeriation constants), giving a
+variables and preprocessor and enumeration constants), giving a
 stronger definition to the interface. His changes add the currently
 unexported function `tools:::funAPI()` that lists entry points and two
 more of their categories:
@@ -138,7 +138,7 @@ prompting the blog post you are currently reading.
 point -->
 
 <!-- MAYBE: somehow obtain the list of imports (mirror Windows builds
-from CRAN? download the one compiled by Luke Tierney?) and try to
+from CRAN? Download the one compiled by Luke Tierney?) and try to
 extract neither-official-API nor-official-nonAPI counts -->
 
 <!-- MAYBE: see which listed non-API functions are the most "popular" in
@@ -318,8 +318,8 @@ pointers returned by `STRING_PTR` unsafe and requires the use of
 
 Thankfully, `data.table` has already been using read-only `const SEXP *`
 pointers when working with `STRSXP` vectors, so the required changes to
-the code were [not too substantial][remove_string_ptr], only changing
-the name of the accessor function used:
+the code were [not too substantial][remove_string_ptr], limited to
+the name of the function:
 
 Example of the problem:
 
@@ -349,7 +349,7 @@ Reading the reference counts: `NAMED` {#NAMED}
 -------------------------------------
 
 In plain R, all value types -- numbers, strings, lists -- have
-pass-by-value semantics. Wihout dark and disturbing things in play, such
+pass-by-value semantics. Without dark and disturbing things in play, such
 as non-standard evaluation or active bindings, R code can give a plain
 value (`x <- 1:10`) to a function (`f(x)`) or store it in a variable (`y
 <- x`), have the function modify its argument (`f <- \(x) { x[1] <- 0
@@ -440,7 +440,7 @@ done using the `LEVELS()` macro; there are bits of R code that access
  * [marking][gp_for_jit] functions as (un)suitable for bytecode
    compilation
  * [marking][gp_for_growable] vectors as growable
- * [marking][gp_for_missing] provided ("actial") function arguments as
+ * [marking][gp_for_missing] provided ("actual") function arguments as
    [missing][gp_for_missing2]
  * [marking][gp_for_ddval] the `..1`, `..2`, etc symbols as
    corresponding to the [given element of the `...`
@@ -509,7 +509,7 @@ making the change breaks a number of unit tests.
 
 Since `data.frame`s and `data.table`s are lists, and lists in R are
 value types with <a href="#NAMED">pass-by-value semantics</a>, adding or
-removing a column to one the normally involves allocating a new list
+removing a column to one normally involves allocating a new list
 referencing the rest of the columns (performing a "shallow duplicate").
 By contrast, the [over-allocated lists][datatable_overallocation] can be
 resized in place by gradually increasing their `LENGTH` (remembering
@@ -592,7 +592,7 @@ R:
     default `TRUELENGTH` (0) instead of copying it.
 * When deallocating shortened objects without the `GROWABLE_BIT` set, R
   [accounts only for the `XLENGTH` elements][R_memory_getVecSize] being
-  released, overcounting the total amount of allocated memory.
+  released, over-counting the total amount of allocated memory.
   * `data.table` compensates for this using the
     [`finalizer`][datatable_assign_finalizer] on the `.internal.selfrep`
     attribute.
@@ -646,7 +646,7 @@ shortened, expandable vector could hold a full-length vector in the
 `data1` slot and its pretend-length as a one-element `REALSXP` value in
 the `data2` slot. (Currently, `R_xlen_t` values are limited by the
 largest integer precisely representable in an IEEE `double` value, which
-is $2^{52}$.) The overallocated class will need to implement the
+is $2^{52}$.) The over-allocated class will need to implement the
 following methods:
 
 * [Common ALTREP methods][Rapi_altrep_methods]:
@@ -709,7 +709,7 @@ following methods:
 Additionally, `data.table` will need a function to [create new ALTREP
 tables][Rapi_new_altrep] and to resize the vector in place. The resize
 function will need to check whether the given value
-[`R_altrep_inherits`][Rapi_altrep_inherits] from the overallocated class
+[`R_altrep_inherits`][Rapi_altrep_inherits] from the over-allocated class
 and then modify the ALTREP data slots as needed. The function may even
 reallocate the payload to enlarge the vector in place past the original
 allocation limit without requiring a `setDT` call from the user. Since a
@@ -789,8 +789,8 @@ Care must be taken for the technique to work properly:
 * The `TRUELENGTH`s are used to look up variables in hashed
   environments, so R code should not run while the values are disturbed.
 
-The encoding conversions take $O(n+k)$ time and space; the `TRUELENGTH`
-bookkeeping takes $O(n)$ space and time (thanks to the exponential
+The encoding conversions take $\mathrm{O}(n+k)$ time and space; the `TRUELENGTH`
+bookkeeping takes $\mathrm{O}(n)$ space and time (thanks to the exponential
 `realloc` trick).
 
 The fast string lookup is used in the following places:
@@ -814,15 +814,15 @@ The fast string lookup is used in the following places:
 * `src/fmelt.c`: [combining factor levels by merging their `CHARSXP`s in
   a common array with indices in `TRUELENGTH`][datatable_fmelt_truelen]
 
-Since there does't seem to be any intent to allow using R API to place
+Since there doesn't seem to be any intent to allow using R API to place
 arbitrary integer values inside unused `SEXP` fields, `data.table` will
 have to look up the `CHARSXP` values using the externally available
-information. Performing $O(nk)$ direct pointer comparisons would scale
-poorly, so for an $O(1)$ individual lookup `data.table` could build a
+information. Performing $\mathrm{O}(nk)$ direct pointer comparisons would scale
+poorly, so for an $\mathrm{O}(1)$ individual lookup `data.table` could build a
 hash table of `SEXP` pointers. While pointer hashing [isn't strictly
 guaranteed by the C standard to work][Wellons_hashptr], it has been used
 [in R itself][R_unique_PTRHASH]. A hash table for $n$ `CHARSXP` pointers
-would need $O(n)$ memory, $O(n)$ time to initialise, and average $O(k)$
+would need $\mathrm{O}(n)$ memory, $\mathrm{O}(n)$ time to initialise, and average $\mathrm{O}(k)$
 time for $k$ lookups [@Cormen2009, chapter 11].
 
 Taking the `savetl` bookkeeping into account, the _average asymptotic_
@@ -856,9 +856,9 @@ manner for later copying:
   Memory sharing between columns may lead to confusing results when they
   are altered by reference, and ALTREP columns cannot have `TRUELENGTH`
   set. The code uses the same trick as with `CHARSXP` objects: if
-  `TRUELENGTH` is set on an object, accessing the object through a
-  different pointer and seeting `TRUELENGTH` set will prove that the
-  object has been previously visited. The code first [prepares zero
+  `TRUELENGTH` is set on an object, accessing it through a
+  different pointer and seeing a non-zero value will prove that the
+  object had been previously visited. The code first [prepares zero
   `TRUELENGTH`s][datatable_copyShared1], then [marks ALTREP, special,
   and already marked columns for copying][datatable_copyShared2], then
   [marks columns not previously marked with their column
@@ -871,7 +871,7 @@ manner for later copying:
 
 The same solution as <a href="#TRUELENGTH-mark">above</a> can be used
 here, with the same downsides of having to allocate memory for the hash
-table and the potential to have worst-case $O(kn)$ time for $k$ lookups
+table and the potential to have worst-case $\mathrm{O}(kn)$ time for $k$ lookups
 fundamental to hash tables.
 
 But there's more
