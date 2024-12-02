@@ -1,0 +1,41 @@
+<svg xmlns='http://www.w3.org/2000/svg' style='font-size:initial;' class="pikchr" viewBox="0 0 397.12 269.063">
+<ellipse cx="149.728" cy="76.32" rx="47.0592" ry="15.12"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="149.728" y="76.32" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">LANGSXP</text>
+<ellipse cx="43.8048" cy="148.031" rx="41.6448" ry="25.2"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="43.8048" y="137.951" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">SYMSXP</text>
+<text x="43.8048" y="158.111" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">print</text>
+<polygon points="73.2521,130.211 78.3433,119.011 84.4527,125.12" style="fill:rgb(0,0,0)"/>
+<path d="M77.3251,126.139L116.452,87.0115"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="94.8521" y="96.9115" text-anchor="middle" fill="rgb(0,0,0)" transform="rotate(-45 94.8521,108.611)" dominant-baseline="central">CAR</text>
+<ellipse cx="149.728" cy="149.76" rx="38.4768" ry="15.12"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="149.728" y="149.76" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">NILSXP</text>
+<polygon points="149.728,134.64 145.408,123.12 154.048,123.12" style="fill:rgb(0,0,0)"/>
+<path d="M149.728,91.44L149.728,128.88"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="149.728" y="101.34" text-anchor="middle" fill="rgb(0,0,0)" transform="rotate(90 149.728,113.04)" dominant-baseline="central">TAG</text>
+<ellipse cx="256.14" cy="140.903" rx="42.336" ry="15.12"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="256.14" y="140.903" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">LISTSXP</text>
+<polygon points="226.204,130.211 215.003,125.12 221.113,119.011" style="fill:rgb(0,0,0)"/>
+<path d="M183.004,87.0115L222.131,126.139"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="204.604" y="96.9115" text-anchor="middle" fill="rgb(0,0,0)" transform="rotate(45 204.604,108.611)" dominant-baseline="central">CDR</text>
+<ellipse cx="155.715" cy="212.613" rx="38.592" ry="25.2"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="155.715" y="202.533" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">INTSXP</text>
+<text x="155.715" y="222.693" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">42</text>
+<polygon points="183.004,194.794 188.095,183.594 194.204,189.703" style="fill:rgb(0,0,0)"/>
+<path d="M187.077,190.721L226.204,151.594"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="204.604" y="161.494" text-anchor="middle" fill="rgb(0,0,0)" transform="rotate(-45 204.604,173.194)" dominant-baseline="central">CAR</text>
+<ellipse cx="256.14" cy="241.703" rx="41.6448" ry="25.2"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="256.14" y="231.623" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">SYMSXP</text>
+<text x="256.14" y="251.783" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">x</text>
+<polygon points="256.14,216.503 251.82,204.983 260.46,204.983" style="fill:rgb(0,0,0)"/>
+<path d="M256.14,156.023L256.14,210.743"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="256.14" y="174.563" text-anchor="middle" fill="rgb(0,0,0)" transform="rotate(90 256.14,186.263)" dominant-baseline="central">TAG</text>
+<ellipse cx="356.483" cy="205.486" rx="38.4768" ry="15.12"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="356.483" y="205.486" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">NILSXP</text>
+<polygon points="329.276,194.794 318.075,189.703 324.185,183.594" style="fill:rgb(0,0,0)"/>
+<path d="M286.076,151.594L325.203,190.721"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="307.676" y="161.494" text-anchor="middle" fill="rgb(0,0,0)" transform="rotate(45 307.676,173.194)" dominant-baseline="central">CDR</text>
+<text x="149.728" y="17.28" text-anchor="middle" font-family="monospace" fill="rgb(0,0,0)" dominant-baseline="central">SEXP call</text>
+<polygon points="149.728,61.2 145.408,49.68 154.048,49.68" style="fill:rgb(0,0,0)"/>
+<path d="M149.728,55.44L149.728,32.4"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+</svg>
+
