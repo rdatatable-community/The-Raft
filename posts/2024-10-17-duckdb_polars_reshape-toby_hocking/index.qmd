@@ -240,7 +240,12 @@ The result above shows that `data.table` is most efficient in terms of computati
 
 ![Wide to long.](wide_long.jpeg){width=40%}
 
-In this section, we showed that `data.table` provides an efficient and feature-rich implementation of wide-to-long data reshaping. \* `measure()` allows specification of columns to reshape using either a separator or a regular expression pattern. In contrast, `duckdb` nor `polars` require specifying input column names (no support for separator, nor regex), and output column post-processing, which is less convenient. \* The `value.name` keyword can be used to reshape into multiple output columns, which is required for some kinds of reshape operations (no way to do that in `duckdb`/`polars`). \* `setDT` and `setDF` can be used to avoid un-necessary copies with `data.table`. In contrast, `duckdb`/`polars` require copies to/from regular R memory, which can add significant time/memory requirements. \* `data.table` was fastest and most memory efficient in the comparisons we examined (both with and without consideration of copying).
+In this section, we showed that `data.table` provides an efficient and feature-rich implementation of wide-to-long data reshaping. 
+
+* `measure()` allows specification of columns to reshape using either a separator or a regular expression pattern. In contrast, `duckdb` nor `polars` require specifying input column names (no support for separator, nor regex), and output column post-processing, which is less convenient. 
+* The `value.name` keyword can be used to reshape into multiple output columns, which is required for some kinds of reshape operations (no way to do that in `duckdb`/`polars`). 
+* `setDT` and `setDF` can be used to avoid un-necessary copies with `data.table`. In contrast, `duckdb`/`polars` require copies to/from regular R memory, which can add significant time/memory requirements. 
+* `data.table` was fastest and most memory efficient in the comparisons we examined (both with and without consideration of copying).
 
 The table below summarizes support for different features in each software package (dash - means no support).
 
@@ -415,7 +420,7 @@ pivot.pred <- predict(pivot.refs)
 plot(pivot.pred)+coord_cartesian(xlim=c(1e1,1e7))
 ```
 
-The result above shows that `data.table::dcast` is about as fast as the others (bottom facet), although `duckdb` is slightly faster, and `polars` is slightly slower (less than 2x). Below we run a more complex benchmark which also measures computation time for the copy operation (in addition to the reshape).
+The result above shows that `data.table::dcast` is about 10x slower than duckdb. Below we run a more complex benchmark which also measures computation time for the copy operation (in addition to the reshape).
 
 ```{r atime-pivot-copy}
 seconds.limit <- 0.1
@@ -446,11 +451,14 @@ pivot.copy.pred <- predict(pivot.copy.refs)
 plot(pivot.copy.pred)+coord_cartesian(xlim=c(1e1,1e7))
 ```
 
-The result above shows that `data.table` is quite a bit faster than the others (5x or more).
+The result above shows that `data.table` is a bit faster than the others (2x or more).
 
 ## Summary of long-to-wide reshaping
 
-In this section, we showed that `data.table` provides an efficient and feature-rich implementation of long-to-wide data reshaping. \* The formula interface allows specifying a dot (`.`) which is a convenient way to specify output of only one row/column. In contrast, `polars` requires creating a dummy variable to do that. \* The `fun.aggregate` argument may be a list of functions, each of which will be used on each of the `value.var` (a convenient way of specifying all combinations). In contrast, `duckdb` requires specifying each combination separately (more tedious/error-prone), and `polars` only supports one aggregation function (not a list).
+In this section, we showed that `data.table` provides an efficient and feature-rich implementation of long-to-wide data reshaping. 
+
+* The formula interface allows specifying a dot (`.`) which is a convenient way to specify output of only one row/column. In contrast, `polars` requires creating a dummy variable to do that. 
+* The `fun.aggregate` argument may be a list of functions, each of which will be used on each of the `value.var` (a convenient way of specifying all combinations). In contrast, `duckdb` requires specifying each combination separately (more tedious/error-prone), and `polars` only supports one aggregation function (not a list).
 
 | how to specify | `data.table`     | `polars`             | `duckdb`               |
 |-----------------|-----------------|-------------------|--------------------|
