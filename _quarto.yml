@@ -30,6 +30,9 @@ format:
   html:
     theme: [solar, custom.scss]
     css: styles.css
+    
+execute: 
+  freeze: true
 
 editor: visual
 
