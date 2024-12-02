@@ -6,6 +6,9 @@ website:
   title: "Blog"
   site-url: https://rdatatable-community.github.io/The-Raft
   description: ""
+  comments:
+    giscus:
+      repo: rdatatable-community/The-Raft
   navbar:
     right:
       - text: About
