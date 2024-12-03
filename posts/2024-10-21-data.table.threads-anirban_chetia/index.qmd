@@ -40,7 +40,7 @@ In order to set the thread count based on observed results for a user-specified 
 setThreadCount(benchmarks, functionName = "forder", efficiencyFactor = 1)
 ```
 
-When using `findOptimalThreadCount()`, users can also replace the predefined benchmarks with their own expressions by providing a list of custom functions as the `benchmarksList` argument, enabling evaluation tailored to their specific use cases. On top of that, they can also specify their own `data.table` construct via the `customDT` argument to have the functions they define operate on it instead of the default matrix-based `data.table` that makes use of `rowCount` and `colCount`.
+When using `findOptimalThreadCount()`, users can also replace the predefined benchmarks with their own expressions by providing a list of custom functions as the `benchmarksList` argument, enabling evaluation tailored to their specific use cases. On top of that, they can also specify their own `data.table` via the `customDT` argument to have the functions they define operate on it instead of the default matrix-based `data.table` that makes use of `rowCount` and `colCount`.
 
 For instance, here is an example:
 ```{r}
@@ -50,5 +50,5 @@ DT = data.table(grp1 = as.character(rep(1:(NN / 4), each = 4)),
                 grp2 = sample(5000L, NN, TRUE),
                 V = rpois(NN, 10))
 findOptimalThreadCount(benchmarksList = list(test4294 = function(dt) dt[, log(sum(V)), by = grp1]), customDT = DT)
-# Optimal performance is observed for a single thread in this case since the code includes creation of many small groups where the computation for each of them is relatively lightweight to see improvement in performance outweighing the overhead from multi-threading.
+# Optimal efficiency is observed for a single thread in this case since the code includes creation of many small groups where the computation for each of them is relatively lightweight to see improvement in performance outweighing the overhead from multi-threading.
 ```
