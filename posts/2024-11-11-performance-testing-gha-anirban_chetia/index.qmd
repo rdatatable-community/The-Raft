@@ -38,7 +38,7 @@ Through this post, I aim to share some insights regarding my action and discuss 
   | Fixed      | Commit where the performance has been restored or even improved to exceed the 'Before' version |
 
 - Diagnostic visualization <br>
-  Plots are uploaded within the comment which contain subplots for each test case, showing the time and memory trends across different `data.table` versions. The plot shown in the PR threads will be one generated for a more proportional preview, meaning it is condensed to only show the top 4 tests (this number can be configured using the `N.tests.preview` variable in the `tests.R` file) based on having the most significant differences between HEAD and min. The full version (all tests) will be shown when we click/tap on the plot.
+  Plots are uploaded within the comment which contain subplots for each test case, showing the time and memory trends across different `data.table` versions. The plot shown in the PR threads will be one generated for a well-proportioned preview, meaning it is condensed to only show the top 4 tests (this number can be configured using the `N.tests.preview` variable in the `tests.R` file) based on having the most significant differences between HEAD and min. The full version (all tests) will be shown when we click/tap on the plot.
 
 - Timing information <br>
   The time taken for executing various tasks (such as setting up R, installing different `data.table` versions, running and plotting the test cases) is measured (in seconds) and organized in a table within the comment.
