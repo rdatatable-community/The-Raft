@@ -27,15 +27,17 @@ Through this post, I aim to share some insights regarding my action and discuss 
 - Versioning <br>
   The action computes the tests on different `data.table` versions that can be visually compared on the resultant plot. These include various labels, as enlisted in the table below:
 
-  | Label Name | R Package Version Description                                                                  |
-  |------------|------------------------------------------------------------------------------------------------|
-  | base       | PR target                                                                                      |
-  | HEAD       | PR source                                                                                      |
-  | Merge-base | Common ancestor between base and HEAD                                                          |
-  | CRAN       | Latest version on the platform                                                                 |
-  | Before     | Pre-regression commit (predates the onset of the performance regression)                       |
-  | Regression | Commit that is either responsible for the degradation in performance or is affected by it      |
-  | Fixed      | Commit where the performance has been restored or even improved to exceed the 'Before' version |
+  | Label Name | R Package Version Description                                                                   |
+  |------------|-------------------------------------------------------------------------------------------------|
+  | base       | PR target                                                                                       |
+  | HEAD       | PR source                                                                                       |
+  | merge-base | Common ancestor between base and HEAD                                                           |
+  | CRAN       | Latest version on the platform                                                                  |
+  | Before     | Pre-regression commit (predates the onset of the performance regression)                        |
+  | Regression | Commit that is either responsible for the degradation in performance or is affected by it       |
+  | Fixed      | Commit where the performance has been restored or even improved to exceed the 'Before' version  |
+  | Slow       | Older version with slower performance (non-regression) when compared to the latest developments |
+  | Fast       | Newer version that demonstrates noticeable performance improvement over the 'Slow' version      |                                           
 
 - Diagnostic visualization <br>
   Plots are uploaded within the comment which contain subplots for each test case, showing the time and memory trends across different `data.table` versions. The plot shown in the PR threads will be one generated for a well-proportioned preview, meaning it is condensed to only show the top 4 tests (this number can be configured using the `N.tests.preview` variable in the `tests.R` file) based on having the most significant differences between HEAD and min. The full version (all tests) will be shown when we click/tap on the plot.
