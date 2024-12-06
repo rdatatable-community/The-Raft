@@ -3,7 +3,7 @@ title: "Use of non-API entry points in `data.table`"
 author: "Ivan Krylov"
 date: "2024-12-01"
 categories: [developer, guest post, performance]
-# image: "image.jpg"
+image: "image.jpg"
 draft: true
 bibliography: refs.bib
 ---
@@ -14,6 +14,10 @@ library(data.table)
 library(tools) # format.check_details
 load('precomputed.rda')
 ```
+
+![A visual metaphor for something that one does fully knowing what they are doing, at their own peril, until one day it fails.](image.jpg)
+
+<sub>Image attribution: [Wikipedia user ArnoldReinhold](https://en.wikipedia.org/wiki/File:Suicide_cable.jpg).</sub>
 
 In the late 1970's, people at Bell Laboratories designed the S programming language in order to facilitate interactive exploratory data analysis [@Chambers2016]. Instead of writing, compiling, scheduling, and interpreting the output of individual Fortran programs, the goal of S was to conduct all the necessary steps of the analysis on the fly. S achieved this not by replacing the extensive collection of Fortran subroutines, but by providing a special interface language [@Becker1985] through which S could communicate with compiled code.
 
@@ -580,4 +584,3 @@ Replacing the use of `TRUELENGTH` and related functions will require implementin
 
 It is not currently clear how to replace the use of `ATTRIB`.
 
-# References
