@@ -74,7 +74,7 @@ We can see in the plot above that there is a top strip for each `dim` and a righ
 
 ## Wide-to-long reshape via unpivot in `polars`
 
-![We're all friends here.](seal_polar.png){width=40%}
+![We're all friends here.](seal_polar.png){width="40%"}
 
 `polars` is an implementation of data frames in Rust, with bindings in R and Python. In `polars`, the wide-to-long data reshape operation is documented on the [man page for unpivot](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.unpivot.html#polars.DataFrame.unpivot), which explains that we must specify `index` and/or `on` (no support for separator, nor regex). In our case, we use the code below:
 
@@ -101,7 +101,7 @@ We can see in the plot above that there is a facet for each of the variables, bu
 
 ### Wide-to-long reshape via UNPIVOT in `duckdb`
 
-![(Image generated with Adobe Firefly.)](seal_duck.jpg){width=40%}
+![(Image generated with Adobe Firefly.)](seal_duck.jpg){width="40%"}
 
 `duckdb` is a column-oriented database implemented in C++, with an R package that supports a DBI-compliant SQL interface. That means that we use R functions like `DBI::dbGetQuery` to get results, just like we would with any other database (Postgres, MySQL, etc). This is documented in the [`duckdb` R API](https://duckdb.org/docs/api/r.html) docs, which explain how to create a database connection, and then copy data from R to the database, as in the code below,
 
@@ -238,13 +238,16 @@ The result above shows that `data.table` is most efficient in terms of computati
 
 ## Wide-to-long summary of functionality
 
-![Wide to long.](wide_long.jpeg){width=40%}
+![Wide to long.](wide_long.jpeg){width="40%"}
 
 In this section, we showed that `data.table` provides an efficient and feature-rich implementation of wide-to-long data reshaping. 
 
 * `measure()` allows specification of columns to reshape using either a separator or a regular expression pattern. In contrast, `duckdb` nor `polars` require specifying input column names (no support for separator, nor regex), and output column post-processing, which is less convenient. 
+
 * The `value.name` keyword can be used to reshape into multiple output columns, which is required for some kinds of reshape operations (no way to do that in `duckdb`/`polars`). 
+
 * `setDT` and `setDF` can be used to avoid un-necessary copies with `data.table`. In contrast, `duckdb`/`polars` require copies to/from regular R memory, which can add significant time/memory requirements. 
+
 * `data.table` was fastest and most memory efficient in the comparisons we examined (both with and without consideration of copying).
 
 The table below summarizes support for different features in each software package (dash - means no support).
@@ -461,7 +464,7 @@ In this section, we showed that `data.table` provides an efficient and feature-r
 * The `fun.aggregate` argument may be a list of functions, each of which will be used on each of the `value.var` (a convenient way of specifying all combinations). In contrast, `duckdb` requires specifying each combination separately (more tedious/error-prone), and `polars` only supports one aggregation function (not a list).
 
 | how to specify | `data.table`     | `polars`             | `duckdb`               |
-|-----------------|-----------------|-------------------|--------------------|
+|------------------|------------------|------------------|-------------------|
 | function       | `dcast`          | `pivot`              | `PIVOT`                |
 | rows           | LHS of formula   | `index`              | `GROUP BY`             |
 | columns        | RHS of formula   | `on`                 | `ON`                   |
