@@ -32,7 +32,7 @@ format:
     css: styles.css
     
 execute: 
-  freeze: true
+  freeze: auto
 
 editor: visual
 
