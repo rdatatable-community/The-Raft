@@ -129,3 +129,7 @@ sum(res_inc == 0) + sum(res_dec == 0)
 ```
 
 Yay. :)
+
+### December 3rd-7th
+
+Nothing `data.table`-y in this one; you can see my solution [here](https://github.com/kbodwin/Advent_of_Code/blob/master/2024/day3.R) if you want.
