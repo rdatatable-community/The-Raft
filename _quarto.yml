@@ -34,7 +34,7 @@ format:
 editor: visual
 
 listing:
-  contents: posts/*/
+  contents: ../../posts/*/
   categories: true
   sort: "date desc"
   type: default
