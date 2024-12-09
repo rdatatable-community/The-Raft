@@ -30,19 +30,20 @@ format:
   html:
     theme: [solar, custom.scss]
     css: styles.css
-    
-execute: 
-  freeze: auto
 
 editor: visual
 
 listing:
   contents: ../../posts/*/
+  categories: true
   sort: "date desc"
   type: default
   feed: true
   sort-ui: false
   filter-ui: false
+  
+execute: 
+  freeze: auto
 
 resources:
   - "images/*"
