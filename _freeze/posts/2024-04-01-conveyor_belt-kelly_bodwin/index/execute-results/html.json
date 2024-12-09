@@ -2,7 +2,7 @@
   "hash": "cd04782cf89b720a30e944b15db55bc1",
   "result": {
     "engine": "knitr",
-    "markdown": "---\ntitle: \"Post Template\"\nauthor: \"Kelly Bodwin\"\ndate: \"2100-10-02\"\ncategories: [news, code, analysis]\nimage: \"image.jpg\"\ndraft: true\n---\n\n\nThis is a post with executable code.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 2\n```\n\n\n:::\n:::\n",
+    "markdown": "---\ntitle: \"Post Template\"\nauthor: \"Kelly Bodwin\"\ndate: \"2100-10-02\"\ncategories: [news, code, analysis]\nimage: \"image.jpg\"\ndraft: true\n---\n\n\n\n\nThis is a post with executable code.\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 2\n```\n\n\n:::\n:::\n",
     "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"

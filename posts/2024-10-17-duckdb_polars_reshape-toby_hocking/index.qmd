@@ -5,6 +5,8 @@ date: "2024-10-17"
 categories: [tips, tutorials, developer, benchmarks]
 image: "duckdb.png"
 draft: false
+execute:
+  cache: true
 ---
 
 One element of [the NSF POSE grant for `data.table`](https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/) is to create benchmarks which can inform users about when `data.table` could be more performant than similar software. Two examples of similar software are `duckdb` and `polars`, which each provide in-memory database operations. This post explores the differences in computational requirements, and in functionality, for data reshaping operations.
@@ -240,15 +242,15 @@ The result above shows that `data.table` is most efficient in terms of computati
 
 ![Wide to long.](wide_long.jpeg){width="40%"}
 
-In this section, we showed that `data.table` provides an efficient and feature-rich implementation of wide-to-long data reshaping. 
+In this section, we showed that `data.table` provides an efficient and feature-rich implementation of wide-to-long data reshaping.
 
-* `measure()` allows specification of columns to reshape using either a separator or a regular expression pattern. In contrast, `duckdb` nor `polars` require specifying input column names (no support for separator, nor regex), and output column post-processing, which is less convenient. 
+-   `measure()` allows specification of columns to reshape using either a separator or a regular expression pattern. In contrast, `duckdb` nor `polars` require specifying input column names (no support for separator, nor regex), and output column post-processing, which is less convenient.
 
-* The `value.name` keyword can be used to reshape into multiple output columns, which is required for some kinds of reshape operations (no way to do that in `duckdb`/`polars`). 
+-   The `value.name` keyword can be used to reshape into multiple output columns, which is required for some kinds of reshape operations (no way to do that in `duckdb`/`polars`).
 
-* `setDT` and `setDF` can be used to avoid un-necessary copies with `data.table`. In contrast, `duckdb`/`polars` require copies to/from regular R memory, which can add significant time/memory requirements. 
+-   `setDT` and `setDF` can be used to avoid un-necessary copies with `data.table`. In contrast, `duckdb`/`polars` require copies to/from regular R memory, which can add significant time/memory requirements.
 
-* `data.table` was fastest and most memory efficient in the comparisons we examined (both with and without consideration of copying).
+-   `data.table` was fastest and most memory efficient in the comparisons we examined (both with and without consideration of copying).
 
 The table below summarizes support for different features in each software package (dash - means no support).
 
