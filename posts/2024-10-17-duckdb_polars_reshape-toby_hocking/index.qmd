@@ -460,13 +460,13 @@ The result above shows that `data.table` is a bit faster than the others (2x or 
 
 ## Summary of long-to-wide reshaping
 
-In this section, we showed that `data.table` provides an efficient and feature-rich implementation of long-to-wide data reshaping. 
+In this section, we showed that `data.table` provides an efficient and feature-rich implementation of long-to-wide data reshaping.
 
-* The formula interface allows specifying a dot (`.`) which is a convenient way to specify output of only one row/column. In contrast, `polars` requires creating a dummy variable to do that. 
-* The `fun.aggregate` argument may be a list of functions, each of which will be used on each of the `value.var` (a convenient way of specifying all combinations). In contrast, `duckdb` requires specifying each combination separately (more tedious/error-prone), and `polars` only supports one aggregation function (not a list).
+-   The formula interface allows specifying a dot (`.`) which is a convenient way to specify output of only one row/column. In contrast, `polars` requires creating a dummy variable to do that.
+-   The `fun.aggregate` argument may be a list of functions, each of which will be used on each of the `value.var` (a convenient way of specifying all combinations). In contrast, `duckdb` requires specifying each combination separately (more tedious/error-prone), and `polars` only supports one aggregation function (not a list).
 
 | how to specify | `data.table`     | `polars`             | `duckdb`               |
-|------------------|------------------|------------------|-------------------|
+|----------------|------------------|----------------------|------------------------|
 | function       | `dcast`          | `pivot`              | `PIVOT`                |
 | rows           | LHS of formula   | `index`              | `GROUP BY`             |
 | columns        | RHS of formula   | `on`                 | `ON`                   |
