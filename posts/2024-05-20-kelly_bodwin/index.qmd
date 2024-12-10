@@ -29,21 +29,21 @@ A little-known historical tidbit is that Robert Frost's *The Road Less Traveled*
 
 I bring this up because, like in the poem, I believe we in the R community often overdramatize moments of divergence between different R dialects, packages, and syntaxes.
 
-And I, like poor Robert Frost, also feel there may be some misunderstanding around my intent here.  
+And I, like poor Robert Frost, also feel there may be some misunderstanding around my intent here.
 
 So to make sure my opinions are loud and clear, we'll get some help from this cartoon lady to shout out the things I most want y'all to hear from me:
 
-::: columns
+:::::: columns
 ::: {.column width="30%"}
 ![](./quote_bubble.jpeg){height="200px"}
 :::
 
-::: {.column width="70%"}
+:::: {.column width="70%"}
 ::: box
 **I have a lot of opinions about R!**
 :::
-:::
-:::
+::::
+::::::
 
 This blog post is my attempt to dispel the myths surrounding the relationship between `data.table` and the `tidyverse`, and to explain why I believe deeply in both.
 
@@ -87,17 +87,17 @@ penguins %>%
 
 ```
 
-::: columns
+:::::: columns
 ::: {.column width="30%"}
 ![](./quote_bubble.jpeg){height="200px"}
 :::
 
-::: {.column width="70%"}
+:::: {.column width="70%"}
 ::: box
 **`data.table` is not technically Base R!**
 :::
-:::
-:::
+::::
+::::::
 
 It is true that the `data.table` syntax most closely mimics that of Base R data frames, and deliberately so. However, `data.table` is an open-source package like any other. Nobody - and I mean *nobody* - uses *only* Base R in their work. What a silly culture that would be, if we have all the beautiful multiverse of an open-source language, and we limit ourselves only to the core functionality!
 
@@ -113,19 +113,19 @@ I could go on - there are infinitely many reasons, from the personal to the prof
 
 I can't tell you how to pick what works for you.
 
-::: columns
+:::::: columns
 ::: {.column width="30%"}
 ![](./quote_bubble.jpeg){height="200px"}
 :::
 
-::: {.column width="70%"}
+:::: {.column width="70%"}
 ::: box
 **"Dialect" or syntax choices in R are contextual and case-by-case, not lifetime commitments!**
 :::
-:::
-:::
+::::
+::::::
 
-The idea of "loyalty" to a package is nonsense.  A package is a tool.  You might have admiration, respect, or even loyalty to a package *developer*; you might even therefore trust that it's worth your time and energy to follow their recommendations.  
+The idea of "loyalty" to a package is nonsense. A package is a tool. You might have admiration, respect, or even loyalty to a package *developer*; you might even therefore trust that it's worth your time and energy to follow their recommendations.
 
 But if you start feeling *bad* when you sprinkle a little Base R into your tidy workflow... if you are ashamed for piping a `data.table` object into `ggplot`... well that's getting us nowhere, is it? We are blessed with an overabundance of useful tools and we shouldn't be limiting ourselves!
 
@@ -141,17 +141,17 @@ penguins %>%
 
 We all use our own favorite collection of packages, in the combinations that work for us. It might be fun to discuss and learn about new options or new preferences, but no more purity culture, please!
 
-::: columns
+:::::: columns
 ::: {.column width="30%"}
 ![](./quote_bubble.jpeg){height="200px"}
 :::
 
-::: {.column width="70%"}
+:::: {.column width="70%"}
 ::: box
 **It's okay to use different syntaxes and package styles all in one workflow!**
 :::
-:::
-:::
+::::
+::::::
 
 ## "...I shall be telling this with a sigh, somewhere ages and ages hence..."
 
@@ -167,8 +167,7 @@ But - as seems to be the norm on the internet - a vocal subset of this conversat
 
 ![Rabblerabblerabble](./orwell.jpeg){width="50%"}
 
-
-It's important to note that the primary developers themselves - Hadley Wickham and Matt Dowle - were **not** the cause of the drama.  In fact, this good conversations from this Twitter whirlwind lead to the creation of one of my favorite packages, [`dtplyr`](https://dtplyr.tidyverse.org/)!
+It's important to note that the primary developers themselves - Hadley Wickham and Matt Dowle - were **not** the cause of the drama. In fact, this good conversations from this Twitter whirlwind lead to the creation of one of my favorite packages, [`dtplyr`](https://dtplyr.tidyverse.org/)!
 
 So why am I partially digging up a buried hatchet?
 
@@ -180,17 +179,17 @@ And most relevant to this blog - I have gotten a *lot* of questions about why I 
 
 Therefore, to be ultra clear:
 
-::: columns
+:::::: columns
 ::: {.column width="30%"}
 ![](./quote_bubble.jpeg){height="200px"}
 :::
 
-::: {.column width="70%"}
+:::: {.column width="70%"}
 ::: box
 **This grant is NOT about helping `data.table` "beat" `dplyr`.**
 :::
-:::
-:::
+::::
+::::::
 
 This could not be further from the truth! I'm a `tidyverse` girlie - from my `dplyr` earrings to my [hex fabric](https://www.amelia.mn/blog/2019-08-17-Tidy-Dress/) shirts - and I am *also* a `data.table` girlie. **I, personally, would not be working on this project if I thought anyone involved viewed it as anti-`tidyverse` in any way.**
 
@@ -208,17 +207,17 @@ So, where are we going from here, as a community? Only good places, I think, no 
 
 I am so excited about this project and about the NSF-POSE grant - both for the longevity of `data.table`, and for everything we are learning about open-source ecosystems and how to sustain them.
 
-::: columns
+:::::: columns
 ::: {.column width="30%"}
 ![](./quote_bubble.jpeg){height="200px"}
 :::
 
-::: {.column width="70%"}
+:::: {.column width="70%"}
 ::: box
 **I love the #rstats community!!! Let's do cool stuff together.**
 :::
-:::
-:::
+::::
+::::::
 
 ## Addendum {.smaller}
 

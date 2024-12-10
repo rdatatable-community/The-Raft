@@ -228,7 +228,7 @@ if (verbose) {
 Although the value of `gp` is directly stored in R's serialized data stream, neither of these are part of the API. Out of all possible uses for this flag, `data.table` is only interested in string encodings. From the viewpoints of [plain R](https://search.r-project.org/R/refmans/base/html/Encoding.html) and the [C API](https://cran.r-project.org/doc/manuals/R-exts.html#Character-encoding-issues), an individual string (`CHARSXP` value) can be marked with the following encodings:
 
 | R-level encoding name | C-level encoding constant | Meaning |
-|:------------------:|:------------------:|--------------------------------|
+|:--:|:--:|----|
 | `"latin1"` | `CE_LATIN1` | ISO/IEC 8859-1 or CP1252 |
 | `"UTF-8"` | `CE_UTF8` | ISO/IEC 10646 |
 | `"unknown"` | `CE_NATIVE` | Encoding of the current locale |
@@ -583,4 +583,3 @@ While `data.table` could get rid of most of its non-API use with relative ease, 
 Replacing the use of `TRUELENGTH` and related functions will require implementing two features from scratch: a set of ALTREP classes for growable vectors (with the previous implementation hidden in `#ifdef` for R \< 4.3) and pointer-keyed hash tables for string and column marking.
 
 It is not currently clear how to replace the use of `ATTRIB`.
-
