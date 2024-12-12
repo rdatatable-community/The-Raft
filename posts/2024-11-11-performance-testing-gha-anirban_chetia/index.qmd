@@ -20,7 +20,6 @@ Through this post, I aim to share some insights regarding my action and discuss 
 
 - Automated commenting <br>
   Using [`cml`](https://github.com/iterative/cml), the action posts information/results in a comment on the pull request thread. The comment is automatically edited with each new push to avoid cluttering, ensuring that only one comment exists per PR, which is the updated or latest one. 
-  > Fun facts
   > - The comment is authored by a GitHub bot and operates using the `GITHUB_TOKEN` I provide to authenticate itself and interact with the GitHub API within the scope of the workflow.
   > - If multiple commits are pushed together in quick succession or before the previous job finishes, only the most recent one among them is fully run to save CI time.
 
@@ -85,3 +84,32 @@ The example I provided above can be customized further as needed, as long as a f
 ::: callout-note
 The action is not constrained to be OS-specific and there is only one single job or set of steps that execute on the same runner.
 :::
+
+## Steps
+
+Interested to learn more about the code behind this? 
+Fret not! In this section, I’ll walk you through the steps I created in my workflow, one by one - right from the actions, software, and snippets involved to how they fit into the overall logic.
+
+To begin, I use the `checkout` action to fetch the repository's current contents into the runner's file system. This allows my workflow to access and work with the target project's source code in the right branch. Note that I set `fetch-depth` to 0 as I want all commits, branches, and tags (the entire history basically). This is essential for running other versions of the target R package, as otherwise the default value of 0 would only fetch the latest commit on the checked-out branch.
+
+Next, I disable the safe directory check on my repository to bypass the restriction on running commands within foreign directories that `git` by default enables for security purposes.
+
+I then use two git switches (rationale[^double-git-switch]) to ensure local branch references exist and can be found by `atime` when using `git2r::revparse_single` to pick up the right environment variables for `HEAD` and `base`.
+
+For a standard R setup, I use the RStudio Package Manager (RSPM) to install the latest version of R.
+
+Next up, I perform an up-to-date system-wide installation of `libgit2` (requisite for `git2r` operations; in turn, `atime` requires `git2r`) from source.
+
+I then proceed to install the required R packages from a CRAN mirror. These include `atime` with its hard dependencies plus the packages required for generating the diagnostic visualizations. I follow up (within the same step) by running `atime::atime_pkg` (using the `tests.R` file from the `.ci` directory of the target package) in the workspace as allocated by my checkout step (`$GITHUB_WORKSPACE` environment variable pertains to the default checkout directory).
+
+All of the results that have been generated are then uploaded as an artifact using the `upload-artifact` action. v4[^upload-artifact-v4] brings this feature to the table, allowing artifacts to be identifiable within a workflow (after the have been generated and uploaded, with a reference to that step) as the action's API could now create an ID variable that is available within the succeeding steps of the workflow (I use that to construct the artifact retrieval URLs).
+
+Finally, its time to publish the results within a comment in PR threads via the GitHub Actions bot! Everything goes into a markdown file - Two plots (one hyperlinked to the other), the SHA for the commit everything is based upon, the link to download the artifact (which again, is being concocted using various environment variables), and an organized table with timing information for different measured phases (the calculations for which are run within this step, and the timestamp recording points are distributed accordingly throughout the workflow and collected in `$GITHUB_ENV` for ease of access in subsequent steps).
+
+The order of these steps and segregation of tasks as I described can be also found in my old slides[^old-gha-slides-drive-link].
+
+## References
+
+[^double-git-switch]: https://github.com/Anirban166/Autocomment-atime-results/issues/33#issuecomment-2038431272
+[^upload-artifact-v4]: https://github.com/Anirban166/Autocomment-atime-results/issues/17
+[^old-gha-slides-drive-link]: https://drive.google.com/file/d/1_uD0k6vJMpxw9jiLQQSt2H8Da5kdCUb5/view
