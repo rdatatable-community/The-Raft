@@ -1,5 +1,5 @@
 ---
-title: "Continuous performance benchmarking using GitHub Actions"
+title: "Continuous performance testing using GitHub Actions"
 author: "Anirban Chetia"
 date: "2024-11-11"
 categories: [developer, github action, performance testing]
