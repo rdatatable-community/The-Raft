@@ -1,0 +1,132 @@
+---
+title: "Continuous performance testing using GitHub Actions"
+author: "Anirban Chetia"
+date: "2024-11-11"
+categories: [developer, github action, performance testing]
+image: ""
+draft: false
+---
+
+In an effort to address the need for continuous performance benchmarking in `data.table`, I created a GitHub Action[^gha] to facilitate testing the time/memory-based performance of the incoming changes that are introduced via Pull Requests (PRs) to the official GitHub repository.
+
+My motivation in taking this initiative was to help ensure that `data.table` consistently maintains its code efficiency or upholds its high performance standards as PRs keep coming and getting integrated frequently (meaning they need to be monitored for retaining the quality of code contributions performance-wise, especially to avoid regressions, and an automatic way to do that would be ideal, noh?).
+
+Through this post, I aim to share some insights regarding my action and discuss some implementation details, but before that, I'm happy to convey that it has been live since over the past seven months now! There are numerous examples of it being used to generate diagnostic performance plots for PRs that involve changes to the C and R files in the codebase, which can be found through the 'Pull requests' section of `data.table` on GitHub (aside from the ['Actions' tab](https://github.com/Rdatatable/data.table/actions/workflows/performance-tests.yml), where jobs keep popping up as new PRs and commits involving code changes emerge from time to time).
+
+## Key features
+
+- Predefined flexible tests <br>
+  The action runs test cases (utilizing the `atime`[^atime] package) from the setup defined in `.ci/atime/tests.R` (the path can be customized) on different versions of `data.table` (or the R package being tested). These tests are either based on documented historical regressions or performance improvements.
+
+- Automated commenting <br>
+  Using `cml`[^cml], the action posts information/results in a comment on the pull request thread. The comment is automatically edited with each new push to avoid cluttering, ensuring that only one comment exists per PR, which is the updated or latest one. 
+  > - The comment is authored by a GitHub bot and operates using the `GITHUB_TOKEN` I provide to authenticate itself and interact with the GitHub API within the scope of the workflow.
+  > - If multiple commits are pushed together in quick succession or before the previous job finishes, only the most recent one among them is fully run to save CI time.
+
+- Versioning <br>
+  The action computes the tests on different `data.table` versions that can be visually compared on the resultant plot. These include various labels, as enlisted in the table below:
+
+  | Label Name | R Package Version Description                                                                   |
+  |------------|-------------------------------------------------------------------------------------------------|
+  | base       | PR target                                                                                       |
+  | HEAD       | PR source                                                                                       |
+  | merge-base | Common ancestor between base and HEAD                                                           |
+  | CRAN       | Latest version on the platform                                                                  |
+  | Before     | Pre-regression commit (predates the onset of the performance regression)                        |
+  | Regression | Commit that is either responsible for the degradation in performance or is affected by it       |
+  | Fixed      | Commit where the performance has been restored or even improved to exceed the 'Before' version  |
+  | Slow       | Older version with slower performance (non-regression) when compared to the latest developments |
+  | Fast       | Newer version that demonstrates noticeable performance improvement over the 'Slow' version      |                                           
+
+- Diagnostic visualization <br>
+  Plots are uploaded within the comment which contain subplots for each test case, showing the time and memory trends across different `data.table` versions. The plot shown in the PR threads will be one generated for a well-proportioned preview, meaning it is condensed to only show the top 4 tests (this number can be configured using the `N.tests.preview` variable in the `tests.R` file) based on having the most significant differences between HEAD and min. The full version (all tests) will be shown when we click/tap on the plot.
+
+- Timing information <br>
+  The time taken for executing various tasks (such as setting up R, installing different `data.table` versions, running and plotting the test cases) is measured (in seconds) and organized in a table within the comment.
+
+- Links <br>
+  A download link that retrieves a zipped file for the artifact containing all the `atime`-generated results is provisioned, aside from the hyperlink to the commit that triggered the workflow and generated that particular comment.
+
+## Usage
+
+The workflow can be directly fetched from the Marketplace[^marketplace-version] for use in any GitHub repository of an R package. For example, one can use this template for their `.github/workflows/<workflowName>.yml`:
+
+```yml
+name: Autocomment atime-based performance analysis on PRs
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+    # Modify path filters as per need:
+    paths:
+      - 'R/**'
+      - 'src/**'
+      - '.ci/atime/**'
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    container: ghcr.io/iterative/cml:0-dvc2-base1
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      repo_token: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: Anirban166/Autocomment-atime-results@v1.4.1
+```
+The example I provided above can be customized further as needed, as long as a few things are kept intact:
+- The workflow runs on a `pull_request` event
+- `GITHUB_PAT` is supplied (required to authenticate git operations, have higher rate limits, etc.)
+- The `container` and `repo_token` fields are specified as I did above (required for `cml` functionality)
+
+::: callout-note
+The action is not constrained to be OS-specific and there is only one single job or set of steps that execute on the same runner.
+:::
+
+## Steps
+
+Interested to learn more about the code behind this? 
+Fret not! In this section, I’ll walk you through the steps I have in my workflow, one by one - right from the actions, software, and snippets involved to how they fit into the overall logic.
+
+To begin, I use the `checkout` action to fetch the repository's current contents into the runner's file system. This allows my workflow to access and work with the target project's source code in the right branch. Note that I set `fetch-depth` to 0 as I want all commits, branches, and tags (the entire history basically). This is essential for running other versions of the target R package, as otherwise the default value of 0 would only fetch the latest commit on the checked-out branch.
+
+Next, I disable the safe directory check on my repository to bypass the restriction on running commands within foreign directories that `git` by default enables for security purposes.
+
+I then use two git switches (rationale[^why-double-git-switch]) to ensure local branch references exist and can be found by `atime` when using `git2r::revparse_single` to pick up the right environment variables for `HEAD` and `base`.
+
+For a standard R setup, I use the RStudio Package Manager (RSPM) to install the latest version of R.
+
+Next up, I perform an up-to-date system-wide installation of `libgit2` (requisite for `git2r` operations; in turn, `atime` requires `git2r`) from source.
+
+I then proceed to install the required R packages from a CRAN mirror. These include `atime` with its hard dependencies plus the packages required for generating the diagnostic visualizations. I follow up (within the same step) by running `atime::atime_pkg` (using the `tests.R` file from the `.ci` directory of the target package) in the workspace as allocated by my checkout step (`$GITHUB_WORKSPACE` environment variable pertains to the default checkout directory).
+
+All of the results that have been generated are then uploaded as an artifact using the `upload-artifact` action. v4[^upload-artifact-v4] brings this feature (allowing artifacts to be identifiable within a workflow) to the table as the action's API can now create ID variables that are available (after the artifacts have been generated and uploaded) within the succeeding steps of the workflow (I use them to construct the artifact retrieval URLs).
+
+Finally, its time to publish the results within a comment in PR threads via the GitHub Actions bot! Everything goes into a markdown file - Two plots (one hyperlinked to the other), the SHA for the commit everything is based upon, the link to download the artifact (which again, is being concocted using various environment variables), and an organized table with timing information for different measured phases (the calculations for which are run within this step, and the timestamp recording points are distributed accordingly throughout the workflow and collected in `$GITHUB_ENV` for ease of access in subsequent steps).
+
+This specific order and segregation of tasks above can also be found in my old slides[^old-gha-slides-drive-link].
+
+## Future work
+
+My action has come a long way since the time I created an issue[^gha-introduction-issue] to introduce it to the `data.table` community and subsequently the PR[^gha-integration-pr] through which it got integrated into the project (the follow-up[^integration-follow-up-pr] to that also included my first `atime` test!), but the main goal for me in updating it from time to time (e.g. v1.4.1[^v1.4.1] and v1.3.1[^v1.3.1]) since then has been constant - to maintain the current functionality of automatically and actively monitoring changes in PRs for noticeable impact in performance (avoiding regressions is the highlighted focus, but the same enthusiasm applies in detecting improvements or observing stability). As and when required, the GHA can be expected to receive updates (or break out of a potential plateau) as long as this approach remains useful, or the needs of the `data.table` project/community in particular align with this goal.
+
+If reading so far has piqued your curiosity enough that you would like to contribute in terms of optimizing the workflow, and if by the laws of coincidence you also happen to be a student, I would recommend checking out the Google Summer of Code[^gsoc] program as I recently wrote in detail a project[^caching-gsoc-project] (primarily based on minifying package versions and caching/reusing ones based on historical references to save CI resources/time) for extending work on this action. Until next time, happy coding!
+
+## References
+
+[^gha]: https://github.com/Anirban166/Autocomment-atime-results/blob/main/action.yml
+[^atime]: https://github.com/tdhock/atime
+[^cml]: https://github.com/iterative/cml
+[^marketplace-version]: https://github.com/marketplace/actions/autocomment-atime-results
+[^why-double-git-switch]: https://github.com/Anirban166/Autocomment-atime-results/issues/33#issuecomment-2038431272
+[^upload-artifact-v4]: https://github.com/Anirban166/Autocomment-atime-results/issues/17
+[^old-gha-slides-drive-link]: https://drive.google.com/file/d/1_uD0k6vJMpxw9jiLQQSt2H8Da5kdCUb5/view
+[^gha-introduction-issue]: https://github.com/Rdatatable/data.table/issues/6065
+[^gha-integration-pr]: https://github.com/Rdatatable/data.table/pull/6078
+[^integration-pr-follow-up]: https://github.com/Rdatatable/data.table/pull/6094
+[^v1.4.1]: https://github.com/Rdatatable/data.table/pull/6597
+[^v1.3.1]: https://github.com/Rdatatable/data.table/pull/6545
+[^gsoc]: https://summerofcode.withgoogle.com/
+[^caching-gsoc-project]: https://github.com/rstats-gsoc/gsoc2025/wiki/Optimizing-a-performance-testing-workflow-by-reusing-minified-R-package-versions-between-CI-runs
