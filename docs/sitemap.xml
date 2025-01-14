@@ -2,110 +2,114 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/blog.html</loc>
-    <lastmod>2024-12-10T00:11:13.286Z</lastmod>
+    <lastmod>2023-10-03T02:03:42.000Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.840Z</lastmod>
+    <lastmod>2024-02-23T07:58:17.000Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-03-10-testing_plan-toby_hocking/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.865Z</lastmod>
+    <lastmod>2024-09-24T05:16:29.000Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-02-25-survey_2023-aljaz_sluga/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.856Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-01-28-piping_data_tables-elio_campitelli/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.852Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-08-01-seal_of_approval-tidyfast/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.901Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-10-17-duckdb_polars_reshape-toby_hocking/index.html</loc>
-    <lastmod>2024-12-10T00:27:24.447Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.969Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-06-09-ambassador_corrales-community_team/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.879Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.843Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-01-30-new_governance_new_release-toby_hocking/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.853Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-02-18-dt_particularities-toby_hocking/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.855Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-01-14-ambassador_gorecki-community_team/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.851Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-07-31-seal_of_approval_announcement-community_team/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.880Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-10-10-Performance-Doris_Amoakohene/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.932Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-08-20-translation_projects-community_team/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.901Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-05-20-kelly_bodwin/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.868Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-11-01-travel_grant_announcement-community_team/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.843Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-08-01-seal_of_approval-dtplyr/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.890Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-09-21-seal_of_approval-collapse/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.905Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-10-01-seal_of_approval-mlr3/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.907Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-03-06-interviews-anirban_chetia/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.863Z</lastmod>
+    <lastmod>2024-05-07T22:28:10.000Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-02-05-tips_tricks_1-tyson_barrett/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.854Z</lastmod>
+    <lastmod>2024-05-07T22:28:10.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-03-06-interviews-anirban_chetia/index.html</loc>
+    <lastmod>2024-09-24T05:16:29.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-10-01-seal_of_approval-mlr3/index.html</loc>
+    <lastmod>2024-10-18T03:31:52.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-09-21-seal_of_approval-collapse/index.html</loc>
+    <lastmod>2024-10-18T03:40:24.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-08-01-seal_of_approval-dtplyr/index.html</loc>
+    <lastmod>2024-08-12T17:18:35.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-11-01-travel_grant_announcement-community_team/index.html</loc>
+    <lastmod>2024-05-07T22:28:10.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-05-20-kelly_bodwin/index.html</loc>
+    <lastmod>2025-01-14T08:26:19.806Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-02-18-dt_particularities-toby_hocking/index.html</loc>
+    <lastmod>2024-09-24T05:16:29.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-01-14-ambassador_gorecki-community_team/index.html</loc>
+    <lastmod>2024-08-12T17:24:22.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-07-31-seal_of_approval_announcement-community_team/index.html</loc>
+    <lastmod>2024-09-24T05:16:29.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-10-10-Performance-Doris_Amoakohene/index.html</loc>
+    <lastmod>2024-10-18T03:41:37.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-08-20-translation_projects-community_team/index.html</loc>
+    <lastmod>2024-10-18T03:51:56.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2025-01-13-non-api-use/index.html</loc>
+    <lastmod>2025-01-14T08:26:19.807Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-01-30-new_governance_new_release-toby_hocking/index.html</loc>
+    <lastmod>2024-05-07T22:28:10.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/index.html</loc>
+    <lastmod>2024-05-07T22:28:10.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-06-09-ambassador_corrales-community_team/index.html</loc>
+    <lastmod>2024-10-18T03:26:41.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html</loc>
+    <lastmod>2024-12-08T23:14:02.131Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-10-17-duckdb_polars_reshape-toby_hocking/index.html</loc>
+    <lastmod>2024-12-09T02:10:40.941Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-08-01-seal_of_approval-tidyfast/index.html</loc>
+    <lastmod>2024-09-24T05:16:29.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-01-28-piping_data_tables-elio_campitelli/index.html</loc>
+    <lastmod>2024-05-07T22:28:10.000Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/posts/2024-08-01-seal_of_approval-nc/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.893Z</lastmod>
+    <lastmod>2024-08-12T23:56:44.000Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.841Z</lastmod>
+    <lastmod>2024-09-24T05:16:29.000Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/posts/2023-11-19-LatinR_summary-toby_hocking/index.html</loc>
-    <lastmod>2024-12-10T00:11:13.851Z</lastmod>
+    <lastmod>2024-05-07T22:28:10.000Z</lastmod>
   </url>
   <url>
     <loc>https://rdatatable-community.github.io/The-Raft/about.html</loc>
-    <lastmod>2024-12-10T00:11:13.285Z</lastmod>
+    <lastmod>2024-06-19T22:48:09.000Z</lastmod>
   </url>
 </urlset>
