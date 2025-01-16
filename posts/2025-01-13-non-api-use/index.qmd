@@ -339,7 +339,7 @@ Replacing `TRUELENGTH`-based growable vectors with `ALTREP`-based ones will conf
 
 -   Every place in `data.table` that uses growable vectors will have to be refactored to use the new abstraction layer (`SETLENGTH` in R \< 4.3, ALTREP in R ≥ 4.3).
     -   Both implementations will have to be maintained as long as `data.table` supports R \< 4.3.
-    -   The current implementation in `data.table` re-creates ALTREP objects as ordinary ones precisely because it's impossible to `SET_TRUELENGTH` on ALTREP objects. This will also need to be refactored.
+    -   The current implementation in `data.table` re-creates ALTREP objects as ordinary ones because it's impossible to `SET_TRUELENGTH` on ALTREP objects and because ALTREP objects may share other columns by reference. This will also need to be refactored.
 -   The data pointer access is slower for ALTREP vectors than for ordinary vectors: having checked the ALTREP bit in the header, R will have to access the method table and call the method instead of adding a fixed offset to the original `SEXP` pointer. This shouldn't be noticeable unless `data.table` puts data pointer access inside a "hot" loop.
 -   For numeric ALTREP classes, ALTREP-aware operations that use `*_GET_REGION` instead of the data pointer will become slower unless the class implements a `Get_region` method.
 
