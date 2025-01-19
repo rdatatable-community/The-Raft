@@ -586,6 +586,7 @@ It is not currently clear how to replace the use of `ATTRIB`.
 
 ## Corrections
 
-- A paragraph at the end of the [growable vectors](#growable-vectors) section used to say that `data.table` re-creates ALTREP columns because those cannot have `TRUELENGTH` set. That's not the only reason: ALTREP columns may also end up referencing special objects like `.SD`.
 - Instead of `digest`, the API introduction now uses the earlier `RApiSerialize` package as an example.
+- A paragraph at the end of the [growable vectors](#growable-vectors) section used to say that `data.table` re-creates ALTREP columns because those cannot have `TRUELENGTH` set. That's not the only reason: ALTREP columns may also end up referencing special objects like `.SD`.
 - A link in the [fast string matching](#TRUELENGTH-mark) section pointed to the wrong lines in the `data.table` source code.
+- The [fast string matching](#TRUELENGTH-mark) section used to say that a good upper bound on the number of unique entries is always known; actually, there are two cases where a dynamically growing hash table is required.
