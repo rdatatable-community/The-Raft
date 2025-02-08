@@ -244,7 +244,7 @@ The result above shows that `data.table` is most efficient in terms of computati
 
 In this section, we showed that `data.table` provides an efficient and feature-rich implementation of wide-to-long data reshaping.
 
--   `measure()` allows specification of columns to reshape using either a separator or a regular expression pattern. In contrast, `duckdb` nor `polars` require specifying input column names (no support for separator, nor regex), and output column post-processing, which is less convenient.
+-   `measure()` allows specification of columns to reshape using either a separator or a regular expression pattern. In contrast, both `duckdb` and `polars` require specifying input column names (no support for separator, nor regex), and output column post-processing, which is less convenient.
 
 -   The `value.name` keyword can be used to reshape into multiple output columns, which is required for some kinds of reshape operations (no way to do that in `duckdb`/`polars`).
 
@@ -303,7 +303,7 @@ dcast(# wide reshape 2
   sep=".")
 ```
 
-The output above has a row for every unique combination of `Species`, `part`, and `dim`, and a column (`.`)\` for the mean of the corresponding data. The more complex reshape below involves multiple aggregations, and multiple value variables.
+The output above has a row for every unique combination of `Species`, `part`, and `dim`, and a column (`.`) for the mean of the corresponding data. The more complex reshape below involves multiple aggregations, and multiple value variables.
 
 ```{r}
 options(width=100)
@@ -463,6 +463,7 @@ The result above shows that `data.table` is a bit faster than the others (2x or 
 In this section, we showed that `data.table` provides an efficient and feature-rich implementation of long-to-wide data reshaping.
 
 -   The formula interface allows specifying a dot (`.`) which is a convenient way to specify output of only one row/column. In contrast, `polars` requires creating a dummy variable to do that.
+
 -   The `fun.aggregate` argument may be a list of functions, each of which will be used on each of the `value.var` (a convenient way of specifying all combinations). In contrast, `duckdb` requires specifying each combination separately (more tedious/error-prone), and `polars` only supports one aggregation function (not a list).
 
 | how to specify | `data.table`     | `polars`             | `duckdb`               |
