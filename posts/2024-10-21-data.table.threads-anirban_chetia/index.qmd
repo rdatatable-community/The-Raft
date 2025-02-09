@@ -1,0 +1,63 @@
+---
+title: "`data.table.threads` - find the best thread count!"
+author: "Anirban Chetia"
+date: "2024-10-21"
+categories: [developer, benchmarks, speedup, parallelization]
+image: ""
+draft: false
+---
+
+## [`data.table.threads`](https://github.com/Anirban166/data.table.threads)
+
+When working with large datasets, leveraging system resources like multiple CPU threads for shared-memory parallelization can significantly reduce computation time. However, it isn’t straightforward to determine the optimal thread count to obtain the lowest runtime for an operation, or on the other hand, the number of threads required for efficient speedup scaling.
+
+In an R package like `data.table` where parallelization is extensively utilized (or by most operations), it can be convenient to automatically figure out the number of threads to use for achieving the fastest execution time in the case of a particular routine, without the user needing to rely on ad-hoc experiments. Likewise, it would be handy if the user could set the thread count keeping in mind maximum (or a user-defined ratio) scalability in terms of the speedup obtained, which otherwise can be tricky or time-consuming to figure out manually.
+
+This is where `data.table.threads` comes in - A package designed to assist in finding the most suitable thread count for the various parallelized operations within `data.table`.
+
+## Key features
+
+`findOptimalThreadCount(rowCount, columnCount, ...)`, the main user-facing function, runs a set of predefined benchmarks for each applicable function across varying thread counts (iteratively from one to the highest number available as per the user's system) and involves computation to find the optimal/ideal speedup and thread count for each function. It returns a `data.table` object of a custom class (`print` and `plot` methods have been provided), which contains the optimal thread count for each function. It also provides plot data (consisting of speedup trends and key points) as attributes.
+
+Printing this object would enlist the fastest median runtime (in milliseconds) along with the thread count that achieved it for each function. Plotting it would generate a ggplot that additionally shows the ideal and measured speedup trends for each benchmarked `data.table` function.
+
+If the user wants to factor in a specified speedup efficiency, they can use the function `addRecommendedEfficiency` to add a speedup line (with a slope configured by input argument `efficiencyFactor`; default value is 0.5, or 50% efficiency) along with a point representing the recommended thread count which stems from the highest intersection between this line (of specified thread-use efficiency) and measured speedup data for each function.
+
+Here is an example:
+```{r}
+library(data.table.threads)
+
+(benchmarks <- data.table.threads::findOptimalThreadCount(1e7, 10, verbose = FALSE))
+plot(benchmarks)
+benchmarks_r <- addRecommendedEfficiency(benchmarks, recommendedEfficiency = 0.6)
+plot(benchmarks_r)
+```
+The plots are designed to visually interpret the relationship between the number of CPU threads used and the corresponding speedup achieved. Each panel in the grid represents a distinct parallelizable `data.table` function, showing how its performance scales as thread count increases. 
+
+The red lines represent the theoretical linear speedup, which refers to the 'ideal' scaling scneraio (e.g., doubling the thread count results in half the runtime). The black and blue ones represent the actual speedup observed from running the benchmarks for each function and the speedup trend based on the user-specified efficiency factor, respectively.
+
+Likewise, in terms of the plotted points, the red ones denote the thread count that achieved the fastest execution time, while the blue ones depict the recommended thread count that balances scalability and thread efficiency based on the value specified for `efficiencyFactor`. Depending on the application, users are expected to prioritize either the fastest runtime (red) or efficient resource usage (blue). The recommended thread count can be particularly useful for multi-user environments or when running multiple parallel tasks, as it avoids saturating resources without significant performance gains.
+
+From the example above, we can infer that the functions all exhibit diverse scaling behaviors that reflect their computational characteristics and parallelization overheads. Most notably, `forder` shows near-linear scaling (expected considering factors such as the input containing more rows than columns) initially but tapers off as thread count increases.
+
+In order to set the thread count based on observed results for a user-specified function and speedup efficiency value, the `setThreadCount(benchmarkData, functionName, efficiencyFactor)` function can then be used:
+```{r}
+setThreadCount(benchmarks, functionName = "forder", efficiencyFactor = 1)
+```
+
+When using `findOptimalThreadCount()`, users can also replace the predefined benchmarks with their own expressions by providing a list of custom functions as the `benchmarksList` argument, enabling evaluation tailored to their specific use cases. On top of that, they can also specify their own `data.table` via the `customDT` argument to have the functions they define operate on it instead of the default matrix-based `data.table` that makes use of `rowCount` and `colCount`.
+
+For instance, here is an example:
+```{r}
+# Derived from https://github.com/Rdatatable/data.table/issues/4294
+NN = 1e5
+DT = data.table(grp1 = as.character(rep(1:(NN / 4), each = 4)),
+                grp2 = sample(5000L, NN, TRUE),
+                V = rpois(NN, 10))
+findOptimalThreadCount(benchmarksList = list(test4294 = function(dt) dt[, log(sum(V)), by = grp1]), customDT = DT)
+```
+Optimal efficiency is observed for a single thread in this case since the code includes creation of many small groups where the computation for each of them is relatively lightweight to see improvement in performance outweighing the overhead from multi-threading.
+
+## Conclusion  
+
+Informed thread allocation is the goal. Whether one strives for the fastest execution time or seeks a balance between performance and resource efficiency, the package provides practical estimates within a short period of time for fine tuning the thread count in a given system. I hope it can be useful in some way, may it be in terms of offering convenience through the automated benchmarking process with quick recommendations, or flexibility to define custom benchmarks paired up with diagnostic visualizations. As long as it helps in making informed decisions that align with one's computational needs!
