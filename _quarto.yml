@@ -31,7 +31,7 @@ format:
 editor: visual
 
 listing:
-  contents: ../../posts/*/
+  contents: ../../posts/*/*.qmd
   categories: true
   sort: "date desc"
   type: default
