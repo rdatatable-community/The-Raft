@@ -30,15 +30,6 @@ format:
 
 editor: visual
 
-listing:
-  contents: ../../posts/*/*.qmd
-  categories: true
-  sort: "date desc"
-  type: default
-  feed: true
-  sort-ui: false
-  filter-ui: false
-  
 execute: 
   freeze: auto
 
