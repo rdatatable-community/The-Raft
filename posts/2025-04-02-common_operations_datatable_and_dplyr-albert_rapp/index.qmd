@@ -1,0 +1,659 @@
+---
+title: "`data.table` vs `dplyr`: A Side-by-Side Comparison"
+author: "Albert Rapp"
+date: "2025-04-02"
+categories: [tutorials]
+image: "image.png"
+---
+
+[Note: This blog post originally appeared on [albert-rapp.de](https://albert-rapp.de/posts/34_datatable_vs_dplyr/34_datatable_vs_dplyr) and has been shared here to serve both the `{data.table}` and `{dplyr}` communities.] 
+
+In today's blogpost I show you how to do common data cleaning operations via both `{data.table}` and `{dplyr}`.
+These are two fantastic frameworks inside the R ecosystem.
+As always, there's also a video version available:
+
+{{< video https://youtu.be/6EWZK2kMano >}}
+
+## Get data
+
+First, let us take a look at our data.
+
+```{r}
+#| warning: false
+#| message: false
+library(dplyr)
+library(data.table)
+ames <- modeldata::ames |>
+  janitor::clean_names() |> 
+  as_tibble() # this is already the case but for comparability done here again
+ames
+```
+
+We will need to convert it to a `data.table`.
+
+```{r}
+df_ames <- as.data.table(ames)
+df_ames
+```
+
+
+Also, let us set options for nicer `data.table` outputs.
+I don't want lot's of columns and rows to flood my console.
+
+```{r}
+# Compact printing similar to tibble
+options(
+    datatable.print.topn = 5,     # Show only top 10 rows
+    datatable.print.nrows = 10,   # Limit number of printed rows
+    datatable.print.class = TRUE, # Show column classes
+    datatable.print.trunc.cols = TRUE # Truncate wide columns
+)
+```
+
+## The general difference
+
+`{dplyr}` uses functions/verbs that are chained together.
+This has the advantage that it's easily readable to anybody because the function names are usually understandable even to non-programmers.
+
+On the other hand `{data.table}` uses a super concise code style with lots of abbreviations.
+This has the advantage that the code is short but if you don't know the system then you might feel lost.
+
+So let me explain the system behind `{data.table}`.
+The most basic thing to understand is that a data.table `df` can be modified via a bracket using up to three different components.
+This might look something like `df[i, j, by]`.
+
+
+The first component `i` refers to rows that are "modified".
+The second component `j` refers to columns that might be `modified`.
+And the third component `by` refers to any grouping you might want to use.
+
+But enough theory.
+Let's see this in action.
+
+
+## Sort specific columns
+
+::: panel-tabset
+
+### `dplyr`
+
+```{r}
+ames |> arrange(lot_frontage) 
+```
+
+### `data.table`
+
+```{r}
+df_ames[order(lot_frontage)]
+```
+
+
+:::
+
+## Filter for specific rows
+
+::: panel-tabset
+
+### `dplyr`
+
+```{r}
+ames |> filter(sale_price > 300000)
+```
+
+### `data.table`
+
+```{r}
+df_ames[sale_price > 300000]
+```
+
+:::
+
+
+## Select specific columns
+
+
+::: panel-tabset
+
+### `dplyr`
+
+```{r}
+ames |> 
+  filter(sale_price > 300000) |> 
+  select(neighborhood, sale_price, lot_area)
+```
+
+### `data.table`
+
+```{r}
+df_ames[
+  sale_price > 300000, 
+  list(neighborhood, sale_price, lot_area)
+]
+```
+
+### `data.table` (`.()` shorthand)
+
+If you don't want to type out the `list()` command, you can also use `data.table`'s shorthand notation `.()`.
+
+```{r}
+df_ames[
+  sale_price > 300000, 
+  .(neighborhood, sale_price, lot_area)
+]
+```
+
+:::
+
+
+## Select many columns by name
+
+::: panel-tabset
+
+### `dplyr`
+
+```{r}
+ames |> select(contains('area'))
+```
+
+### `data.table`
+
+```{r}
+df_ames[, .SD, .SDcols = patterns('area')]
+```
+
+:::
+
+
+## Select many columns by type
+
+
+::: panel-tabset
+
+### `dplyr`
+
+```{r}
+ames |> 
+  select(where(is.numeric))
+```
+
+### `data.table`
+
+```{r}
+df_ames[, .SD, .SDcols = is.numeric]
+```
+
+:::
+
+## Compute a new column
+
+::: panel-tabset
+
+### `dplyr`
+
+```{r}
+ames |> 
+  filter(sale_price > 300000) |> 
+  select(neighborhood, sale_price, lot_area) |> 
+  mutate(
+    price_by_lot_area = sale_price / lot_area
+  )
+```
+
+### `data.table` (new data.table)
+
+```{r}
+df_ames[
+  sale_price > 300000, 
+  list(
+    neighborhood, 
+    sale_price, 
+    lot_area,
+    price_by_lot_area = sale_price / lot_area
+  )
+]
+```
+
+:::
+
+## Specialty of `data.table`: modify in place
+
+In the last step we have seen that `mutate()` and using a `list()` inside the `[]` of a `data.table` work almost similarly.
+But there's a specialty that you might want to keep in mind.
+
+You see, in the previous example we created a new `data.table`.
+And that's why we have seen an output after `df_ames[...]`.
+But checkout what happens if I don't use `list()` and instead use the `:=` operator inside the brackets.
+
+```{r}
+df_ames[
+  sale_price > 300000, 
+  price_by_lot_area := sale_price / lot_area
+]
+```
+
+See? 
+No output.
+But if we look at `df_ames`, we'll notice that the `price_by_lot_area` was actually created.
+And that happened even though we never overwrote `df_ames` like `df_ames <-`.
+
+```{r}
+# Notice no filter on rows here as first argument was left blank.
+df_ames[, price_by_lot_area] |> head(30)
+```
+
+
+Notice now that we have lots of `NA`s in that column now.
+This happens because we instructed R to only compute the `price_by_lot_area` column where `sale_price > 300000`.
+Interesting how that works, isn't it?
+
+If you wanted to calculate all values, you could leave out the filtering condition.
+
+```{r}
+df_ames[, price_by_lot_area := sale_price / lot_area]
+df_ames[, price_by_lot_area] |> head(30)
+```
+
+
+## Calculate multiple new columns
+
+
+
+::: panel-tabset
+
+### `dplyr`
+
+```{r}
+ames |> 
+  filter(sale_price > 300000) |> 
+  select(neighborhood, sale_price, lot_area) |> 
+  mutate(
+    price_by_lot_area = sale_price / lot_area,
+    log_sale_price = log(sale_price),
+    log_price_by_lot_area = log_sale_price / lot_area
+  )
+```
+
+### `data.table` (new)
+
+```{r}
+df_ames[
+  sale_price > 300000, 
+  list(
+    neighborhood, 
+    sale_price, 
+    lot_area,
+    price_by_lot_area = sale_price / lot_area,
+    log_sale_price = log(sale_price),
+    log_price_by_lot_area = log(sale_price) / lot_area
+  )
+]
+```
+
+### `data.table` (in-place)
+
+To create multiple columns in place, you can either use the `let()` command
+
+```{r}
+df_ames[
+  sale_price > 300000, 
+  let(
+    price_by_lot_area = sale_price / lot_area,
+    log_sale_price = log(sale_price),
+    log_price_by_lot_area = log(sale_price) / lot_area
+  )
+]
+```
+
+or the `:=` operator. 
+
+```{r}
+df_ames[
+  sale_price > 300000, 
+  `:=`(
+    price_by_lot_area = sale_price / lot_area,
+    log_sale_price = log(sale_price),
+    log_price_by_lot_area = log(sale_price) / lot_area
+  )
+]
+```
+
+:::
+
+
+## Specialty of `data.table`: chaining
+
+
+Notice that in both previous `data.table` examples we have used `log(sale_price)` twice.
+That means after calculating the `log_sale_price` column, we didn't actually use that column later on.
+The reason for this is that it simply doesn't work.
+You cannot calculate a new column and use it in the same step.
+
+```{r}
+#| error: true
+# reset df_ames so that `log_sale_price` doesn't exist
+# due to previous calculations.
+df_ames <- as.data.table(ames) 
+df_ames[
+  sale_price > 300000, 
+  list(
+    neighborhood, 
+    sale_price, 
+    lot_area,
+    price_by_lot_area = sale_price / lot_area,
+    log_sale_price = log(sale_price),
+    log_price_by_lot_area = log_sale_price / lot_area # log_sale_price here
+  )
+]
+```
+
+One way to fix that is to use chain operations.
+You can do so by using multiple brackets like `df_ames[...][...]`, you can chain multiple operations.
+
+```{r}
+df_ames[
+  sale_price > 300000, 
+  list(
+    neighborhood, 
+    sale_price, 
+    lot_area,
+    price_by_lot_area = sale_price / lot_area,
+    log_sale_price = log(sale_price)
+  )
+][, log_price_by_lot_area := log_sale_price / lot_area]
+```
+
+Notice that this technically worked and didn't throw an error, but you cannot find any of the new columns in `df_ames`.
+
+```{r}
+#| error: true
+df_ames[, list(neighborhood, log_price_by_lot_area)]
+df_ames[, list(neighborhood, log_sale_price)]
+```
+
+Here's why that happened:
+First, we created **a new** data.table by not using the in-place version.
+Remember how the `list()` command creates a new `data.table`?
+That's why you get an output here:
+
+```{r}
+df_ames[
+  sale_price > 300000, 
+  list(
+    neighborhood, 
+    sale_price, 
+    lot_area,
+    price_by_lot_area = sale_price / lot_area,
+    log_sale_price = log(sale_price)
+  )
+]
+```
+
+But if you don't save this into a new variable, then this new data table isn't saved.
+Now, in the next step, we use the in-place mode of operations on the **new** data.table.
+
+```{r}
+df_ames[
+  sale_price > 300000, 
+  list(
+    neighborhood, 
+    sale_price, 
+    lot_area,
+    price_by_lot_area = sale_price / lot_area,
+    log_sale_price = log(sale_price)
+  )
+][, log_price_by_lot_area := log_sale_price / lot_area]
+```
+
+This technically works but in-place calculations don't return anything.
+They just modify the existing object.
+But the existing object is the **new** data.table that we still never saved anywhere.
+Hence, that calculation runs successfully but the results vanish the moment the calculation finishes.
+
+What's worse is that even if you try to save these results later, it's no use.
+See?
+No results here:
+
+```{r}
+df_test <- df_ames[
+  sale_price > 300000, 
+  list(
+    neighborhood, 
+    sale_price, 
+    lot_area,
+    price_by_lot_area = sale_price / lot_area,
+    log_sale_price = log(sale_price)
+  )
+][, log_price_by_lot_area := log_sale_price / lot_area]
+df_test
+```
+
+So there are two ways you could fix this.
+Either chain your results without using the in-place calculations.
+This means either using `list()` or `.()` in later steps of the chain.
+
+```{r}
+df_ames[
+  sale_price > 300000, 
+  list(
+    neighborhood, 
+    sale_price, 
+    lot_area,
+    price_by_lot_area = sale_price / lot_area,
+    log_sale_price = log(sale_price)
+  )
+][, .(log_price_by_lot_area = log_sale_price / lot_area)]
+```
+
+As we've seen before, this will then only return a `data.table` with the filtered rows.
+Or alternatively, you could use only in-place calculation.
+
+```{r}
+df_ames[
+  sale_price > 300000, 
+  let(
+    price_by_lot_area = sale_price / lot_area,
+    log_sale_price = log(sale_price)
+  )
+][, log_price_by_lot_area := log_sale_price / lot_area]
+
+df_ames[
+  # Set filter to see both NA and non-NA values
+  sale_price > 200000, 
+  .(neighborhood, price_by_lot_area, log_sale_price, log_price_by_lot_area)
+]
+```
+
+
+But personally I prefer to chain things with a pipe operator.
+With the R native pipe operator `|>` and its placeholder variable `_` this works pretty well.
+
+```{r}
+df_ames[
+  sale_price > 300000, 
+  list(
+    neighborhood, 
+    sale_price, 
+    lot_area,
+    price_by_lot_area = sale_price / lot_area,
+    log_sale_price = log(sale_price)
+  )
+] |> 
+  _[, .(log_price_by_lot_area = log_sale_price / lot_area)]
+```
+
+
+## Calculate summary statistics (without grouping)
+
+::: panel-tabset
+
+### `dplyr`
+
+```{r}
+ames |> 
+  filter(sale_price > 300000) |> 
+  select(neighborhood, sale_price, lot_area) |> 
+  mutate(
+    price_by_lot_area = sale_price / lot_area,
+    log_sale_price = log(sale_price),
+    log_price_by_lot_area = log_sale_price / lot_area
+  ) |> 
+  summarize(
+    mean_sale_price = mean(sale_price),
+    n_houses = n()
+  )
+```
+
+### `data.table`
+
+In `data.tables` the special variable `.N` refers to the amount of rows.
+In this case `.N` refers to the amount of all rows.
+In a grouped setting, `.N` would refer to the group sizes.
+
+```{r}
+df_ames[
+  sale_price > 300000, 
+  list(
+    mean_sale_price = mean(sale_price),
+    n_houses = .N
+  )
+]
+```
+
+
+:::
+
+
+## Calculate summary statistics (with grouping)
+
+::: panel-tabset
+
+### `dplyr`
+
+```{r}
+ames |> 
+  filter(sale_price > 300000) |> 
+  select(neighborhood, sale_price, lot_area) |> 
+  mutate(
+    price_by_lot_area = sale_price / lot_area,
+    log_sale_price = log(sale_price),
+    log_price_by_lot_area = log_sale_price / lot_area
+  ) |> 
+  summarize(
+    mean_sale_price = mean(sale_price),
+    n_houses = n(),
+    .by = neighborhood # use grouping
+  )
+```
+
+### `data.table`
+
+In `data.tables` the special variable `.N` refers to the amount of rows.
+In this case `.N` refers to the amount of all rows.
+In a grouped setting, `.N` would refer to the group sizes.
+
+```{r}
+df_ames[
+  sale_price > 300000, 
+  list(
+    mean_sale_price = mean(sale_price),
+    n_houses = .N
+  ),
+  by = neighborhood  # use grouping
+]
+```
+
+:::
+
+
+## Iterate over multiple columns
+
+
+Let's combine our knowledge of selecting multiple columns to calculate summary stats for many columns.
+
+::: panel-tabset
+
+### `dplyr`
+
+In `dplyr` this needs the `across()` function inside of `summarize()`.
+
+```{r}
+ames |> 
+  summarize(
+    across(
+      .cols = contains('area'),
+      .fns = mean
+    ),
+    .by = neighborhood
+  )
+```
+
+### `data.table`
+
+In `data.table`, you can just use the `.SD` variable again and combine that with `lapply()`.
+
+```{r}
+df_ames[, 
+  c(
+    lapply(.SD, mean, na.rm = TRUE),
+    n_houses = .N
+  ),
+  by = neighborhood,
+  .SDcols = patterns('area')
+]
+```
+
+:::
+
+Notice that for `data.table` we had to use the `c()` function to comine results.
+Had we used a list via `.()`, then results wouldn't look quite the same.
+
+```{r}
+df_ames[, 
+  .(
+    lapply(.SD, mean, na.rm = TRUE),
+    n_houses = .N
+  ),
+  by = neighborhood,
+  .SDcols = patterns('area')
+]
+```
+
+
+
+Or we could also cover, say, numeric columns.
+In that case we shouldn't use `.cols = contains()` and `.SDcols = patterns()`.
+Instead we'd use `.cols = where(is.numeric)` and `.SDcols = is.numeric`:
+
+::: panel-tabset
+
+### `dplyr`
+
+```{r}
+ames |> 
+  summarize(
+    across(
+      .cols = where(is.numeric),
+      .fns = mean
+    ),
+    .by = neighborhood
+  )
+```
+
+### `data.table`
+
+In `data.tables` the special variable `.N` refers to the amount of rows.
+In this case `.N` refers to the amount of all rows.
+In a grouped setting, `.N` would refer to the group sizes.
+
+```{r}
+df_ames[, 
+  c(
+    lapply(.SD, mean, na.rm = TRUE),
+    n_houses = .N
+  ),
+  by = neighborhood,
+  .SDcols = is.numeric
+]
+```
+
+:::
