@@ -1,7 +1,12 @@
-Profiling memory in R was always not a trival task.  
+
+# Benchmarking memory usage in R
+
+Profiling memory in R was always not a trivial task.  
 In this post I would like to emphasize that currently popular methods are very much inaccurate, therefore should be used with caution, and more importantly, should not be used to draw conclusions about actual memory usage of an R functions.  
 
 The root cause of inaccuracy of many memory profiling tools in R is that they measure memory allocated by R (including R's C) code. They do not take into account memory allocated using C.  
+
+## Memory allocation in R
 
 Following example should make it very clear.  
 
@@ -37,6 +42,8 @@ set.seed(108)
 x = rnorm(1e8)
 ```
 
+## Check equal
+
 First we will ensure that results are the same, no matter if we allocate temporary working memory using R or C:
 
 ```sh
@@ -45,6 +52,8 @@ Rscript -e 'source("memtest.R"); funx(x, r_alloc=TRUE)'
 Rscript -e 'source("memtest.R"); funx(x, r_alloc=FALSE)'
 #[1] 1.160649e+12
 ```
+
+## Memory benchmark using `bench`
 
 Next we will use the most popular, at present, package for profiling memory `bench`:
 
@@ -68,6 +77,8 @@ It is worth to note that `?mark` explains this issue:
 > `mem_alloc` - `bench_bytes` Total amount of memory allocated by R while running the expression. Memory allocated outside the R heap, e.g. by `malloc()` or `new` directly is not tracked, take care to avoid misinterpreting the results if running code that may do this.
 
 Unfortunately people are not aware of it and often publish memory usage benchmarks believing they are accurate.
+
+## Memory benchmark using `cgmemtime`
 
 Lastly we will use external process to measure memory, [cgmemtime](https://github.com/gsauthof), proposed by Matt Dowle in 2014 during his work on [2B rows data.frame grouping benchmark](https://github.com/Rdatatable/data.table/wiki/Benchmarks-:-Grouping).
 
@@ -96,4 +107,36 @@ In order to get a memory usage of an R function call, in this simple example, we
 #[1] 761.9258
 ```
 
-I hope this post will help people to be a bit more sceptical when reading R's memory benchmarks.
+## Thank you
+
+I hope this post will help people to be a bit more skeptical when reading R's memory benchmarks.
+
+```
+R version 4.5.0 (2025-04-11)
+Platform: x86_64-redhat-linux-gnu
+Running under: Fedora Linux 42 (Workstation Edition)
+
+Matrix products: default
+BLAS/LAPACK: FlexiBLAS OPENBLAS-OPENMP;  LAPACK version 3.12.0
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+time zone: *
+tzcode source: system (glibc)
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] bench_1.1.4   inline_0.3.21
+
+loaded via a namespace (and not attached):
+[1] compiler_4.5.0  cli_3.6.4       pillar_1.10.2   glue_1.8.0     
+[5] vctrs_0.6.5     lifecycle_1.0.4 rlang_1.1.6   
+```
