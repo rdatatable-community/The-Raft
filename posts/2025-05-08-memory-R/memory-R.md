@@ -82,7 +82,8 @@ Lastly we will use external process to measure memory, [cgmemtime](https://githu
 #group_mem_high:    1625820 KiB
 ```
 
-While `cgmemtime` will report very accurate memory usage statistics, it won't be able to measure memory of a single function call as it tracks memory for a whole process.
+While `cgmemtime` will report very accurate memory usage statistics, it won't be able to measure memory of a single function call as it tracks memory for a whole process.  
+In order to get a memory usage of an R function call, in this simple example, we can measure all the rest, without the actual `funx()` call, and then subtract one from another.
 
 ```sh
 ./cgmemtime Rscript -e 'source("memtest.R");'
@@ -90,7 +91,6 @@ While `cgmemtime` will report very accurate memory usage statistics, it won't be
 #group_mem_high:     843844 KiB
 ```
 
-In order to get a memory usage of an R function call, in this simple example, we can measure all the rest, without the actual `funx()` call, and then subtract one from another.
 ```r
 (1641096-860884)/1024
 #[1] 761.9258
