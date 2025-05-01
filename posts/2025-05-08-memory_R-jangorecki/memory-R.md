@@ -127,9 +127,6 @@ locale:
  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
-time zone: *
-tzcode source: system (glibc)
-
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
