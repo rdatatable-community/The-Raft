@@ -1,10 +1,10 @@
 
 # Benchmarking memory usage in R
 
-Profiling memory in R was always not a trivial task.  
-In this post I would like to emphasize that currently popular methods are very much inaccurate, therefore should be used with caution, and more importantly, should not be used to draw conclusions about actual memory usage of an R functions.  
+Profiling memory in R has never been a trivial task.  
+In this post, I would like to emphasize that currently popular methods are quite inaccurate and should therefore be used with caution. More importantly, they should not be used for drawing conclusions about the actual memory usage of R functions.  
 
-The root cause of inaccuracy of many memory profiling tools in R is that they measure memory allocated by R (including R's C) code. They do not take into account memory allocated using C.  
+The root cause of the inaccuracy with many memory profiling tools in R is that they measure memory allocated by R (including R's C code). They do not take into account memory allocated using C.  
 
 ## Memory allocation in R
 
@@ -44,7 +44,7 @@ x = rnorm(1e8)
 
 ## Check equal
 
-First we will ensure that results are the same, no matter if we allocate temporary working memory using R or C:
+First, we will ensure that the results are the same, regardless of whether we allocate temporary working memory using R or C:
 
 ```sh
 Rscript -e 'source("memtest.R"); funx(x, r_alloc=TRUE)'
@@ -55,7 +55,7 @@ Rscript -e 'source("memtest.R"); funx(x, r_alloc=FALSE)'
 
 ## Memory benchmark using `bench`
 
-Next we will use the most popular, at present, package for profiling memory `bench`:
+Next, we will use the currently most popular package for profiling memory, `bench`:
 
 ```sh
 Rscript -e 'source("memtest.R"); bench::mark(funx(x, r_alloc=TRUE))'
@@ -70,17 +70,17 @@ Rscript -e 'source("memtest.R"); bench::mark(funx(x, r_alloc=FALSE))'
 #1 funx(x, r_al… 589ms  589ms      1.70        0B        0     1     0      589ms
 ```
 
-As we can see in output of `mark` function, `mem_alloc` is reported to be 0B when we use `malloc`, while for `R_alloc` it reports 763MB. The difference we observe here should serve as a warning. If one wants to use `mark` function to draw conculsion about memory usage, one should as well examine source code of the function that is being benchmarked.
+As we can see in the output of `mark` function, `mem_alloc` is reported to be 0B when we use `malloc`, while for `R_alloc` it reports 763MB. The difference we observe here should serve as a warning. It is because `bench::mark` tracks memory allocations managed by R's memory allocator and doesn't inherently account for memory allocated directly through C functions like `malloc` or `calloc`. If one intends to use the `mark` function to draw conclusions about memory usage, it's crucial to also examine the source code of the function being benchmarked.
 
 It is worth to note that `?mark` explains this issue:
 
 > `mem_alloc` - `bench_bytes` Total amount of memory allocated by R while running the expression. Memory allocated outside the R heap, e.g. by `malloc()` or `new` directly is not tracked, take care to avoid misinterpreting the results if running code that may do this.
 
-Unfortunately people are not aware of it and often publish memory usage benchmarks believing they are accurate.
+Unfortunately, people are not aware of it and often publish memory usage benchmarks believing they are accurate.
 
 ## Memory benchmark using `cgmemtime`
 
-Lastly we will use external process to measure memory, [cgmemtime](https://github.com/gsauthof), proposed by Matt Dowle in 2014 during his work on [2B rows data.frame grouping benchmark](https://github.com/Rdatatable/data.table/wiki/Benchmarks-:-Grouping).
+Lastly, we will use an external process to measure memory, [cgmemtime](https://github.com/gsauthof), proposed by Matt Dowle in 2014 during his work on [2B rows data.frame grouping benchmark](https://github.com/Rdatatable/data.table/wiki/Benchmarks-:-Grouping).
 
 > `cgmemtime` measures the high-water RSS+CACHE memory usage of a process and its descendant processes.
 
@@ -93,14 +93,16 @@ Lastly we will use external process to measure memory, [cgmemtime](https://githu
 #group_mem_high:    1625820 KiB
 ```
 
-While `cgmemtime` will report very accurate memory usage statistics, it won't be able to measure memory of a single function call as it tracks memory for a whole process.  
-In order to get a memory usage of an R function call, in this simple example, we can measure all the rest, without the actual `funx()` call, and then subtract one from another.
+While `cgmemtime` will report very accurate memory usage statistics, it cannot directly measure the memory usage of an individual function call in isolation as it tracks the memory footprint of the entire process (and its child processes).  
+To estimate the memory usage of the `funx()` call in this simple example, we can first measure the R process without calling `funx()`.
 
 ```sh
 ./cgmemtime Rscript -e 'source("memtest.R");'
 #child_RSS_high:     860884 KiB
 #group_mem_high:     843844 KiB
 ```
+
+And then subtract this baseline from the memory usage when `funx()` is executed:
 
 ```r
 (1641096-860884)/1024
