@@ -20,6 +20,23 @@ about:
 
 This blog is dedicated to building the community around the `data.table` R package. Its startup is funded by NSF-POSE Grant called "**Expanding the data.table ecosystem for efficient big data manipulation in R".** Here you will find announcements related to the grant, as well as tips, updates, and tutorials for `data.table` and its sister packages.
 
+The `data.table` project is fiscally sponsored by [NumFOCUS](https://numfocus.org/). Consider making 
+a [tax-deductible donation](https://numfocus.org/donate-to-data-table) to help the project 
+pay for developer time, professional services, travel, workshops, and a variety of other needs.
+
+*NumFOCUS is a 501(c)(3) non-profit charity in the United States; as such, donations to
+NumFOCUS are tax-deductible as allowed by law. As with any donation, you should
+consult with your personal tax adviser or the IRS about your particular tax situation.*
+
+<div align="center">
+  <a href="https://numfocus.org/project/data-table">
+    <img height="60px" 
+         src="https://raw.githubusercontent.com/numfocus/templates/master/images/numfocus-logo.png" 
+         align="center">
+  </a>
+</div>
+<br>
+
 *Blog managed by Kelly Bodwin, Tyson Barrett, and Toby Hocking. Email us at r.data.table\@gmail.com.*
 
 *Find us in the [R-Bloggers feed!](https://www.r-bloggers.com)*
