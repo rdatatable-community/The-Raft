@@ -80,7 +80,7 @@ Unfortunately, people are not aware of it and often publish memory usage benchma
 
 ## Memory benchmark using `cgmemtime`
 
-Lastly, we will use an external process to measure memory, [cgmemtime](https://github.com/gsauthof), proposed by Matt Dowle in 2014 during his work on [2B rows data.frame grouping benchmark](https://github.com/Rdatatable/data.table/wiki/Benchmarks-:-Grouping).
+Lastly, we will use an external process to measure memory, [cgmemtime](https://github.com/gsauthof/cgmemtime), proposed by Matt Dowle in 2014 during his work on [2B rows data.frame grouping benchmark](https://github.com/Rdatatable/data.table/wiki/Benchmarks-:-Grouping).
 
 > `cgmemtime` measures the high-water RSS+CACHE memory usage of a process and its descendant processes.
 
