@@ -16,8 +16,8 @@ code = "
   int nx = LENGTH(x);
   double *y = (double*)(
     LOGICAL(r_alloc)[0] ?
-      R_alloc(nx, sizeof(double)) : // allocated by R's C
-      malloc(nx * sizeof(double))   // allocated by C
+      R_alloc(nx, sizeof(*y)) : // allocated by R's C
+      malloc(nx * sizeof(*y))   // allocated by C
   );
   double *xp = REAL(x);
   // populate y
