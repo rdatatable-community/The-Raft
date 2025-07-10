@@ -31,7 +31,6 @@ We will need to convert it to a `data.table`.
 
 ```{r}
 df_ames <- as.data.table(ames)
-df_ames
 ```
 
 Also, let us set options for nicer `data.table` outputs. I don't want lot's of columns and rows to flood my console.
@@ -45,6 +44,11 @@ options(
     datatable.print.trunc.cols = TRUE # Truncate wide columns
 )
 ```
+
+```{r}
+df_ames
+```
+
 
 ## The general difference
 

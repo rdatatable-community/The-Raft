@@ -4,17 +4,14 @@ author: "Community Team"
 date: "2025-07-10"
 categories: [announcements, grant]
 image: "NumFocus_LRG.png"
-draft: true
+draft: false
 ---
 
 We are SO excited to announce some massive news for the `data.table` community:  `data.table` is now a [NumFOCUS Sponsored Project](https://numfocus.org/project/data-table)!!!
 
-::: {layout-ncol=2}
-
 ![](NumFocus_LRG.png){width=50%}
 ![](proud_sea_lion.jpeg){width=50%}
 
-:::
 
 For those who aren't familiar, NumFOCUS is an incredible nonprofit organization that supports open source projects.  There are some [truly iconic projects](https://numfocus.org/sponsored-projects) on their roster: `pandas`, `scikit-learn`, the Julia language, and so many more.
 
@@ -39,7 +36,7 @@ The most common question we have gotten over the 2 years of NSF POSE Grant work 
 
 We are so grateful to the incredible NumFOCUS team for their guidance and expertise, and for believing in this project.
 
-![Hugs to the open-source community.](sea_lion_hug.jpeg)
+![Hugs to the open-source community.](sea_lion_hug.jpeg){width=50%}
 
 
 ## How can you get involved?

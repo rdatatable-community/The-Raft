@@ -1,0 +1,68 @@
+---
+title: "On the homestretch"
+author: "Kelly Bodwin"
+date: "2025-02-09"
+categories: [updates, grant]
+image: "home_stretch.jpeg"
+draft: true
+---
+
+It has officially been 1 year and 6 months since work began for the [NSF POSE Grant](https://rdatatable-community.github.io/The-Raft/posts/2023-10-15-intro_to_grant-toby_hocking/) for `data.table`, which means that 6 months of funded work remain.  Hard to believe!
+
+![](time_flies.jpeg)
+
+We'd like to take a moment to come together and share what we've done, what we're doing, and what you can expect after the grant funding period ends.
+
+## What we've done
+
+#### Package Governance
+
+Although the NSF POSE grant cannot directly fund software development, we were able to quickly establish a new [Governance Structure](https://github.com/Rdatatable/data.table/blob/master/GOVERNANCE.md) for the package.  This smoothed the package updating process considerably, facilitating [a new major relase for `data.table`](https://rdatatable-community.github.io/The-Raft/posts/2024-01-30-new_governance_new_release-toby_hocking/)!
+
+We're pleased to report that the new governance and release process has continued to run smoothly, and the package is being more actively updated and maintained as result.  Huge kudos to the developers and contributors for their amazing teamwork in creating this document and adding new features to `data.table`!
+
+#### Community Building
+
+A highlight of our experience has been getting to know the many wonderful people who use `data.table` in their own projects - both online and in person!
+
+::: {layout="[70,30]"}
+
+![This multinational squad had a great time meeting up during the UseR! Conference in Salzburg, Austria.](meetup.jpeg)
+
+![Swag given out at various R conferences in Summer 2024.](swag.jpg)
+
+:::
+
+
+We'd love to see you all again soon, and make some new friends too!  Please keep sharing your fun `data.table` thoughts, ideas, and examples with us on the socials:  [LinkedIn](https://www.linkedin.com/company/data-table-community), [BlueSky](https://bsky.app/profile/rdatatable.bsky.social), [Fosstodon](@r_data_table@fosstodon.org)
+
+
+#### Translation Projects
+
+
+
+#### Talks, Tutorials, and Presentations
+
+::: {#fig-elephants layout-ncol=2}
+
+![](tyson_talk.jpeg)
+![](ani_talk.jpeg)
+![](user_tutorial.jpg)
+:::
+
+
+## What we're doing
+
+#### Financial Infrastructure
+
+#### A data.table coursepack
+
+
+
+
+## After the grant
+
+## How you can get involved
+
+
+
