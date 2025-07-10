@@ -6,16 +6,9 @@
       version="2.0">
 <channel>
 <title>Blog</title>
-<link>https://rdatatable-community.github.io/The-Raft/about.html</link>
-<atom:link href="https://rdatatable-community.github.io/The-Raft/about.xml" rel="self" type="application/rss+xml"/>
+<link>https://rdatatable-community.github.io/The-Raft/posts/2025-05-08-memory_R-jangorecki/memory-R.html</link>
+<atom:link href="https://rdatatable-community.github.io/The-Raft/posts/2025-05-08-memory_R-jangorecki/memory-R.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<image>
-<url>https://rdatatable-community.github.io/The-Raft/hex.png</url>
-<title>Blog</title>
-<link>https://rdatatable-community.github.io/The-Raft/about.html</link>
-<height>144</height>
-<width>144</width>
-</image>
 <generator>quarto-1.7.32</generator>
 <lastBuildDate>Mon, 13 Jan 2025 00:00:00 GMT</lastBuildDate>
 <item>
