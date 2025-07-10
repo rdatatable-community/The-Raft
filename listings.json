@@ -4,6 +4,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -35,9 +36,9 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/2025-05-08-memory_R-jangorecki/memory-R.html",
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -71,6 +72,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -103,6 +105,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-10-17-duckdb_polars_reshape-toby_hocking/index.html",
@@ -135,6 +138,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -167,6 +171,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -199,6 +204,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -232,6 +238,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -260,7 +267,7 @@
     ]
   },
   {
-    "listing": "/posts/2025-05-08-memory_R-jangorecki/memory-R.html",
+    "listing": "/posts/2025-05-08-memory_R-jangorecki/index.html",
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
@@ -297,6 +304,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -329,6 +337,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -361,6 +370,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -393,6 +403,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -425,6 +436,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -457,6 +469,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -489,6 +502,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -521,6 +535,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -552,6 +567,7 @@
     "listing": "/posts/2025-07-10-numfocus-community_team/index.html",
     "items": [
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -585,6 +601,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -617,6 +634,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -650,6 +668,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -682,6 +701,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -715,6 +735,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -747,6 +768,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -779,6 +801,7 @@
     "listing": "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -812,6 +835,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
       "/posts/2024-10-17-duckdb_polars_reshape-toby_hocking/index.html",
@@ -844,6 +868,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -877,6 +902,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -910,6 +936,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -942,6 +969,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -974,6 +1002,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
       "/posts/2024-10-17-duckdb_polars_reshape-toby_hocking/index.html",
@@ -1006,6 +1035,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -1038,6 +1068,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -1070,6 +1101,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -1102,6 +1134,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -1134,6 +1167,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -1166,6 +1200,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -1199,6 +1234,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
@@ -1231,6 +1267,7 @@
     "items": [
       "/posts/2025-07-10-numfocus-community_team/index.html",
       "/posts/2025-07-06-common_operations_datatable_and_dplyr-albert_rapp/index.html",
+      "/posts/2025-05-08-memory_R-jangorecki/index.html",
       "/posts/2025-01-13-non-api-use/index.html",
       "/posts/2024-12-07-advent_of_code-kelly_bodwin/index.html",
       "/posts/2024-11-11-performance-testing-gha-anirban_chetia/index.html",
