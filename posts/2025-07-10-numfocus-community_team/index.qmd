@@ -1,0 +1,69 @@
+---
+title: "data.table is a NumFOCUS project!"
+author: "Community Team"
+date: "2025-07-10"
+categories: [announcements, grant]
+image: "NumFocus_LRG.png"
+draft: false
+---
+
+We are SO excited to announce some massive news for the `data.table` community:  `data.table` is now a [NumFOCUS Sponsored Project](https://numfocus.org/project/data-table)!!!
+
+![](NumFocus_LRG.png){width=50%}
+![](proud_sea_lion.jpeg){width=50%}
+
+
+For those who aren't familiar, NumFOCUS is an incredible nonprofit organization that supports open source projects.  There are some [truly iconic projects](https://numfocus.org/sponsored-projects) on their roster: `pandas`, `scikit-learn`, the Julia language, and so many more.
+
+`data.table` is the **first R-only package to become a sponsored project!!!** (Although other amazing existing multilingual projects do include R, such as `igraph` and `jupyter`.)
+
+## What does this mean for the community?
+
+In short, this means *stability* and *longevity*.
+
+NumFOCUS provides us with:
+
+* A formal organizational structure after the end of the NSF Grant this August.
+
+* A mechanism to [collect donations directly to the project](https://app.hubspot.com/payments/FFWKWTTvKFdzqH?referrer=PAYMENT_LINK) and for the governance team to disburse these funds when needed.
+
+* A team of experts to help with all the bureaucratic headaches of a project - fundraising, taxes, grant writing and administration, event planning, etc.
+
+* A network of open-source projects that will continue to grow and support each other.
+
+
+The most common question we have gotten over the 2 years of NSF POSE Grant work is: what happens when the grant funding runs out?  Well, more on that to come as we roll into the final months of the grant - but in brief, joining NumFOCUS covers all our structural needs going forward.
+
+We are so grateful to the incredible NumFOCUS team for their guidance and expertise, and for believing in this project.
+
+![Hugs to the open-source community.](sea_lion_hug.jpeg){width=50%}
+
+
+## How can you get involved?
+
+Did you know that **anyone can make use of the NumFOCUS support system**, not just `data.table` maintainers?
+
+As a community member, you can [submit a ticket](https://support.numfocus.org/new/) to request support!  
+
+Some uses for this might be:
+
+* You've found a great funding opportunity, and you'd like help preparing, submitting, and administering it.
+
+* You'd like to organize a `data.table` related event, and you would like help planning and possibly funding it.
+
+* You have some tech needs (e.g. Zoom, AWS) that would support a `data.table` venture if we provided them.
+
+* You want to represent `data.table` as part of a broader NumFOCUS venture, such as the [Open Source Science Initiative](https://numfocus.org/open-source-science-initiative-ossci) or a [PyData Event](https://pydata.org/upcoming-events/). 
+
+To be clear - NumFOCUS provides administrative and structural support, not decision making.  Decisions about how `data.table` funds are spent (and, of course, about the code) are still made according to the [project governance document](https://github.com/Rdatatable/data.table/blob/master/GOVERNANCE.md) on GitHub. For full disclosure, all submitted tickets are also viewable by the Community Organizer (currently Kelly Bodwin) and the CRAN Maintainer (currently Tyson Barrett).
+
+Whatever your idea is, we strongly encourage you to first discuss with the Community and Maintainers by [creating an issue on GitHub](https://github.com/Rdatatable/data.table/issues).
+
+
+#### Code of Conduct Reporting
+
+Although we hope and anticipate this will never be needed, NumFOCUS also provides a better procedure for reporting any Code of Conduct violations in our project: https://numfocus.org/code-of-conduct
+
+Reports are first viewed by a trained team at NumFOCUS, who then make recommendations to the `data.table` governance team about steps forward.  In this way, reports can be more anonymized, and can be assessed by unbiased third parties before coming to the governance team.
+
+
